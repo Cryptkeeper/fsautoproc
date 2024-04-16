@@ -29,8 +29,14 @@ int fswalk(const char* dir, int (*filefn)(const char* fp),
     return -1;
   }
 
+#if defined(__FreeBSD__) || defined(__APPLE__)
+  const int mc = gres.gl_matchc;
+#else
+  const int mc = gres.gl_pathc;
+#endif
+
   // invoke process function for each result
-  for (int i = 0; i < gres.gl_matchc; i++) {
+  for (int i = 0; i < mc; i++) {
     char* fp = gres.gl_pathv[i];
     const size_t len = strlen(fp);
 
@@ -56,7 +62,11 @@ bool fsstateql(const struct fsstat_s* a, const struct fsstat_s* b) {
 int fsstat(const char* fp, struct fsstat_s* s) {
   struct stat st = {0};
   if (stat(fp, &st)) return -1;
-  const struct timespec ts = st.st_mtimespec;        /* last modified */
+#if defined(__FreeBSD__) || defined(__APPLE__)
+  const struct timespec ts = st.st_mtimespec; /* last modified */
+#else
+  const struct timespec ts = st.st_mtim; /* last modified */
+#endif
   s->lmod = ts.tv_sec * 1000 + ts.tv_nsec / 1000000; /* convert to millis */
   s->fsze = st.st_size;                              /* copy file size */
   return 0;
