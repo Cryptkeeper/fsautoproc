@@ -6,3 +6,6 @@
 
 # CMake builds
 cmake-build-debug
+
+# fsautoproc indexes
+*.dat
