@@ -182,7 +182,6 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
   } else if (pid == 0) {
     // child process, modify local environment variables for use in commands
     setenv("FILEPATH", node->fp, 1);
-    setenv("FILEHASH", node->sum_s, 1);
 
     // execute the command and instantly exit child process
     int err;

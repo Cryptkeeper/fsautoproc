@@ -6,14 +6,10 @@
 
 #include "fs.h"
 
-#define INODESUMBYTES 32
-#define INODESTRBYTES 65
-
 struct inode_s {
-  char* fp;                  /* filepath string (duplicated) */
-  struct fsstat_s st;        /* file stat info */
-  char sum_s[INODESTRBYTES]; /* file hash sum string */
-  struct inode_s* next;      /* next node in linked list */
+  char* fp;             /* filepath string (duplicated) */
+  struct fsstat_s st;   /* file stat info */
+  struct inode_s* next; /* next node in linked list */
 };
 
 /// @brief Searches the linked node list for an entry with a matching `fp` value.

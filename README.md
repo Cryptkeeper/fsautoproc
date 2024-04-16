@@ -36,7 +36,6 @@ Your build environment must provide:
 
 Git submodules provide:
 
-- [sha-2](https://github.com/amosnier/sha-2)
 - [log.c](https://github.com/rxi/log.c)
 
 ### Usage

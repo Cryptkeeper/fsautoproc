@@ -100,18 +100,6 @@ static int fsnodestat(const char* fp, struct inode_s* node) {
     if ((node->fp = strdup(fp)) == NULL) return -1;
   if (fsstat(fp, &node->st)) return -1;
 
-  // generate a unique hash sum for the file
-  uint8_t sum[INODESUMBYTES];
-  if (fssum(fp, sum)) return -1;
-
-  // generate formatted string hash from sum bytes
-  uint8_t hash[INODESTRBYTES] = {0};
-  uint8_t* wp = &hash[0]; /* moving write pointer */
-  for (int i = 0; i < INODESUMBYTES; i++)
-    wp += sprintf((char*) wp, "%02x", sum[i]);
-  *wp = '\0'; /* null terminate string */
-  memcpy(node->sum_s, hash, sizeof(hash));
-
   return 0;
 }
 
@@ -137,11 +125,6 @@ static int fsprocfile(const char* fp) {
                 "size: %zu -> %zu)",
                 curr->fp, prev->st.lmod, curr->st.lmod, prev->st.fsze,
                 curr->st.fsze);
-      dirty = true;
-    } else if (strncmp((char*) prev->sum_s, (char*) curr->sum_s,
-                       INODESTRBYTES) != 0) {
-      log_trace("file `%s` has been modified (hash: %s -> %s)", curr->fp,
-                prev->sum_s, curr->sum_s);
       dirty = true;
     } else {
       log_trace("file `%s` has not been modified", curr->fp);

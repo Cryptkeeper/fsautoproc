@@ -84,8 +84,7 @@ int fssum(const char* fp, uint8_t sum[FSSUMBYTES]) {
 
   // read file in chunks and update hash
   sha_256_init(&sha, sum);
-  int cycs = 0;
-  while ((nread = fread(fbuf, 1, FSBUFSIZE, h)) > 0 && cycs++ < 32)
+  while ((nread = fread(fbuf, 1, FSBUFSIZE, h)) > 0)
     sha_256_write(&sha, fbuf, nread);
   sha_256_close(&sha);
 
