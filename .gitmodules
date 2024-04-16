@@ -1,0 +1,12 @@
+[submodule "sha-2"]
+	path = sha-2
+	url = https://github.com/amosnier/sha-2.git
+[submodule "ini"]
+	path = ini
+	url = https://github.com/rxi/ini.git
+[submodule "log.c"]
+	path = log.c
+	url = https://github.com/rxi/log.c.git
+[submodule "logc"]
+	path = logc
+	url = https://github.com/rxi/log.c.git
