@@ -1,0 +1,38 @@
+[
+  {
+    "on": [
+      "del"
+    ],
+    "patterns": [
+      "*.pdf"
+    ],
+    "commands": [
+      "rm -f $(echo $FILEPATH | cut -d\"_\" -f1)_t0.jpg"
+    ]
+  },
+  {
+    "on": [
+      "new",
+      "mod"
+    ],
+    "patterns": [
+      "*.pdf"
+    ],
+    "commands": [
+      "exiftool -all:all= -overwrite_original $FILEPATH",
+      "qpdf $FILEPATH --replace-input --linearize",
+      "convert $FILEPATH[0] $(echo $FILEPATH | cut -d\"_\" -f1)_t0.jpg"
+    ]
+  },
+  {
+    "on": [
+      "new"
+    ],
+    "patterns": [
+      "*_t0.jpg"
+    ],
+    "commands": [
+      "exiftool -all:all= -overwrite_original $FILEPATH"
+    ]
+  }
+]
