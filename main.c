@@ -35,8 +35,17 @@ static void freeinitargs(void) {
 
 static int parseinitargs(const int argc, char** const argv) {
   int c;
-  while ((c = getopt(argc, argv, ":c:i:s:")) != -1) {
+  while ((c = getopt(argc, argv, ":hc:i:s:")) != -1) {
     switch (c) {
+      case 'h':
+        printf("Usage: %s\n"
+               "\n"
+               "Options:\n"
+               "  -c <file>   Configuration file (default: `fsautoproc.json`)\n"
+               "  -i <file>   File index write path\n"
+               "  -s <dir>    Search directory root (default: `.`)\n",
+               argv[0]);
+        exit(0);
       case 'c':
         strdupoptarg(initargs.configfile);
         break;
@@ -85,6 +94,8 @@ static int savethismap(const char* fp) {
 }
 
 static int fsnodestat(const char* fp, struct inode_s* node) {
+  log_info("processing file `%s`", fp);
+
   if (node->fp == NULL)
     if ((node->fp = strdup(fp)) == NULL) return -1;
   if (fsstat(fp, &node->st)) return -1;
@@ -167,6 +178,12 @@ static int fsprocfileonlynew(const char* fp) {
   assert(curr != NULL); /* should+must exist in the list */
 
   log_debug("file `%s` is new (post-command exec)", curr->fp);
+  int err;
+  if ((err = lcmdfileexec(&cmdfile, curr, LCTRIG_NEW))) return err;
+
+  // update the file info in the current index
+  // this is done after the command execution to capture any file modifications
+  if (fsnodestat(fp, curr)) return -1;
 
   return 0;
 }
@@ -186,7 +203,7 @@ static void fsqueuedirwalk(const char* dp) {
   if (sl_add(dirqueue, s) != 0) perror(NULL);
 }
 
-static int fsresetwalkqueue(const char* searchdir) {
+static int fsinitwalkqueue(const char* searchdir) {
   if (dirqueue != NULL) sl_free(dirqueue, 1);
 
   // place the initial search dir starting value into the queue
@@ -221,7 +238,7 @@ static int submain(const struct args_s* args) {
   }
 
   // walk each directory in the queue (including as they are added)
-  if (fsresetwalkqueue(args->searchdir)) return -1;
+  if (fsinitwalkqueue(args->searchdir)) return -1;
   for (size_t i = 0; i < dirqueue->sl_cur; i++) {
     const char* d = dirqueue->sl_str[i];
     log_info("walking dir `%s`", d);
@@ -235,10 +252,10 @@ static int submain(const struct args_s* args) {
   checkremoved();
 
   // reset walk queue to find new files/directories as a result of commands
-  if (fsresetwalkqueue(args->searchdir)) return -1;
+  if (fsinitwalkqueue(args->searchdir)) return -1;
   for (size_t i = 0; i < dirqueue->sl_cur; i++) {
     const char* d = dirqueue->sl_str[i];
-    log_info("walking dir `%s`", d);
+    log_debug("post-command scan `%s`", d);
 
     if (fswalk(d, fsprocfileonlynew, fsqueuedirwalk)) {
       perrorf("error walking directory `%s`", d);

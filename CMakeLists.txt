@@ -13,3 +13,5 @@ file(GLOB SOURCES "*.c")
 add_executable(fsautoproc ${SOURCES})
 target_include_directories(fsautoproc PRIVATE "logc/src")
 target_link_libraries(fsautoproc PRIVATE sha2 logc cjson)
+
+install(TARGETS fsautoproc DESTINATION bin)
