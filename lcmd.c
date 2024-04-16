@@ -11,11 +11,12 @@
 
 #include "log.h"
 
+#include "sl.h"
 #include "sys.h"
 
 static void lcmdsetfree(struct lcmdset_s* cmd) {
-  sl_free(cmd->fpatterns, 1);
-  sl_free(cmd->syscmds, 1);
+  sl_free(cmd->fpatterns);
+  sl_free(cmd->syscmds);
 }
 
 void lcmdfilefree(struct lcmdfile_s* cmdfile) {
@@ -62,17 +63,17 @@ err:
 /// @return NULL if an error occurred, otherwise a pointer to a dynamically
 /// allocated StringList. The caller is responsible for freeing the list using
 /// `sl_free`.
-static StringList* lcmdjsontosl(const cJSON* arr) {
-  StringList* sl;
-  if ((sl = sl_init()) == NULL) return NULL;
+static char** lcmdjsontosl(const cJSON* arr) {
+  char** sl = NULL;
   cJSON* e;
   cJSON_ArrayForEach(e, arr) {
     if (!cJSON_IsString(e)) continue;
-    char* str; /* duplicate string for StringList ownership */
-    if ((str = strdup(e->valuestring)) == NULL || sl_add(sl, str)) {
-      sl_free(sl, 1);
+    char** new = NULL;
+    if ((new = sl_add(sl, e->valuestring)) == NULL) {
+      sl_free(sl);
       return NULL;
     }
+    sl = new;
   }
   return sl;
 }
@@ -158,13 +159,13 @@ doret:
   return ret;
 }
 
-static bool lcmdmatch(const StringList* fpatterns, const char* fp) {
-  for (size_t i = 0; i < fpatterns->sl_cur; i++) {
+static bool lcmdmatch(char** fpatterns, const char* fp) {
+  for (size_t i = 0; fpatterns[i] != NULL; i++) {
     int ret;
-    if ((ret = fnmatch(fpatterns->sl_str[i], fp, 0)) == 0) {
+    if ((ret = fnmatch(fpatterns[i], fp, 0)) == 0) {
       return true;
     } else if (ret != FNM_NOMATCH) {
-      perrorf("error matching pattern `%s`", fpatterns->sl_str[i]);
+      perrorf("error matching pattern `%s`", fpatterns[i]);
     }
   }
   return false;
@@ -205,8 +206,8 @@ int lcmdfileexec(const struct lcmdfile_s* cmdfile, const struct inode_s* node,
       continue;
 
     // invoke all system commands
-    for (size_t j = 0; j < cmdset->syscmds->sl_cur; j++) {
-      const char* cmd = cmdset->syscmds->sl_str[j];
+    for (size_t j = 0; cmdset->syscmds[j] != NULL; j++) {
+      const char* cmd = cmdset->syscmds[j];
       int ret;
       if ((ret = lcmdinvoke(cmd, node))) return ret;
     }

@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stringlist.h>
 
 #include "log.h"
 
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
+#include "sl.h"
 #include "sys.h"
 
 struct args_s {
@@ -188,28 +188,26 @@ static int fsprocfileonlynew(const char* fp) {
   return 0;
 }
 
-static StringList* dirqueue;
+static char** dirqueue;
 
 static void fsqueuedirwalk(const char* dp) {
   assert(dirqueue != NULL); /* previously alloc'd with first argument value */
   log_debug("adding directory to queue: %s", dp);
-  char* s;
-  if ((s = strdup(dp)) == NULL) {
+
+  // append the directory to the processing queue
+  char** new = NULL;
+  if ((new = sl_add(dirqueue, dp)) == NULL) {
     perror(NULL);
     return;
   }
-
-  // append the directory to the processing queue
-  if (sl_add(dirqueue, s) != 0) perror(NULL);
+  dirqueue = new;
 }
 
 static int fsinitwalkqueue(const char* searchdir) {
-  if (dirqueue != NULL) sl_free(dirqueue, 1);
+  if (dirqueue != NULL) sl_free(dirqueue);
 
   // place the initial search dir starting value into the queue
-  char* sd;
-  if ((dirqueue = sl_init()) == NULL || (sd = strdup(searchdir)) == NULL ||
-      sl_add(dirqueue, sd) != 0) {
+  if ((dirqueue = sl_add(NULL, searchdir)) == NULL) {
     perror(NULL);
     return -1;
   }
@@ -239,8 +237,8 @@ static int submain(const struct args_s* args) {
 
   // walk each directory in the queue (including as they are added)
   if (fsinitwalkqueue(args->searchdir)) return -1;
-  for (size_t i = 0; i < dirqueue->sl_cur; i++) {
-    const char* d = dirqueue->sl_str[i];
+  for (size_t i = 0; dirqueue[i] != NULL; i++) {
+    const char* d = dirqueue[i];
     log_info("walking dir `%s`", d);
 
     if (fswalk(d, fsprocfile, fsqueuedirwalk)) {
@@ -253,8 +251,8 @@ static int submain(const struct args_s* args) {
 
   // reset walk queue to find new files/directories as a result of commands
   if (fsinitwalkqueue(args->searchdir)) return -1;
-  for (size_t i = 0; i < dirqueue->sl_cur; i++) {
-    const char* d = dirqueue->sl_str[i];
+  for (size_t i = 0; dirqueue[i] != NULL; i++) {
+    const char* d = dirqueue[i];
     log_debug("post-command scan `%s`", d);
 
     if (fswalk(d, fsprocfileonlynew, fsqueuedirwalk)) {
@@ -306,7 +304,7 @@ int main(int argc, char** argv) {
   indexfree_r(lastmap);
   indexfree_r(thismap);
 
-  if (dirqueue != NULL) sl_free(dirqueue, 1);
+  if (dirqueue != NULL) sl_free(dirqueue);
 
   return 0;
 }
