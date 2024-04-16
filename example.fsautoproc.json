@@ -8,7 +8,8 @@
     ],
     "commands": [
       "rm -f $(echo $FILEPATH | cut -d\"_\" -f1)_t0.jpg"
-    ]
+    ],
+    "description": "deletes the thumbnail image of any deleted PDF file"
   },
   {
     "on": [
@@ -21,18 +22,9 @@
     "commands": [
       "exiftool -all:all= -overwrite_original $FILEPATH",
       "qpdf $FILEPATH --replace-input --linearize",
-      "convert $FILEPATH[0] $(echo $FILEPATH | cut -d\"_\" -f1)_t0.jpg"
-    ]
-  },
-  {
-    "on": [
-      "new"
+      "convert $FILEPATH[0] $(echo $FILEPATH | cut -d\"_\" -f1)_t0.jpg",
+      "exiftool -r -overwrite_original -P -all= $(echo $FILEPATH | cut -d\"_\" -f1)_t0.jpg"
     ],
-    "patterns": [
-      "*_t0.jpg"
-    ],
-    "commands": [
-      "exiftool -all:all= -overwrite_original $FILEPATH"
-    ]
+    "description": "generates a thumbnail image from the first page of a PDF file, strips metadata from both"
   }
 ]
