@@ -8,13 +8,10 @@ char** sladd(char** sl, const char* str) {
   for (; sl != NULL && sl[len] != NULL; len++)
     ;
   char** r = NULL;
-  if ((r = realloc(sl, (len + 2) * sizeof(*sl))) == NULL) return NULL;
-  sl = r;
-  if ((sl[len] = strdup(str)) == NULL) {
-    free(sl);
+  if ((r = realloc(sl, (len + 2) * sizeof(sl))) == NULL ||
+      (r[len] = strdup(str)) == NULL)
     return NULL;
-  }
-  sl[len + 1] = NULL;
+  r[len + 1] = NULL;
   return r;
 }
 
