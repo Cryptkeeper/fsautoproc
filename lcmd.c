@@ -142,16 +142,19 @@ struct lcmdset_s** lcmdparse(const char* fp) {
   size_t i = 0;
   cJSON_ArrayForEach(item, jt) {
     assert(i < len);
-    if (lcmdparseone(item, cs[i++])) {
+    struct lcmdset_s* cmd;
+    if ((cmd = cs[i] = malloc(sizeof(*cmd))) == NULL) goto err;
+    if (lcmdparseone(item, cmd)) {
       log_error("error parsing command block %zu", i);
       goto err;
     }
+    i++;
   }
 
   goto ok;
 
 err:
-  free(cs), cs = NULL;
+  lcmdfree_r(cs);
 ok:
   free(fbuf);
   if (jt != NULL) cJSON_Delete(jt);
