@@ -15,15 +15,15 @@
 #include "sl.h"
 #include "sys.h"
 
-static void lcmdsetfree(struct lcmdset_s* cmd) {
+static void lcmdfree(struct lcmdset_s* cmd) {
   slfree(cmd->fpatterns);
   slfree(cmd->syscmds);
+  free(cmd);
 }
 
-void lcmdfilefree(struct lcmdfile_s* cmdfile) {
-  for (size_t i = 0; i < cmdfile->len; i++) lcmdsetfree(&cmdfile->head[i]);
-  free(cmdfile->head);
-  cmdfile->head = NULL, cmdfile->len = 0;
+void lcmdfree_r(struct lcmdset_s** cs) {
+  for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) lcmdfree(cs[i]);
+  free(cs);
 }
 
 /// @brief `fsreadstr` reads the contents of the file described by filepath `fp`
@@ -93,7 +93,7 @@ static int lcmdparseflags(const cJSON* item) {
     } else if (strcmp(e->valuestring, "nop") == 0) {
       flags |= LCTRIG_NOP;
     } else {
-      fprintf(stderr, "unknown trigger `%s`", e->valuestring);
+      log_warn("unknown trigger `%s`", e->valuestring);
     }
   }
   return flags;
@@ -119,45 +119,41 @@ static int lcmdparseone(const cJSON* item, struct lcmdset_s* cmd) {
   return 0;
 }
 
-int lcmdfileparse(const char* fp, struct lcmdfile_s* cmdfile) {
-  char* fbuf = NULL; /* file contents buffer */
-  cJSON* jt = NULL;  /* parsed JSON tree */
-  int ret;           /* error return value */
+struct lcmdset_s** lcmdparse(const char* fp) {
+  char* fbuf = NULL;            /* file contents buffer */
+  cJSON* jt = NULL;             /* parsed JSON tree */
+  struct lcmdset_s** cs = NULL; /* command set array */
 
-  if ((fbuf = fsreadstr(fp)) == NULL) {
-    ret = -1;
-    goto doret;
-  }
-  if ((jt = cJSON_Parse(fbuf)) == NULL) {
-    ret = -1;
-    goto doret;
-  }
+  if ((fbuf = fsreadstr(fp)) == NULL) goto err;
+  if ((jt = cJSON_Parse(fbuf)) == NULL) goto err;
 
   // iterate over each command block
   cJSON* item;
   cJSON_ArrayForEach(item, jt) {
     struct lcmdset_s tmpcmd = {0};
-    if (lcmdparseone(item, &tmpcmd)) {
-      ret = -1;
-      goto doret;
-    }
+    if (lcmdparseone(item, &tmpcmd)) goto err;
 
-    // append the parsed command to the `cmds` array
-    struct lcmdset_s* newalloc = realloc(
-            cmdfile->head, (cmdfile->len + 1) * sizeof(struct lcmdset_s));
-    if (newalloc == NULL) {
-      ret = -1;
-      goto doret;
-    }
-    newalloc[cmdfile->len] = tmpcmd, cmdfile->head = newalloc, cmdfile->len++;
+    // append the parsed command to the `cs` array
+    size_t len = 0;
+    for (; cs != NULL && cs[len] != NULL; len++)
+      ;
+    struct lcmdset_s** r = NULL;
+    if ((r = realloc(cs, (len + 2) * sizeof(*cs))) == NULL) goto err;
+    if ((r[len] = malloc(sizeof(tmpcmd))) == NULL) goto err;
+    memcpy(r[len], &tmpcmd, sizeof(tmpcmd));
+    r[len + 1] = NULL;
+    cs = r;
   }
 
-  ret = 0; /* success */
-
-doret:
   free(fbuf);
   if (jt != NULL) cJSON_Delete(jt);
-  return ret;
+  return cs;
+
+err:
+  free(fbuf);
+  if (jt != NULL) cJSON_Delete(jt);
+  free(cs);
+  return NULL;
 }
 
 static bool lcmdmatch(char** fpatterns, const char* fp) {
@@ -197,12 +193,11 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
   }
 }
 
-int lcmdfileexec(const struct lcmdfile_s* cmdfile, const struct inode_s* node,
-                 const int onflags) {
-  log_debug("invoking cmd %02x for `%s`", onflags, node->fp);
-  for (size_t i = 0; i < cmdfile->len; i++) {
-    const struct lcmdset_s* cmdset = &cmdfile->head[i];
-    if (!(cmdset->onflags & onflags) || !lcmdmatch(cmdset->fpatterns, node->fp))
+int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
+  log_debug("invoking cmd %02x for `%s`", flags, node->fp);
+  for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
+    const struct lcmdset_s* cmdset = cs[i];
+    if (!(cmdset->onflags & flags) || !lcmdmatch(cmdset->fpatterns, node->fp))
       continue;
 
     // invoke all system commands

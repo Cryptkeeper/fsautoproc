@@ -14,16 +14,10 @@ struct lcmdset_s {
   char** syscmds;   /* commands to pass to `system(3) */
 };
 
-struct lcmdfile_s {
-  struct lcmdset_s* head;
-  size_t len;
-};
+void lcmdfree_r(struct lcmdset_s** cs);
 
-void lcmdfilefree(struct lcmdfile_s* cmdfile);
+struct lcmdset_s** lcmdparse(const char* fp);
 
-int lcmdfileparse(const char* fp, struct lcmdfile_s* cmdfile);
-
-int lcmdfileexec(const struct lcmdfile_s* cmdfile, const struct inode_s* node,
-                 int onflags);
+int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags);
 
 #endif//FSAUTOPROC_LCMD_H

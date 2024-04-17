@@ -68,9 +68,9 @@ static int parseinitargs(const int argc, char** const argv) {
   return 0;
 }
 
-static struct lcmdfile_s cmdfile; /* global loaded command list */
+static struct lcmdset_s** cmdsets;
 
-static void freecmdfile(void) { lcmdfilefree(&cmdfile); }
+static void freecmdsets(void) { lcmdfree_r(cmdsets); }
 
 static struct inode_s* lastmap; /* stored index from previous run (if any) */
 static struct inode_s* thismap; /* live checked index from this run */
@@ -132,14 +132,14 @@ static int fsprocfile(const char* fp) {
     }
 
     int err;
-    if ((err = lcmdfileexec(&cmdfile, curr, dirty ? LCTRIG_MOD : LCTRIG_NOP)))
+    if ((err = lcmdexec(cmdsets, curr, dirty ? LCTRIG_MOD : LCTRIG_NOP)))
       return err;
 
     if (!dirty) return 0;
   } else {
     log_debug("file does not exist in previous index `%s`", curr->fp);
     int err;
-    if ((err = lcmdfileexec(&cmdfile, curr, LCTRIG_NEW))) return err;
+    if ((err = lcmdexec(cmdsets, curr, LCTRIG_NEW))) return err;
   }
 
   // update the file info in the current index
@@ -162,7 +162,7 @@ static int fsprocfileonlynew(const char* fp) {
 
   log_debug("file `%s` is new (post-command exec)", curr->fp);
   int err;
-  if ((err = lcmdfileexec(&cmdfile, curr, LCTRIG_NEW))) return err;
+  if ((err = lcmdexec(cmdsets, curr, LCTRIG_NEW))) return err;
 
   // update the file info in the current index
   // this is done after the command execution to capture any file modifications
@@ -204,7 +204,7 @@ static void checkremoved(void) {
   while (head != NULL) {
     if (indexfind(thismap, head->fp) == NULL) { /* file no longer exists */
       int err;
-      if ((err = lcmdfileexec(&cmdfile, head, LCTRIG_DEL)))
+      if ((err = lcmdexec(cmdsets, head, LCTRIG_DEL)))
         log_warn("error invoking DEL cmds for `%s` (%d)", head->fp, err);
     }
     head = head->next;
@@ -254,7 +254,7 @@ static int submain(const struct args_s* args) {
 
 int main(int argc, char** argv) {
   atexit(freeinitargs);
-  atexit(freecmdfile);
+  atexit(freecmdsets);
 
   if (parseinitargs(argc, argv)) return 1;
 
@@ -275,9 +275,8 @@ int main(int argc, char** argv) {
   }
 
   // load configuration file
-  if (lcmdfileparse(defargs.configfile, &cmdfile) < 0) {
-    fprintf(stderr, "error loading configuration file `%s`\n",
-            defargs.configfile);
+  if ((cmdsets = lcmdparse(defargs.configfile)) == NULL) {
+    log_fatal("error loading configuration file `%s`", defargs.configfile);
     return 1;
   }
 
@@ -287,7 +286,7 @@ int main(int argc, char** argv) {
   indexfree_r(lastmap);
   indexfree_r(thismap);
 
-  if (dirqueue != NULL) slfree(dirqueue);
+  slfree(dirqueue);
 
   return 0;
 }

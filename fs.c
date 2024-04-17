@@ -6,10 +6,10 @@
 #include <string.h>
 #include <sys/stat.h>
 
-#include "sha-2/sha-256.h"
+#include "log.h"
 
 static int fswalkerr(const char* epath, const int errno) {
-  fprintf(stderr, "error accessing `%s`: %d\n", epath, errno);
+  log_warn("error accessing `%s`: %d", epath, errno);
   return 0; /* continue glob scan */
 }
 
@@ -69,25 +69,5 @@ int fsstat(const char* fp, struct fsstat_s* s) {
 #endif
   s->lmod = ts.tv_sec * 1000 + ts.tv_nsec / 1000000; /* convert to millis */
   s->fsze = st.st_size;                              /* copy file size */
-  return 0;
-}
-
-#define FSBUFSIZE 8192
-
-int fssum(const char* fp, uint8_t sum[FSSUMBYTES]) {
-  FILE* h = NULL;          /* opened file handler */
-  struct Sha_256 sha;      /* hashing context */
-  uint8_t fbuf[FSBUFSIZE]; /* file read buffer */
-  size_t nread;            /* bytes read */
-
-  if ((h = fopen(fp, "rb")) == NULL) return -1;
-
-  // read file in chunks and update hash
-  sha_256_init(&sha, sum);
-  while ((nread = fread(fbuf, 1, FSBUFSIZE, h)) > 0)
-    sha_256_write(&sha, fbuf, nread);
-  sha_256_close(&sha);
-
-  fclose(h);
   return 0;
 }
