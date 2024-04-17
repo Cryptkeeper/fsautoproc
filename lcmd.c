@@ -1,5 +1,6 @@
 #include "lcmd.h"
 
+#include <assert.h>
 #include <fnmatch.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -127,33 +128,25 @@ struct lcmdset_s** lcmdparse(const char* fp) {
   if ((fbuf = fsreadstr(fp)) == NULL) goto err;
   if ((jt = cJSON_Parse(fbuf)) == NULL) goto err;
 
+  const size_t len = cJSON_GetArraySize(jt);
+  if ((cs = calloc(len + 1, sizeof(cs))) == NULL) goto err;
+
   // iterate over each command block
   cJSON* item;
+  size_t i = 0;
   cJSON_ArrayForEach(item, jt) {
-    struct lcmdset_s tmpcmd = {0};
-    if (lcmdparseone(item, &tmpcmd)) goto err;
-
-    // append the parsed command to the `cs` array
-    size_t len = 0;
-    for (; cs != NULL && cs[len] != NULL; len++)
-      ;
-    struct lcmdset_s** r = NULL;
-    if ((r = realloc(cs, (len + 2) * sizeof(*cs))) == NULL) goto err;
-    if ((r[len] = malloc(sizeof(tmpcmd))) == NULL) goto err;
-    memcpy(r[len], &tmpcmd, sizeof(tmpcmd));
-    r[len + 1] = NULL;
-    cs = r;
+    assert(i < len);
+    if (lcmdparseone(item, cs[i++])) goto err;
   }
 
+  goto ok;
+
+err:
+  free(cs), cs = NULL;
+ok:
   free(fbuf);
   if (jt != NULL) cJSON_Delete(jt);
   return cs;
-
-err:
-  free(fbuf);
-  if (jt != NULL) cJSON_Delete(jt);
-  free(cs);
-  return NULL;
 }
 
 static bool lcmdmatch(char** fpatterns, const char* fp) {
