@@ -22,7 +22,7 @@ int indexwrite(struct inode_s* idx, FILE* s) {
   for (head = idx; head != NULL; head = head->next) {
     const int n = snprintf(lbuf, sizeof(lbuf), "%s,%" PRIu64 ",%" PRIu64 "\n",
                            head->fp, head->st.lmod, head->st.fsze);
-    if (fwrite(lbuf, n, 1, s) != 1) -1;
+    if (fwrite(lbuf, n, 1, s) != 1) return -1;
   }
 
   return 0;
