@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-char** sl_add(char** sl, const char* str) {
+char** sladd(char** sl, const char* str) {
   size_t len = 0;
   for (; sl != NULL && sl[len] != NULL; len++)
     ;
@@ -18,7 +18,7 @@ char** sl_add(char** sl, const char* str) {
   return r;
 }
 
-void sl_free(char** sl) {
+void slfree(char** sl) {
   for (size_t i = 0; sl != NULL && sl[i] != NULL; i++) free(sl[i]);
   free(sl);
 }

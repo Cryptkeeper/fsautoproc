@@ -179,7 +179,7 @@ static void fsqueuedirwalk(const char* dp) {
 
   // append the directory to the processing queue
   char** new = NULL;
-  if ((new = sl_add(dirqueue, dp)) == NULL) {
+  if ((new = sladd(dirqueue, dp)) == NULL) {
     perror(NULL);
     return;
   }
@@ -187,10 +187,10 @@ static void fsqueuedirwalk(const char* dp) {
 }
 
 static int fsinitwalkqueue(const char* searchdir) {
-  if (dirqueue != NULL) sl_free(dirqueue);
+  if (dirqueue != NULL) slfree(dirqueue);
 
   // place the initial search dir starting value into the queue
-  if ((dirqueue = sl_add(NULL, searchdir)) == NULL) {
+  if ((dirqueue = sladd(NULL, searchdir)) == NULL) {
     perror(NULL);
     return -1;
   }
@@ -287,7 +287,7 @@ int main(int argc, char** argv) {
   indexfree_r(lastmap);
   indexfree_r(thismap);
 
-  if (dirqueue != NULL) sl_free(dirqueue);
+  if (dirqueue != NULL) slfree(dirqueue);
 
   return 0;
 }

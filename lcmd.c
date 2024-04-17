@@ -16,8 +16,8 @@
 #include "sys.h"
 
 static void lcmdsetfree(struct lcmdset_s* cmd) {
-  sl_free(cmd->fpatterns);
-  sl_free(cmd->syscmds);
+  slfree(cmd->fpatterns);
+  slfree(cmd->syscmds);
 }
 
 void lcmdfilefree(struct lcmdfile_s* cmdfile) {
@@ -63,15 +63,15 @@ err:
 /// @param arr cJSON array of strings
 /// @return NULL if an error occurred, otherwise a pointer to a dynamically
 /// allocated StringList. The caller is responsible for freeing the list using
-/// `sl_free`.
+/// `slfree`.
 static char** lcmdjsontosl(const cJSON* arr) {
   char** sl = NULL;
   cJSON* e;
   cJSON_ArrayForEach(e, arr) {
     if (!cJSON_IsString(e)) continue;
     char** new = NULL;
-    if ((new = sl_add(sl, e->valuestring)) == NULL) {
-      sl_free(sl);
+    if ((new = sladd(sl, e->valuestring)) == NULL) {
+      slfree(sl);
       return NULL;
     }
     sl = new;

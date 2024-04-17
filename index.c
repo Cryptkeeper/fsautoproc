@@ -18,12 +18,11 @@ struct inode_s* indexfind(struct inode_s* idx, const char* fp) {
 int indexwrite(struct inode_s* idx, FILE* s) {
   char lbuf[INDEXMAXFP]; /* line output format buffer */
 
-  struct inode_s* head = idx;
-  while (head != NULL) {
+  struct inode_s* head;
+  for (head = idx; head != NULL; head = head->next) {
     const int n = snprintf(lbuf, sizeof(lbuf), "%s,%" PRIu64 ",%" PRIu64 "\n",
                            head->fp, head->st.lmod, head->st.fsze);
-    if (fwrite(lbuf, n, 1, s) != 1) return -1;
-    head = head->next;
+    if (fwrite(lbuf, n, 1, s) != 1) -1;
   }
 
   return 0;
@@ -33,7 +32,7 @@ int indexread(struct inode_s** idx, FILE* s) {
   char fp0[INDEXMAXFP] = {0}; /* fscanf filepath string buffer  */
 
   // temp buffer used for decoding, backed by stack arrays, copied when prepended
-  struct inode_s tail = {fp0, 0};
+  struct inode_s tail = {fp0};
 
   while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 "\n", tail.fp, &tail.st.lmod,
                 &tail.st.fsze) == 3) {
