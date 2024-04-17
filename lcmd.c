@@ -125,8 +125,14 @@ struct lcmdset_s** lcmdparse(const char* fp) {
   cJSON* jt = NULL;             /* parsed JSON tree */
   struct lcmdset_s** cs = NULL; /* command set array */
 
-  if ((fbuf = fsreadstr(fp)) == NULL) goto err;
-  if ((jt = cJSON_Parse(fbuf)) == NULL) goto err;
+  if ((fbuf = fsreadstr(fp)) == NULL) {
+    perrorf("error reading file `%s`", fp);
+    return NULL;
+  }
+  if ((jt = cJSON_Parse(fbuf)) == NULL) {
+    log_error("error parsing JSON file `%s`", fp);
+    goto err;
+  }
 
   const size_t len = cJSON_GetArraySize(jt);
   if ((cs = calloc(len + 1, sizeof(cs))) == NULL) goto err;
@@ -136,7 +142,10 @@ struct lcmdset_s** lcmdparse(const char* fp) {
   size_t i = 0;
   cJSON_ArrayForEach(item, jt) {
     assert(i < len);
-    if (lcmdparseone(item, cs[i++])) goto err;
+    if (lcmdparseone(item, cs[i++])) {
+      log_error("error parsing command block %zu", i);
+      goto err;
+    }
   }
 
   goto ok;
