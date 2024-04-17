@@ -51,8 +51,6 @@ struct inode_s* indexprepend(struct inode_s* idx, const struct inode_s tail) {
   struct inode_s* node = malloc(sizeof(tail));
   if (node == NULL) return idx; /* return last valid pointer */
   memcpy(node, &tail, sizeof(tail));
-
-  // prepend to the start of the list
   node->next = idx;
   return node;
 }

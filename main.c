@@ -7,11 +7,10 @@
 
 #include "log.h"
 
+#include "dq.h"
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
-#include "sl.h"
-#include "sys.h"
 
 struct args_s {
   char* configfile;
@@ -21,10 +20,22 @@ struct args_s {
 
 static struct args_s initargs;
 
-static void freeinitargs(void) {
+static struct lcmdset_s** cmdsets;
+
+static struct inode_s* lastmap; /* stored index from previous run (if any) */
+static struct inode_s* thismap; /* live checked index from this run */
+
+static void freeopts(void) {
   free(initargs.configfile);
   free(initargs.indexfile);
   free(initargs.searchdir);
+
+  lcmdfree_r(cmdsets);
+
+  indexfree_r(lastmap);
+  indexfree_r(thismap);
+
+  dqfree();
 }
 
 #define strdupoptarg(into)                                                     \
@@ -64,16 +75,8 @@ static int parseinitargs(const int argc, char** const argv) {
         return 1;
     }
   }
-
   return 0;
 }
-
-static struct lcmdset_s** cmdsets;
-
-static void freecmdsets(void) { lcmdfree_r(cmdsets); }
-
-static struct inode_s* lastmap; /* stored index from previous run (if any) */
-static struct inode_s* thismap; /* live checked index from this run */
 
 static int loadlastmap(const char* fp) {
   assert(lastmap == NULL);
@@ -93,19 +96,12 @@ static int savethismap(const char* fp) {
   return err;
 }
 
-static int fsnodestat(const char* fp, struct inode_s* node) {
+static int fsprocfile_pre(const char* fp) {
   log_info("processing file `%s`", fp);
 
-  if (node->fp == NULL)
-    if ((node->fp = strdup(fp)) == NULL) return -1;
-  if (fsstat(fp, &node->st)) return -1;
-
-  return 0;
-}
-
-static int fsprocfile(const char* fp) {
   struct inode_s finfo = {0};
-  if (fsnodestat(fp, &finfo)) return -1;
+  if ((finfo.fp = strdup(fp)) == NULL) return -1;
+  if (fsstat(fp, &finfo.st)) return -1;
 
   // attempt to match file in previous index
   struct inode_s* prev = indexfind(lastmap, fp);
@@ -119,23 +115,21 @@ static int fsprocfile(const char* fp) {
   }
 
   if (prev != NULL) {
-    bool dirty;
-    if (!fsstateql(&prev->st, &curr->st)) {
+    const bool modified = fsstateql(&prev->st, &curr->st);
+    if (modified) {
       log_trace("file `%s` has been modified (last modified: %zu -> %zu, file "
                 "size: %zu -> %zu)",
                 curr->fp, prev->st.lmod, curr->st.lmod, prev->st.fsze,
                 curr->st.fsze);
-      dirty = true;
     } else {
       log_trace("file `%s` has not been modified", curr->fp);
-      dirty = false;
     }
 
     int err;
-    if ((err = lcmdexec(cmdsets, curr, dirty ? LCTRIG_MOD : LCTRIG_NOP)))
+    if ((err = lcmdexec(cmdsets, curr, modified ? LCTRIG_MOD : LCTRIG_NOP)))
       return err;
 
-    if (!dirty) return 0;
+    if (!modified) return 0;
   } else {
     log_debug("file does not exist in previous index `%s`", curr->fp);
     int err;
@@ -144,17 +138,18 @@ static int fsprocfile(const char* fp) {
 
   // update the file info in the current index
   // this is done after the command execution to capture any file modifications
-  if (fsnodestat(fp, curr)) return -1;
+  if (fsstat(fp, &finfo.st)) return -1;
 
   return 0;
 }
 
-static int fsprocfileonlynew(const char* fp) {
+static int fsprocfile_post(const char* fp) {
   struct inode_s* curr = indexfind(thismap, fp);
   if (curr != NULL) return 0;
 
   struct inode_s finfo = {0};
-  if (fsnodestat(fp, &finfo)) return -1;
+  if ((finfo.fp = strdup(fp)) == NULL) return -1;
+  if (fsstat(fp, &finfo.st)) return -1;
 
   thismap = indexprepend(thismap, finfo);
   curr = indexfind(thismap, fp);
@@ -166,34 +161,8 @@ static int fsprocfileonlynew(const char* fp) {
 
   // update the file info in the current index
   // this is done after the command execution to capture any file modifications
-  if (fsnodestat(fp, curr)) return -1;
+  if (fsstat(fp, &finfo.st)) return -1;
 
-  return 0;
-}
-
-static char** dirqueue;
-
-static void fsqueuedirwalk(const char* dp) {
-  assert(dirqueue != NULL); /* previously alloc'd with first argument value */
-  log_debug("adding directory to queue: %s", dp);
-
-  // append the directory to the processing queue
-  char** new = NULL;
-  if ((new = sladd(dirqueue, dp)) == NULL) {
-    perror(NULL);
-    return;
-  }
-  dirqueue = new;
-}
-
-static int fsinitwalkqueue(const char* searchdir) {
-  if (dirqueue != NULL) slfree(dirqueue);
-
-  // place the initial search dir starting value into the queue
-  if ((dirqueue = sladd(NULL, searchdir)) == NULL) {
-    perror(NULL);
-    return -1;
-  }
   return 0;
 }
 
@@ -214,38 +183,40 @@ static void checkremoved(void) {
 static int submain(const struct args_s* args) {
   if (loadlastmap(args->indexfile)) {
     // attempt to load the file, but continue if it doesn't exist
-    perrorf("error loading previously saved index `%s`", args->indexfile);
-    if (errno != ENOENT) return -1;
-  }
-
-  // walk each directory in the queue (including as they are added)
-  if (fsinitwalkqueue(args->searchdir)) return -1;
-  for (size_t i = 0; dirqueue[i] != NULL; i++) {
-    const char* d = dirqueue[i];
-    log_info("walking dir `%s`", d);
-
-    if (fswalk(d, fsprocfile, fsqueuedirwalk)) {
-      perrorf("error walking directory `%s`", d);
+    if (errno != ENOENT) {
+      log_fatal("cannot read index `%s`: %s", args->indexfile, strerror(errno));
       return -1;
     }
   }
 
-  checkremoved();
+  // walk the scan directory in two passes:
+  //  - fsprocfile_pre, which will compare the file stats with the previous index
+  //    (if any) and fire all types of file events (NEW, MOD, DEL, NOP)
+  //  - fsprocfile_post, which will only fire NEW events for files that were created
+  //    as a result of the previous commands to ensure all files are indexed
+  for (int pass = 0; pass < 1; pass++) {
+    log_info("performing pass %d", pass);
 
-  // reset walk queue to find new files/directories as a result of commands
-  if (fsinitwalkqueue(args->searchdir)) return -1;
-  for (size_t i = 0; dirqueue[i] != NULL; i++) {
-    const char* d = dirqueue[i];
-    log_debug("post-command scan `%s`", d);
+    dqreset();
+    dqpush(args->searchdir);
 
-    if (fswalk(d, fsprocfileonlynew, fsqueuedirwalk)) {
-      perrorf("error walking directory `%s`", d);
-      return -1;
+    char* dir;
+    while ((dir = dqnext()) != NULL) {
+      log_debug("scanning `%s`", dir);
+
+      int err;
+      if ((err = fswalk(dir, pass == 0 ? fsprocfile_pre : fsprocfile_post,
+                        dqpush))) {
+        log_fatal("file func for `%s` returned %d", err);
+        return -1;
+      }
     }
+
+    if (pass == 0) checkremoved();// test for files removed in new index
   }
 
   if (savethismap(args->indexfile)) {
-    perror("error writing updated index");
+    log_fatal("cannot write index `%s`: %s", args->indexfile, strerror(errno));
     return -1;
   }
 
@@ -253,9 +224,7 @@ static int submain(const struct args_s* args) {
 }
 
 int main(int argc, char** argv) {
-  atexit(freeinitargs);
-  atexit(freecmdsets);
-
+  atexit(freeopts);
   if (parseinitargs(argc, argv)) return 1;
 
   // copy initial arguments and default initialize any missing values
@@ -282,11 +251,6 @@ int main(int argc, char** argv) {
 
   int err;
   if ((err = submain(&defargs))) return err;
-
-  indexfree_r(lastmap);
-  indexfree_r(thismap);
-
-  slfree(dirqueue);
 
   return 0;
 }

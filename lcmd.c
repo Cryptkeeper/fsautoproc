@@ -1,6 +1,7 @@
 #include "lcmd.h"
 
 #include <assert.h>
+#include <errno.h>
 #include <fnmatch.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -14,7 +15,6 @@
 #include "log.h"
 
 #include "sl.h"
-#include "sys.h"
 
 static void lcmdfree(struct lcmdset_s* cmd) {
   slfree(cmd->fpatterns);
@@ -30,27 +30,24 @@ void lcmdfree_r(struct lcmdset_s** cs) {
 /// @brief `fsreadstr` reads the contents of the file described by filepath `fp`
 /// into a dynamically allocated buffer returned by the function.
 /// @param fp The filepath to read
-/// @return NULL is returned and `errno`is set if the file could not be read.
-/// Otherwise, a pointer to the file contents buffer is returned. The caller is
-/// responsible for freeing the buffer.
+/// @return If successful, a pointer to a dynamically allocated buffer of the
+/// file's null terminated contents. The caller is responsible for freeing the
+/// buffer.
 static char* fsreadstr(const char* fp) {
-  FILE* fh = NULL;   /* file handle */
   long fsze;         /* file size */
   char* fbuf = NULL; /* file contents buffer */
-
+  FILE* fh = NULL;   /* file handle */
   if ((fh = fopen(fp, "rb")) == NULL) return NULL;
 
   // determine file size for buffer allocation
   if (fseek(fh, 0, SEEK_END) != 0 || (fsze = ftell(fh)) < 0) goto err;
-
   rewind(fh);
 
   // read file contents into buffer
   if ((fbuf = malloc(fsze + 1)) == NULL) goto err;
   if (fread(fbuf, 1, fsze, fh) != fsze) goto err;
-  fbuf[fsze] = '\0'; /* null terminate string */
-
   fclose(fh);
+  fbuf[fsze] = '\0';
   return fbuf;
 
 err:
@@ -94,7 +91,7 @@ static int lcmdparseflags(const cJSON* item) {
     } else if (strcmp(e->valuestring, "nop") == 0) {
       flags |= LCTRIG_NOP;
     } else {
-      log_warn("unknown trigger `%s`", e->valuestring);
+      log_warn("unknown flag name `%s`", e->valuestring);
     }
   }
   return flags;
@@ -102,13 +99,13 @@ static int lcmdparseflags(const cJSON* item) {
 
 /// @brief `lcmdparseone` populates a single command struct by parsing the
 /// provided cJSON object.
-/// @param item cJSON object containing the command data
+/// @param obj cJSON object containing the command data
 /// @param cmd Struct to populate with parsed command data
 /// @return 0 if successful, otherwise non-zero to indicate an error.
-static int lcmdparseone(const cJSON* item, struct lcmdset_s* cmd) {
-  cJSON* onlist = cJSON_GetObjectItem(item, "on");
-  cJSON* plist = cJSON_GetObjectItem(item, "patterns");
-  cJSON* clist = cJSON_GetObjectItem(item, "commands");
+static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd) {
+  cJSON* onlist = cJSON_GetObjectItem(obj, "on");
+  cJSON* plist = cJSON_GetObjectItem(obj, "patterns");
+  cJSON* clist = cJSON_GetObjectItem(obj, "commands");
 
   if (!cJSON_IsArray(onlist) || !cJSON_IsArray(plist) || !cJSON_IsArray(clist))
     return -1;
@@ -126,7 +123,7 @@ struct lcmdset_s** lcmdparse(const char* fp) {
   struct lcmdset_s** cs = NULL; /* command set array */
 
   if ((fbuf = fsreadstr(fp)) == NULL) {
-    perrorf("error reading file `%s`", fp);
+    log_error("error reading file `%s`: %s", fp, strerror(errno));
     return NULL;
   }
   if ((jt = cJSON_Parse(fbuf)) == NULL) {
@@ -167,7 +164,7 @@ static bool lcmdmatch(char** fpatterns, const char* fp) {
     if ((ret = fnmatch(fpatterns[i], fp, 0)) == 0) {
       return true;
     } else if (ret != FNM_NOMATCH) {
-      perrorf("error matching pattern `%s`", fpatterns[i]);
+      log_error("fnmatch error `%s`: %s", fpatterns[i], strerror(errno));
     }
   }
   return false;
@@ -178,7 +175,7 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
   // fork the process to run the command
   pid_t pid;
   if ((pid = fork()) < 0) {
-    perrorf("error forking process for `%s`", cmd);
+    log_error("process forking error `%s`: %s", cmd, strerror(errno));
     return pid;
   } else if (pid == 0) {
     // child process, modify local environment variables for use in commands
@@ -186,12 +183,12 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
 
     // execute the command and instantly exit child process
     int err;
-    if ((err = system(cmd))) perrorf("error executing command `%s`", cmd);
+    if ((err = system(cmd))) log_error("command `%s` returned %d", cmd, err);
     exit(err);
   } else {
     // parent process, wait for child process to finish
     if (waitpid(pid, NULL, 0) < 0) {
-      perrorf("error waiting for child process %d", pid);
+      log_error("cannot wait for child process %d: %s", pid, strerror(errno));
       return -1;
     }
     return 0;
