@@ -198,7 +198,10 @@ static int submain(const struct args_s* args) {
     log_info("performing pass %d", pass);
 
     dqreset();
-    dqpush(args->searchdir);
+    if (dqpush(args->searchdir)) {
+      perror(NULL);
+      return -1;
+    }
 
     char* dir;
     while ((dir = dqnext()) != NULL) {

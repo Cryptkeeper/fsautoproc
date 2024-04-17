@@ -22,7 +22,9 @@ void dqreset(void) {
   dirqueue.len = 0;
 }
 
-void dqpush(const char* dir) {
-  dirqueue.sl = sladd(dirqueue.sl, dir);
-  dirqueue.len++;
+int dqpush(const char* dir) {
+  char** r;
+  if ((r = sladd(dirqueue.sl, dir)) == NULL) return -1;
+  dirqueue.sl = r, dirqueue.len++;
+  return 0;
 }
