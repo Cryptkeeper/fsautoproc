@@ -11,6 +11,7 @@
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
+#include "loglock.h"
 #include "tp.h"
 
 struct args_s {
@@ -265,6 +266,8 @@ static int submain(const struct args_s* args) {
 int main(int argc, char** argv) {
   atexit(freeopts);
   if (parseinitargs(argc, argv)) return 1;
+
+  log_set_lock(loglock, NULL);
 
   // copy initial arguments and default initialize any missing values
   struct args_s defargs = initargs;
