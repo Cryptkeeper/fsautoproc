@@ -41,6 +41,7 @@ static void* tpentrypoint(void* arg) {
 
 int tpqueue(const struct tpreq_s* req) {
   assert(pools != NULL);
+  assert(req != NULL);
 
 findnext:
   for (size_t i = 0; pools[i] != NULL; i++) {

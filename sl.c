@@ -1,9 +1,13 @@
 #include "sl.h"
 
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
 int sladd(slist_t* p, const char* str) {
+  assert(p != NULL);
+  assert(str != NULL);
+  
   slist_t sl = *p;
   size_t len = 0;
   for (; sl != NULL && sl[len] != NULL; len++)
