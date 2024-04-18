@@ -30,11 +30,11 @@ err:
   return -1;
 }
 
-static void* lcmdinvoke_start(void* arg) {
+static void* tpentrypoint(void* arg) {
   struct tpool_s* self = arg;
   int err;
   if ((err = lcmdexec(self->req.cs, self->req.node, self->req.flags)))
-    log_error("command execution error: %s", strerror(err));
+    log_error("thread execution error: %d", err);
   self->busy = false;
   return NULL;
 }
@@ -48,7 +48,7 @@ findnext:
     if (t->busy) continue;
     memcpy(&t->req, req, sizeof(struct tpreq_s));
     int err;
-    if ((err = pthread_create(&t->tid, NULL, lcmdinvoke_start, t))) {
+    if ((err = pthread_create(&t->tid, NULL, tpentrypoint, t))) {
       log_error("cannot create thread: %s", strerror(err));
       return -1;
     }
@@ -62,8 +62,9 @@ int tpwait(void) {
   for (size_t i = 0; pools != NULL && pools[i] != NULL; i++) {
     struct tpool_s* t = pools[i];
     if (!t->busy) continue;
-    if (pthread_join(t->tid, NULL)) {
-      log_error("cannot join thread %lu", t->tid);
+    int err;
+    if ((err = pthread_join(t->tid, NULL))) {
+      log_error("cannot join thread %lu: %s", t->tid, strerror(err));
       return -1;
     }
     t->busy = false;

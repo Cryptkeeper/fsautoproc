@@ -198,7 +198,7 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
 }
 
 int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
-  log_debug("invoking cmd %02x for `%s`", flags, node->fp);
+  log_debug("file: %s\tflags: %02x", node->fp, flags);
 
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
     const struct lcmdset_s* s = cs[i];
