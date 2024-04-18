@@ -5,7 +5,7 @@
 #include "sl.h"
 
 static struct {
-  char** sl;
+  slist_t sl;
   size_t i;
   size_t len;
 } dirqueue;
@@ -23,8 +23,7 @@ void dqreset(void) {
 }
 
 int dqpush(const char* dir) {
-  char** r;
-  if ((r = sladd(dirqueue.sl, dir)) == NULL) return -1;
-  dirqueue.sl = r, dirqueue.len++;
+  if (sladd(&dirqueue.sl, dir)) return -1;
+  dirqueue.len++;
   return 0;
 }

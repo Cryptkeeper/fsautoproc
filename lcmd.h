@@ -2,6 +2,7 @@
 #define FSAUTOPROC_LCMD_H
 
 #include "index.h"
+#include "sl.h"
 
 #define LCTRIG_NEW (1 << 0)
 #define LCTRIG_MOD (1 << 1)
@@ -9,9 +10,9 @@
 #define LCTRIG_NOP (1 << 3)
 
 struct lcmdset_s {
-  int onflags;      /* command set trigger names */
-  char** fpatterns; /* file patterns used for matching */
-  char** syscmds;   /* commands to pass to `system(3) */
+  int onflags;       /* command set trigger names */
+  slist_t fpatterns; /* file patterns used for matching */
+  slist_t syscmds;   /* commands to pass to `system(3) */
 };
 
 /// @brief `lcmdfree()` iterates and frees all memory allocated by `lcmdparse()`.

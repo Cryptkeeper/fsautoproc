@@ -60,8 +60,7 @@ void indexfree_r(struct inode_s* idx) {
   struct inode_s *head, *prev;
   for (head = idx; head != NULL;) {
     free(head->fp);
-    prev = head;
-    head = head->next; /* advance to next node */
-    free(prev);        /* free previous node */
+    prev = head, head = head->next;
+    free(prev); /* free previous node */
   }
 }

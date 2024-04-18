@@ -3,7 +3,6 @@
 #include <assert.h>
 #include <errno.h>
 #include <fnmatch.h>
-#include <pthread.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -63,19 +62,20 @@ err:
 /// @return NULL if an error occurred, otherwise a pointer to a dynamically
 /// allocated StringList. The caller is responsible for freeing the list using
 /// `slfree`.
-static char** lcmdjsontosl(const cJSON* arr) {
-  char** sl = NULL;
+static slist_t lcmdjsontosl(const cJSON* arr) {
+  slist_t sl = NULL;
   cJSON* e;
   cJSON_ArrayForEach(e, arr) {
-    if (!cJSON_IsString(e)) continue;
-    char** new = NULL;
-    if ((new = sladd(sl, e->valuestring)) == NULL) {
-      slfree(sl);
-      return NULL;
+    if (!cJSON_IsString(e)) {
+      log_warn("not a string: %s", e->valuestring);
+    } else if (sladd(&sl, e->valuestring)) {
+      goto err;
     }
-    sl = new;
   }
   return sl;
+err:
+  slfree(sl);
+  return NULL;
 }
 
 static int lcmdparseflags(const cJSON* item) {
@@ -159,7 +159,7 @@ ok:
   return cs;
 }
 
-static bool lcmdmatch(char** fpatterns, const char* fp) {
+static bool lcmdmatch(slist_t fpatterns, const char* fp) {
   for (size_t i = 0; fpatterns[i] != NULL; i++) {
     int ret;
     if ((ret = fnmatch(fpatterns[i], fp, 0)) == 0) {
@@ -200,14 +200,14 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
 int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
   log_trace("exec file: %s (flags: %02x)", node->fp, flags);
 
+  int ret = 0;
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
     const struct lcmdset_s* s = cs[i];
     if (!(s->onflags & flags) || !lcmdmatch(s->fpatterns, node->fp)) continue;
 
     // invoke all system commands
-    int ret;
     for (size_t j = 0; s->syscmds[j] != NULL; j++)
-      if ((ret = lcmdinvoke(s->syscmds[j], node))) return ret;
+      if ((ret = lcmdinvoke(s->syscmds[j], node))) break;
   }
-  return 0;
+  return ret;
 }

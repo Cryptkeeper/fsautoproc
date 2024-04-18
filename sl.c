@@ -3,19 +3,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-char** sladd(char** sl, const char* str) {
+int sladd(slist_t* p, const char* str) {
+  slist_t sl = *p;
   size_t len = 0;
   for (; sl != NULL && sl[len] != NULL; len++)
     ;
-  char** r = NULL;
+  slist_t r;
   if ((r = realloc(sl, (len + 2) * sizeof(sl))) == NULL ||
       (r[len] = strdup(str)) == NULL)
-    return NULL;
-  r[len + 1] = NULL;
-  return r;
+    return -1;
+  r[len + 1] = NULL, *p = r;
+  return 0;
 }
 
-void slfree(char** sl) {
+void slfree(slist_t sl) {
   for (size_t i = 0; sl != NULL && sl[i] != NULL; i++) free(sl[i]);
   free(sl);
 }
