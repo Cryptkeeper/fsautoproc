@@ -48,4 +48,5 @@ Options:
   -c <file>   Configuration file (default: `fsautoproc.json`)
   -i <file>   File index write path
   -s <dir>    Search directory root (default: `.`)
+  -t <#>      Number of worker threads (default: 4)
 ```

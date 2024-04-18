@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <errno.h>
 #include <fnmatch.h>
+#include <pthread.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -185,7 +186,7 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
     // execute the command and instantly exit child process
     int err;
     if ((err = system(cmd))) log_error("command `%s` returned %d", cmd, err);
-    exit(err);
+    _exit(err); /* avoid firing parent atexit handlers */
   } else {
     // parent process, wait for child process to finish
     if (waitpid(pid, NULL, 0) < 0) {

@@ -1,5 +1,6 @@
 #include "dq.h"
 
+#include <pthread.h>
 #include <stddef.h>
 
 #include "sl.h"
@@ -10,21 +11,30 @@ static struct {
   size_t len;
 } dirqueue;
 
+static pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
+
 char* dqnext(void) {
-  if (dirqueue.i >= dirqueue.len) return NULL;
-  return dirqueue.sl[dirqueue.i++];
+  char* dir = NULL;
+  pthread_mutex_lock(&m);
+  if (dirqueue.i < dirqueue.len) dir = dirqueue.sl[dirqueue.i];
+  dirqueue.i++;
+  pthread_mutex_unlock(&m);
+  return dir;
 }
 
 void dqreset(void) {
+  pthread_mutex_lock(&m);
   slfree(dirqueue.sl);
   dirqueue.sl = NULL;
   dirqueue.i = 0;
   dirqueue.len = 0;
+  pthread_mutex_unlock(&m);
 }
 
 int dqpush(const char* dir) {
   char** r;
-  if ((r = sladd(dirqueue.sl, dir)) == NULL) return -1;
-  dirqueue.sl = r, dirqueue.len++;
-  return 0;
+  pthread_mutex_lock(&m);
+  if ((r = sladd(dirqueue.sl, dir)) != NULL) dirqueue.sl = r, dirqueue.len++;
+  pthread_mutex_unlock(&m);
+  return r == NULL ? -1 : 0;
 }

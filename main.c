@@ -11,11 +11,13 @@
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
+#include "tp.h"
 
 struct args_s {
   char* configfile;
   char* indexfile;
   char* searchdir;
+  int threads;
 };
 
 static struct args_s initargs;
@@ -26,6 +28,9 @@ static struct inode_s* lastmap; /* stored index from previous run (if any) */
 static struct inode_s* thismap; /* live checked index from this run */
 
 static void freeopts(void) {
+  int err;
+  if ((err = tpwait())) log_error("error waiting for threads: %d", err);
+
   free(initargs.configfile);
   free(initargs.indexfile);
   free(initargs.searchdir);
@@ -54,7 +59,8 @@ static int parseinitargs(const int argc, char** const argv) {
                "Options:\n"
                "  -c <file>   Configuration file (default: `fsautoproc.json`)\n"
                "  -i <file>   File index write path\n"
-               "  -s <dir>    Search directory root (default: `.`)\n",
+               "  -s <dir>    Search directory root (default: `.`)\n"
+               "  -t <#>      Number of worker threads (default: 4)\n",
                argv[0]);
         exit(0);
       case 'c':
@@ -65,6 +71,9 @@ static int parseinitargs(const int argc, char** const argv) {
         break;
       case 's':
         strdupoptarg(initargs.searchdir);
+        break;
+      case 't':
+        initargs.threads = (int) strtol(optarg, NULL, 10);
         break;
       case ':':
         log_fatal("option is missing argument: %c", optopt);
@@ -127,15 +136,18 @@ static int fsprocfile_pre(const char* fp) {
       log_trace("file `%s` has not been modified", curr->fp);
     }
 
+    const struct tpreq_s req = {cmdsets, curr,
+                                modified ? LCTRIG_MOD : LCTRIG_NOP};
     int err;
-    if ((err = lcmdexec(cmdsets, curr, modified ? LCTRIG_MOD : LCTRIG_NOP)))
-      return err;
+    if ((err = tpqueue(&req))) return err;
 
     if (!modified) return 0;
   } else {
     log_debug("file does not exist in previous index `%s`", curr->fp);
+
+    const struct tpreq_s req = {cmdsets, curr, LCTRIG_NEW};
     int err;
-    if ((err = lcmdexec(cmdsets, curr, LCTRIG_NEW))) return err;
+    if ((err = tpqueue(&req))) return err;
   }
 
   // update the file info in the current index
@@ -160,8 +172,10 @@ static int fsprocfile_post(const char* fp) {
   assert(curr != NULL); /* should+must exist in the list */
 
   log_debug("file `%s` is new (post-command exec)", curr->fp);
+
+  const struct tpreq_s req = {cmdsets, curr, LCTRIG_NEW};
   int err;
-  if ((err = lcmdexec(cmdsets, curr, LCTRIG_NEW))) return err;
+  if ((err = tpqueue(&req))) return err;
 
   // update the file info in the current index
   // this is done after the command execution to capture any file modifications
@@ -176,9 +190,12 @@ static void checkremoved(void) {
   struct inode_s* head = lastmap;
   while (head != NULL) {
     if (indexfind(thismap, head->fp) == NULL) { /* file no longer exists */
+      log_debug("file `%s` has been removed", head->fp);
+
+      const struct tpreq_s req = {cmdsets, head, LCTRIG_DEL};
       int err;
-      if ((err = lcmdexec(cmdsets, head, LCTRIG_DEL)))
-        log_warn("error invoking DEL cmds for `%s` (%d)", head->fp, err);
+      if ((err = tpqueue(&req)))
+        log_error("error queuing deletion command for `%s`: %d", head->fp, err);
     }
     head = head->next;
   }
@@ -198,7 +215,7 @@ static int submain(const struct args_s* args) {
   //    (if any) and fire all types of file events (NEW, MOD, DEL, NOP)
   //  - fsprocfile_post, which will only fire NEW events for files that were created
   //    as a result of the previous commands to ensure all files are indexed
-  for (int pass = 0; pass < 1; pass++) {
+  for (int pass = 0; pass <= 1; pass++) {
     log_info("performing pass %d", pass);
 
     dqreset();
@@ -219,7 +236,22 @@ static int submain(const struct args_s* args) {
       }
     }
 
-    if (pass == 0) checkremoved();// test for files removed in new index
+    // wait for all work to complete
+    int err;
+    if ((err = tpwait())) {
+      log_error("error waiting for threads: %d", err);
+      return -1;
+    }
+
+    if (pass == 0) {
+      checkremoved();// test for files removed in new index
+
+      // wait for all work to complete
+      if ((err = tpwait())) {
+        log_error("error waiting for threads: %d", err);
+        return -1;
+      }
+    }
   }
 
   if (savethismap(args->indexfile)) {
@@ -251,13 +283,21 @@ int main(int argc, char** argv) {
     }
   }
 
+  if (defargs.threads <= 0) defargs.threads = 4;
+
+  // init worker thread pool
+  int err;
+  if ((err = tpinit(defargs.threads))) {
+    log_fatal("error initializing thread pool: %d", err);
+    return 1;
+  }
+
   // load configuration file
   if ((cmdsets = lcmdparse(defargs.configfile)) == NULL) {
     log_fatal("error loading configuration file `%s`", defargs.configfile);
     return 1;
   }
 
-  int err;
   if ((err = submain(&defargs))) return err;
 
   return 0;
