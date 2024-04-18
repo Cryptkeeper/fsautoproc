@@ -3,6 +3,6 @@
 
 #include "log.h"
 
-void loglock(bool lock, void* udata);// conforms to log_LockFn
+extern log_LockFn loglockfn;
 
 #endif//FSAUTOPROC_LOGLOCK_H

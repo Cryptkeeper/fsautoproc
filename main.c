@@ -267,7 +267,7 @@ int main(int argc, char** argv) {
   atexit(freeopts);
   if (parseinitargs(argc, argv)) return 1;
 
-  log_set_lock(loglock, NULL);
+  log_set_lock(loglockfn, NULL);
 
   // copy initial arguments and default initialize any missing values
   struct args_s defargs = initargs;
