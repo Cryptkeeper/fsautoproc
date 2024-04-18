@@ -29,27 +29,28 @@ int indexwrite(struct inode_s* idx, FILE* s) {
 }
 
 int indexread(struct inode_s** idx, FILE* s) {
-  char fp0[INDEXMAXFP] = {0}; /* fscanf filepath string buffer  */
+  char fp[INDEXMAXFP] = {0};          /* fscanf filepath string buffer  */
+  struct inode_s b = {fp, {0}, NULL}; /* fscanf node buffer */
 
-  // temp buffer used for decoding, backed by stack arrays, copied when prepended
-  struct inode_s tail = {fp0};
-
-  while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 "\n", tail.fp, &tail.st.lmod,
-                &tail.st.fsze) == 3) {
+  while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 "\n", b.fp, &b.st.lmod,
+                &b.st.fsze) == 3) {
     // duplicate the string onto the heap
-    if ((tail.fp = strdup(tail.fp)) == NULL) return -1;
-    *idx = indexprepend(*idx, tail);
-    // reset the buffer pointers
-    tail.fp = fp0;
+    if ((b.fp = strdup(b.fp)) == NULL) return -1;
+    struct inode_s* r;
+    if ((r = indexprepend(*idx, b)) == NULL) {
+      free(*idx), *idx = NULL;
+      return -1;
+    }
+    *idx = r;
+    b.fp = fp;
   }
 
   return 0;
 }
 
 struct inode_s* indexprepend(struct inode_s* idx, const struct inode_s tail) {
-  // duplicate tail into a heap allocation
-  struct inode_s* node = malloc(sizeof(tail));
-  if (node == NULL) return idx; /* return last valid pointer */
+  struct inode_s* node;
+  if ((node = malloc(sizeof(tail))) == NULL) return NULL;
   memcpy(node, &tail, sizeof(tail));
   node->next = idx;
   return node;

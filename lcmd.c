@@ -45,9 +45,9 @@ static char* fsreadstr(const char* fp) {
 
   // read file contents into buffer
   if ((fbuf = malloc(fsze + 1)) == NULL) goto err;
-  if (fread(fbuf, 1, fsze, fh) != fsze) goto err;
-  fclose(fh);
+  if ((long) fread(fbuf, 1, fsze, fh) != fsze) goto err;
   fbuf[fsze] = '\0';
+  fclose(fh);
   return fbuf;
 
 err:
@@ -172,6 +172,7 @@ static bool lcmdmatch(char** fpatterns, const char* fp) {
 
 static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
   log_trace("invoking command `%s` for `%s`", cmd, node->fp);
+
   // fork the process to run the command
   pid_t pid;
   if ((pid = fork()) < 0) {
@@ -197,17 +198,15 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
 
 int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
   log_debug("invoking cmd %02x for `%s`", flags, node->fp);
+
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
-    const struct lcmdset_s* cmdset = cs[i];
-    if (!(cmdset->onflags & flags) || !lcmdmatch(cmdset->fpatterns, node->fp))
-      continue;
+    const struct lcmdset_s* s = cs[i];
+    if (!(s->onflags & flags) || !lcmdmatch(s->fpatterns, node->fp)) continue;
 
     // invoke all system commands
-    for (size_t j = 0; cmdset->syscmds[j] != NULL; j++) {
-      const char* cmd = cmdset->syscmds[j];
-      int ret;
-      if ((ret = lcmdinvoke(cmd, node))) return ret;
-    }
+    int ret;
+    for (size_t j = 0; s->syscmds[j] != NULL; j++)
+      if ((ret = lcmdinvoke(s->syscmds[j], node))) return ret;
   }
   return 0;
 }

@@ -109,7 +109,9 @@ static int fsprocfile_pre(const char* fp) {
   // lookup from previous iteration or insert new record and lookup
   struct inode_s* curr = indexfind(thismap, fp);
   if (curr == NULL) {
-    thismap = indexprepend(thismap, finfo);
+    struct inode_s* r;
+    if ((r = indexprepend(thismap, finfo)) == NULL) return -1;
+    thismap = r;
     curr = indexfind(thismap, fp);
     assert(curr != NULL); /* should+must exist in the list */
   }
@@ -151,7 +153,9 @@ static int fsprocfile_post(const char* fp) {
   if ((finfo.fp = strdup(fp)) == NULL) return -1;
   if (fsstat(fp, &finfo.st)) return -1;
 
-  thismap = indexprepend(thismap, finfo);
+  struct inode_s* r;
+  if ((r = indexprepend(thismap, finfo)) == NULL) return -1;
+  thismap = r;
   curr = indexfind(thismap, fp);
   assert(curr != NULL); /* should+must exist in the list */
 
@@ -238,6 +242,7 @@ int main(int argc, char** argv) {
 
   if (defargs.indexfile == NULL) {
     // default to using index.dat in search directory
+    // FIXME: strdup is never freed
     char fp[256];
     snprintf(fp, sizeof(fp), "%s/index.dat", defargs.searchdir);
     if ((defargs.indexfile = strdup(fp)) == NULL) {
