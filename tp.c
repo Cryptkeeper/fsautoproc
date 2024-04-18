@@ -43,10 +43,10 @@ int tpqueue(const struct tpreq_s* req) {
   assert(pools != NULL);
 
 findnext:
-  for (size_t i = 0; pools != NULL && pools[i] != NULL; i++) {
+  for (size_t i = 0; pools[i] != NULL; i++) {
     struct tpool_s* t = pools[i];
     if (t->busy) continue;
-    memcpy(&t->req, req, sizeof(struct tpreq_s));
+    memcpy(&t->req, req, sizeof(*req));
     int err;
     if ((err = pthread_create(&t->tid, NULL, tpentrypoint, t))) {
       log_error("cannot create thread: %s", strerror(err));
