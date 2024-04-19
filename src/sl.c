@@ -1,4 +1,4 @@
-#include "../include/sl.h"
+#include "sl.h"
 
 #include <assert.h>
 #include <stdlib.h>

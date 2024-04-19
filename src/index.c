@@ -1,4 +1,4 @@
-#include "../include/index.h"
+#include "index.h"
 
 #include <inttypes.h>
 #include <stdlib.h>

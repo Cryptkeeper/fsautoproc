@@ -15,7 +15,8 @@ include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
 file(GLOB SOURCES "src/*.c")
-add_executable(fsautoproc ${SOURCES})
+file(GLOB HEADERS "include/*.h")
+add_executable(fsautoproc ${SOURCES} ${HEADERS})
 target_include_directories(fsautoproc PRIVATE "include" "logc/src")
 target_link_libraries(fsautoproc PRIVATE logc cjson)
 

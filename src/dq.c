@@ -1,8 +1,8 @@
-#include "../include/dq.h"
+#include "dq.h"
 
 #include <stddef.h>
 
-#include "../include/sl.h"
+#include "sl.h"
 
 static struct {
   slist_t sl;
