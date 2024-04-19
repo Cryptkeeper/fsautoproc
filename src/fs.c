@@ -1,4 +1,4 @@
-#include "fs.h"
+#include "../include/fs.h"
 
 #include <assert.h>
 #include <glob.h>

@@ -14,9 +14,9 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror -pedantic")
 include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
-file(GLOB SOURCES "*.c")
+file(GLOB SOURCES "src/*.c")
 add_executable(fsautoproc ${SOURCES})
-target_include_directories(fsautoproc PRIVATE "logc/src")
+target_include_directories(fsautoproc PRIVATE "include" "logc/src")
 target_link_libraries(fsautoproc PRIVATE logc cjson)
 
 install(TARGETS fsautoproc DESTINATION bin)

@@ -1,4 +1,4 @@
-#include "lcmd.h"
+#include "../include/lcmd.h"
 
 #include <assert.h>
 #include <errno.h>
@@ -14,7 +14,7 @@
 
 #include "log.h"
 
-#include "sl.h"
+#include "../include/sl.h"
 
 static void lcmdfree(struct lcmdset_s* cmd) {
   slfree(cmd->fpatterns);

@@ -11,8 +11,9 @@
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
-#include "loglock.h"
 #include "tp.h"
+
+#include "loglock.h"
 
 struct args_s {
   char* configfile;

@@ -1,4 +1,4 @@
-#include "tp.h"
+#include "../include/tp.h"
 
 #include <assert.h>
 #include <pthread.h>
