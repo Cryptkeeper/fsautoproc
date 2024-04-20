@@ -5,8 +5,8 @@ project(fsautoproc C)
 add_library(logc STATIC "logc/src/log.c" "logc/src/log.h")
 target_compile_definitions(logc PRIVATE LOG_USE_COLOR)
 
-# use strict C99
-set(CMAKE_C_STANDARD 99)
+# use strict C11
+set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror -pedantic")
 
