@@ -15,12 +15,12 @@ struct tpool_s {
 
 static struct tpool_s** pools;
 
-int tpinit(int size) {
+int tpinit(const int size) {
   assert(pools == NULL);
   assert(size > 0);
 
-  size++;// add one for the NULL sentinel
-  if ((pools = calloc(size, sizeof(struct tpool_s*))) == NULL) goto err;
+  // add one for the NULL sentinel
+  if ((pools = calloc(size + 1, sizeof(struct tpool_s*))) == NULL) goto err;
   for (int i = 0; i < size; i++)
     if ((pools[i] = calloc(1, sizeof(struct tpool_s))) == NULL) goto err;
   return 0;
