@@ -8,7 +8,6 @@ target_compile_definitions(logc PRIVATE LOG_USE_COLOR)
 # use strict C99
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror -pedantic")
 
 include_directories(/usr/local/include)
