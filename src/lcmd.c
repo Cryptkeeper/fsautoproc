@@ -38,8 +38,9 @@ static char* fsreadstr(const char* fp) {
   if ((fh = fopen(fp, "rb")) == NULL) return NULL;
 
   // determine file size for buffer allocation
-  if (fseek(fh, 0, SEEK_END) != 0 || (fsze = ftell(fh)) < 0) goto err;
-  rewind(fh);
+  if (fseek(fh, 0, SEEK_END) != 0 || (fsze = ftell(fh)) < 0 ||
+      fseek(fh, 0, SEEK_SET) != 0)
+    goto err;
 
   // read file contents into buffer
   if ((fbuf = malloc(fsze + 1)) == NULL) goto err;
