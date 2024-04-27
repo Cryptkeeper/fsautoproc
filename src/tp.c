@@ -5,7 +5,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/_pthread/_pthread_t.h>
 
 #include "log.h"
 
