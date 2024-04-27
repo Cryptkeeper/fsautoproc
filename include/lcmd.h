@@ -1,8 +1,9 @@
 #ifndef FSAUTOPROC_LCMD_H
 #define FSAUTOPROC_LCMD_H
 
-#include "index.h"
 #include "sl.h"
+
+struct inode_s;
 
 #define LCTRIG_NEW (1 << 0)
 #define LCTRIG_MOD (1 << 1)

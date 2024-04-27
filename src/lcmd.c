@@ -1,18 +1,20 @@
 #include "lcmd.h"
 
 #include <assert.h>
-#include <errno.h>
 #include <fnmatch.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/errno.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
 #include <cjson/cJSON.h>
 
 #include "log.h"
+
+#include "index.h"
 
 static void lcmdfree(struct lcmdset_s* cmd) {
   slfree(cmd->fpatterns);

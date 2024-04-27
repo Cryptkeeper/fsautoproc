@@ -1,7 +1,6 @@
 #ifndef EASYLIB_INDEX_H
 #define EASYLIB_INDEX_H
 
-#include <stdint.h>
 #include <stdio.h>
 
 #include "fs.h"

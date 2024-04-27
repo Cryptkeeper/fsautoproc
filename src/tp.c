@@ -2,11 +2,14 @@
 
 #include <assert.h>
 #include <pthread.h>
-#include <stdatomic.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/_pthread/_pthread_t.h>
 
 #include "log.h"
+
+#include "lcmd.h"
 
 struct tpool_s {
   _Atomic bool busy;

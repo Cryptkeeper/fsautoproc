@@ -1,9 +1,6 @@
 #ifndef FSAUTOPROC_TP_H
 #define FSAUTOPROC_TP_H
 
-#include "index.h"
-#include "lcmd.h"
-
 struct tpreq_s {
   struct lcmdset_s** cs;      /* cmdset to execute */
   const struct inode_s* node; /* file node to execute on */

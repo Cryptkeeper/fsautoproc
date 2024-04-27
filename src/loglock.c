@@ -1,6 +1,8 @@
 #include "loglock.h"
 
 #include <pthread.h>
+#include <stdbool.h>
+#include <sys/_pthread/_pthread_mutex_t.h>
 
 static pthread_mutex_t logmutex = PTHREAD_MUTEX_INITIALIZER;
 

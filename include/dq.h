@@ -1,8 +1,6 @@
 #ifndef FSAUTOPROC_DQ_H
 #define FSAUTOPROC_DQ_H
 
-#include <stdbool.h>
-
 /// @brief `dqnext()` returns the next directory in the queue and increments its
 /// internal index. If the end of the queue is reached, NULL is returned on the
 /// next call. `dqnext()` can be safely called prior to any `dqpush()` calls.
