@@ -15,6 +15,7 @@
 #include "log.h"
 
 #include "index.h"
+#include "sl.h"
 
 static void lcmdfree(struct lcmdset_s* cmd) {
   slfree(cmd->fpatterns);
@@ -63,8 +64,8 @@ err:
 /// @return NULL if an error occurred, otherwise a pointer to a dynamically
 /// allocated StringList. The caller is responsible for freeing the list using
 /// `slfree`.
-static slist_t lcmdjsontosl(const cJSON* arr) {
-  slist_t sl = NULL;
+static slist_t* lcmdjsontosl(const cJSON* arr) {
+  slist_t* sl = NULL;
   cJSON* e;
   cJSON_ArrayForEach(e, arr) {
     if (!cJSON_IsString(e)) {
@@ -160,7 +161,7 @@ ok:
   return cs;
 }
 
-static bool lcmdmatch(slist_t fpatterns, const char* fp) {
+static bool lcmdmatch(const slist_t* fpatterns, const char* fp) {
   for (size_t i = 0; fpatterns[i] != NULL; i++) {
     int ret;
     if ((ret = fnmatch(fpatterns[i], fp, 0)) == 0) {

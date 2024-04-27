@@ -11,9 +11,9 @@ struct inode_s;
 #define LCTRIG_NOP (1 << 3)
 
 struct lcmdset_s {
-  int onflags;       /* command set trigger names */
-  slist_t fpatterns; /* file patterns used for matching */
-  slist_t syscmds;   /* commands to pass to `system(3) */
+  int onflags;        /* command set trigger names */
+  slist_t* fpatterns; /* file patterns used for matching */
+  slist_t* syscmds;   /* commands to pass to `system(3) */
 };
 
 /// @brief `lcmdfree()` iterates and frees all memory allocated by `lcmdparse()`.

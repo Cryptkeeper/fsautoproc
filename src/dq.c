@@ -5,7 +5,7 @@
 #include "sl.h"
 
 static struct {
-  slist_t sl;
+  slist_t* sl;
   size_t i;
   size_t len;
 } dirqueue;

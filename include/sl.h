@@ -1,7 +1,7 @@
 #ifndef FSAUTOPROC_SL_H
 #define FSAUTOPROC_SL_H
 
-typedef char** slist_t;
+typedef char* slist_t;
 
 /// @brief `sladd()` duplicates a string and appends it to a string list. The
 /// string list is dynamically resized as needed and returned via the `sl` param.
@@ -10,9 +10,9 @@ typedef char** slist_t;
 /// @param str The string to duplicate and append.
 /// @return 0 if successful and `sl` is set to the new string list,
 /// otherwise -1 is returned and `errno` is set.
-int sladd(slist_t* sl, const char* str);
+int sladd(slist_t** sl, const char* str);
 
 /// @brief `slfree()` frees a string list and all its elements.
-void slfree(slist_t sl);
+void slfree(slist_t* sl);
 
 #endif//FSAUTOPROC_SL_H
