@@ -14,7 +14,7 @@ set(CMAKE_C_INCLUDE_WHAT_YOU_USE "include-what-you-use")
 
 # find cJSON using pkg-config
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(CJSON REQUIRED cjson)
+pkg_check_modules(CJSON REQUIRED libcjson)
 
 file(GLOB SOURCES "src/*.c")
 file(GLOB HEADERS "include/*.h")
