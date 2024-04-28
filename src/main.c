@@ -16,33 +16,39 @@
 
 #include "loglock.h"
 
-struct args_s {
+static struct {
   char* configfile;
   char* indexfile;
   char* searchdir;
   int threads;
-};
+} initargs;
 
-static struct args_s initargs;
+static void freeinitargs(void) {
+  free(initargs.configfile);
+  free(initargs.indexfile);
+  free(initargs.searchdir);
+}
 
 static struct lcmdset_s** cmdsets;
+
+static void freecmdsets(void) { lcmdfree_r(cmdsets); }
 
 static struct inode_s* lastmap; /* stored index from previous run (if any) */
 static struct inode_s* thismap; /* live checked index from this run */
 
-static void freeopts(void) {
-  int err;
-  if ((err = tpwait())) log_error("error waiting for threads: %d", err);
-
-  free(initargs.configfile);
-  free(initargs.indexfile);
-  free(initargs.searchdir);
-
-  lcmdfree_r(cmdsets);
-
+static void freeindexmaps(void) {
   indexfree_r(lastmap);
   indexfree_r(thismap);
+}
 
+static void freeall(void) {
+  // wait for all work to complete
+  int err;
+  if ((err = tpwait())) log_error("error waiting for threads: %d", err);
+  
+  freeinitargs();
+  freecmdsets();
+  freeindexmaps();
   dqfree();
 }
 
@@ -221,11 +227,12 @@ static void checkremoved(void) {
   }
 }
 
-static int submain(const struct args_s* args) {
-  if (loadlastmap(args->indexfile)) {
+static int cmpchanges(void) {
+  if (loadlastmap(initargs.indexfile)) {
     // attempt to load the file, but continue if it doesn't exist
     if (errno != ENOENT) {
-      log_fatal("cannot read index `%s`: %s", args->indexfile, strerror(errno));
+      log_fatal("cannot read index `%s`: %s", initargs.indexfile,
+                strerror(errno));
       return -1;
     }
   }
@@ -239,7 +246,7 @@ static int submain(const struct args_s* args) {
     log_info("performing pass %d", pass);
 
     dqreset();
-    if (dqpush(args->searchdir)) {
+    if (dqpush(initargs.searchdir)) {
       perror(NULL);
       return -1;
     }
@@ -274,8 +281,9 @@ static int submain(const struct args_s* args) {
     }
   }
 
-  if (savethismap(args->indexfile)) {
-    log_fatal("cannot write index `%s`: %s", args->indexfile, strerror(errno));
+  if (savethismap(initargs.indexfile)) {
+    log_fatal("cannot write index `%s`: %s", initargs.indexfile,
+              strerror(errno));
     return -1;
   }
 
@@ -283,7 +291,7 @@ static int submain(const struct args_s* args) {
 }
 
 int main(int argc, char** argv) {
-  atexit(freeopts);
+  atexit(freeall);
   if (parseinitargs(argc, argv)) return 1;
 
   log_set_lock(loglockfn, NULL);
@@ -301,7 +309,7 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  if ((err = submain(&initargs))) return err;
+  if ((err = cmpchanges())) return err;
 
   return 0;
 }

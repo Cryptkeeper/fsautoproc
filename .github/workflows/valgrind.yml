@@ -22,6 +22,6 @@ jobs:
         run: cmake --build ${{github.workspace}}/build
       - name: Run Valgrind
         run: |
-          valgrind --leak-check=full --error-exitcode=1 ./build/fsautoproc -h
-          mkdir empty && valgrind --leak-check=full --error-exitcode=1 ./build/fsautoproc -c example.fsautoproc.json -s empty
-          valgrind --leak-check=full --error-exitcode=1 ./build/fsautoproc
+          valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./build/fsautoproc -h
+          mkdir empty && valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./build/fsautoproc -c example.fsautoproc.json -s empty
+          valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=1 ./build/fsautoproc
