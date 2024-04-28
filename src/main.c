@@ -87,6 +87,23 @@ static int parseinitargs(const int argc, char** const argv) {
         return 1;
     }
   }
+
+  // set default argument values
+  if (initargs.configfile == NULL)
+    if ((initargs.configfile = strdup("fsautoproc.json")) == NULL) return 1;
+
+  if (initargs.searchdir == NULL)
+    if ((initargs.searchdir = strdup(".")) == NULL) return 1;
+
+  if (initargs.indexfile == NULL) {
+    // default to using index.dat inside search directory
+    char fp[256];
+    snprintf(fp, sizeof(fp), "%s/index.dat", initargs.searchdir);
+    if ((initargs.indexfile = strdup(fp)) == NULL) return 1;
+  }
+
+  if (initargs.threads == 0) initargs.threads = 4;
+
   return 0;
 }
 
@@ -271,39 +288,20 @@ int main(int argc, char** argv) {
 
   log_set_lock(loglockfn, NULL);
 
-  // copy initial arguments and default initialize any missing values
-  struct args_s defargs = initargs;
-
-  if (defargs.searchdir == NULL) defargs.searchdir = ".";
-  if (defargs.configfile == NULL) defargs.configfile = "fsautoproc.json";
-
-  if (defargs.indexfile == NULL) {
-    // default to using index.dat in search directory
-    // FIXME: strdup is never freed
-    char fp[256];
-    snprintf(fp, sizeof(fp), "%s/index.dat", defargs.searchdir);
-    if ((defargs.indexfile = strdup(fp)) == NULL) {
-      perror(NULL);
-      return 1;
-    }
-  }
-
-  if (defargs.threads <= 0) defargs.threads = 4;
-
   // init worker thread pool
   int err;
-  if ((err = tpinit(defargs.threads))) {
+  if ((err = tpinit(initargs.threads))) {
     log_fatal("error initializing thread pool: %d", err);
     return 1;
   }
 
   // load configuration file
-  if ((cmdsets = lcmdparse(defargs.configfile)) == NULL) {
-    log_fatal("error loading configuration file `%s`", defargs.configfile);
+  if ((cmdsets = lcmdparse(initargs.configfile)) == NULL) {
+    log_fatal("error loading configuration file `%s`", initargs.configfile);
     return 1;
   }
 
-  if ((err = submain(&defargs))) return err;
+  if ((err = submain(&initargs))) return err;
 
   return 0;
 }
