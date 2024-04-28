@@ -1,0 +1,26 @@
+name: CMake
+on:
+  push:
+  pull_request:
+    branches: [ "main" ]
+env:
+  BUILD_TYPE: RelWithDebInfo
+jobs:
+  Ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iwyu
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Configure CMake
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER="clang"
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fsautoproc-ubuntu-x86_64
+          path: ${{github.workspace}}/build/fsautoproc
