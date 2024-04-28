@@ -16,34 +16,45 @@
 
 #include "loglock.h"
 
-struct args_s {
+static struct {
   char* configfile;
   char* indexfile;
   char* searchdir;
   int threads;
-};
+} initargs;
 
-static struct args_s initargs;
+static void freeinitargs(void) {
+  free(initargs.configfile);
+  free(initargs.indexfile);
+  free(initargs.searchdir);
+}
 
 static struct lcmdset_s** cmdsets;
+
+static void freecmdsets(void) { lcmdfree_r(cmdsets); }
 
 static struct inode_s* lastmap; /* stored index from previous run (if any) */
 static struct inode_s* thismap; /* live checked index from this run */
 
-static void freeopts(void) {
+static void freeindexmaps(void) {
+  indexfree_r(lastmap);
+  indexfree_r(thismap);
+}
+
+static void freeglobals(void) {
+  dqfree();
+  tpfree();
+}
+
+static void freeall(void) {
+  // wait for all work to complete
   int err;
   if ((err = tpwait())) log_error("error waiting for threads: %d", err);
 
-  free(initargs.configfile);
-  free(initargs.indexfile);
-  free(initargs.searchdir);
-
-  lcmdfree_r(cmdsets);
-
-  indexfree_r(lastmap);
-  indexfree_r(thismap);
-
-  dqfree();
+  freeinitargs();
+  freecmdsets();
+  freeindexmaps();
+  freeglobals();
 }
 
 #define strdupoptarg(into)                                                     \
@@ -87,6 +98,23 @@ static int parseinitargs(const int argc, char** const argv) {
         return 1;
     }
   }
+
+  // set default argument values
+  if (initargs.configfile == NULL)
+    if ((initargs.configfile = strdup("fsautoproc.json")) == NULL) return 1;
+
+  if (initargs.searchdir == NULL)
+    if ((initargs.searchdir = strdup(".")) == NULL) return 1;
+
+  if (initargs.indexfile == NULL) {
+    // default to using index.dat inside search directory
+    char fp[256];
+    snprintf(fp, sizeof(fp), "%s/index.dat", initargs.searchdir);
+    if ((initargs.indexfile = strdup(fp)) == NULL) return 1;
+  }
+
+  if (initargs.threads == 0) initargs.threads = 4;
+
   return 0;
 }
 
@@ -204,11 +232,12 @@ static void checkremoved(void) {
   }
 }
 
-static int submain(const struct args_s* args) {
-  if (loadlastmap(args->indexfile)) {
+static int cmpchanges(void) {
+  if (loadlastmap(initargs.indexfile)) {
     // attempt to load the file, but continue if it doesn't exist
     if (errno != ENOENT) {
-      log_fatal("cannot read index `%s`: %s", args->indexfile, strerror(errno));
+      log_fatal("cannot read index `%s`: %s", initargs.indexfile,
+                strerror(errno));
       return -1;
     }
   }
@@ -222,7 +251,7 @@ static int submain(const struct args_s* args) {
     log_info("performing pass %d", pass);
 
     dqreset();
-    if (dqpush(args->searchdir)) {
+    if (dqpush(initargs.searchdir)) {
       perror(NULL);
       return -1;
     }
@@ -257,8 +286,9 @@ static int submain(const struct args_s* args) {
     }
   }
 
-  if (savethismap(args->indexfile)) {
-    log_fatal("cannot write index `%s`: %s", args->indexfile, strerror(errno));
+  if (savethismap(initargs.indexfile)) {
+    log_fatal("cannot write index `%s`: %s", initargs.indexfile,
+              strerror(errno));
     return -1;
   }
 
@@ -266,44 +296,25 @@ static int submain(const struct args_s* args) {
 }
 
 int main(int argc, char** argv) {
-  atexit(freeopts);
+  atexit(freeall);
   if (parseinitargs(argc, argv)) return 1;
 
   log_set_lock(loglockfn, NULL);
 
-  // copy initial arguments and default initialize any missing values
-  struct args_s defargs = initargs;
-
-  if (defargs.searchdir == NULL) defargs.searchdir = ".";
-  if (defargs.configfile == NULL) defargs.configfile = "fsautoproc.json";
-
-  if (defargs.indexfile == NULL) {
-    // default to using index.dat in search directory
-    // FIXME: strdup is never freed
-    char fp[256];
-    snprintf(fp, sizeof(fp), "%s/index.dat", defargs.searchdir);
-    if ((defargs.indexfile = strdup(fp)) == NULL) {
-      perror(NULL);
-      return 1;
-    }
-  }
-
-  if (defargs.threads <= 0) defargs.threads = 4;
-
   // init worker thread pool
   int err;
-  if ((err = tpinit(defargs.threads))) {
+  if ((err = tpinit(initargs.threads))) {
     log_fatal("error initializing thread pool: %d", err);
     return 1;
   }
 
   // load configuration file
-  if ((cmdsets = lcmdparse(defargs.configfile)) == NULL) {
-    log_fatal("error loading configuration file `%s`", defargs.configfile);
+  if ((cmdsets = lcmdparse(initargs.configfile)) == NULL) {
+    log_fatal("error loading configuration file `%s`", initargs.configfile);
     return 1;
   }
 
-  if ((err = submain(&defargs))) return err;
+  if ((err = cmpchanges())) return err;
 
   return 0;
 }
