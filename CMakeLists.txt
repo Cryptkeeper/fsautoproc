@@ -9,7 +9,6 @@ target_compile_definitions(logc PRIVATE LOG_USE_COLOR)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror -pedantic")
-set(CMAKE_C_INCLUDE_WHAT_YOU_USE "include-what-you-use")
 
 # find cJSON using pkg-config
 find_package(PkgConfig REQUIRED)
@@ -20,7 +19,7 @@ file(GLOB HEADERS "include/*.h")
 add_executable(fsautoproc ${SOURCES} ${HEADERS})
 
 target_link_directories(fsautoproc PRIVATE ${CJSON_LIBRARY_DIRS})
-target_link_libraries(fsautoproc PRIVATE logc ${CJSON_LIBRARIES})
+target_link_libraries(fsautoproc PRIVATE logc ${CJSON_LIBRARIES} pthread)
 
 target_include_directories(fsautoproc PRIVATE "include" "logc/src" ${CJSON_INCLUDE_DIRS})
 
