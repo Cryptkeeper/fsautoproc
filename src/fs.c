@@ -63,7 +63,7 @@ int fsstat(const char* fp, struct fsstat_s* s) {
 #if defined(__FreeBSD__) || defined(__APPLE__)
   const struct timespec ts = st.st_mtimespec; /* last modified */
 #else
-  const struct timespec ts = st.st_mtim; /* last modified */
+  const struct timespec ts = st.st_mtime; /* last modified */
 #endif
   s->lmod = ts.tv_sec * 1000 + ts.tv_nsec / 1000000; /* convert to millis */
   s->fsze = st.st_size;                              /* copy file size */
