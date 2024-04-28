@@ -24,4 +24,10 @@ int tpqueue(const struct tpreq_s* req);
 /// @return 0 on success, -1 on failure.
 int tpwait(void);
 
+/// @brief Frees all memory allocated by `tpinit()`. This function should be
+/// called at the end of the program. It is safe to call this function even if
+/// `tpinit()` was not called. This function is not thread-safe, and should only
+/// be called once after `tpwait()`.
+void tpfree(void);
+
 #endif//FSAUTOPROC_TP_H

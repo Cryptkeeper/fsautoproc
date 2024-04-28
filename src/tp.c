@@ -75,3 +75,9 @@ int tpwait(void) {
   }
   return 0;
 }
+
+void tpfree(void) {
+  for (size_t i = 0; pools != NULL && pools[i] != NULL; i++) free(pools[i]);
+  free(pools);
+  pools = NULL;
+}

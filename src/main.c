@@ -41,15 +41,20 @@ static void freeindexmaps(void) {
   indexfree_r(thismap);
 }
 
+static void freeglobals(void) {
+  dqfree();
+  tpfree();
+}
+
 static void freeall(void) {
   // wait for all work to complete
   int err;
   if ((err = tpwait())) log_error("error waiting for threads: %d", err);
-  
+
   freeinitargs();
   freecmdsets();
   freeindexmaps();
-  dqfree();
+  freeglobals();
 }
 
 #define strdupoptarg(into)                                                     \
