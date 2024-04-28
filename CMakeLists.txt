@@ -11,13 +11,17 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror -pedantic")
 set(CMAKE_C_INCLUDE_WHAT_YOU_USE "include-what-you-use")
 
-include_directories(/usr/local/include)
-link_directories(/usr/local/lib)
+# find cJSON using pkg-config
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(CJSON REQUIRED libcjson)
 
 file(GLOB SOURCES "src/*.c")
 file(GLOB HEADERS "include/*.h")
 add_executable(fsautoproc ${SOURCES} ${HEADERS})
-target_include_directories(fsautoproc PRIVATE "include" "logc/src")
-target_link_libraries(fsautoproc PRIVATE logc cjson)
+
+target_link_directories(fsautoproc PRIVATE ${CJSON_LIBRARY_DIRS})
+target_link_libraries(fsautoproc PRIVATE logc ${CJSON_LIBRARIES})
+
+target_include_directories(fsautoproc PRIVATE "include" "logc/src" ${CJSON_INCLUDE_DIRS})
 
 install(TARGETS fsautoproc DESTINATION bin)
