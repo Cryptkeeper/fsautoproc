@@ -58,11 +58,11 @@ err:
   return NULL;
 }
 
-/// @brief `lcmdjsontosl` duplicates a cJSON array of strings to a StringList.
-/// cJSON array entries that fail `cJSON_IsString` will be silently ignored.
+/// @brief `lcmdjsontosl` duplicates a cJSON array of strings to a slist_t.
+/// cJSON array entries that fail `cJSON_IsString` will be ignored and a warning printed.
 /// @param arr cJSON array of strings
 /// @return NULL if an error occurred, otherwise a pointer to a dynamically
-/// allocated StringList. The caller is responsible for freeing the list using
+/// allocated slist_t. The caller is responsible for freeing the list using
 /// `slfree`.
 static slist_t* lcmdjsontosl(const cJSON* arr) {
   slist_t* sl = NULL;
