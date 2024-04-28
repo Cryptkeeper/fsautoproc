@@ -21,6 +21,6 @@ file(GLOB HEADERS "include/*.h")
 add_executable(fsautoproc ${SOURCES} ${HEADERS})
 
 target_include_directories(fsautoproc PRIVATE "include" "logc/src" ${CJSON_INCLUDE_DIRS})
-target_link_libraries(fsautoproc PRIVATE logc cjson ${CJSON_LIBRARIES})
+target_link_libraries(fsautoproc PRIVATE logc ${CJSON_LIBRARIES})
 
 install(TARGETS fsautoproc DESTINATION bin)
