@@ -16,9 +16,8 @@ file(GLOB SOURCES "src/*.c")
 file(GLOB HEADERS "include/*.h")
 add_executable(fsautoproc ${SOURCES} ${HEADERS})
 
-target_link_directories(fsautoproc PRIVATE ${CJSON_LIBRARY_DIRS})
-target_link_libraries(fsautoproc PRIVATE logc ${CJSON_LIBRARIES} pthread)
-
+target_link_directories(fsautoproc PRIVATE dep)
+target_link_libraries(fsautoproc PRIVATE logc cjson pthread)
 target_include_directories(fsautoproc PRIVATE "include" "dep")
 
 install(TARGETS fsautoproc DESTINATION bin)
