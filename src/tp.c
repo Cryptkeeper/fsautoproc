@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "log.h"
+#include "logc/src/log.h"
 
 #include "lcmd.h"
 

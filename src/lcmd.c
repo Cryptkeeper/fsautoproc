@@ -10,9 +10,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <cjson/cJSON.h>
-
-#include "log.h"
+#include "cJSON/cJSON.h"
+#include "logc/src/log.h"
 
 #include "index.h"
 #include "sl.h"

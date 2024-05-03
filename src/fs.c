@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <time.h>
 
-#include "log.h"
+#include "logc/src/log.h"
 
 static int fswalkerr(const char* epath, const int errno) {
   log_warn("error accessing `%s`: %d", epath, errno);
