@@ -10,12 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        compiler: [ "clang", "musl-clang", "gcc", "musl-gcc" ]
+        compiler: [ "clang", "gcc", "musl-gcc" ]
     steps:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y musl-clang musl-gcc
+          sudo apt-get install -y musl-tools
       - uses: actions/checkout@v4
         with:
           submodules: true
