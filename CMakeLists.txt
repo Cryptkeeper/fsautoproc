@@ -8,6 +8,7 @@ target_compile_definitions(logc PRIVATE LOG_USE_COLOR)
 # force cJSON to build and link statically
 set(CJSON_BUILD_SHARED_LIBS OFF)
 set(CJSON_OVERRIDE_BUILD_SHARED_LIBS ON)
+set(ENABLE_CJSON_TEST OFF)
 add_subdirectory(dep/cJSON)
 
 # use strict C11
