@@ -6,7 +6,7 @@
 #include <sys/errno.h>
 #include <unistd.h>
 
-#include "log.h"
+#include "logc/src/log.h"
 
 #include "dq.h"
 #include "fs.h"
