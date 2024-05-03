@@ -1,3 +1,6 @@
-[submodule "logc"]
-	path = logc
+[submodule "dep/cJSON"]
+	path = dep/cJSON
+	url = https://github.com/DaveGamble/cJSON.git
+[submodule "dep/logc"]
+	path = dep/logc
 	url = https://github.com/rxi/log.c.git

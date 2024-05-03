@@ -21,7 +21,7 @@ Before using, consider:
 
 ## Building
 
-`fsautoproc` is built with CMake. You will need a C99 compiler and CMake installed. The utility is primarily written for use on Linux and BSD systems (including macOS). It may work on Windows with WSL or Cygwin, but this is currently untested.
+`fsautoproc` is built with CMake. You will need a C11 compiler and CMake installed. The utility is primarily written for use on Linux and BSD systems (including macOS). It may work on Windows with WSL or Cygwin, but this is currently untested.
 
 1. Clone the repository and its submodules: `git clone --recursive https://github.com/Cryptkeeper/fsautoproc`
 2. Build the CMake project with `cmake -B build`
@@ -30,13 +30,10 @@ Before using, consider:
 
 ### Dependencies
 
-Your build environment must provide:
-
-- [cJSON](https://github.com/DaveGamble/cJSON)
-
 Git submodules provide:
 
 - [log.c](https://github.com/rxi/log.c)
+- [cJSON](https://github.com/DaveGamble/cJSON)
 
 ### Usage
 
