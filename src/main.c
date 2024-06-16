@@ -20,6 +20,7 @@ static struct {
   char* configfile;
   char* indexfile;
   char* searchdir;
+  _Bool skipproc;
   int threads;
 } initargs;
 
@@ -65,7 +66,7 @@ static void freeall(void) {
 
 static int parseinitargs(const int argc, char** const argv) {
   int c;
-  while ((c = getopt(argc, argv, ":hc:i:s:")) != -1) {
+  while ((c = getopt(argc, argv, ":hc:i:s:u")) != -1) {
     switch (c) {
       case 'h':
         printf("Usage: %s\n"
@@ -74,7 +75,8 @@ static int parseinitargs(const int argc, char** const argv) {
                "  -c <file>   Configuration file (default: `fsautoproc.json`)\n"
                "  -i <file>   File index write path\n"
                "  -s <dir>    Search directory root (default: `.`)\n"
-               "  -t <#>      Number of worker threads (default: 4)\n",
+               "  -t <#>      Number of worker threads (default: 4)\n"
+               "  -u          Skip processing files, only update file index\n",
                argv[0]);
         exit(0);
       case 'c':
@@ -88,6 +90,9 @@ static int parseinitargs(const int argc, char** const argv) {
         break;
       case 't':
         initargs.threads = (int) strtol(optarg, NULL, 10);
+        break;
+      case 'u':
+        initargs.skipproc = true;
         break;
       case ':':
         log_fatal("option is missing argument: %c", optopt);
@@ -167,18 +172,22 @@ static int fsprocfile_pre(const char* fp) {
       log_trace("file `%s` has not been modified", curr->fp);
     }
 
-    const struct tpreq_s req = {cmdsets, curr,
-                                modified ? LCTRIG_MOD : LCTRIG_NOP};
-    int err;
-    if ((err = tpqueue(&req))) return err;
+    if (!initargs.skipproc) {
+      const struct tpreq_s req = {cmdsets, curr,
+                                  modified ? LCTRIG_MOD : LCTRIG_NOP};
+      int err;
+      if ((err = tpqueue(&req))) return err;
 
-    if (!modified) return 0;
+      if (!modified) return 0;
+    }
   } else {
     log_debug("file does not exist in previous index `%s`", curr->fp);
 
-    const struct tpreq_s req = {cmdsets, curr, LCTRIG_NEW};
-    int err;
-    if ((err = tpqueue(&req))) return err;
+    if (!initargs.skipproc) {
+      const struct tpreq_s req = {cmdsets, curr, LCTRIG_NEW};
+      int err;
+      if ((err = tpqueue(&req))) return err;
+    }
   }
 
   // update the file info in the current index
@@ -204,9 +213,11 @@ static int fsprocfile_post(const char* fp) {
 
   log_debug("file `%s` is new (post-command exec)", curr->fp);
 
-  const struct tpreq_s req = {cmdsets, curr, LCTRIG_NEW};
-  int err;
-  if ((err = tpqueue(&req))) return err;
+  if (!initargs.skipproc) {
+    const struct tpreq_s req = {cmdsets, curr, LCTRIG_NEW};
+    int err;
+    if ((err = tpqueue(&req))) return err;
+  }
 
   // update the file info in the current index
   // this is done after the command execution to capture any file modifications
@@ -223,11 +234,13 @@ static void checkremoved(void) {
     if (indexfind(thismap, head->fp) == NULL) { /* file no longer exists */
       log_debug("file `%s` has been removed", head->fp);
 
+      if (initargs.skipproc) goto next;
       const struct tpreq_s req = {cmdsets, head, LCTRIG_DEL};
       int err;
       if ((err = tpqueue(&req)))
         log_error("error queuing deletion command for `%s`: %d", head->fp, err);
     }
+  next:
     head = head->next;
   }
 }
