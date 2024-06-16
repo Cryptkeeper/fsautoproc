@@ -9,6 +9,7 @@ struct inode_s;
 #define LCTRIG_MOD (1 << 1)
 #define LCTRIG_DEL (1 << 2)
 #define LCTRIG_NOP (1 << 3)
+#define LCTOPT_VERBOSE (1 << 8)
 
 struct lcmdset_s {
   int onflags;        /* command set trigger names */
@@ -43,7 +44,8 @@ struct lcmdset_s** lcmdparse(const char* fp);
 /// patterns match.
 /// @param cs The command set array to filter and execute
 /// @param node The file node to execute on
-/// @param flags The trigger flags to match
+/// @param flags The trigger flags to match, see `LCTRIG_*`. If `LCTOPT_VERBOSE`
+/// is set, the commands will be printed to stdout before execution.
 /// @return 0 if successful, otherwise the first non-zero return value from
 /// `system(3)` is returned.
 int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags);

@@ -3,12 +3,12 @@
 #include <assert.h>
 #include <pthread.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "logc/src/log.h"
-
 #include "lcmd.h"
+#include "log.h"
 
 struct tpool_s {
   _Atomic bool busy;
@@ -68,7 +68,7 @@ int tpwait(void) {
     if (!t->busy) continue;
     int err;
     if ((err = pthread_join(t->tid, NULL))) {
-      log_error("cannot join thread %lu: %s", t->tid, strerror(err));
+      log_error("cannot join thread: %s", strerror(err));
       return -1;
     }
     t->busy = false;

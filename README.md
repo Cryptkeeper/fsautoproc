@@ -32,7 +32,6 @@ Before using, consider:
 
 Git submodules provide:
 
-- [log.c](https://github.com/rxi/log.c)
 - [cJSON](https://github.com/DaveGamble/cJSON)
 
 ### Usage
@@ -47,4 +46,5 @@ Options:
   -s <dir>    Search directory root (default: `.`)
   -t <#>      Number of worker threads (default: 4)
   -u          Skip processing files, only update file index
+  -v          Enable verbose output
 ```

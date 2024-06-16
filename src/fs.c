@@ -7,10 +7,10 @@
 #include <sys/stat.h>
 #include <time.h>
 
-#include "logc/src/log.h"
+#include "log.h"
 
 static int fswalkerr(const char* epath, const int errno) {
-  log_warn("error accessing `%s`: %d", epath, errno);
+  log_error("error accessing `%s`: %d", epath, errno);
   return 0; /* continue glob scan */
 }
 

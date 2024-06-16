@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <inttypes.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,15 +7,12 @@
 #include <sys/errno.h>
 #include <unistd.h>
 
-#include "logc/src/log.h"
-
 #include "dq.h"
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
+#include "log.h"
 #include "tp.h"
-
-#include "loglock.h"
 
 static struct {
   char* configfile;
@@ -22,6 +20,7 @@ static struct {
   char* searchdir;
   _Bool skipproc;
   int threads;
+  _Bool verbose;
 } initargs;
 
 static void freeinitargs(void) {
@@ -76,7 +75,8 @@ static int parseinitargs(const int argc, char** const argv) {
                "  -i <file>   File index write path\n"
                "  -s <dir>    Search directory root (default: `.`)\n"
                "  -t <#>      Number of worker threads (default: 4)\n"
-               "  -u          Skip processing files, only update file index\n",
+               "  -u          Skip processing files, only update file index\n"
+               "  -v          Enable verbose output\n",
                argv[0]);
         exit(0);
       case 'c':
@@ -94,12 +94,15 @@ static int parseinitargs(const int argc, char** const argv) {
       case 'u':
         initargs.skipproc = true;
         break;
+      case 'v':
+        initargs.verbose = true;
+        break;
       case ':':
-        log_fatal("option is missing argument: %c", optopt);
+        log_error("option is missing argument: %c", optopt);
         return 1;
       case '?':
       default:
-        log_fatal("unknown option: %c", optopt);
+        log_error("unknown option: %c", optopt);
         return 1;
     }
   }
@@ -142,7 +145,7 @@ static int savethismap(const char* fp) {
 }
 
 static int fsprocfile_pre(const char* fp) {
-  log_info("processing file `%s`", fp);
+  if (initargs.verbose) log_verbose("processing file `%s`", fp);
 
   struct inode_s finfo = {0};
   if ((finfo.fp = strdup(fp)) == NULL) return -1;
@@ -162,29 +165,32 @@ static int fsprocfile_pre(const char* fp) {
   }
 
   if (prev != NULL) {
-    const bool modified = fsstateql(&prev->st, &curr->st);
+    const bool modified = !fsstateql(&prev->st, &curr->st);
     if (modified) {
-      log_trace("file `%s` has been modified (last modified: %zu -> %zu, file "
-                "size: %zu -> %zu)",
-                curr->fp, prev->st.lmod, curr->st.lmod, prev->st.fsze,
-                curr->st.fsze);
+      log_info("file `%s` has been modified (last modified: %" PRIu64
+               " -> %" PRIu64 ", file size: %" PRIu64 " -> %" PRIu64 ")",
+               curr->fp, prev->st.lmod, curr->st.lmod, prev->st.fsze,
+               curr->st.fsze);
     } else {
-      log_trace("file `%s` has not been modified", curr->fp);
+      if (initargs.verbose)
+        log_verbose("file `%s` has not been modified", curr->fp);
     }
 
     if (!initargs.skipproc) {
-      const struct tpreq_s req = {cmdsets, curr,
-                                  modified ? LCTRIG_MOD : LCTRIG_NOP};
+      int flags = modified ? LCTRIG_MOD : LCTRIG_NOP;
+      if (initargs.verbose) flags |= LCTOPT_VERBOSE;
+      const struct tpreq_s req = {cmdsets, curr, flags};
       int err;
       if ((err = tpqueue(&req))) return err;
 
       if (!modified) return 0;
     }
   } else {
-    log_debug("file does not exist in previous index `%s`", curr->fp);
+    log_info("file does not exist in previous index `%s`", curr->fp);
 
     if (!initargs.skipproc) {
-      const struct tpreq_s req = {cmdsets, curr, LCTRIG_NEW};
+      const int flags = LCTRIG_NEW | (initargs.verbose ? LCTOPT_VERBOSE : 0);
+      const struct tpreq_s req = {cmdsets, curr, flags};
       int err;
       if ((err = tpqueue(&req))) return err;
     }
@@ -211,10 +217,11 @@ static int fsprocfile_post(const char* fp) {
   curr = indexfind(thismap, fp);
   assert(curr != NULL); /* should+must exist in the list */
 
-  log_debug("file `%s` is new (post-command exec)", curr->fp);
+  log_info("file `%s` is new (post-command exec)", curr->fp);
 
   if (!initargs.skipproc) {
-    const struct tpreq_s req = {cmdsets, curr, LCTRIG_NEW};
+    const int flags = LCTRIG_NEW | (initargs.verbose ? LCTOPT_VERBOSE : 0);
+    const struct tpreq_s req = {cmdsets, curr, flags};
     int err;
     if ((err = tpqueue(&req))) return err;
   }
@@ -232,10 +239,11 @@ static void checkremoved(void) {
   struct inode_s* head = lastmap;
   while (head != NULL) {
     if (indexfind(thismap, head->fp) == NULL) { /* file no longer exists */
-      log_debug("file `%s` has been removed", head->fp);
+      log_info("file `%s` has been removed", head->fp);
 
       if (initargs.skipproc) goto next;
-      const struct tpreq_s req = {cmdsets, head, LCTRIG_DEL};
+      const int flags = LCTRIG_DEL | (initargs.verbose ? LCTOPT_VERBOSE : 0);
+      const struct tpreq_s req = {cmdsets, head, flags};
       int err;
       if ((err = tpqueue(&req)))
         log_error("error queuing deletion command for `%s`: %d", head->fp, err);
@@ -249,7 +257,7 @@ static int cmpchanges(void) {
   if (loadlastmap(initargs.indexfile)) {
     // attempt to load the file, but continue if it doesn't exist
     if (errno != ENOENT) {
-      log_fatal("cannot read index `%s`: %s", initargs.indexfile,
+      log_error("cannot read index `%s`: %s", initargs.indexfile,
                 strerror(errno));
       return -1;
     }
@@ -271,12 +279,12 @@ static int cmpchanges(void) {
 
     char* dir;
     while ((dir = dqnext()) != NULL) {
-      log_debug("scanning `%s`", dir);
+      if (initargs.verbose) log_verbose("scanning `%s`", dir);
 
       int err;
       if ((err = fswalk(dir, pass == 0 ? fsprocfile_pre : fsprocfile_post,
                         dqpush))) {
-        log_fatal("file func for `%s` returned %d", err);
+        log_error("file func for `%s` returned %d", dir, err);
         return -1;
       }
     }
@@ -300,7 +308,7 @@ static int cmpchanges(void) {
   }
 
   if (savethismap(initargs.indexfile)) {
-    log_fatal("cannot write index `%s`: %s", initargs.indexfile,
+    log_error("cannot write index `%s`: %s", initargs.indexfile,
               strerror(errno));
     return -1;
   }
@@ -312,18 +320,16 @@ int main(int argc, char** argv) {
   atexit(freeall);
   if (parseinitargs(argc, argv)) return 1;
 
-  log_set_lock(loglockfn, NULL);
-
   // init worker thread pool
   int err;
   if ((err = tpinit(initargs.threads))) {
-    log_fatal("error initializing thread pool: %d", err);
+    log_error("error initializing thread pool: %d", err);
     return 1;
   }
 
   // load configuration file
   if ((cmdsets = lcmdparse(initargs.configfile)) == NULL) {
-    log_fatal("error loading configuration file `%s`", initargs.configfile);
+    log_error("error loading configuration file `%s`", initargs.configfile);
     return 1;
   }
 

@@ -2,9 +2,6 @@ cmake_minimum_required(VERSION 3.22)
 
 project(fsautoproc C)
 
-add_library(logc STATIC "dep/logc/src/log.c" "dep/logc/src/log.h")
-target_compile_definitions(logc PRIVATE LOG_USE_COLOR)
-
 # force cJSON to build and link statically
 set(CJSON_BUILD_SHARED_LIBS OFF)
 set(CJSON_OVERRIDE_BUILD_SHARED_LIBS ON)
@@ -21,7 +18,7 @@ file(GLOB HEADERS "include/*.h")
 add_executable(fsautoproc ${SOURCES} ${HEADERS})
 
 target_link_directories(fsautoproc PRIVATE dep)
-target_link_libraries(fsautoproc PRIVATE logc cjson pthread)
+target_link_libraries(fsautoproc PRIVATE cjson pthread)
 target_include_directories(fsautoproc PRIVATE "include" "dep")
 
 install(TARGETS fsautoproc DESTINATION bin)

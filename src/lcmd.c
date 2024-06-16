@@ -11,9 +11,9 @@
 #include <unistd.h>
 
 #include "cJSON/cJSON.h"
-#include "logc/src/log.h"
 
 #include "index.h"
+#include "log.h"
 #include "sl.h"
 
 static void lcmdfree(struct lcmdset_s* cmd) {
@@ -68,7 +68,7 @@ static slist_t* lcmdjsontosl(const cJSON* arr) {
   cJSON* e;
   cJSON_ArrayForEach(e, arr) {
     if (!cJSON_IsString(e)) {
-      log_warn("not a string: %s", e->valuestring);
+      log_error("error converting cmd, not a string: %s", e->valuestring);
     } else if (sladd(&sl, e->valuestring)) {
       goto err;
     }
@@ -93,7 +93,7 @@ static int lcmdparseflags(const cJSON* item) {
     } else if (strcmp(e->valuestring, "nop") == 0) {
       flags |= LCTRIG_NOP;
     } else {
-      log_warn("unknown flag name `%s`", e->valuestring);
+      log_error("unknown flag name `%s`", e->valuestring);
     }
   }
   return flags;
@@ -172,8 +172,10 @@ static bool lcmdmatch(const slist_t* fpatterns, const char* fp) {
   return false;
 }
 
-static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
-  log_trace("invoking command `%s` for `%s`", cmd, node->fp);
+static int lcmdinvoke(const char* cmd, const struct inode_s* node,
+                      const int flags) {
+  if (flags & LCTOPT_VERBOSE)
+    log_verbose("invoking command `%s` for `%s`", cmd, node->fp);
 
   // fork the process to run the command
   pid_t pid;
@@ -199,7 +201,8 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node) {
 }
 
 int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
-  log_trace("exec file: %s (flags: %02x)", node->fp, flags);
+  if (flags & LCTOPT_VERBOSE)
+    log_verbose("exec file: %s (flags: %02x)", node->fp, flags);
 
   int ret = 0;
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
@@ -208,7 +211,7 @@ int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
 
     // invoke all system commands
     for (size_t j = 0; s->syscmds[j] != NULL; j++)
-      if ((ret = lcmdinvoke(s->syscmds[j], node))) break;
+      if ((ret = lcmdinvoke(s->syscmds[j], node, flags))) break;
   }
   return ret;
 }
