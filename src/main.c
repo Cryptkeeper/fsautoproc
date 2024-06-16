@@ -65,7 +65,7 @@ static void freeall(void) {
 
 static int parseinitargs(const int argc, char** const argv) {
   int c;
-  while ((c = getopt(argc, argv, ":hc:i:s:uv")) != -1) {
+  while ((c = getopt(argc, argv, ":hc:i:s:t:uv")) != -1) {
     switch (c) {
       case 'h':
         printf("Usage: %s\n"
