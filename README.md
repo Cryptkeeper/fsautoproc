@@ -43,6 +43,7 @@ Usage: fsautoproc
 Options:
   -c <file>   Configuration file (default: `fsautoproc.json`)
   -i <file>   File index write path
+  -j          Include ignored files in index (default: false)
   -s <dir>    Search directory root (default: `.`)
   -t <#>      Number of worker threads (default: 4)
   -u          Skip processing files, only update file index

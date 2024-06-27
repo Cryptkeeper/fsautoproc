@@ -172,6 +172,12 @@ static bool lcmdmatch(const slist_t* fpatterns, const char* fp) {
   return false;
 }
 
+bool lcmdmatchany(struct lcmdset_s** cs, const char* fp) {
+  for (size_t i = 0; cs != NULL && cs[i] != NULL; i++)
+    if (lcmdmatch(cs[i]->fpatterns, fp)) return true;
+  return false;
+}
+
 static int lcmdinvoke(const char* cmd, const struct inode_s* node,
                       const int flags) {
   if (flags & LCTOPT_VERBOSE)

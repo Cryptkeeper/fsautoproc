@@ -1,6 +1,8 @@
 #ifndef FSAUTOPROC_LCMD_H
 #define FSAUTOPROC_LCMD_H
 
+#include <stdbool.h>
+
 #include "sl.h"
 
 struct inode_s;
@@ -38,6 +40,13 @@ void lcmdfree_r(struct lcmdset_s** cs);
 /// @param fp The file path to parse
 /// @return An array of command sets if successful, otherwise NULL.
 struct lcmdset_s** lcmdparse(const char* fp);
+
+/// @brief `lcmdmatchany()` checks if the provided file path matches any of the
+/// file patterns in the command set.
+/// @param cs The command set array to filter
+/// @param fp The file path to match
+/// @return true if the file path matches any file pattern, otherwise false
+bool lcmdmatchany(struct lcmdset_s** cs, const char* fp);
 
 /// @brief `lcmdexec()` sequentially iterates the command set and executes the
 /// system commands on the provided file node if the trigger flags and file

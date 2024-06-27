@@ -18,6 +18,7 @@ static struct {
   char* configfile;
   char* indexfile;
   char* searchdir;
+  _Bool includejunk;
   _Bool skipproc;
   int threads;
   _Bool verbose;
@@ -65,7 +66,7 @@ static void freeall(void) {
 
 static int parseinitargs(const int argc, char** const argv) {
   int c;
-  while ((c = getopt(argc, argv, ":hc:i:s:t:uv")) != -1) {
+  while ((c = getopt(argc, argv, ":hc:i:js:t:uv")) != -1) {
     switch (c) {
       case 'h':
         printf("Usage: %s\n"
@@ -73,6 +74,7 @@ static int parseinitargs(const int argc, char** const argv) {
                "Options:\n"
                "  -c <file>   Configuration file (default: `fsautoproc.json`)\n"
                "  -i <file>   File index write path\n"
+               "  -j          Include ignored files in index (default: false)\n"
                "  -s <dir>    Search directory root (default: `.`)\n"
                "  -t <#>      Number of worker threads (default: 4)\n"
                "  -u          Skip processing files, only update file index\n"
@@ -84,6 +86,9 @@ static int parseinitargs(const int argc, char** const argv) {
         break;
       case 'i':
         strdupoptarg(initargs.indexfile);
+        break;
+      case 'j':
+        initargs.includejunk = true;
         break;
       case 's':
         strdupoptarg(initargs.searchdir);
@@ -145,6 +150,13 @@ static int savethismap(const char* fp) {
 }
 
 static int fsprocfile_pre(const char* fp) {
+  // only process files that match at least one command set
+  if (!initargs.includejunk && !lcmdmatchany(cmdsets, fp)) {
+    if (initargs.verbose)
+      log_verbose("file `%s` does not match any command set", fp);
+    return 0;
+  }
+
   if (initargs.verbose) log_verbose("processing file `%s`", fp);
 
   struct inode_s finfo = {0};
@@ -204,6 +216,13 @@ static int fsprocfile_pre(const char* fp) {
 }
 
 static int fsprocfile_post(const char* fp) {
+  // only process files that match at least one command set
+  if (!initargs.includejunk && !lcmdmatchany(cmdsets, fp)) {
+    if (initargs.verbose)
+      log_verbose("file `%s` does not match any command set", fp);
+    return 0;
+  }
+
   struct inode_s* curr = indexfind(thismap, fp);
   if (curr != NULL) {
     // check if the file was modified during the command execution
