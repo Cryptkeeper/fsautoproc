@@ -38,7 +38,7 @@ Git submodules provide:
 
 ```
 $ fsautoproc -h
-Usage: fsautoproc
+Usage: fsautoproc -i <file>
 
 Options:
   -c <file>   Configuration file (default: `fsautoproc.json`)
@@ -49,3 +49,18 @@ Options:
   -u          Skip processing files, only update file index
   -v          Enable verbose output
 ```
+
+#### Logging Symbols
+
+fsautoproc uses a symbol table when logging file changes and program status. This minimizes the amount of direct output and improves searchability. Symbols denote a basic file change being detected, and letters indicate program behavior status (i.e. the result of detecting those basic file changes).
+
+| Symbol | Purpose                               |
+| ------ | ------------------------------------- |
+| `[+]`  | A new file was created                |
+| `[*]`  | A file was modified                   |
+| `[-]`  | A file was deleted/removed            |
+| `[j]`  | A file was ignored/considered junk    |
+| `[n]`  | A file was not detected as modified   |
+| `[s]`  | A directory is being scanned          |
+| `[x]`  | A system command is being invoked     |
+| `[!]`  | An error has occurred                 |

@@ -180,8 +180,7 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp) {
 
 static int lcmdinvoke(const char* cmd, const struct inode_s* node,
                       const int flags) {
-  if (flags & LCTOPT_VERBOSE)
-    log_verbose("invoking command `%s` for `%s`", cmd, node->fp);
+  if (flags & LCTOPT_VERBOSE) log_verbose("[x] %s", cmd);
 
   // fork the process to run the command
   pid_t pid;
@@ -207,9 +206,6 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node,
 }
 
 int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
-  if (flags & LCTOPT_VERBOSE)
-    log_verbose("exec file: %s (flags: %02x)", node->fp, flags);
-
   int ret = 0;
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
     const struct lcmdset_s* s = cs[i];

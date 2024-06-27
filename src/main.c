@@ -69,7 +69,7 @@ static int parseinitargs(const int argc, char** const argv) {
   while ((c = getopt(argc, argv, ":hc:i:js:t:uv")) != -1) {
     switch (c) {
       case 'h':
-        printf("Usage: %s\n"
+        printf("Usage: %s -i <file>\n"
                "\n"
                "Options:\n"
                "  -c <file>   Configuration file (default: `fsautoproc.json`)\n"
@@ -149,15 +149,14 @@ static int savethismap(const char* fp) {
   return err;
 }
 
+#define abssub(a, b) ((a) >= (b) ? (a) - (b) : (b) - (a))
+
 static int fsprocfile_pre(const char* fp) {
   // only process files that match at least one command set
   if (!initargs.includejunk && !lcmdmatchany(cmdsets, fp)) {
-    if (initargs.verbose)
-      log_verbose("file `%s` does not match any command set", fp);
+    if (initargs.verbose) log_verbose("[j] %s", fp);
     return 0;
   }
-
-  if (initargs.verbose) log_verbose("processing file `%s`", fp);
 
   struct inode_s finfo = {0};
   if ((finfo.fp = strdup(fp)) == NULL) return -1;
@@ -179,13 +178,10 @@ static int fsprocfile_pre(const char* fp) {
   if (prev != NULL) {
     const bool modified = !fsstateql(&prev->st, &curr->st);
     if (modified) {
-      log_info("file `%s` has been modified (last modified: %" PRIu64
-               " -> %" PRIu64 ", file size: %" PRIu64 " -> %" PRIu64 ")",
-               curr->fp, prev->st.lmod, curr->st.lmod, prev->st.fsze,
-               curr->st.fsze);
+      const uint64_t dt = abssub(prev->st.fsze, curr->st.fsze);
+      log_info("[*] %s (Δ%" PRIu64 ")", curr->fp, dt);
     } else {
-      if (initargs.verbose)
-        log_verbose("file `%s` has not been modified", curr->fp);
+      if (initargs.verbose) log_verbose("[n] %s", curr->fp);
     }
 
     if (!initargs.skipproc) {
@@ -198,7 +194,7 @@ static int fsprocfile_pre(const char* fp) {
       if (!modified) return 0;
     }
   } else {
-    log_info("file does not exist in previous index `%s`", curr->fp);
+    log_info("[+] %s", curr->fp);
 
     if (!initargs.skipproc) {
       const int flags = LCTRIG_NEW | (initargs.verbose ? LCTOPT_VERBOSE : 0);
@@ -218,8 +214,7 @@ static int fsprocfile_pre(const char* fp) {
 static int fsprocfile_post(const char* fp) {
   // only process files that match at least one command set
   if (!initargs.includejunk && !lcmdmatchany(cmdsets, fp)) {
-    if (initargs.verbose)
-      log_verbose("file `%s` does not match any command set", fp);
+    if (initargs.verbose) log_info("[j] %s", fp);
     return 0;
   }
 
@@ -230,10 +225,10 @@ static int fsprocfile_post(const char* fp) {
     if (fsstat(fp, &mod)) return -1;
     if (fsstateql(&curr->st, &mod)) return 0;
 
-    if (initargs.verbose)
-      log_info("file `%s` was modified (last modified: %" PRIu64 " -> %" PRIu64
-               ", file size: %" PRIu64 " -> %" PRIu64 ") (post-command exec)",
-               curr->fp, curr->st.lmod, mod.lmod, curr->st.fsze, mod.fsze);
+    if (initargs.verbose) {
+      const uint64_t dt = abssub(curr->st.fsze, mod.fsze);
+      log_info("[*] %s (Δ%" PRIu64 ")", curr->fp, dt);
+    }
 
     // update the file info in the current index
     curr->st = mod;
@@ -251,7 +246,7 @@ static int fsprocfile_post(const char* fp) {
   curr = indexfind(thismap, fp);
   assert(curr != NULL); /* should+must exist in the list */
 
-  log_info("file `%s` is new (post-command exec)", curr->fp);
+  log_info("[+] %s", curr->fp);
 
   if (!initargs.skipproc) {
     const int flags = LCTRIG_NEW | (initargs.verbose ? LCTOPT_VERBOSE : 0);
@@ -267,13 +262,20 @@ static int fsprocfile_post(const char* fp) {
   return 0;
 }
 
-static void checkremoved(void) {
-  if (lastmap == NULL) return;// no previous map entries to check
+static int waitforwork(void) {
+  // wait for all work to complete
+  int err;
+  if ((err = tpwait())) log_error("error waiting for threads: %d", err);
+  return err;
+}
+
+static int checkremoved(void) {
+  if (lastmap == NULL) return 0;// no previous map entries to check
 
   struct inode_s* head = lastmap;
   while (head != NULL) {
     if (indexfind(thismap, head->fp) == NULL) { /* file no longer exists */
-      log_info("file `%s` has been removed", head->fp);
+      log_info("[-] %s", head->fp);
 
       if (initargs.skipproc) goto next;
       const int flags = LCTRIG_DEL | (initargs.verbose ? LCTOPT_VERBOSE : 0);
@@ -285,6 +287,29 @@ static void checkremoved(void) {
   next:
     head = head->next;
   }
+
+  return waitforwork();
+}
+
+static int execstage(fswalkfn_t filefn) {
+  dqreset();
+  if (dqpush(initargs.searchdir)) {
+    perror(NULL);
+    return -1;
+  }
+
+  char* dir;
+  while ((dir = dqnext()) != NULL) {
+    if (initargs.verbose) log_verbose("[s] %s", dir);
+
+    int err;
+    if ((err = fswalk(dir, filefn, dqpush))) {
+      log_error("file func for `%s` returned %d", dir, err);
+      return -1;
+    }
+  }
+
+  return waitforwork();
 }
 
 static int cmpchanges(void) {
@@ -302,44 +327,10 @@ static int cmpchanges(void) {
   //    (if any) and fire all types of file events (NEW, MOD, DEL, NOP)
   //  - fsprocfile_post, which will only fire NEW events for files that were created
   //    as a result of the previous commands to ensure all files are indexed
-  for (int pass = 0; pass <= 1; pass++) {
-    log_info("performing pass %d", pass);
-
-    dqreset();
-    if (dqpush(initargs.searchdir)) {
-      perror(NULL);
-      return -1;
-    }
-
-    char* dir;
-    while ((dir = dqnext()) != NULL) {
-      if (initargs.verbose) log_verbose("scanning `%s`", dir);
-
-      int err;
-      if ((err = fswalk(dir, pass == 0 ? fsprocfile_pre : fsprocfile_post,
-                        dqpush))) {
-        log_error("file func for `%s` returned %d", dir, err);
-        return -1;
-      }
-    }
-
-    // wait for all work to complete
-    int err;
-    if ((err = tpwait())) {
-      log_error("error waiting for threads: %d", err);
-      return -1;
-    }
-
-    if (pass == 0) {
-      checkremoved();// test for files removed in new index
-
-      // wait for all work to complete
-      if ((err = tpwait())) {
-        log_error("error waiting for threads: %d", err);
-        return -1;
-      }
-    }
-  }
+  int err;
+  if ((err = execstage(fsprocfile_pre)) || (err = checkremoved()) ||
+      (err = execstage(fsprocfile_post)))
+    return err;
 
   if (savethismap(initargs.indexfile)) {
     log_error("cannot write index `%s`: %s", initargs.indexfile,

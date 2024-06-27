@@ -11,6 +11,7 @@
 #define log_info(fmt, ...) printf(fmt " \n", __VA_ARGS__)
 #define log_verbose(fmt, ...) printf(fmt " \n", __VA_ARGS__)
 #define log_error(fmt, ...)                                                    \
-  fprintf(stderr, fmt " [%s:%d]\n", __VA_ARGS__, LOG_FILE_MACRO, __LINE__)
+  fprintf(stderr, "[!] " fmt " [%s:%d]\n", __VA_ARGS__, LOG_FILE_MACRO,        \
+          __LINE__)
 
 #endif//FSAUTOPROC_LOG_H
