@@ -6,6 +6,7 @@ project(fsautoproc C)
 set(CJSON_BUILD_SHARED_LIBS OFF)
 set(CJSON_OVERRIDE_BUILD_SHARED_LIBS ON)
 set(ENABLE_CJSON_TEST OFF)
+set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 add_subdirectory(dep/cJSON)
 
 # use strict C11
