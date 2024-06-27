@@ -205,7 +205,22 @@ static int fsprocfile_pre(const char* fp) {
 
 static int fsprocfile_post(const char* fp) {
   struct inode_s* curr = indexfind(thismap, fp);
-  if (curr != NULL) return 0;
+  if (curr != NULL) {
+    // check if the file was modified during the command execution
+    struct fsstat_s mod = {0};
+    if (fsstat(fp, &mod)) return -1;
+    if (fsstateql(&curr->st, &mod)) return 0;
+
+    if (initargs.verbose)
+      log_info("file `%s` was modified (last modified: %" PRIu64 " -> %" PRIu64
+               ", file size: %" PRIu64 " -> %" PRIu64 ") (post-command exec)",
+               curr->fp, curr->st.lmod, mod.lmod, curr->st.fsze, mod.fsze);
+
+    // update the file info in the current index
+    curr->st = mod;
+
+    return 0;
+  }
 
   struct inode_s finfo = {0};
   if ((finfo.fp = strdup(fp)) == NULL) return -1;
