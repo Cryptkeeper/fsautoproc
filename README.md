@@ -8,20 +8,22 @@
 
 e.g. you have a large folder of PDFs that is published to a web server. When a new PDF is added, or an existing PDF is modified, you wish to strip any unnecessary file metadata and generate a thumbnail image. If the PDF file is removed, its thumbnail is removed as well.
 
-`fsautoproc` does not (yet):
+`fsautoproc` does not:
 
-- re-generate broken file system state (e.g. you manually delete a generated thumbnail, `fsautoproc` will log an error for the missing file but does not automatically regenerate the file)
+- re-generate broken file system state (e.g. you manually delete a generated thumbnail, `fsautoproc` can detect the removal and trigger a command to re-generate it, but you must configure the commands to do so)
 
 Before using, consider:
 
 - `fsautoproc` is not a daemon. It is intended to be run as a cron job or a systemd timer.
 - `fsautoproc` is not a live file system watcher. It scans for modified files on each run.
 - **This is a C utility invoking shell commands. Be mindful of the serious security implications of running arbitrary shell commands and use restricted user accounts.**
-- Like most C code you find on the internet, `fsautoproc` was built for a specific hobby purpose with arbitrary C99 opinions and may not be reasonable for your use case.
+- Like most C code you find on the internet, `fsautoproc` was built for a specific hobby purpose with arbitrary C opinions and may not be reasonable for your use case.
 
 ## Building
 
 `fsautoproc` is built with CMake. You will need a C11 compiler and CMake installed. The utility is primarily written for use on Linux and BSD systems (including macOS). It may work on Windows with WSL or Cygwin, but this is currently untested.
+
+C11 is used for basic atomic boolean operations. C99 compatibility can be achieved by replacing any `_Atomic` keyword usages with `volatile` and adding a mutex lock.
 
 1. Clone the repository and its submodules: `git clone --recursive https://github.com/Cryptkeeper/fsautoproc`
 2. Build the CMake project with `cmake -B build`
