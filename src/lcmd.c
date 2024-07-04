@@ -1,7 +1,7 @@
 #include "lcmd.h"
 
 #include <assert.h>
-#include <fnmatch.h>
+#include <regex.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +17,8 @@
 #include "sl.h"
 
 static void lcmdfree(struct lcmdset_s* cmd) {
-  slfree(cmd->fpatterns);
+  for (size_t i = 0; cmd->fpatterns[i] != NULL; i++) regfree(cmd->fpatterns[i]);
+  free(cmd->fpatterns);
   slfree(cmd->syscmds);
   free(cmd);
 }
@@ -113,8 +114,28 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd) {
     return -1;
 
   if ((cmd->onflags = lcmdparseflags(onlist)) == 0) return -1;
-  if ((cmd->fpatterns = lcmdjsontosl(plist)) == NULL) return -1;
   if ((cmd->syscmds = lcmdjsontosl(clist)) == NULL) return -1;
+
+  const int regcount = cJSON_GetArraySize(plist);
+  if ((cmd->fpatterns = calloc(regcount + 1, sizeof(regex_t*))) == NULL)
+    return -1;
+
+  // compile regex patterns
+  for (int i = 0; i < regcount; i++) {
+    cJSON* p = cJSON_GetArrayItem(plist, i);
+    if (!cJSON_IsString(p)) return -1;
+
+    regex_t* reg;
+    if ((reg = cmd->fpatterns[i] = calloc(1, sizeof(*reg))) == NULL) return -1;
+
+    if (regcomp(reg, p->valuestring, REG_EXTENDED | REG_NOSUB | REG_ENHANCED)) {
+      char errmsg[512] = {0};
+      regerror(errno, reg, errmsg, sizeof(errmsg));
+      log_error("error compiling pattern `%s`: %s", p->valuestring, errmsg);
+
+      return -1;
+    }
+  }
 
   return 0;
 }
@@ -160,15 +181,9 @@ ok:
   return cs;
 }
 
-static bool lcmdmatch(const slist_t* fpatterns, const char* fp) {
-  for (size_t i = 0; fpatterns[i] != NULL; i++) {
-    int ret;
-    if ((ret = fnmatch(fpatterns[i], fp, 0)) == 0) {
-      return true;
-    } else if (ret != FNM_NOMATCH) {
-      log_error("fnmatch error `%s`: %s", fpatterns[i], strerror(errno));
-    }
-  }
+static bool lcmdmatch(regex_t** fpatterns, const char* fp) {
+  for (size_t i = 0; fpatterns[i] != NULL; i++)
+    if (!regexec(fpatterns[i], fp, 0, NULL, 0)) return true;
   return false;
 }
 
@@ -214,7 +229,7 @@ int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
         log_info("cmdset %zu ignored flags: 0x%02X", i, flags);
       continue;
     }
-    if (lcmdmatch(s->fpatterns, node->fp)) {
+    if (!lcmdmatch(s->fpatterns, node->fp)) {
       if (flags & LCTOPT_TRACE)
         log_info("cmdset %zu ignored filepath: %s", i, node->fp);
       continue;

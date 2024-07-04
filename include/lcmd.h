@@ -1,6 +1,7 @@
 #ifndef FSAUTOPROC_LCMD_H
 #define FSAUTOPROC_LCMD_H
 
+#include <regex.h>
 #include <stdbool.h>
 
 #include "sl.h"
@@ -17,9 +18,9 @@ struct inode_s;
 #define LCTOPT_VERBOSE (1 << 8)
 
 struct lcmdset_s {
-  int onflags;        /* command set trigger names */
-  slist_t* fpatterns; /* file patterns used for matching */
-  slist_t* syscmds;   /* commands to pass to `system(3) */
+  int onflags;         /* command set trigger names */
+  regex_t** fpatterns; /* compiled regex patterns used for matching */
+  slist_t* syscmds;    /* commands to pass to `system(3) */
 };
 
 /// @brief `lcmdfree()` iterates and frees all memory allocated by `lcmdparse()`.
