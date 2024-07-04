@@ -11,6 +11,9 @@ struct inode_s;
 #define LCTRIG_MOD (1 << 1)
 #define LCTRIG_DEL (1 << 2)
 #define LCTRIG_NOP (1 << 3)
+#define LCTRIG_ALL (LCTRIG_NEW | LCTRIG_MOD | LCTRIG_DEL | LCTRIG_NOP)
+
+#define LCTOPT_TRACE (1 << 7)
 #define LCTOPT_VERBOSE (1 << 8)
 
 struct lcmdset_s {
@@ -54,7 +57,9 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp);
 /// @param cs The command set array to filter and execute
 /// @param node The file node to execute on
 /// @param flags The trigger flags to match, see `LCTRIG_*`. If `LCTOPT_VERBOSE`
-/// is set, the commands will be printed to stdout before execution.
+/// is set, the commands will be printed to stdout before execution. If
+/// `LCTOPT_TRACE` is set, the true/false match result for each command set will
+/// be printed to stdout.
 /// @return 0 if successful, otherwise the first non-zero return value from
 /// `system(3)` is returned.
 int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags);

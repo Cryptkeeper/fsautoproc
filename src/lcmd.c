@@ -209,7 +209,21 @@ int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
   int ret = 0;
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
     const struct lcmdset_s* s = cs[i];
-    if (!(s->onflags & flags) || !lcmdmatch(s->fpatterns, node->fp)) continue;
+    if (!(s->onflags & flags)) {
+      if (flags & LCTOPT_TRACE)
+        log_info("cmdset %zu ignored flags: 0x%02X", i, flags);
+      continue;
+    }
+    if (lcmdmatch(s->fpatterns, node->fp)) {
+      if (flags & LCTOPT_TRACE)
+        log_info("cmdset %zu ignored filepath: %s", i, node->fp);
+      continue;
+    }
+
+    if (flags & LCTOPT_TRACE) {
+      log_info("cmdset %zu (0x%02X) matched: %s", i, s->onflags, node->fp);
+      continue;// skip executing commands
+    }
 
     // invoke all system commands
     for (size_t j = 0; s->syscmds[j] != NULL; j++)

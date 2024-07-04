@@ -18,6 +18,7 @@ static struct {
   char* configfile;
   char* indexfile;
   char* searchdir;
+  char* tracefile;
   _Bool includejunk;
   _Bool skipproc;
   int threads;
@@ -26,6 +27,7 @@ static struct {
 
 static void freeinitargs(void) {
   free(initargs.configfile);
+  free(initargs.tracefile);
   free(initargs.indexfile);
   free(initargs.searchdir);
 }
@@ -66,7 +68,7 @@ static void freeall(void) {
 
 static int parseinitargs(const int argc, char** const argv) {
   int c;
-  while ((c = getopt(argc, argv, ":hc:i:js:t:uv")) != -1) {
+  while ((c = getopt(argc, argv, ":hc:i:js:t:r:uv")) != -1) {
     switch (c) {
       case 'h':
         printf("Usage: %s -i <file>\n"
@@ -77,6 +79,7 @@ static int parseinitargs(const int argc, char** const argv) {
                "  -j          Include ignored files in index (default: false)\n"
                "  -s <dir>    Search directory root (default: `.`)\n"
                "  -t <#>      Number of worker threads (default: 4)\n"
+               "  -r <file>   Trace which command sets match the file\n"
                "  -u          Skip processing files, only update file index\n"
                "  -v          Enable verbose output\n",
                argv[0]);
@@ -95,6 +98,9 @@ static int parseinitargs(const int argc, char** const argv) {
         break;
       case 't':
         initargs.threads = (int) strtol(optarg, NULL, 10);
+        break;
+      case 'r':
+        strdupoptarg(initargs.tracefile);
         break;
       case 'u':
         initargs.skipproc = true;
@@ -341,6 +347,12 @@ static int cmpchanges(void) {
   return 0;
 }
 
+static int tracefile(const char* fp) {
+  struct inode_s node = {.fp = (char*) fp};
+  if (fsstat(fp, &node.st)) return -1;
+  return lcmdexec(cmdsets, &node, LCTOPT_TRACE | LCTRIG_ALL);
+}
+
 int main(int argc, char** argv) {
   atexit(freeall);
   if (parseinitargs(argc, argv)) return 1;
@@ -358,7 +370,12 @@ int main(int argc, char** argv) {
     return 1;
   }
 
-  if ((err = cmpchanges())) return err;
+  if (initargs.tracefile != NULL) {
+    // prints which command sets match the file and exits
+    return tracefile(initargs.tracefile);
+  } else if ((err = cmpchanges())) {
+    return err;
+  }
 
   return 0;
 }
