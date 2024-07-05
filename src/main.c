@@ -266,17 +266,16 @@ static int checkremoved(void) {
 
   for (size_t i = 0; i < lastmap.size; i++) {
     struct inode_s* prev = lastlist[i];
-    if (indexfind(&thismap, prev->fp) == NULL) { /* file no longer exists */
-      log_info("[-] %s", prev->fp);
+    if (indexfind(&thismap, prev->fp) != NULL) continue;
 
-      if (initargs.skipproc) continue;
-      const int flags = LCTRIG_DEL | (initargs.verbose ? LCTOPT_VERBOSE : 0);
-      const struct tpreq_s req = {cmdsets, prev, flags};
-      int err;
-      if ((err = tpqueue(&req))) {
-        log_error("error queuing deletion command for `%s`: %d", prev->fp, err);
-      }
-    }
+    log_info("[-] %s", prev->fp);
+
+    if (initargs.skipproc) continue;
+    const int flags = LCTRIG_DEL | (initargs.verbose ? LCTOPT_VERBOSE : 0);
+    const struct tpreq_s req = {cmdsets, prev, flags};
+    int err;
+    if ((err = tpqueue(&req)))
+      log_error("error queuing deletion command for `%s`: %d", prev->fp, err);
   }
 
   free(lastlist);
@@ -361,9 +360,14 @@ int main(int argc, char** argv) {
 
   if (initargs.tracefile != NULL) {
     // prints which command sets match the file and exits
-    return tracefile(initargs.tracefile);
+    if ((err = tracefile(initargs.tracefile))) {
+      log_error("error tracing file `%s`: %d", initargs.tracefile, err);
+      return 1;
+    }
+    return 0;
   } else if ((err = cmpchanges())) {
-    return err;
+    log_error("error comparing changes: %d", err);
+    return 1;
   }
 
   return 0;
