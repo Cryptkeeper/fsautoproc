@@ -17,7 +17,12 @@
 #include "sl.h"
 
 static void lcmdfree(struct lcmdset_s* cmd) {
-  for (size_t i = 0; cmd->fpatterns[i] != NULL; i++) regfree(cmd->fpatterns[i]);
+  for (size_t i = 0; cmd->fpatterns[i] != NULL; i++) {
+    regex_t* reg = cmd->fpatterns[i];
+    if (reg == NULL) continue;
+    regfree(reg);
+    free(reg);
+  }
   free(cmd->fpatterns);
   slfree(cmd->syscmds);
   free(cmd);
