@@ -4,13 +4,12 @@
       "del"
     ],
     "patterns": [
-      "*.pdf"
+      ".+.pdf"
     ],
     "commands": [
-      "rm -f ${FILEPATH%.*}.jpg",
-      "rm -rf ${FILEPATH%.*}"
+      "rm -f ${FILEPATH%.*}.jpg"
     ],
-    "description": "deletes the thumbnail image and pages directory of any deleted PDF file"
+    "description": "deletes the thumbnail image of any deleted PDF file"
   },
   {
     "on": [
@@ -18,7 +17,7 @@
       "mod"
     ],
     "patterns": [
-      "*.pdf"
+      ".+.pdf"
     ],
     "commands": [
       "exiftool -all:all= -overwrite_original $FILEPATH",
@@ -32,40 +31,12 @@
       "mod"
     ],
     "patterns": [
-      "*.pdf"
+      ".+.pdf"
     ],
     "commands": [
       "convert $FILEPATH[0] ${FILEPATH%.*}.jpg",
       "exiftool -r -overwrite_original -P -all= ${FILEPATH%.*}.jpg"
     ],
     "description": "generates a thumbnail image from the first page of a PDF file and strips its metadata"
-  },
-  {
-    "on": [
-      "new",
-      "mod"
-    ],
-    "patterns": [
-      "*.pdf"
-    ],
-    "commands": [
-      "mkdir -p ${FILEPATH%.*}",
-      "convert -density 150 $FILEPATH -quality 90% ${FILEPATH%.*}/page_%d.jpg",
-      "exiftool -r -overwrite_original -P -all= ${FILEPATH%.*}/*.jpg"
-    ],
-    "description": "converts any new or modified PDF file to a directory of images and strips their metadata"
-  },
-  {
-    "on": [
-      "new",
-      "mod"
-    ],
-    "patterns": [
-      "*/page_*.jpg"
-    ],
-    "commands": [
-      "tesseract $FILEPATH ${FILEPATH%.*} -l eng"
-    ],
-    "description": "runs OCR on any new or modified page image file"
   }
 ]
