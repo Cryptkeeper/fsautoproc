@@ -11,36 +11,51 @@ struct inode_s {
   struct inode_s* next; /* next node in linked list */
 };
 
-/// @brief Searches the linked node list for an entry with a matching `fp` value.
-/// @param idx The head node of the linked list
-/// @param fp The search value (filepath)
-/// @return If a match is found, its allocation pointer is returned, otherwise NULL.
-struct inode_s* indexfind(struct inode_s* idx, const char* fp);
+#define INDEXBUCKETS 16
 
-/// @brief Iterates and writes the linked node list to a file stream for future
-/// deserializing using `indexread`.
-/// @param idx The head node of the linked list
+struct index_s {
+  struct inode_s* buckets[INDEXBUCKETS];
+  size_t size;
+};
+
+/// @brief Searches the index for a node with a matching filepath.
+/// @param idx The index to search
+/// @param fp The search value (filepath) to compare
+/// @return If a match is found, its pointer is returned, otherwise NULL.
+struct inode_s* indexfind(struct index_s* idx, const char* fp);
+
+/// @brief Flattens the index map into a sorted array of nodes (by filepath).
+/// The list is then written to the file stream and freed.
+/// @param idx The index to flatten
 /// @param s The file stream to write to
 /// @return If successful, 0 is returned. Otherwise, -1 is returned and `errno`
 /// is set.
-int indexwrite(struct inode_s* idx, FILE* s);
+int indexwrite(struct index_s* idx, FILE* s);
 
-/// @brief Reads a file stream and deserializes the contents into a linked node list.
-/// Invalid lines are skipped without warning.
-/// @param idx Return value of the the head node of the linked list
+/// @brief Reads a file stream and deserializes the contents into a map of
+/// individual file nodes.
+/// @param idx The index to populate
 /// @param s The file stream to read from
 /// @return If successful, 0 is returned. Otherwise, -1 is returned and `errno`
 /// is set.
-int indexread(struct inode_s** idx, FILE* s);
+int indexread(struct index_s* idx, FILE* s);
 
-/// @brief Dynamically allocates a new node and prepends it to the linked list.
-/// @param idx The previous head node of the linked list
-/// @param tail The new node to copy and prepend
-/// @return The new head node of the linked list, or NULL if an error occurred.
-struct inode_s* indexprepend(struct inode_s* idx, struct inode_s tail);
+/// @brief Copies the node and inserts it into the index mapping.
+/// @param idx The index to insert into
+/// @param tail The new node to copy and insert
+/// @return The pointer to the new node in the index map, otherwise NULL.
+struct inode_s* indexput(struct index_s* idx, struct inode_s node);
 
-/// @brief Iterates and frees the memory allocated by the linked node list.
-/// @param idx The head node of the linked list
-void indexfree_r(struct inode_s* idx);
+/// @brief Frees all nodes in the index map.
+/// @param idx The index to free
+void indexfree(struct index_s* idx);
 
-#endif
+/// @brief Flattens the index map into a sorted array of nodes (by filepath).
+/// The list is dynamically allocated and must be freed by the caller. Array
+/// size is determined by the `size` field in the index struct.
+/// @param idx The index to flatten
+/// @return If successful, a pointer to an array of size `idx->size` is
+/// returned. Otherwise, NULL.
+struct inode_s** indexlist(const struct index_s* idx);
+
+#endif// EASYLIB_INDEX_H

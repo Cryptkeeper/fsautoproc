@@ -13,7 +13,7 @@
 #include "log.h"
 
 struct tpool_s {
-  _Atomic bool busy;
+  volatile _Atomic bool busy;
   pthread_t tid;
   struct tpreq_s req;
 };

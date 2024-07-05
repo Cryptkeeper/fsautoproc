@@ -36,12 +36,12 @@ static struct lcmdset_s** cmdsets;
 
 static void freecmdsets(void) { lcmdfree_r(cmdsets); }
 
-static struct inode_s* lastmap; /* stored index from previous run (if any) */
-static struct inode_s* thismap; /* live checked index from this run */
+static struct index_s lastmap; /* stored index from previous run (if any) */
+static struct index_s thismap; /* live checked index from this run */
 
 static void freeindexmaps(void) {
-  indexfree_r(lastmap);
-  indexfree_r(thismap);
+  indexfree(&lastmap);
+  indexfree(&thismap);
 }
 
 static void freeglobals(void) {
@@ -138,7 +138,7 @@ static int parseinitargs(const int argc, char** const argv) {
 }
 
 static int loadlastmap(const char* fp) {
-  assert(lastmap == NULL);
+  assert(lastmap.size == 0);
   FILE* s = fopen(fp, "r");
   if (s == NULL) return -1;
   const int err = indexread(&lastmap, s);
@@ -149,8 +149,7 @@ static int loadlastmap(const char* fp) {
 static int savethismap(const char* fp) {
   FILE* s = fopen(fp, "w");
   if (s == NULL) return -1;
-  int err = 0;
-  if (thismap != NULL) err = indexwrite(thismap, s);
+  const int err = indexwrite(&thismap, s);
   fclose(s);
   return err;
 }
@@ -169,16 +168,12 @@ static int fsprocfile_pre(const char* fp) {
   if (fsstat(fp, &finfo.st)) return -1;
 
   // attempt to match file in previous index
-  struct inode_s* prev = indexfind(lastmap, fp);
+  struct inode_s* prev = indexfind(&lastmap, fp);
 
   // lookup from previous iteration or insert new record and lookup
-  struct inode_s* curr = indexfind(thismap, fp);
+  struct inode_s* curr = indexfind(&thismap, fp);
   if (curr == NULL) {
-    struct inode_s* r;
-    if ((r = indexprepend(thismap, finfo)) == NULL) return -1;
-    thismap = r;
-    curr = indexfind(thismap, fp);
-    assert(curr != NULL); /* should+must exist in the list */
+    if ((curr = indexput(&thismap, finfo)) == NULL) return -1;
   }
 
   if (prev != NULL) {
@@ -220,7 +215,7 @@ static int fsprocfile_post(const char* fp) {
     return 0;
   }
 
-  struct inode_s* curr = indexfind(thismap, fp);
+  struct inode_s* curr = indexfind(&thismap, fp);
   if (curr != NULL) {
     // check if the file was modified during the command execution
     struct fsstat_s mod = {0};
@@ -242,11 +237,7 @@ static int fsprocfile_post(const char* fp) {
   if ((finfo.fp = strdup(fp)) == NULL) return -1;
   if (fsstat(fp, &finfo.st)) return -1;
 
-  struct inode_s* r;
-  if ((r = indexprepend(thismap, finfo)) == NULL) return -1;
-  thismap = r;
-  curr = indexfind(thismap, fp);
-  assert(curr != NULL); /* should+must exist in the list */
+  if ((curr = indexput(&thismap, finfo)) == NULL) return -1;
 
   log_info("[+] %s", curr->fp);
 
@@ -268,23 +259,27 @@ static int waitforwork(void) {
 }
 
 static int checkremoved(void) {
-  if (lastmap == NULL) return 0;// no previous map entries to check
+  if (lastmap.size == 0) return 0;// no previous map entries to check
 
-  struct inode_s* head = lastmap;
-  while (head != NULL) {
-    if (indexfind(thismap, head->fp) == NULL) { /* file no longer exists */
-      log_info("[-] %s", head->fp);
+  struct inode_s** lastlist;
+  if ((lastlist = indexlist(&lastmap)) == NULL) return -1;
 
-      if (initargs.skipproc) goto next;
+  for (size_t i = 0; i < lastmap.size; i++) {
+    struct inode_s* prev = lastlist[i];
+    if (indexfind(&thismap, prev->fp) == NULL) { /* file no longer exists */
+      log_info("[-] %s", prev->fp);
+
+      if (initargs.skipproc) continue;
       const int flags = LCTRIG_DEL | (initargs.verbose ? LCTOPT_VERBOSE : 0);
-      const struct tpreq_s req = {cmdsets, head, flags};
+      const struct tpreq_s req = {cmdsets, prev, flags};
       int err;
-      if ((err = tpqueue(&req)))
-        log_error("error queuing deletion command for `%s`: %d", head->fp, err);
+      if ((err = tpqueue(&req))) {
+        log_error("error queuing deletion command for `%s`: %d", prev->fp, err);
+      }
     }
-  next:
-    head = head->next;
   }
+
+  free(lastlist);
 
   return waitforwork();
 }
@@ -329,6 +324,8 @@ static int cmpchanges(void) {
   if ((err = execstage(fsprocfile_pre)) || (err = checkremoved()) ||
       (err = execstage(fsprocfile_post)))
     return err;
+
+  log_info("compared %zu files", thismap.size);
 
   if (savethismap(initargs.indexfile)) {
     log_error("cannot write index `%s`: %s", initargs.indexfile,
