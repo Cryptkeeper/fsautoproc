@@ -36,7 +36,7 @@ err:
 }
 
 static bool tpshouldrestat(const struct tpreq_s* req) {
-  return req->flags | LCTRIG_NEW || req->flags | LCTRIG_MOD;
+  return req->flags & (LCTRIG_NEW | LCTRIG_MOD);
 }
 
 static void* tpentrypoint(void* arg) {
