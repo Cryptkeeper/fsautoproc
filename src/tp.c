@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "fs.h"
+#include "index.h"
 #include "lcmd.h"
 #include "log.h"
 
@@ -33,11 +35,19 @@ err:
   return -1;
 }
 
+static bool tpshouldrestat(const struct tpreq_s* req) {
+  return req->flags | LCTRIG_NEW || req->flags | LCTRIG_MOD;
+}
+
 static void* tpentrypoint(void* arg) {
   struct tpool_s* self = arg;
   int err;
   if ((err = lcmdexec(self->req.cs, self->req.node, self->req.flags)))
     log_error("thread execution error: %d", err);
+  if (tpshouldrestat(&self->req)) {
+    struct inode_s* node = self->req.node;
+    if ((err = fsstat(node->fp, &node->st))) log_error("stat error: %d", err);
+  }
   self->busy = false;
   return NULL;
 }

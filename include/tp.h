@@ -2,9 +2,9 @@
 #define FSAUTOPROC_TP_H
 
 struct tpreq_s {
-  struct lcmdset_s** cs;      /* cmdset to execute */
-  const struct inode_s* node; /* file node to execute on */
-  int flags;                  /* command trigger flags */
+  struct lcmdset_s** cs; /* cmdset to execute */
+  struct inode_s* node;  /* file node to execute on */
+  int flags;             /* command trigger flags */
 };
 
 /// @brief Initializes a global worker thread pool of the given size.

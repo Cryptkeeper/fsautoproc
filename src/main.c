@@ -210,10 +210,6 @@ static int fsprocfile_pre(const char* fp) {
     }
   }
 
-  // update the file info in the current index
-  // this is done after the command execution to capture any file modifications
-  if (fsstat(fp, &finfo.st)) return -1;
-
   return 0;
 }
 
@@ -260,10 +256,6 @@ static int fsprocfile_post(const char* fp) {
     int err;
     if ((err = tpqueue(&req))) return err;
   }
-
-  // update the file info in the current index
-  // this is done after the command execution to capture any file modifications
-  if (fsstat(fp, &finfo.st)) return -1;
 
   return 0;
 }
