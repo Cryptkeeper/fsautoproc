@@ -128,7 +128,12 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd) {
     regex_t* reg;
     if ((reg = cmd->fpatterns[i] = calloc(1, sizeof(*reg))) == NULL) return -1;
 
-    if (regcomp(reg, p->valuestring, REG_EXTENDED | REG_NOSUB | REG_ENHANCED)) {
+    int regmode = REG_EXTENDED | REG_NOSUB;
+#ifdef __APPLE__
+    regmode |= REG_ENHANCED;
+#endif
+
+    if (regcomp(reg, p->valuestring, regmode)) {
       char errmsg[512] = {0};
       regerror(errno, reg, errmsg, sizeof(errmsg));
       log_error("error compiling pattern `%s`: %s", p->valuestring, errmsg);
