@@ -2,6 +2,7 @@
 
 #include <assert.h>
 #include <pthread.h>
+#include <stdatomic.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +14,7 @@
 #include "log.h"
 
 struct tpool_s {
-  volatile _Atomic bool busy;
+  _Atomic bool isbusy;
   pthread_t tid;
   struct tpreq_s req;
 };
@@ -48,7 +49,7 @@ static void* tpentrypoint(void* arg) {
     struct inode_s* node = self->req.node;
     if ((err = fsstat(node->fp, &node->st))) log_error("stat error: %d", err);
   }
-  self->busy = false;
+  atomic_store(&self->isbusy, false);
   return NULL;
 }
 
@@ -59,14 +60,14 @@ int tpqueue(const struct tpreq_s* req) {
 findnext:
   for (size_t i = 0; pools[i] != NULL; i++) {
     struct tpool_s* t = pools[i];
-    if (t->busy) continue;
+    bool expected = false;
+    if (!atomic_compare_exchange_strong(&t->isbusy, &expected, true)) continue;
     memcpy(&t->req, req, sizeof(*req));
     int err;
     if ((err = pthread_create(&t->tid, NULL, tpentrypoint, t))) {
       log_error("cannot create thread: %s", strerror(err));
       return -1;
     }
-    t->busy = true;
     return 0;
   }
   goto findnext;// spin while waiting for a thread to be available
@@ -75,13 +76,13 @@ findnext:
 int tpwait(void) {
   for (size_t i = 0; pools != NULL && pools[i] != NULL; i++) {
     struct tpool_s* t = pools[i];
-    if (!t->busy) continue;
+    bool expected = true;
+    if (!atomic_compare_exchange_strong(&t->isbusy, &expected, false)) continue;
     int err;
     if ((err = pthread_join(t->tid, NULL))) {
       log_error("cannot join thread: %s", strerror(err));
       return -1;
     }
-    t->busy = false;
   }
   return 0;
 }
