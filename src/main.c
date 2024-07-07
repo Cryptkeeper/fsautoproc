@@ -12,6 +12,7 @@
 #include "index.h"
 #include "lcmd.h"
 #include "log.h"
+#include "prog.h"
 #include "tp.h"
 
 static struct {
@@ -25,6 +26,7 @@ static struct {
   _Bool verbose;
 } initargs;
 
+/// @brief Frees all duplicated initialization arguments.
 static void freeinitargs(void) {
   free(initargs.configfile);
   free(initargs.tracefile);
@@ -34,30 +36,19 @@ static void freeinitargs(void) {
 
 static struct lcmdset_s** cmdsets;
 
-static void freecmdsets(void) { lcmdfree_r(cmdsets); }
-
 static struct index_s lastmap; /* stored index from previous run (if any) */
 static struct index_s thismap; /* live checked index from this run */
 
-static void freeindexmaps(void) {
-  indexfree(&lastmap);
-  indexfree(&thismap);
-}
-
-static void freeglobals(void) {
-  dqfree();
-  tpfree();
-}
-
+/// @brief Frees all allocated resources.
 static void freeall(void) {
-  // wait for all work to complete
   int err;
   if ((err = tpwait())) log_error("error waiting for threads: %d", err);
-
   freeinitargs();
-  freecmdsets();
-  freeindexmaps();
-  freeglobals();
+  lcmdfree_r(cmdsets);
+  indexfree(&lastmap);
+  indexfree(&thismap);
+  dqfree();
+  tpfree();
 }
 
 #define strdupoptarg(into)                                                     \
@@ -139,25 +130,38 @@ static int parseinitargs(const int argc, char** const argv) {
   return 0;
 }
 
-static int loadlastmap(const char* fp) {
-  assert(lastmap.size == 0);
+/// @brief Loads the index from the specified file path into the provided index.
+/// @param idx The index to load into
+/// @param fp The file path to load the index from
+/// @return 0 if successful, otherwise a non-zero error code.
+static int loadindex(struct index_s* idx, const char* fp) {
+  assert(idx != NULL);
   FILE* s = fopen(fp, "r");
   if (s == NULL) return -1;
-  const int err = indexread(&lastmap, s);
+  const int err = indexread(idx, s);
   fclose(s);
   return err;
 }
 
-static int savethismap(const char* fp) {
+/// @brief Writes the index to the specified file path.
+/// @param idx The index to write
+/// @param fp The file path to save the index to
+/// @return 0 if successful, otherwise a non-zero error code.
+static int writeindex(struct index_s* idx, const char* fp) {
   FILE* s = fopen(fp, "w");
   if (s == NULL) return -1;
-  const int err = indexwrite(&thismap, s);
+  const int err = indexwrite(idx, s);
   fclose(s);
   return err;
 }
 
 #define abssub(a, b) ((a) >= (b) ? (a) - (b) : (b) - (a))
 
+/// @brief Processes a file before the command execution stage. This function
+/// will compare the file stats with the previous index (if any) and will
+/// optionally invoke command execution for NEW/MOD/NOP events.
+/// @param fp The file path to process
+/// @return 0 if successful, otherwise a non-zero error code.
 static int fsprocfile_pre(const char* fp) {
   // only process files that match at least one command set
   if (!initargs.includejunk && !lcmdmatchany(cmdsets, fp)) {
@@ -178,38 +182,37 @@ static int fsprocfile_pre(const char* fp) {
     if ((curr = indexput(&thismap, finfo)) == NULL) return -1;
   }
 
+  int execflags = initargs.verbose ? LCTOPT_VERBOSE : 0;
+
   if (prev != NULL) {
     const bool modified = !fsstateql(&prev->st, &curr->st);
     if (modified) {
       const uint64_t dt = abssub(prev->st.fsze, curr->st.fsze);
       log_info("[*] %s (Δ%" PRIu64 ")", curr->fp, dt);
+      execflags |= LCTRIG_MOD;
     } else {
       if (initargs.verbose) log_verbose("[n] %s", curr->fp);
-    }
-
-    if (!initargs.skipproc) {
-      int flags = modified ? LCTRIG_MOD : LCTRIG_NOP;
-      if (initargs.verbose) flags |= LCTOPT_VERBOSE;
-      const struct tpreq_s req = {cmdsets, curr, flags};
-      int err;
-      if ((err = tpqueue(&req))) return err;
-
-      if (!modified) return 0;
+      execflags |= LCTRIG_NOP;
     }
   } else {
     log_info("[+] %s", curr->fp);
+    execflags |= LCTRIG_NEW;
+  }
 
-    if (!initargs.skipproc) {
-      const int flags = LCTRIG_NEW | (initargs.verbose ? LCTOPT_VERBOSE : 0);
-      const struct tpreq_s req = {cmdsets, curr, flags};
-      int err;
-      if ((err = tpqueue(&req))) return err;
-    }
+  if (!initargs.skipproc) {
+    const struct tpreq_s req = {cmdsets, curr, execflags};
+    int err;
+    if ((err = tpqueue(&req))) return err;
   }
 
   return 0;
 }
 
+/// @brief Processes a file after the command execution stage to ensure all
+/// files are indexed. This function will only fire new events for files that
+/// were created as a result of the previous commands.
+/// @param fp The file path to process
+/// @return 0 if successful, otherwise a non-zero error code.
 static int fsprocfile_post(const char* fp) {
   // only process files that match at least one command set
   if (!initargs.includejunk && !lcmdmatchany(cmdsets, fp)) {
@@ -253,20 +256,25 @@ static int fsprocfile_post(const char* fp) {
   return 0;
 }
 
+/// @brief Waits for all worker threads to complete their tasks.
+/// @return 0 if successful, otherwise a non-zero error code.
 static int waitforwork(void) {
-  // wait for all work to complete
   int err;
   if ((err = tpwait())) log_error("error waiting for threads: %d", err);
   return err;
 }
 
+/// @brief Checks for files that were present in the previous index ("lastmap")
+/// but are missing in the current index ("thismap"). This function will trigger
+/// deletion (DEL) events for each missing file.
+/// @return 0 if successful, otherwise a non-zero error code.
 static int checkremoved(void) {
   if (lastmap.size == 0) return 0;// no previous map entries to check
 
   struct inode_s** lastlist;
   if ((lastlist = indexlist(&lastmap)) == NULL) return -1;
 
-  for (size_t i = 0; i < lastmap.size; i++) {
+  for (long i = 0; i < lastmap.size; i++) {
     struct inode_s* prev = lastlist[i];
     if (indexfind(&thismap, prev->fp) != NULL) continue;
 
@@ -285,10 +293,14 @@ static int checkremoved(void) {
   return waitforwork();
 }
 
+/// @brief Resets the directory queue to the initial search path, and invokes
+/// the `filefn` function for each file in the directory tree, recursively.
+/// @param filefn The function to invoke for each file in the directory tree
+/// @return 0 if successful, otherwise a non-zero error code.
 static int execstage(fswalkfn_t filefn) {
   dqreset();
   if (dqpush(initargs.searchdir)) {
-    perror(NULL);
+    log_error("error pushing search directory `%s`", initargs.searchdir);
     return -1;
   }
 
@@ -301,26 +313,23 @@ static int execstage(fswalkfn_t filefn) {
       log_error("file func for `%s` returned %d", dir, err);
       return -1;
     }
+    printprogbar(thismap.size, lastmap.size);
   }
 
   return waitforwork();
 }
 
+/// @brief Compares the current file system state with a previously saved index.
+/// @return 0 if successful, otherwise a non-zero error code.
 static int cmpchanges(void) {
-  if (loadlastmap(initargs.indexfile)) {
-    // attempt to load the file, but continue if it doesn't exist
+  if (loadindex(&lastmap, initargs.indexfile)) {
+    // continue if the index file does not exist
     if (errno != ENOENT) {
-      log_error("cannot read index `%s`: %s", initargs.indexfile,
-                strerror(errno));
+      log_error("error reading `%s`: %s", initargs.indexfile, strerror(errno));
       return -1;
     }
   }
 
-  // walk the scan directory in two passes:
-  //  - fsprocfile_pre, which will compare the file stats with the previous index
-  //    (if any) and fire all types of file events (NEW, MOD, DEL, NOP)
-  //  - fsprocfile_post, which will only fire NEW events for files that were created
-  //    as a result of the previous commands to ensure all files are indexed
   int err;
   if ((err = execstage(fsprocfile_pre)) || (err = checkremoved()) ||
       (err = execstage(fsprocfile_post)))
@@ -328,15 +337,19 @@ static int cmpchanges(void) {
 
   log_info("compared %zu files", thismap.size);
 
-  if (savethismap(initargs.indexfile)) {
-    log_error("cannot write index `%s`: %s", initargs.indexfile,
-              strerror(errno));
+  if (writeindex(&thismap, initargs.indexfile)) {
+    log_error("error writing `%s`: %s", initargs.indexfile, strerror(errno));
     return -1;
   }
 
   return 0;
 }
 
+/// @brief Traces which command sets match the specified file by manually
+/// invoking the command execution logic with a trace flag. `lcmdexec` will
+/// print the command set names that match the file.
+/// @param fp The file path to trace
+/// @return 0 if successful, otherwise a non-zero error code.
 static int tracefile(const char* fp) {
   struct inode_s node = {.fp = (char*) fp};
   if (fsstat(fp, &node.st)) return -1;
