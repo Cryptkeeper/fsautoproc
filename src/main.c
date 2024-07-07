@@ -61,10 +61,12 @@ static void freeall(void) {
 }
 
 #define strdupoptarg(into)                                                     \
-  if ((into = strdup(optarg)) == NULL) {                                       \
-    perror(NULL);                                                              \
-    return 1;                                                                  \
-  }
+  do {                                                                         \
+    if ((into = strdup(optarg)) == NULL) {                                     \
+      perror(NULL);                                                            \
+      return 1;                                                                \
+    }                                                                          \
+  } while (0)
 
 static int parseinitargs(const int argc, char** const argv) {
   int c;
