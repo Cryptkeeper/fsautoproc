@@ -1,5 +1,5 @@
-#ifndef EASYLIB_INDEX_H
-#define EASYLIB_INDEX_H
+#ifndef FSAUTOPROC_INDEX_H
+#define FSAUTOPROC_INDEX_H
 
 #include <stdio.h>
 
@@ -58,4 +58,4 @@ void indexfree(struct index_s* idx);
 /// returned. Otherwise, NULL.
 struct inode_s** indexlist(const struct index_s* idx);
 
-#endif// EASYLIB_INDEX_H
+#endif// FSAUTOPROC_INDEX_H

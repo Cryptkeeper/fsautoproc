@@ -1,5 +1,5 @@
-#ifndef EASYLIB_FS_H
-#define EASYLIB_FS_H
+#ifndef FSAUTOPROC_FS_H
+#define FSAUTOPROC_FS_H
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -40,4 +40,4 @@ bool fsstateql(const struct fsstat_s* a, const struct fsstat_s* b);
 /// returned and `errno` is set.
 int fsstat(const char* fp, struct fsstat_s* s);
 
-#endif
+#endif// FSAUTOPROC_FS_H
