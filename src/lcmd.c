@@ -164,18 +164,18 @@ struct lcmdset_s** lcmdparse(const char* fp) {
     goto err;
   }
 
-  const size_t len = cJSON_GetArraySize(jt);
+  const int len = cJSON_GetArraySize(jt);
   if ((cs = calloc(len + 1, sizeof(cs))) == NULL) goto err;
 
   // iterate over each command block
   cJSON* item;
-  size_t i = 0;
+  int i = 0;
   cJSON_ArrayForEach(item, jt) {
     assert(i < len);
     struct lcmdset_s* cmd;
     if ((cmd = cs[i] = malloc(sizeof(*cmd))) == NULL) goto err;
     if (lcmdparseone(item, cmd)) {
-      log_error("error parsing command block %zu", i);
+      log_error("error parsing command block %d", i);
       goto err;
     }
     i++;
