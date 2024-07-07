@@ -1,5 +1,6 @@
 #include "index.h"
 
+#include <errno.h>
 #include <inttypes.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,6 +9,9 @@
 
 #define INDEXMAXFP 512
 
+/// @brief Hashes the filepath string into an index bucket.
+/// @param fp The filepath string to hash
+/// @return The index bucket number.
 static int indexhash(const char* fp) {
   int h = 0;
   for (const char* p = fp; *p != '\0'; p++) h = (h << 5) - h + *p;
@@ -38,7 +42,7 @@ int indexwrite(struct index_s* idx, FILE* s) {
   char lbuf[INDEXMAXFP]; /* line output format buffer */
 
   int err = 0;
-  for (size_t i = 0; i < idx->size; i++) {
+  for (long i = 0; i < idx->size; i++) {
     struct inode_s* node = fl[i];
     const int n = snprintf(lbuf, sizeof(lbuf), "%s,%" PRIu64 ",%" PRIu64 "\n",
                            node->fp, node->st.lmod, node->st.fsze);
@@ -66,6 +70,10 @@ int indexread(struct index_s* idx, FILE* s) {
   return 0;
 }
 
+/// @brief Prepends a new node to the linked list by overwriting the head.
+/// @param idx The head of the linked list
+/// @param tail The new node to prepend
+/// @return The new head of the linked list or NULL if memory allocation fails.
 static struct inode_s* indexprepend(struct inode_s* idx,
                                     const struct inode_s tail) {
   struct inode_s* node;
@@ -84,6 +92,8 @@ struct inode_s* indexput(struct index_s* idx, const struct inode_s node) {
   return head;
 }
 
+/// @brief Recursively frees a linked list of nodes starting from a given head.
+/// @param idx The head of the linked list
 static void indexfree_r(struct inode_s* idx) {
   struct inode_s *head, *prev;
   for (head = idx; head != NULL;) {
@@ -98,20 +108,21 @@ void indexfree(struct index_s* idx) {
 }
 
 struct inode_s** indexlist(const struct index_s* idx) {
+  errno = 0;
   struct inode_s** fl;
-  if ((fl = calloc(idx->size, sizeof(struct inode_s*))) == NULL) return NULL;
-  size_t ni = 0;
+  if ((fl = calloc(idx->size, sizeof(*fl))) == NULL) return NULL;
+  long ni = 0;
   for (int i = 0; i < INDEXBUCKETS; i++) {
     for (struct inode_s* head = idx->buckets[i]; head != NULL;
          head = head->next) {
       // prevent linked-list data from exceeding the expected/alloc'd index size
-      if (ni < idx->size) {
-        fl[ni++] = head;
-      } else {
-        log_error("indexlist: size error (limit %zu, at %zu)", idx->size, ni);
+      if (ni >= idx->size) {
+        errno = ERANGE;
+        log_error("indexlist: size error (limit %ld, at %ld)", idx->size, ni);
         free(fl);
         return NULL;
       }
+      fl[ni++] = head;
     }
   }
   return fl;

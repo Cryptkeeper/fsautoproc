@@ -15,7 +15,7 @@ struct inode_s {
 
 struct index_s {
   struct inode_s* buckets[INDEXBUCKETS];
-  size_t size;
+  long size;
 };
 
 /// @brief Searches the index for a node with a matching filepath.
@@ -43,7 +43,8 @@ int indexread(struct index_s* idx, FILE* s);
 /// @brief Copies the node and inserts it into the index mapping.
 /// @param idx The index to insert into
 /// @param tail The new node to copy and insert
-/// @return The pointer to the new node in the index map, otherwise NULL.
+/// @return The pointer to the new node in the index map, otherwise NULL is
+/// returned and `errno` is set.
 struct inode_s* indexput(struct index_s* idx, struct inode_s node);
 
 /// @brief Frees all nodes in the index map.
@@ -55,7 +56,7 @@ void indexfree(struct index_s* idx);
 /// size is determined by the `size` field in the index struct.
 /// @param idx The index to flatten
 /// @return If successful, a pointer to an array of size `idx->size` is
-/// returned. Otherwise, NULL.
+/// returned. Otherwise, NULL is returned and `errno` is set.
 struct inode_s** indexlist(const struct index_s* idx);
 
 #endif// FSAUTOPROC_INDEX_H
