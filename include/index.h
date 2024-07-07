@@ -50,7 +50,7 @@ struct inode_s* indexput(struct index_s* idx, struct inode_s node);
 /// @param idx The index to free
 void indexfree(struct index_s* idx);
 
-/// @brief Flattens the index map into a sorted array of nodes (by filepath).
+/// @brief Flattens the index map into an unsorted array of nodes.
 /// The list is dynamically allocated and must be freed by the caller. Array
 /// size is determined by the `size` field in the index struct.
 /// @param idx The index to flatten

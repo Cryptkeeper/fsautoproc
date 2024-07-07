@@ -1,9 +1,10 @@
 #include "index.h"
 
-#include <assert.h>
 #include <inttypes.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "log.h"
 
 #define INDEXMAXFP 512
 
@@ -102,9 +103,16 @@ struct inode_s** indexlist(const struct index_s* idx) {
   size_t ni = 0;
   for (int i = 0; i < INDEXBUCKETS; i++) {
     for (struct inode_s* head = idx->buckets[i]; head != NULL;
-         head = head->next)
-      fl[ni++] = head;
+         head = head->next) {
+      // prevent linked-list data from exceeding the expected/alloc'd index size
+      if (ni < idx->size) {
+        fl[ni++] = head;
+      } else {
+        log_error("indexlist: size error (limit %zu, at %zu)", idx->size, ni);
+        free(fl);
+        return NULL;
+      }
+    }
   }
-  assert(ni == idx->size);
   return fl;
 }
