@@ -8,6 +8,7 @@
 #include <unistd.h>
 
 #include "dq.h"
+#include "fd.h"
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
@@ -20,6 +21,7 @@ static struct {
   char* indexfile;
   char* searchdir;
   char* tracefile;
+  _Bool pipefiles;
   _Bool includejunk;
   _Bool skipproc;
   int threads;
@@ -61,7 +63,7 @@ static void freeall(void) {
 
 static int parseinitargs(const int argc, char** const argv) {
   int c;
-  while ((c = getopt(argc, argv, ":hc:i:js:t:r:uv")) != -1) {
+  while ((c = getopt(argc, argv, ":hc:i:jps:t:r:uv")) != -1) {
     switch (c) {
       case 'h':
         printf("Usage: %s -i <file>\n"
@@ -70,6 +72,8 @@ static int parseinitargs(const int argc, char** const argv) {
                "  -c <file>   Configuration file (default: `fsautoproc.json`)\n"
                "  -i <file>   File index write path\n"
                "  -j          Include ignored files in index (default: false)\n"
+               "  -p          Pipe subprocess stdout/stderr to files "
+               "(default: false)\n"
                "  -s <dir>    Search directory root (default: `.`)\n"
                "  -t <#>      Number of worker threads (default: 4)\n"
                "  -r <file>   Trace which command sets match the file\n"
@@ -85,6 +89,9 @@ static int parseinitargs(const int argc, char** const argv) {
         break;
       case 'j':
         initargs.includejunk = true;
+        break;
+      case 'p':
+        initargs.pipefiles = true;
         break;
       case 's':
         strdupoptarg(initargs.searchdir);
@@ -353,7 +360,8 @@ static int cmpchanges(void) {
 static int tracefile(const char* fp) {
   struct inode_s node = {.fp = (char*) fp};
   if (fsstat(fp, &node.st)) return -1;
-  return lcmdexec(cmdsets, &node, LCTOPT_TRACE | LCTRIG_ALL);
+  const struct fdset_s fds = {.out = STDOUT_FILENO, .err = STDERR_FILENO};
+  return lcmdexec(cmdsets, &node, &fds, LCTOPT_TRACE | LCTRIG_ALL);
 }
 
 int main(int argc, char** argv) {
@@ -362,7 +370,8 @@ int main(int argc, char** argv) {
 
   // init worker thread pool
   int err;
-  if ((err = tpinit(initargs.threads))) {
+  const int tpflags = initargs.pipefiles ? TPOPT_LOGFILES : 0;
+  if ((err = tpinit(initargs.threads, tpflags))) {
     log_error("error initializing thread pool: %d", err);
     return 1;
   }

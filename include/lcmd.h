@@ -7,6 +7,7 @@
 #include "sl.h"
 
 struct inode_s;
+struct fdset_s;
 
 #define LCTRIG_NEW (1 << 0)
 #define LCTRIG_MOD (1 << 1)
@@ -57,12 +58,14 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp);
 /// patterns match.
 /// @param cs The command set array to filter and execute
 /// @param node The file node to execute on
+/// @param fds The file descriptor set to use for stdout/stderr redirection
 /// @param flags The trigger flags to match, see `LCTRIG_*`. If `LCTOPT_VERBOSE`
 /// is set, the commands will be printed to stdout before execution. If
 /// `LCTOPT_TRACE` is set, the true/false match result for each command set will
 /// be printed to stdout.
 /// @return 0 if successful, otherwise the first non-zero return value from
 /// `system(3)` is returned.
-int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags);
+int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node,
+             const struct fdset_s* fds, int flags);
 
 #endif//FSAUTOPROC_LCMD_H

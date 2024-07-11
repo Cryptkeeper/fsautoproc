@@ -12,6 +12,7 @@
 
 #include "cJSON/cJSON.h"
 
+#include "fd.h"
 #include "index.h"
 #include "log.h"
 #include "sl.h"
@@ -204,22 +205,34 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp) {
 }
 
 static int lcmdinvoke(const char* cmd, const struct inode_s* node,
-                      const int flags) {
+                      const struct fdset_s* fds, const int flags) {
   if (flags & LCTOPT_VERBOSE) log_verbose("[x] %s", cmd);
 
   // fork the process to run the command
   pid_t pid;
   if ((pid = fork()) < 0) {
     log_error("process forking error `%s`: %s", cmd, strerror(errno));
-    return pid;
+    return -1;
   } else if (pid == 0) {
+    if (dup2(fds->out, STDOUT_FILENO) < 0) {
+      log_error("cannot redirect stdout to %d: %s", fds->out, strerror(errno));
+      _exit(1); /* avoid firing parent atexit handlers */
+    }
+    if (dup2(fds->err, STDERR_FILENO) < 0) {
+      log_error("cannot redirect stderr to %d: %s", fds->err, strerror(errno));
+      _exit(1); /* avoid firing parent atexit handlers */
+    }
+
     // child process, modify local environment variables for use in commands
     setenv("FILEPATH", node->fp, 1);
 
     // execute the command and instantly exit child process
     int err;
     if ((err = system(cmd))) log_error("command `%s` returned %d", cmd, err);
-    _exit(err); /* avoid firing parent atexit handlers */
+    fflush(stdout);
+    fflush(stderr);
+    fdclose((struct fdset_s*) fds); /* close child process references */
+    _exit(err);                     /* avoid firing parent atexit handlers */
   } else {
     // parent process, wait for child process to finish
     if (waitpid(pid, NULL, 0) < 0) {
@@ -230,7 +243,8 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node,
   }
 }
 
-int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
+int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node,
+             const struct fdset_s* fds, int flags) {
   int ret = 0;
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
     const struct lcmdset_s* s = cs[i];
@@ -252,7 +266,7 @@ int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node, int flags) {
 
     // invoke all system commands
     for (size_t j = 0; s->syscmds[j] != NULL; j++)
-      if ((ret = lcmdinvoke(s->syscmds[j], node, flags))) break;
+      if ((ret = lcmdinvoke(s->syscmds[j], node, fds, flags))) break;
   }
   return ret;
 }

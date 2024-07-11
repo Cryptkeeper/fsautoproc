@@ -7,10 +7,13 @@ struct tpreq_s {
   int flags;             /* command trigger flags */
 };
 
+#define TPOPT_LOGFILES 1
+
 /// @brief Initializes a global worker thread pool of the given size.
 /// @param size The number of threads to create, must be greater than 0.
+/// @param flags The flags to use when creating the thread pool.
 /// @return 0 on success, -1 on failure.
-int tpinit(int size);
+int tpinit(int size, int flags);
 
 /// @brief Allocates a work request to the first available thread in the global
 /// pool. If no threads are available, the request will block until a thread
