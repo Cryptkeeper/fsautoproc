@@ -16,6 +16,7 @@
 #include "index.h"
 #include "log.h"
 #include "sl.h"
+#include "tm.h"
 
 static void lcmdfree(struct lcmdset_s* cmd) {
   for (size_t i = 0; cmd->fpatterns[i] != NULL; i++) {
@@ -25,6 +26,7 @@ static void lcmdfree(struct lcmdset_s* cmd) {
     free(reg);
   }
   free(cmd->fpatterns);
+  free(cmd->name);
   slfree(cmd->syscmds);
   free(cmd);
 }
@@ -110,8 +112,9 @@ static int lcmdparseflags(const cJSON* item) {
 /// provided cJSON object.
 /// @param obj cJSON object containing the command data
 /// @param cmd Struct to populate with parsed command data
+/// @param id Command set index for naming purposes
 /// @return 0 if successful, otherwise non-zero to indicate an error.
-static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd) {
+static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
   cJSON* onlist = cJSON_GetObjectItem(obj, "on");
   cJSON* plist = cJSON_GetObjectItem(obj, "patterns");
   cJSON* clist = cJSON_GetObjectItem(obj, "commands");
@@ -121,6 +124,16 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd) {
 
   if ((cmd->onflags = lcmdparseflags(onlist)) == 0) return -1;
   if ((cmd->syscmds = lcmdjsontosl(clist)) == NULL) return -1;
+
+  // copy description, otherwise use the index as the name
+  cJSON* desc = cJSON_GetObjectItem(obj, "description");
+  if (cJSON_IsString(desc)) {
+    if ((cmd->name = strdup(desc->valuestring)) == NULL) return -1;
+  } else {
+    char b[32] = {0};
+    snprintf(b, sizeof(b), "cmdset %d", id);
+    if ((cmd->name = strdup(b)) == NULL) return -1;
+  }
 
   const int regcount = cJSON_GetArraySize(plist);
   if ((cmd->fpatterns = calloc(regcount + 1, sizeof(regex_t*))) == NULL)
@@ -175,7 +188,7 @@ struct lcmdset_s** lcmdparse(const char* fp) {
     assert(i < len);
     struct lcmdset_s* cmd;
     if ((cmd = cs[i] = malloc(sizeof(*cmd))) == NULL) goto err;
-    if (lcmdparseone(item, cmd)) {
+    if (lcmdparseone(item, cmd, i)) {
       log_error("error parsing command block %d", i);
       goto err;
     }
@@ -205,8 +218,11 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp) {
 }
 
 static int lcmdinvoke(const char* cmd, const struct inode_s* node,
-                      const struct fdset_s* fds, const int flags) {
+                      const struct fdset_s* fds, const int flags,
+                      uint64_t* msspent) {
   if (flags & LCTOPT_VERBOSE) log_verbose("[x] %s", cmd);
+
+  const uint64_t start = tmnow();
 
   // fork the process to run the command
   pid_t pid;
@@ -237,6 +253,9 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node,
       log_error("cannot wait for child process %d: %s", pid, strerror(errno));
       return -1;
     }
+
+    // return the time spent executing the command
+    if (msspent != NULL) *msspent += tmnow() - start;
     return 0;
   }
 }
@@ -245,7 +264,7 @@ int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node,
              const struct fdset_s* fds, int flags) {
   int ret = 0;
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
-    const struct lcmdset_s* s = cs[i];
+    struct lcmdset_s* s = cs[i];
     if (!(s->onflags & flags)) {
       if (flags & LCTOPT_TRACE)
         log_info("cmdset %zu ignored flags: 0x%02X", i, flags);
@@ -264,7 +283,8 @@ int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node,
 
     // invoke all system commands
     for (size_t j = 0; s->syscmds[j] != NULL; j++)
-      if ((ret = lcmdinvoke(s->syscmds[j], node, fds, flags))) break;
+      if ((ret = lcmdinvoke(s->syscmds[j], node, fds, flags, &s->msspent)))
+        break;
   }
   return ret;
 }

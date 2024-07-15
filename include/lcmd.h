@@ -3,6 +3,7 @@
 
 #include <regex.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 #include "sl.h"
 
@@ -22,6 +23,8 @@ struct lcmdset_s {
   int onflags;         /* command set trigger names */
   regex_t** fpatterns; /* compiled regex patterns used for matching */
   slist_t* syscmds;    /* commands to pass to `system(3) */
+  char* name;          /* command set name or description for logging */
+  uint64_t msspent;    /* sum milliseconds spent executing commands */
 };
 
 /// @brief `lcmdfree()` iterates and frees all memory allocated by `lcmdparse()`.

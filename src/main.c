@@ -23,6 +23,7 @@ static struct {
   char* tracefile;
   _Bool pipefiles;
   _Bool includejunk;
+  _Bool listspent;
   _Bool skipproc;
   int threads;
   _Bool verbose;
@@ -63,7 +64,7 @@ static void freeall(void) {
 
 static int parseinitargs(const int argc, char** const argv) {
   int c;
-  while ((c = getopt(argc, argv, ":hc:i:jps:t:r:uv")) != -1) {
+  while ((c = getopt(argc, argv, ":hc:i:jlps:t:r:uv")) != -1) {
     switch (c) {
       case 'h':
         printf("Usage: %s -i <file>\n"
@@ -72,6 +73,7 @@ static int parseinitargs(const int argc, char** const argv) {
                "  -c <file>   Configuration file (default: `fsautoproc.json`)\n"
                "  -i <file>   File index write path\n"
                "  -j          Include ignored files in index (default: false)\n"
+               "  -l          List time spent for each command set\n"
                "  -p          Pipe subprocess stdout/stderr to files "
                "(default: false)\n"
                "  -s <dir>    Search directory root (default: `.`)\n"
@@ -89,6 +91,9 @@ static int parseinitargs(const int argc, char** const argv) {
         break;
       case 'j':
         initargs.includejunk = true;
+        break;
+      case 'l':
+        initargs.listspent = true;
         break;
       case 'p':
         initargs.pipefiles = true;
@@ -364,6 +369,14 @@ static int tracefile(const char* fp) {
   return lcmdexec(cmdsets, &node, &fds, LCTOPT_TRACE | LCTRIG_ALL);
 }
 
+static void printmsspent(void) {
+  for (size_t i = 0; cmdsets != NULL && cmdsets[i] != NULL; i++) {
+    const struct lcmdset_s* s = cmdsets[i];
+    log_info("%s: %.3f%s", s->name, (float) s->msspent,
+             s->msspent > 1000 ? "s" : "ms");
+  }
+}
+
 int main(int argc, char** argv) {
   atexit(freeall);
   if (parseinitargs(argc, argv)) return 1;
@@ -393,6 +406,8 @@ int main(int argc, char** argv) {
     log_error("error comparing changes: %d", err);
     return 1;
   }
+
+  if (initargs.listspent) printmsspent();
 
   return 0;
 }
