@@ -11,7 +11,7 @@ struct inode_s {
   struct inode_s* next; /* next node in linked list */
 };
 
-#define INDEXBUCKETS 16
+#define INDEXBUCKETS 64
 
 struct index_s {
   struct inode_s* buckets[INDEXBUCKETS];
