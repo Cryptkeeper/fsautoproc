@@ -229,8 +229,6 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node,
     // execute the command and instantly exit child process
     int err;
     if ((err = system(cmd))) log_error("command `%s` returned %d", cmd, err);
-    fflush(stdout);
-    fflush(stderr);
     fdclose((struct fdset_s*) fds); /* close child process references */
     _exit(err);                     /* avoid firing parent atexit handlers */
   } else {
