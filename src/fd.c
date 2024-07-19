@@ -10,7 +10,7 @@
 
 static int openfd(const char* name, const unsigned int id) {
   char fp[32];
-  snprintf(fp, sizeof(fp), "%s.%u.txt", name, id);
+  snprintf(fp, sizeof(fp), "%s.%u.log", name, id);
   const int fno = open(fp, O_WRONLY | O_CREAT | O_TRUNC, 0644);
   if (fno < 0) {
     log_error("cannot open %s file `%s`: %s", name, fp, strerror(errno));

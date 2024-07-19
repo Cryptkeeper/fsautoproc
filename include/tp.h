@@ -24,13 +24,17 @@ int tpqueue(const struct tpreq_s* req);
 
 /// @brief Waits for all threads in the global pool to finish executing their
 /// work requests.
-/// @return 0 on success, -1 on failure.
-int tpwait(void);
+void tpwait(void);
+
+/// @brief Waits for all threads in the global pool to finish executing their
+/// work requests, and then shuts down the pool and exits its threads. This
+/// function should be followed by a call to `tpfree()`.
+void tpshutdown(void);
 
 /// @brief Frees all memory allocated by `tpinit()`. This function should be
 /// called at the end of the program. It is safe to call this function even if
-/// `tpinit()` was not called. This function is not thread-safe, and should only
-/// be called once after `tpwait()`.
+/// `tpinit()` was not called. This function should be called directly after
+/// `tpshutdown()`.
 void tpfree(void);
 
 #endif//FSAUTOPROC_TP_H

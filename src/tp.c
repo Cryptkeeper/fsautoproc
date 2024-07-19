@@ -15,105 +15,121 @@
 #include "lcmd.h"
 #include "log.h"
 
-struct tpool_s {
-  _Atomic bool isbusy; /* thread busy flag for scheduler */
-  pthread_t tid;       /* pthread work thread id */
-  struct tpreq_s req;  /* work request to process */
-  unsigned poolid;     /* index in pools array (for file naming) */
-  _Bool fdsopen;       /* file descriptor set open flag */
-  struct fdset_s fds;  /* file descriptor set */
+struct thrd_s {
+  _Atomic bool rsrvd;   /* thread reservation/lock flag */
+  _Atomic bool canwork; /* work request ready to process flag */
+  struct tpreq_s work;  /* work request to process */
+  pthread_t tid;        /* pthread work thread id */
+  _Bool fdsopen;        /* file descriptor set open flag */
+  struct fdset_s fds;   /* file descriptor set */
 };
 
-static struct tpool_s** pools;
-
-int tpinit(const int size, const int flags) {
-  assert(pools == NULL);
-  assert(size > 0);
-
-  // add one for the NULL sentinel
-  if ((pools = calloc(size + 1, sizeof(struct tpool_s*))) == NULL) goto err;
-  for (int i = 0; i < size; i++) {
-    if ((pools[i] = calloc(1, sizeof(struct tpool_s))) == NULL) goto err;
-    struct tpool_s* t = pools[i];
-    t->poolid = i;
-    if (!(flags & TPOPT_LOGFILES)) {
-      t->fds.out = STDOUT_FILENO;// default to stdout/stderr
-      t->fds.err = STDERR_FILENO;
-      t->fdsopen = true;
-    }
-  }
-  return 0;
-err:
-  for (int i = 0; i < size; i++) free(pools[i]);
-  free(pools);
-  return -1;
-}
-
-static bool tpshouldrestat(const struct tpreq_s* req) {
-  return req->flags & (LCTRIG_NEW | LCTRIG_MOD);
-}
+static struct thrd_s** thrds;  /* thread pool */
+static _Atomic bool haltthrds; /* thread pool halt flag */
+static _Atomic int thrdrc;     /* thread pool reference counter */
 
 static void* tpentrypoint(void* arg) {
-  struct tpool_s* self = arg;
-  int err;
-  if (!self->fdsopen) {
-    if ((err = fdinit(&self->fds, self->poolid))) {
-      log_error("file descriptor set open error: %d", err);
-      self->fds.out = STDOUT_FILENO;// fallback to stdout/stderr
-      self->fds.err = STDERR_FILENO;
+  struct thrd_s* self = arg;
+  atomic_fetch_add(&thrdrc, 1);
+  while (!atomic_load(&haltthrds)) {
+    if (!atomic_load(&self->rsrvd)) continue; /* wait for work reservation */
+
+    // spin while waiting for the main thread to set the work request
+    // this avoids the atomic state of rsrvd being set before the calling thread
+    // has a chance to lock and set the work request
+    while (!atomic_load(&self->canwork)) continue;
+    atomic_store(&self->canwork, false);// reset work confirmation flag
+
+    const struct tpreq_s* req = &self->work;
+    int err;
+    if ((err = lcmdexec(req->cs, req->node, &self->fds, req->flags)))
+      log_error("thread execution error: %d", err);
+    if (req->flags & (LCTRIG_NEW | LCTRIG_MOD)) {
+      if ((err = fsstat(req->node->fp, &req->node->st)))
+        log_error("stat error: %d", err);
     }
-    self->fdsopen = true;
+
+    atomic_store(&self->rsrvd, false);// release the reservation
   }
-  if ((err = lcmdexec(self->req.cs, self->req.node, &self->fds,
-                      self->req.flags)))
-    log_error("thread execution error: %d", err);
-  if (tpshouldrestat(&self->req)) {
-    struct inode_s* node = self->req.node;
-    if ((err = fsstat(node->fp, &node->st))) log_error("stat error: %d", err);
-  }
-  atomic_store(&self->isbusy, false);
+  atomic_fetch_sub(&thrdrc, 1);
   return NULL;
 }
 
-int tpqueue(const struct tpreq_s* req) {
-  assert(pools != NULL);
-  assert(req != NULL);
+static void tpinitthrd(struct thrd_s* t, const int flags) {
+  int err;
+  if (flags & TPOPT_LOGFILES) {
+    if ((err = fdinit(&t->fds, 0))) {
+      log_error("file descriptor set open error: %d", err);
+    } else {
+      t->fdsopen = true;
+    }
+  }
+  if (!t->fdsopen) {
+    t->fds.out = STDOUT_FILENO;// default to stdout/stderr
+    t->fds.err = STDERR_FILENO;
+  }
+}
 
-findnext:
-  for (size_t i = 0; pools[i] != NULL; i++) {
-    struct tpool_s* t = pools[i];
-    bool expected = false;
-    if (!atomic_compare_exchange_strong(&t->isbusy, &expected, true)) continue;
-    memcpy(&t->req, req, sizeof(*req));
+int tpinit(const int size, const int flags) {
+  assert(thrds == NULL);
+  assert(size > 0);
+
+  // add one for the NULL sentinel
+  if ((thrds = calloc(size + 1, sizeof(struct thrd_s*))) == NULL) goto fail;
+  for (int i = 0; i < size; i++) {
+    if ((thrds[i] = calloc(1, sizeof(struct thrd_s))) == NULL) goto fail;
+    struct thrd_s* t = thrds[i];
+    tpinitthrd(t, flags);
     int err;
     if ((err = pthread_create(&t->tid, NULL, tpentrypoint, t))) {
       log_error("cannot create thread: %s", strerror(err));
       return -1;
     }
+  }
+  return 0;
+fail:
+  for (int i = 0; i < size; i++) free(thrds[i]);
+  free(thrds);
+  return -1;
+}
+
+int tpqueue(const struct tpreq_s* req) {
+  assert(thrds != NULL);
+  assert(req != NULL);
+
+findnext:
+  for (size_t i = 0; thrds[i] != NULL; i++) {
+    struct thrd_s* t = thrds[i];
+    bool isrsrvd = false;
+    if (!atomic_compare_exchange_strong(&t->rsrvd, &isrsrvd, true))
+      continue; /* thread is already reserved */
+    memcpy(&t->work, req, sizeof(*req));
+    atomic_store(&t->canwork, true); /* release lock/allow thread to continue */
     return 0;
   }
   goto findnext;// spin while waiting for a thread to be available
 }
 
-int tpwait(void) {
-  for (size_t i = 0; pools != NULL && pools[i] != NULL; i++) {
-    struct tpool_s* t = pools[i];
-    bool expected = true;
-    if (!atomic_compare_exchange_strong(&t->isbusy, &expected, false)) continue;
-    int err;
-    if ((err = pthread_join(t->tid, NULL))) {
-      log_error("cannot join thread: %s", strerror(err));
-      return -1;
-    }
+void tpwait(void) {
+  for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) {
+    while (atomic_load(&thrds[i]->rsrvd))// wait for thread to become idle
+      ;
   }
-  return 0;
+}
+
+void tpshutdown(void) {
+  log_info("waiting for %d threads to exit...", atomic_load(&thrdrc));
+  atomic_store(&haltthrds, true);// signal threads to exit
+  while (atomic_load(&thrdrc) > 0)
+    ;
 }
 
 void tpfree(void) {
-  for (size_t i = 0; pools != NULL && pools[i] != NULL; i++) {
-    if (pools[i]->fdsopen) fdclose(&pools[i]->fds);
-    free(pools[i]);
+  for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) {
+    struct thrd_s* t = thrds[i];
+    if (t->fdsopen) fdclose(&t->fds);
+    free(t);
   }
-  free(pools);
-  pools = NULL;
+  free(thrds);
+  thrds = NULL;
 }

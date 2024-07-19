@@ -44,8 +44,7 @@ static struct index_s thismap; /* live checked index from this run */
 
 /// @brief Frees all allocated resources.
 static void freeall(void) {
-  int err;
-  if ((err = tpwait())) log_error("error waiting for threads: %d", err);
+  tpshutdown();
   freeinitargs();
   lcmdfree_r(cmdsets);
   indexfree(&lastmap);
@@ -268,14 +267,6 @@ static int fsprocfile_post(const char* fp) {
   return 0;
 }
 
-/// @brief Waits for all worker threads to complete their tasks.
-/// @return 0 if successful, otherwise a non-zero error code.
-static int waitforwork(void) {
-  int err;
-  if ((err = tpwait())) log_error("error waiting for threads: %d", err);
-  return err;
-}
-
 /// @brief Checks for files that were present in the previous index ("lastmap")
 /// but are missing in the current index ("thismap"). This function will trigger
 /// deletion (DEL) events for each missing file.
@@ -299,10 +290,10 @@ static int checkremoved(void) {
     if ((err = tpqueue(&req)))
       log_error("error queuing deletion command for `%s`: %d", prev->fp, err);
   }
-
   free(lastlist);
 
-  return waitforwork();
+  tpwait();
+  return 0;
 }
 
 /// @brief Resets the directory queue to the initial search path, and invokes
@@ -328,7 +319,8 @@ static int execstage(fswalkfn_t filefn) {
     printprogbar(thismap.size, lastmap.size);
   }
 
-  return waitforwork();
+  tpwait();
+  return 0;
 }
 
 /// @brief Compares the current file system state with a previously saved index.
