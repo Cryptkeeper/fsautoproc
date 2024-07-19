@@ -1,42 +1,14 @@
 [
   {
-    "on": [
-      "del"
-    ],
-    "patterns": [
-      ".+.pdf"
-    ],
-    "commands": [
-      "rm -f ${FILEPATH%.*}.jpg"
-    ],
-    "description": "deletes the thumbnail image of any deleted PDF file"
+    "on": ["del"],
+    "patterns": [".+.pdf"],
+    "commands": ["rm -f ${FILEPATH%.*}.jpg"],
+    "description": "delete removed PDF thumbnail"
   },
   {
-    "on": [
-      "new",
-      "mod"
-    ],
-    "patterns": [
-      ".+.pdf"
-    ],
-    "commands": [
-      "exiftool -all:all= -overwrite_original $FILEPATH",
-      "qpdf $FILEPATH --replace-input --linearize"
-    ],
-    "description": "strips metadata from any new or modified PDF file"
-  },
-  {
-    "on": [
-      "new",
-      "mod"
-    ],
-    "patterns": [
-      ".+.pdf"
-    ],
-    "commands": [
-      "convert $FILEPATH[0] ${FILEPATH%.*}.jpg",
-      "exiftool -r -overwrite_original -P -all= ${FILEPATH%.*}.jpg"
-    ],
-    "description": "generates a thumbnail image from the first page of a PDF file and strips its metadata"
+    "on": ["new", "mod"],
+    "patterns": [".+.pdf"],
+    "commands": ["magick convert $FILEPATH[0] ${FILEPATH%.*}.jpg"],
+    "description": "generate PDF thumbnail"
   }
 ]

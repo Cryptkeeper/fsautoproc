@@ -3,7 +3,7 @@
 `fsautoproc` is a basic C utility for when:
 
 - you have a large directory of various files
-- that when a new file with a specific file extension is added, modified, or removed,
+- that when a file matching any number of regex patterns is added, modified, removed, or left unchanged,
 - you want to run a series of commands (likely using the filepath as an argument)
 
 e.g. you have a large folder of PDFs that is published to a web server. When a new PDF is added, or an existing PDF is modified, you wish to strip any unnecessary file metadata and generate a thumbnail image. If the PDF file is removed, its thumbnail is removed as well.
@@ -23,7 +23,7 @@ Before using, consider:
 
 `fsautoproc` is built with CMake. You will need a C11 compiler and CMake installed. The utility is primarily written for use on Linux and BSD systems (including macOS). It may work on Windows with WSL or Cygwin, but this is currently untested.
 
-C11 is used for basic atomic boolean operations. C99 compatibility can be achieved by replacing any `_Atomic` keyword usages with `volatile` and adding a mutex lock.
+C11 is used for basic atomic boolean operations when scheduling work across threads. C99 compatibility can be achieved by providing a `stdatomic.h` compatible stub header for your platform.
 
 1. Clone the repository and its submodules: `git clone --recursive https://github.com/Cryptkeeper/fsautoproc`
 2. Build the CMake project with `cmake -B build`
@@ -53,6 +53,22 @@ Options:
   -u          Skip processing files, only update file index
   -v          Enable verbose output
 ```
+
+### Basic Configuration
+
+`example.fsautoproc.json` provides a basic example configuration file. The configuration file is a JSON array of objects, each object representing a desired "action" at a grouping level of your choosing. Each action object has the following properties:
+- `description` (string): An optional, brief string describing the action (for logging purposes when used with the `-l` flag)
+- `patterns` (array of strings): An array of regex patterns to match against file paths (regex behavior may vary by platform, see `man 3 regcomp` for details), a file must match at least one pattern to trigger the action
+- `commands` (array of strings): An array of commands to execute when a file matching a pattern is detected (commands are executed in order, command execution behavior may vary by platform, see `man 3 system` for details)
+- `on` (array of strings): An array of file events on which to trigger the action for a file (`new` for new files, `del` for deleted files, `mod` for modified files, `nop` for unmodified files)
+
+#### Command Execution
+
+When executing a command (or a series of commands), the commands are executed in configured order. The parent process is forked, and the child process executes the command using `system(3)`. The parent process waits for the child process to complete before continuing. If a command fails (i.e. returns a non-zero exit status), the parent process logs the failure and continues to the next command.
+
+The path of the file that triggered the command is available to the command as an environment variable, `FILEPATH`.
+
+If `-p` is enabled, the child process redirects its stdout and stderr to files in the current working directory. The files are named `stdout.<thread #>.log` and `stderr.<thread #>.log`, respectively.
 
 #### Logging Symbols
 
