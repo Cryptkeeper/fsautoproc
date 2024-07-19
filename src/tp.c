@@ -122,14 +122,18 @@ void tpshutdown(void) {
   atomic_store(&haltthrds, true);// signal threads to exit
   while (atomic_load(&thrdrc) > 0)
     ;
+  for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) {
+    struct thrd_s* t = thrds[i];
+    pthread_join(t->tid, NULL);
+    if (t->fdsopen) {
+      t->fdsopen = false;
+      fdclose(&t->fds);
+    }
+  }
 }
 
 void tpfree(void) {
-  for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) {
-    struct thrd_s* t = thrds[i];
-    if (t->fdsopen) fdclose(&t->fds);
-    free(t);
-  }
+  for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) free(thrds[i]);
   free(thrds);
   thrds = NULL;
 }
