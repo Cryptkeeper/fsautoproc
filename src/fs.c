@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <tm.h>
+#include <time.h>
 
 #include "log.h"
 
