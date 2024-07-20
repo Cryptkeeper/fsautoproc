@@ -12,7 +12,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libcjson-dev iwyu valgrind
+          sudo apt-get install -y valgrind
       - uses: actions/checkout@v4
         with:
           submodules: true

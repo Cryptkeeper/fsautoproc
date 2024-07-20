@@ -1,0 +1,8 @@
+[
+  {"include": ["<sys/_pthread/_pthread_t.h>", "private", "<pthread.h>", "public"]},
+  {"include": ["<sys/fcntl.h>", "private", "<fcntl.h>", "public"]},
+  {"include": ["<_regex.h>", "private", "<regex.h>", "public"]},
+  {"include": ["<sys/_types/_pid_t.h>", "private", "<sys/types.h>", "public"]},
+  {"include": ["<sys/_types/_seek_set.h>", "private", "<sys/types.h>", "public"]},
+  {"include": ["<sys/errno.h>", "private", "<errno.h>", "public"]},
+]

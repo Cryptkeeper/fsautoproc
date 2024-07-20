@@ -14,6 +14,12 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic")
 
+find_program(IWYU_PATH NAMES include-what-you-use iwyu)
+if (IWYU_PATH)
+    # TODO: use --error to fail the build if IWYU fails, but Ubuntu 20.04's IWYU is too old
+    set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${IWYU_PATH} -Xiwyu --mapping_file=${CMAKE_SOURCE_DIR}/.iwyu.imp)
+endif ()
+
 file(GLOB SOURCES "src/*.c")
 file(GLOB HEADERS "include/*.h")
 add_executable(fsautoproc ${SOURCES} ${HEADERS})
