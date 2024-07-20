@@ -7,13 +7,13 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "dq.h"
 #include "fd.h"
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
 #include "log.h"
 #include "prog.h"
+#include "sl.h"
 #include "tp.h"
 
 static struct {
@@ -42,6 +42,8 @@ static struct lcmdset_s** cmdsets;
 static struct index_s lastmap; /* stored index from previous run (if any) */
 static struct index_s thismap; /* live checked index from this run */
 
+static slist_t* dirqueue; /* directory queue for recursive file search */
+
 /// @brief Frees all allocated resources.
 static void freeall(void) {
   tpshutdown();
@@ -49,7 +51,7 @@ static void freeall(void) {
   lcmdfree_r(cmdsets);
   indexfree(&lastmap);
   indexfree(&thismap);
-  dqfree();
+  slfree(dirqueue);
   tpfree();
 }
 
@@ -296,19 +298,24 @@ static int checkremoved(void) {
   return 0;
 }
 
+static int dqpush(const char* fp) {
+  int err;
+  if ((err = sladd(&dirqueue, fp)))
+    log_error("error pushing directory `%s`", fp);
+  return err;
+}
+
 /// @brief Resets the directory queue to the initial search path, and invokes
 /// the `filefn` function for each file in the directory tree, recursively.
 /// @param filefn The function to invoke for each file in the directory tree
 /// @return 0 if successful, otherwise a non-zero error code.
 static int execstage(fswalkfn_t filefn) {
-  dqreset();
-  if (dqpush(initargs.searchdir)) {
-    log_error("error pushing search directory `%s`", initargs.searchdir);
-    return -1;
-  }
+  slfree(dirqueue);
+  dirqueue = NULL;
+  if (dqpush(initargs.searchdir)) return -1;
 
   char* dir;
-  while ((dir = dqnext()) != NULL) {
+  while ((dir = slpop(dirqueue)) != NULL) {
     if (initargs.verbose) log_verbose("[s] %s", dir);
 
     int err;
@@ -317,6 +324,7 @@ static int execstage(fswalkfn_t filefn) {
       return -1;
     }
     printprogbar(thismap.size, lastmap.size);
+    free(dir);
   }
 
   tpwait();

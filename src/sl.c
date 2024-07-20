@@ -7,7 +7,6 @@
 int sladd(slist_t** p, const char* str) {
   assert(p != NULL);
   assert(str != NULL);
-
   slist_t* sl = *p;
   size_t len = 0;
   for (; sl != NULL && sl[len] != NULL; len++)
@@ -23,4 +22,15 @@ int sladd(slist_t** p, const char* str) {
 void slfree(slist_t* sl) {
   for (size_t i = 0; sl != NULL && sl[i] != NULL; i++) free(sl[i]);
   free(sl);
+}
+
+char* slpop(slist_t* sl) {
+  assert(sl != NULL);
+  size_t len = 0;
+  for (; sl != NULL && sl[len] != NULL; len++)
+    ;
+  if (len == 0) return NULL;
+  char* const ret = sl[len - 1];
+  sl[len - 1] = NULL;
+  return ret;
 }
