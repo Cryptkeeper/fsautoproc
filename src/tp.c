@@ -117,7 +117,6 @@ void tpwait(void) {
 }
 
 void tpshutdown(void) {
-  log_info("waiting for %d threads to exit...", atomic_load(&thrdrc));
   atomic_store(&haltthrds, true);// signal threads to exit
   while (atomic_load(&thrdrc) > 0)
     ;
