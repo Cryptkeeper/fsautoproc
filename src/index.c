@@ -19,7 +19,7 @@ static int indexhash(const char* fp) {
   return h % INDEXBUCKETS;
 }
 
-struct inode_s* indexfind(struct index_s* idx, const char* fp) {
+struct inode_s* indexfind(const struct index_s* idx, const char* fp) {
   struct inode_s* head = idx->buckets[indexhash(fp)];
   while (head != NULL) {
     if (strcmp(head->fp, fp) == 0) return head;

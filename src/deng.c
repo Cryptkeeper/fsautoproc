@@ -14,7 +14,7 @@
 struct deng_state_s {
   slist_t* dirqueue;                /* processing directory queue */
   const struct deng_hooks_s* hooks; /* file event hook functions */
-  struct index_s* lastmap;          /* previous index state */
+  const struct index_s* lastmap;    /* previous index state */
   struct index_s* thismap;          /* current index state */
 };
 
@@ -139,7 +139,7 @@ static int checkremoved(struct deng_state_s* mach) {
 }
 
 int dengsearch(const char* sd, const struct deng_hooks_s* hooks,
-             struct index_s* old, struct index_s* new) {
+               const struct index_s* old, struct index_s* new) {
   assert(sd != NULL);
   assert(hooks != NULL);
   assert(old != NULL);

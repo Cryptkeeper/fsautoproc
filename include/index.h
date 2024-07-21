@@ -22,7 +22,7 @@ struct index_s {
 /// @param idx The index to search
 /// @param fp The search value (filepath) to compare
 /// @return If a match is found, its pointer is returned, otherwise NULL.
-struct inode_s* indexfind(struct index_s* idx, const char* fp);
+struct inode_s* indexfind(const struct index_s* idx, const char* fp);
 
 /// @brief Flattens the index map into a sorted array of nodes (by filepath).
 /// The list is then written to the file stream and freed.

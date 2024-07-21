@@ -25,6 +25,6 @@ struct deng_hooks_s {
 /// @param new The current index state
 /// @return 0 if successful, otherwise a non-zero error code.
 int dengsearch(const char* sd, const struct deng_hooks_s* hooks,
-               struct index_s* old, struct index_s* new);
+               const struct index_s* old, struct index_s* new);
 
 #endif//FSAUTOPROC_DENG_H
