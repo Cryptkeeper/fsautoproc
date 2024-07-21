@@ -1,19 +1,18 @@
 #include <assert.h>
 #include <errno.h>
-#include <inttypes.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
+#include "deng.h"
 #include "fd.h"
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
 #include "log.h"
 #include "prog.h"
-#include "sl.h"
 #include "tp.h"
 
 static struct {
@@ -42,8 +41,6 @@ static struct lcmdset_s** cmdsets;
 static struct index_s lastmap; /* stored index from previous run (if any) */
 static struct index_s thismap; /* live checked index from this run */
 
-static slist_t* dirqueue; /* directory queue for recursive file search */
-
 /// @brief Frees all allocated resources.
 static void freeall(void) {
   tpshutdown();
@@ -51,7 +48,6 @@ static void freeall(void) {
   lcmdfree_r(cmdsets);
   indexfree(&lastmap);
   indexfree(&thismap);
-  slfree(dirqueue);
   tpfree();
 }
 
@@ -168,167 +164,47 @@ static int writeindex(struct index_s* idx, const char* fp) {
   return err;
 }
 
-#define abssub(a, b) ((a) >= (b) ? (a) - (b) : (b) - (a))
-
-/// @brief Processes a file before the command execution stage. This function
-/// will compare the file stats with the previous index (if any) and will
-/// optionally invoke command execution for NEW/MOD/NOP events.
-/// @param fp The file path to process
-/// @return 0 if successful, otherwise a non-zero error code.
-static int fsprocfile_pre(const char* fp) {
-  // only process files that match at least one command set
-  if (!initargs.includejunk && !lcmdmatchany(cmdsets, fp)) {
-    if (initargs.verbose) log_verbose("[j] %s", fp);
-    return 0;
-  }
-
-  struct inode_s finfo = {0};
-  if ((finfo.fp = strdup(fp)) == NULL) return -1;
-  if (fsstat(fp, &finfo.st)) return -1;
-
-  // attempt to match file in previous index
-  struct inode_s* prev = indexfind(&lastmap, fp);
-
-  // lookup from previous iteration or insert new record and lookup
-  struct inode_s* curr = indexfind(&thismap, fp);
-  if (curr == NULL) {
-    if ((curr = indexput(&thismap, finfo)) == NULL) return -1;
-  }
-
-  int execflags = initargs.verbose ? LCTOPT_VERBOSE : 0;
-
-  if (prev != NULL) {
-    const bool modified = !fsstateql(&prev->st, &curr->st);
-    if (modified) {
-      const uint64_t dt = abssub(prev->st.fsze, curr->st.fsze);
-      log_info("[*] %s (Δ%" PRIu64 ")", curr->fp, dt);
-      execflags |= LCTRIG_MOD;
-    } else {
-      if (initargs.verbose) log_verbose("[n] %s", curr->fp);
-      execflags |= LCTRIG_NOP;
-    }
-  } else {
-    log_info("[+] %s", curr->fp);
-    execflags |= LCTRIG_NEW;
-  }
-
-  if (!initargs.skipproc) {
-    const struct tpreq_s req = {cmdsets, curr, execflags};
-    int err;
-    if ((err = tpqueue(&req))) return err;
-  }
-
-  return 0;
+static bool filterjunk(const char* fp) {
+  const bool junk = !initargs.includejunk && !lcmdmatchany(cmdsets, fp);
+  if (junk && initargs.verbose) log_info("[j] %s", fp);
+  return junk;
 }
 
-/// @brief Processes a file after the command execution stage to ensure all
-/// files are indexed. This function will only fire new events for files that
-/// were created as a result of the previous commands.
-/// @param fp The file path to process
-/// @return 0 if successful, otherwise a non-zero error code.
-static int fsprocfile_post(const char* fp) {
-  // only process files that match at least one command set
-  if (!initargs.includejunk && !lcmdmatchany(cmdsets, fp)) {
-    if (initargs.verbose) log_info("[j] %s", fp);
-    return 0;
-  }
+static void onnotifydone(void) { printprogbar(thismap.size, lastmap.size); }
 
-  struct inode_s* curr = indexfind(&thismap, fp);
-  if (curr != NULL) {
-    // check if the file was modified during the command execution
-    struct fsstat_s mod = {0};
-    if (fsstat(fp, &mod)) return -1;
-    if (fsstateql(&curr->st, &mod)) return 0;
-
-    if (initargs.verbose) {
-      const uint64_t dt = abssub(curr->st.fsze, mod.fsze);
-      log_info("[*] %s (Δ%" PRIu64 ")", curr->fp, dt);
-    }
-
-    // update the file info in the current index
-    curr->st = mod;
-
-    return 0;
-  }
-
-  struct inode_s finfo = {0};
-  if ((finfo.fp = strdup(fp)) == NULL) return -1;
-  if (fsstat(fp, &finfo.st)) return -1;
-
-  if ((curr = indexput(&thismap, finfo)) == NULL) return -1;
-
-  log_info("[+] %s", curr->fp);
-
-  if (!initargs.skipproc) {
-    const int flags = LCTRIG_NEW | (initargs.verbose ? LCTOPT_VERBOSE : 0);
-    const struct tpreq_s req = {cmdsets, curr, flags};
-    int err;
-    if ((err = tpqueue(&req))) return err;
-  }
-
-  return 0;
-}
-
-/// @brief Checks for files that were present in the previous index ("lastmap")
-/// but are missing in the current index ("thismap"). This function will trigger
-/// deletion (DEL) events for each missing file.
-/// @return 0 if successful, otherwise a non-zero error code.
-static int checkremoved(void) {
-  if (lastmap.size == 0) return 0;// no previous map entries to check
-
-  struct inode_s** lastlist;
-  if ((lastlist = indexlist(&lastmap)) == NULL) return -1;
-
-  for (long i = 0; i < lastmap.size; i++) {
-    struct inode_s* prev = lastlist[i];
-    if (indexfind(&thismap, prev->fp) != NULL) continue;
-
-    log_info("[-] %s", prev->fp);
-
-    if (initargs.skipproc) continue;
-    const int flags = LCTRIG_DEL | (initargs.verbose ? LCTOPT_VERBOSE : 0);
-    const struct tpreq_s req = {cmdsets, prev, flags};
-    int err;
-    if ((err = tpqueue(&req)))
-      log_error("error queuing deletion command for `%s`: %d", prev->fp, err);
-  }
-  free(lastlist);
-
-  tpwait();
-  return 0;
-}
-
-static int dqpush(const char* fp) {
+/// @brief Queues command execution for a file event of the specified type,
+/// using the provided inode for the file information. If the `skipproc` flag
+/// is set, the command execution is skipped. If the `verbose` flag is set, the
+/// command execution is done with verbose output.
+/// @param in The inode for the file event
+/// @param trig The file event type
+static void trigfileevent(struct inode_s* in, const int trig) {
+  if (initargs.skipproc) return;
+  const int flags = trig | (initargs.verbose ? LCTOPT_VERBOSE : 0);
+  const struct tpreq_s req = {cmdsets, in, flags};
   int err;
-  if ((err = sladd(&dirqueue, fp)))
-    log_error("error pushing directory `%s`", fp);
-  return err;
+  if ((err = tpqueue(&req)))
+    log_error("error executing command set for `%s`: %d", in->fp, err);
 }
 
-/// @brief Resets the directory queue to the initial search path, and invokes
-/// the `filefn` function for each file in the directory tree, recursively.
-/// @param filefn The function to invoke for each file in the directory tree
-/// @return 0 if successful, otherwise a non-zero error code.
-static int execstage(fswalkfn_t filefn) {
-  slfree(dirqueue);
-  dirqueue = NULL;
-  if (dqpush(initargs.searchdir)) return -1;
+static void onnew(struct inode_s* in) {
+  log_info("[+] %s", in->fp);
+  trigfileevent(in, LCTRIG_NEW);
+}
 
-  char* dir;
-  while ((dir = slpop(dirqueue)) != NULL) {
-    if (initargs.verbose) log_verbose("[s] %s", dir);
+static void ondel(struct inode_s* in) {
+  log_info("[-] %s", in->fp);
+  trigfileevent(in, LCTRIG_DEL);
+}
 
-    int err;
-    if ((err = fswalk(dir, filefn, dqpush))) {
-      log_error("file func for `%s` returned %d", dir, err);
-      return -1;
-    }
-    printprogbar(thismap.size, lastmap.size);
-    free(dir);
-  }
+static void onmod(struct inode_s* in) {
+  log_info("[*] %s", in->fp);
+  trigfileevent(in, LCTRIG_MOD);
+}
 
-  tpwait();
-  return 0;
+static void onnop(struct inode_s* in) {
+  if (initargs.verbose) log_info("[n] %s", in->fp);
+  trigfileevent(in, LCTRIG_NOP);
 }
 
 /// @brief Compares the current file system state with a previously saved index.
@@ -342,10 +218,14 @@ static int cmpchanges(void) {
     }
   }
 
+  const struct deng_hooks_s hooks = {filterjunk, onnotifydone, onnew,
+                                     ondel,      onmod,        onnop};
+
   int err;
-  if ((err = execstage(fsprocfile_pre)) || (err = checkremoved()) ||
-      (err = execstage(fsprocfile_post)))
-    return err;
+  if ((err = dengsearch(initargs.searchdir, &hooks, &lastmap, &thismap))) {
+    log_error("error processing directory `%s`: %d", initargs.searchdir, err);
+    return -1;
+  }
 
   log_info("compared %zu files", thismap.size);
 

@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-typedef int (*fswalkfn_t)(const char* fp);
+typedef int (*fswalkfn_t)(const char* fp, void* udata);
 
 /// @brief `fswalk` walks the single directory described by `dir` and calls
 /// `filefn` for each file found and `dirfn` for each directory found.
@@ -15,10 +15,11 @@ typedef int (*fswalkfn_t)(const char* fp);
 /// @param dirfn The function to call for each directory found. The directory
 /// path is passed as the first argument. If the function returns a non-zero
 /// value, the walk is terminated and the same value is returned by `fswalk`.
+/// @param udata User data to pass to `filefn` and `dirfn`
 /// @return If successful, 0 is returned. An internal `fswalk` error will return
 /// a value of -1 and `errno` is set. Otherwise the return value of the first
 /// non-zero `filefn` or `dirfn` call is returned.
-int fswalk(const char* dir, fswalkfn_t filefn, fswalkfn_t dirfn);
+int fswalk(const char* dir, fswalkfn_t filefn, fswalkfn_t dirfn, void* udata);
 
 struct fsstat_s {
   uint64_t lmod;
