@@ -6,13 +6,18 @@
 struct inode_s;
 struct index_s;
 
+enum deng_notif_t {
+  DENG_NOTIF_DIR_DONE,   /* a directory has been processed */
+  DENG_NOTIF_STAGE_DONE, /* a stage has been completed */
+};
+
 struct deng_hooks_s {
-  bool (*filter_junk)(const char* fp); /* filter junk files       */
-  void (*notify_done)(void);           /* processing done event   */
-  void (*new)(struct inode_s* in);     /* new file event          */
-  void (*del)(struct inode_s* in);     /* deleted file event      */
-  void (*mod)(struct inode_s* in);     /* modified file event     */
-  void (*nop)(struct inode_s* in);     /* unmodified file event   */
+  bool (*filter_junk)(const char* fp);     /* filter junk files       */
+  void (*notify)(enum deng_notif_t notif); /* processing flow events  */
+  void (*new)(struct inode_s* in);         /* new file event          */
+  void (*del)(struct inode_s* in);         /* deleted file event      */
+  void (*mod)(struct inode_s* in);         /* modified file event     */
+  void (*nop)(struct inode_s* in);         /* unmodified file event   */
 };
 
 /// @brief Recursively scans a directory tree and compares the file system state

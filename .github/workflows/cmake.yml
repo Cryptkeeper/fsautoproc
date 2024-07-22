@@ -23,6 +23,9 @@ jobs:
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER=${{matrix.compiler}}
       - name: Build
         run: cmake --build ${{github.workspace}}/build
+      - name: CTest
+        working-directory: ${{github.workspace}}/build
+        run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
       - uses: actions/upload-artifact@v4
         with:
           name: fsautoproc-ubuntu-x86_64-${{matrix.compiler}}
@@ -41,6 +44,9 @@ jobs:
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_C_COMPILER="clang"
       - name: Build
         run: cmake --build ${{github.workspace}}/build
+      - name: CTest
+        working-directory: ${{github.workspace}}/build
+        run: ctest -C ${{env.BUILD_TYPE}} --output-on-failure
       - uses: actions/upload-artifact@v4
         with:
           name: fsautoproc-macos-x86_64

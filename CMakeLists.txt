@@ -29,3 +29,14 @@ target_link_libraries(fsautoproc PRIVATE cjson pthread)
 target_include_directories(fsautoproc PRIVATE "include" "dep")
 
 install(TARGETS fsautoproc DESTINATION bin)
+
+# libdeng shared library for unit tests
+add_library(deng STATIC src/deng.c src/index.c src/fs.c src/sl.c)
+target_include_directories(deng PUBLIC "include")
+
+# unit tests
+enable_testing()
+
+add_executable(test_deng test/test_deng.c)
+target_link_libraries(test_deng PRIVATE deng)
+add_test(NAME deng COMMAND test_deng)

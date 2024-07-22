@@ -170,7 +170,16 @@ static bool filterjunk(const char* fp) {
   return junk;
 }
 
-static void onnotifydone(void) { printprogbar(thismap.size, lastmap.size); }
+static void onnotify(const enum deng_notif_t notif) {
+  switch (notif) {
+    case DENG_NOTIF_DIR_DONE:
+      printprogbar(thismap.size, lastmap.size);
+      break;
+    case DENG_NOTIF_STAGE_DONE:
+      tpwait(); /* wait for all queued commands to finish */
+      break;
+  }
+}
 
 /// @brief Queues command execution for a file event of the specified type,
 /// using the provided inode for the file information. If the `skipproc` flag
@@ -218,8 +227,8 @@ static int cmpchanges(void) {
     }
   }
 
-  const struct deng_hooks_s hooks = {filterjunk, onnotifydone, onnew,
-                                     ondel,      onmod,        onnop};
+  const struct deng_hooks_s hooks = {filterjunk, onnotify, onnew,
+                                     ondel,      onmod,    onnop};
 
   int err;
   if ((err = dengsearch(initargs.searchdir, &hooks, &lastmap, &thismap))) {

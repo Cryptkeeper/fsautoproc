@@ -9,7 +9,6 @@
 #include "index.h"
 #include "log.h"
 #include "sl.h"
-#include "tp.h"
 
 struct deng_state_s {
   slist_t* dirqueue;                /* processing directory queue */
@@ -17,6 +16,16 @@ struct deng_state_s {
   const struct index_s* lastmap;    /* previous index state */
   struct index_s* thismap;          /* current index state */
 };
+
+#define invokehook(mach, name, arg)                                            \
+  do {                                                                         \
+    if ((mach)->hooks->name != NULL) (mach)->hooks->name(arg);                 \
+  } while (0)
+
+#define notifyhook(mach, type)                                                 \
+  do {                                                                         \
+    if ((mach)->hooks->notify != NULL) (mach)->hooks->notify(type);            \
+  } while (0)
 
 /// @brief Processes a file before the command execution stage to ensure all
 /// files are indexed. This function may trigger new (NEW), modified (MOD),
@@ -26,7 +35,8 @@ struct deng_state_s {
 /// @return 0 if successful, otherwise a non-zero error code.
 static int stagepre(const char* fp, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
-  if (mach->hooks->filter_junk(fp)) return 0;
+  if (mach->hooks->filter_junk != NULL && mach->hooks->filter_junk(fp))
+    return 0;
 
   struct inode_s finfo = {0};
   if ((finfo.fp = strdup(fp)) == NULL) return -1;
@@ -41,11 +51,11 @@ static int stagepre(const char* fp, void* udata) {
     if ((curr = indexput(mach->thismap, finfo)) == NULL) return -1;
 
   if (prev != NULL && !fsstateql(&prev->st, &curr->st)) {
-    mach->hooks->mod(curr);
+    invokehook(mach, mod, curr);
   } else if (prev != NULL) {
-    mach->hooks->nop(curr);
+    invokehook(mach, nop, curr);
   } else {
-    mach->hooks->new (curr);
+    invokehook(mach, new, curr);
   }
 
   return 0;
@@ -59,7 +69,8 @@ static int stagepre(const char* fp, void* udata) {
 /// @return 0 if successful, otherwise a non-zero error code.
 static int stagepost(const char* fp, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
-  if (mach->hooks->filter_junk(fp)) return 0;
+  if (mach->hooks->filter_junk != NULL && mach->hooks->filter_junk(fp))
+    return 0;
 
   struct inode_s* curr = indexfind(mach->thismap, fp);
   if (curr != NULL) {
@@ -74,7 +85,7 @@ static int stagepost(const char* fp, void* udata) {
   if ((finfo.fp = strdup(fp)) == NULL) return -1;
   if (fsstat(fp, &finfo.st)) return -1;
   if ((curr = indexput(mach->thismap, finfo)) == NULL) return -1;
-  mach->hooks->new (curr);
+  invokehook(mach, new, curr);
 
   return 0;
 }
@@ -110,10 +121,10 @@ static int execstage(struct deng_state_s* mach, const char* sd,
       log_error("file func for `%s` returned %d", dir, err);
       return -1;
     }
-    mach->hooks->notify_done();
+    notifyhook(mach, DENG_NOTIF_DIR_DONE);
     free(dir);
   }
-  tpwait();
+  notifyhook(mach, DENG_NOTIF_STAGE_DONE);
 
   return 0;
 }
@@ -130,10 +141,10 @@ static int checkremoved(struct deng_state_s* mach) {
   for (long i = 0; i < mach->lastmap->size; i++) {
     struct inode_s* prev = lastlist[i];
     if (indexfind(mach->thismap, prev->fp) != NULL) continue;
-    mach->hooks->del(prev);
+    invokehook(mach, del, prev);
   }
   free(lastlist);
-  tpwait();
+  notifyhook(mach, DENG_NOTIF_STAGE_DONE);
 
   return 0;
 }
