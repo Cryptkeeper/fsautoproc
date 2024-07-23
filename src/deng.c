@@ -12,6 +12,7 @@
 
 struct deng_state_s {
   slist_t* dirqueue;                /* processing directory queue */
+  deng_filter_t ffn;                /* file filter function */
   const struct deng_hooks_s* hooks; /* file event hook functions */
   const struct index_s* lastmap;    /* previous index state */
   struct index_s* thismap;          /* current index state */
@@ -35,8 +36,7 @@ struct deng_state_s {
 /// @return 0 if successful, otherwise a non-zero error code.
 static int stagepre(const char* fp, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
-  if (mach->hooks->filter_junk != NULL && mach->hooks->filter_junk(fp))
-    return 0;
+  if (mach->ffn != NULL && mach->ffn(fp)) return 0;
 
   struct inode_s finfo = {0};
   if ((finfo.fp = strdup(fp)) == NULL) return -1;
@@ -69,8 +69,7 @@ static int stagepre(const char* fp, void* udata) {
 /// @return 0 if successful, otherwise a non-zero error code.
 static int stagepost(const char* fp, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
-  if (mach->hooks->filter_junk != NULL && mach->hooks->filter_junk(fp))
-    return 0;
+  if (mach->ffn != NULL && mach->ffn(fp)) return 0;
 
   struct inode_s* curr = indexfind(mach->thismap, fp);
   if (curr != NULL) {
@@ -149,14 +148,15 @@ static int checkremoved(struct deng_state_s* mach) {
   return 0;
 }
 
-int dengsearch(const char* sd, const struct deng_hooks_s* hooks,
-               const struct index_s* old, struct index_s* new) {
+int dengsearch(const char* sd, deng_filter_t filter,
+               const struct deng_hooks_s* hooks, const struct index_s* old,
+               struct index_s* new) {
   assert(sd != NULL);
   assert(hooks != NULL);
   assert(old != NULL);
   assert(new != NULL);
 
-  struct deng_state_s mach = {NULL, hooks, old, new};
+  struct deng_state_s mach = {NULL, filter, hooks, old, new};
   int err;
   if ((err = execstage(&mach, sd, stagepre))) goto ret;
   if ((err = checkremoved(&mach))) goto ret;

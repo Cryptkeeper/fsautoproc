@@ -12,7 +12,6 @@ enum deng_notif_t {
 };
 
 struct deng_hooks_s {
-  bool (*filter_junk)(const char* fp);     /* filter junk files       */
   void (*notify)(enum deng_notif_t notif); /* processing flow events  */
   void (*new)(struct inode_s* in);         /* new file event          */
   void (*del)(struct inode_s* in);         /* deleted file event      */
@@ -20,16 +19,20 @@ struct deng_hooks_s {
   void (*nop)(struct inode_s* in);         /* unmodified file event   */
 };
 
+typedef bool (*deng_filter_t)(const char* fp);
+
 /// @brief Recursively scans a directory tree and compares the file system state
 /// with a previously saved index. Any new, modified, deleted, or unmodified
 /// files are reported to the caller via the provided hooks. The index state is
 /// updated with the current file system state.
-/// @param sd The directory to scan
+/// @param sd The directory to scan for conditionally ignoring files
+/// @param filter The file filter function
 /// @param hooks The file event hook functions
 /// @param old The previous index state
 /// @param new The current index state
 /// @return 0 if successful, otherwise a non-zero error code.
-int dengsearch(const char* sd, const struct deng_hooks_s* hooks,
-               const struct index_s* old, struct index_s* new);
+int dengsearch(const char* sd, deng_filter_t filter,
+               const struct deng_hooks_s* hooks, const struct index_s* old,
+               struct index_s* new);
 
 #endif//FSAUTOPROC_DENG_H

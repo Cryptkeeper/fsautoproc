@@ -227,11 +227,11 @@ static int cmpchanges(void) {
     }
   }
 
-  const struct deng_hooks_s hooks = {filterjunk, onnotify, onnew,
-                                     ondel,      onmod,    onnop};
+  const struct deng_hooks_s hooks = {onnotify, onnew, ondel, onmod, onnop};
 
   int err;
-  if ((err = dengsearch(initargs.searchdir, &hooks, &lastmap, &thismap))) {
+  if ((err = dengsearch(initargs.searchdir, filterjunk, &hooks, &lastmap,
+                        &thismap))) {
     log_error("error processing directory `%s`: %d", initargs.searchdir, err);
     return -1;
   }
