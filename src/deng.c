@@ -8,6 +8,8 @@
 #include "fs.h"
 #include "index.h"
 #include "log.h"
+
+#define SL_IMPL
 #include "sl.h"
 
 struct deng_state_s {

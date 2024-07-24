@@ -26,13 +26,14 @@ add_executable(fsautoproc ${SOURCES} ${HEADERS})
 
 target_link_directories(fsautoproc PRIVATE dep)
 target_link_libraries(fsautoproc PRIVATE cjson pthread)
-target_include_directories(fsautoproc PRIVATE "include" "dep")
+target_include_directories(fsautoproc PRIVATE include dep)
+set_target_properties(fsautoproc PROPERTIES PUBLIC_HEADER "${HEADERS}")
 
 install(TARGETS fsautoproc DESTINATION bin)
 
 # libdeng shared library for unit tests
-add_library(deng STATIC src/deng.c src/index.c src/fs.c src/sl.c)
-target_include_directories(deng PUBLIC "include")
+add_library(deng STATIC src/deng.c src/index.c src/fs.c)
+target_include_directories(deng PUBLIC include dep)
 
 # unit tests
 enable_testing()
