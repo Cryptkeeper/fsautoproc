@@ -46,8 +46,11 @@ long slcount(const slist_t *sl);
 #ifdef SL_IMPL
 #ifndef SL_IMPL_ONCE
 #define SL_IMPL_ONCE
+#define SL_IMPL_NO_INCLUDE
 #line 1 "sl.c"
+#ifndef SL_IMPL_NO_INCLUDE
 #include "sl.h"
+#endif
 
 #ifndef SL_OVERRIDE
 #include <stdlib.h> /* for free, realloc, NULL */
