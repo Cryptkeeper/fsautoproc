@@ -1,12 +1,19 @@
+/// @file tp.h
+/// @brief Thread pool API for executing work requests.
 #ifndef FSAUTOPROC_TP_H
 #define FSAUTOPROC_TP_H
 
+/// @struct tpreq_s
+/// @brief Pending work request which contains a command set to execute on a
+/// thread in the pool, using a file node as the target.
 struct tpreq_s {
-  struct lcmdset_s** cs; /* cmdset to execute */
-  struct inode_s* node;  /* file node to execute on */
-  int flags;             /* command trigger flags */
+  struct lcmdset_s** cs; ///< command set to execute
+  struct inode_s* node;  ///< File node to pass to the command set
+  int flags;             ///< Trigger flags for the command set
 };
 
+/// @def TPOPT_LOGFILES
+/// @brief Option bit flag for logging all stdout/stderr output to files.
 #define TPOPT_LOGFILES 1
 
 /// @brief Initializes a global worker thread pool of the given size.

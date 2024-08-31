@@ -1,3 +1,5 @@
+/// @file main.c
+/// @brief Main program entry point.
 #include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
@@ -16,18 +18,19 @@
 #include "prog.h"
 #include "tp.h"
 
+/// @brief Managed initialization arguments for the program.
 static struct {
-  char* configfile; // configuration file path (-c)
-  char* indexfile;  // index file path (-i)
-  char* lockfile;   // exclusive lock file path (-x)
-  char* searchdir;  // search directory root (-s)
-  char* tracefile;  // trace file path (-r)
-  _Bool pipefiles;  // pipe subprocess stdout/stderr to files (-p)
-  _Bool includejunk;// include ignored files in index (-j)
-  _Bool listspent;  // list time spent for each command set (-l)
-  _Bool skipproc;   // skip processing files, only update file index (-u)
-  int threads;      // number of worker threads (-t)
-  _Bool verbose;    // enable verbose output (-v)
+  char* configfile; ///< Configuration file path (-c)
+  char* indexfile;  ///< Index file path (-i)
+  char* lockfile;   ///< Exclusive lock file path (-x)
+  char* searchdir;  ///< Search directory root (-s)
+  char* tracefile;  ///< Trace file path (-r)
+  _Bool pipefiles;  ///< Pipe subprocess stdout/stderr to files (-p)
+  _Bool includejunk;///< Include ignored files in index (-j)
+  _Bool listspent;  ///< List time spent for each command set (-l)
+  _Bool skipproc;   ///< Skip processing files, only update file index (-u)
+  int threads;      ///< Number of worker threads (-t)
+  _Bool verbose;    ///< Enable verbose output (-v)
 } initargs;
 
 /// @brief Frees all duplicated initialization arguments.
@@ -39,12 +42,12 @@ static void freeinitargs(void) {
   free(initargs.searchdir);
 }
 
-static struct lcmdset_s** cmdsets;
+static struct lcmdset_s** cmdsets; ///< Command sets loaded from configuration
 
-static struct index_s lastmap; /* stored index from previous run (if any) */
-static struct index_s thismap; /* live checked index from this run */
+static struct index_s lastmap; ///< Stored index from previous run (if any)
+static struct index_s thismap; ///< Live checked index from this run
 
-static struct flock_s worklock; /* exclusive lock for work directory */
+static struct flock_s worklock; ///< Exclusive work lock for local directory
 
 /// @brief Frees all allocated resources.
 static void freeall(void) {
@@ -62,6 +65,11 @@ static void freeall(void) {
   tpfree();
 }
 
+/// @def strdupoptarg
+/// @brief Duplicates the current `optarg` value into the specified variable.
+/// If the duplication fails, an error message is printed and the function
+/// returns 1.
+/// @param into The variable to duplicate into
 #define strdupoptarg(into)                                                     \
   do {                                                                         \
     if ((into = strdup(optarg)) == NULL) {                                     \
@@ -70,6 +78,13 @@ static void freeall(void) {
     }                                                                          \
   } while (0)
 
+/// @brief Parses the program initialization arguments into \p initargs.
+/// @param argc The number of arguments
+/// @param argv The argument array
+/// @return 0 if successful, otherwise a non-zero error code which indicates
+/// the caller should exit.
+/// @note This function will print the program usage and exit(0) if the `-h`
+/// option is provided.
 static int parseinitargs(const int argc, char** const argv) {
   int c;
   while ((c = getopt(argc, argv, ":hc:i:jlps:t:r:uvx:")) != -1) {
@@ -185,12 +200,21 @@ static int writeindex(struct index_s* idx, const char* fp) {
   return err;
 }
 
+/// @brief Filters out junk files from the index based on loaded command sets
+/// \p cmdsets and the \p initargs.includejunk flag/program option.
+/// @param fp The file path to filter
+/// @return True if the file is considered junk, otherwise false.
 static bool filterjunk(const char* fp) {
   const bool junk = !initargs.includejunk && !lcmdmatchany(cmdsets, fp);
   if (junk && initargs.verbose) log_info("[j] %s", fp);
   return junk;
 }
 
+/// @brief Callback function passed to the diff engine to handle progress
+/// notifications. This function will print a progress bar to the console when
+/// a directory is completed, and block between stage completions to ensure all
+/// thread work requests are complete before the next stage.
+/// @param notif The notification type
 static void onnotify(const enum deng_notif_t notif) {
   switch (notif) {
     case DENG_NOTIF_DIR_DONE:
@@ -217,21 +241,36 @@ static void trigfileevent(struct inode_s* in, const int trig) {
     log_error("error executing command set for `%s`: %d", in->fp, err);
 }
 
+/// @brief Callback function for the diff engine to handle new file events.
+/// This will log a work request in the thread pool for any command sets which
+/// match the new file event.
+/// @param in The inode for the new file
 static void onnew(struct inode_s* in) {
   log_info("[+] %s", in->fp);
   trigfileevent(in, LCTRIG_NEW);
 }
 
+/// @brief Callback function for the diff engine to handle deleted file events.
+/// This will log a work request in the thread pool for any command sets which
+/// match the deleted file event.
+/// @param in The inode for the deleted file
 static void ondel(struct inode_s* in) {
   log_info("[-] %s", in->fp);
   trigfileevent(in, LCTRIG_DEL);
 }
 
+/// @brief Callback function for the diff engine to handle modified file events.
+/// This will log a work request in the thread pool for any command sets which
+/// match the modified file event.
+/// @param in The inode for the modified file
 static void onmod(struct inode_s* in) {
   log_info("[*] %s", in->fp);
   trigfileevent(in, LCTRIG_MOD);
 }
 
+/// @brief Callback function for the diff engine to handle no-op file events.
+/// This will log a work request in the thread pool for any command sets which
+/// match the unmodified file event.
 static void onnop(struct inode_s* in) {
   if (initargs.verbose) log_info("[n] %s", in->fp);
   trigfileevent(in, LCTRIG_NOP);
@@ -279,6 +318,7 @@ static int tracefile(const char* fp) {
   return lcmdexec(cmdsets, &node, &fds, LCTOPT_TRACE | LCTRIG_ALL);
 }
 
+/// @brief Prints the time spent for each command set to the console.
 static void printmsspent(void) {
   for (size_t i = 0; cmdsets != NULL && cmdsets[i] != NULL; i++) {
     const struct lcmdset_s* s = cmdsets[i];
@@ -287,6 +327,10 @@ static void printmsspent(void) {
   }
 }
 
+/// @brief Main program entry point.
+/// @param argc The number of arguments
+/// @param argv The argument array
+/// @return 0 if successful, otherwise a non-zero error code.
 int main(int argc, char** argv) {
   atexit(freeall);
   if (parseinitargs(argc, argv)) return 1;

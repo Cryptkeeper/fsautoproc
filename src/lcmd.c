@@ -1,3 +1,5 @@
+/// @file lcmd.c
+/// @brief File-specific system command execution mapping implementation.
 #include "lcmd.h"
 
 #include <assert.h>
@@ -19,6 +21,8 @@
 #include "sl.h"
 #include "tm.h"
 
+/// @brief Frees the memory allocated for a single command set entry struct.
+/// @param cmd Command set entry to free
 static void lcmdfree(struct lcmdset_s* cmd) {
   for (size_t i = 0; cmd->fpatterns[i] != NULL; i++) {
     regex_t* reg = cmd->fpatterns[i];
@@ -37,8 +41,8 @@ void lcmdfree_r(struct lcmdset_s** cs) {
   free(cs);
 }
 
-/// @brief `fsreadstr` reads the contents of the file described by filepath `fp`
-/// into a dynamically allocated buffer returned by the function.
+/// @brief Reads the contents of the file described by filepath \p fp into a
+/// dynamically allocated buffer returned by the function.
 /// @param fp The filepath to read
 /// @return If successful, a pointer to a dynamically allocated buffer of the
 /// file's null terminated contents. The caller is responsible for freeing the
@@ -67,8 +71,8 @@ err:
   return NULL;
 }
 
-/// @brief `lcmdjsontosl` duplicates a cJSON array of strings to a slist_t.
-/// cJSON array entries that fail `cJSON_IsString` will be ignored and a warning printed.
+/// @brief Duplicates a cJSON array of strings into a slist_t. cJSON array
+/// entries that fail `cJSON_IsString` will be ignored and a warning printed.
 /// @param arr cJSON array of strings
 /// @return NULL if an error occurred, otherwise a pointer to a dynamically
 /// allocated slist_t. The caller is responsible for freeing the list using
@@ -89,6 +93,13 @@ err:
   return NULL;
 }
 
+/// @brief Parses a cJSON array of strings into a set of file event bit flags.
+/// Non-string entries are ignored. Unrecognized string entries will log an
+/// error message. Accepted strings are "new", "mod", "del", and "nop" which map
+/// to \p LCTRIG_NEW, \p LCTRIG_MOD, \p LCTRIG_DEL, and \p LCTRIG_NOP respectively.
+/// @param item cJSON array of strings
+/// @return Bit flags representing the file event types, or 0 if no flags were
+/// correctly parsed.
 static int lcmdparseflags(const cJSON* item) {
   int flags = 0;
   cJSON* e;
@@ -109,7 +120,7 @@ static int lcmdparseflags(const cJSON* item) {
   return flags;
 }
 
-/// @brief `lcmdparseone` populates a single command struct by parsing the
+/// @brief Populates a single command struct by parsing the fields of the
 /// provided cJSON object.
 /// @param obj cJSON object containing the command data
 /// @param cmd Struct to populate with parsed command data
@@ -206,6 +217,11 @@ ok:
   return cs;
 }
 
+/// @brief Checks if the provided filepath matches any of the compiled regex
+/// patterns in the provided array.
+/// @param fpatterns Array of compiled regex patterns
+/// @param fp Filepath to match
+/// @return True if the filepath matches any of the patterns, otherwise false.
 static bool lcmdmatch(regex_t** fpatterns, const char* fp) {
   for (size_t i = 0; fpatterns[i] != NULL; i++)
     if (!regexec(fpatterns[i], fp, 0, NULL, 0)) return true;
@@ -218,6 +234,20 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp) {
   return false;
 }
 
+/// @brief Invokes a string \p cmd as a system command using `system(3)` in a
+/// forked/child process. The file path of \p node is set as an environment
+/// variable for use in the command. File descriptor set \p fds is used to
+/// optionally redirect stdout and stderr of the child command processes.
+/// @param cmd The command string to execute
+/// @param node The file node to use for the FILEPATH environment variable
+/// @param fds The file descriptor set to use for stdout/stderr redirection
+/// @param flags Bit flags for controlling command execution. If the
+/// `LCTOPT_VERBOSE` flag is set, the command will be printed to stdout before
+/// execution. If the `LCTOPT_TRACE` flag is set, debug information regarding
+/// the eligibility of any encountered file path will be printed to stdout.
+/// @param msspent Optional pointer to a uint64_t value to which the time spent
+/// executing the command (in milliseconds) will be added.
+/// @return 0 if successful, otherwise -1 to indicate an error.
 static int lcmdinvoke(const char* cmd, const struct inode_s* node,
                       const struct fdset_s* fds, const int flags,
                       uint64_t* msspent) {

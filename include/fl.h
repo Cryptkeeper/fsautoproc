@@ -1,16 +1,21 @@
+/// @file fl.h
+/// @brief Basic file lock API.
 #ifndef FSAUTOPROC_FL_H
 #define FSAUTOPROC_FL_H
 
+/// @struct flock_s
+/// @brief File lock structure for managing a single file path.
 struct flock_s {
-  const char* path; /* file path */
-  int fd;           /* opened file descriptor */
-  _Bool open;       /* file descriptor open flag */
+  const char* path; ///< File path to lock
+  int fd;           ///< File descriptor once opened
+  _Bool open;       ///< Open status of the file
 };
 
+/// @def flinit
 /// @brief Initializes a unlocked, ready-to-use file lock structure with the
 /// given target lock file path. The file descriptor is set to -1 and is not
 /// opened until the file is locked with `fllock()`.
-/// @param fp The file path to lock.
+/// @param fp The file path to use for the lock.
 /// @return The initialized file lock structure.
 #define flinit(fp) ((struct flock_s){.path = (fp), .fd = -1, .open = 0})
 

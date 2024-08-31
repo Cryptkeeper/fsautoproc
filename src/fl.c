@@ -1,3 +1,5 @@
+/// @file fl.c
+/// @brief Basic file lock implementation.
 #include "fl.h"
 
 #include <assert.h>

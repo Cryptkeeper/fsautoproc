@@ -1,3 +1,5 @@
+/// @file fs.c
+/// @brief Filesystem walk and stat implementation.
 #include "fs.h"
 
 #include <assert.h>
@@ -9,6 +11,11 @@
 
 #include "log.h"
 
+/// @brief Error callback implementation for glob search. Logs each error using
+/// the \p log_error macro.
+/// @param epath The path that caused the error.
+/// @param errno The error number.
+/// @return Always returns 0 to continue the glob scan.
 static int fswalkerr(const char* epath, const int errno) {
   log_error("error accessing `%s`: %d", epath, errno);
   return 0; /* continue glob scan */

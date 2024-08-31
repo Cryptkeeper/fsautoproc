@@ -1,3 +1,5 @@
+/// @file tm.h
+/// @brief Time utility functions.
 #ifndef FSAUTOPROC_TIME_H
 #define FSAUTOPROC_TIME_H
 

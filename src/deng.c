@@ -12,19 +12,31 @@
 #define SL_IMPL
 #include "sl.h"
 
+/// @struct deng_state_s
+/// @brief Search state context provided to the diff engine as user data which
+/// is passed to the file event hook functions.
 struct deng_state_s {
-  slist_t* dirqueue;                /* processing directory queue */
-  deng_filter_t ffn;                /* file filter function */
-  const struct deng_hooks_s* hooks; /* file event hook functions */
-  const struct index_s* lastmap;    /* previous index state */
-  struct index_s* thismap;          /* current index state */
+  slist_t* dirqueue;                ///< Processing directory queue
+  deng_filter_t ffn;                ///< File filter function
+  const struct deng_hooks_s* hooks; ///< File event hook functions
+  const struct index_s* lastmap;    ///< Previous index state
+  struct index_s* thismap;          ///< Current index state
 };
 
+/// @def invokehook
+/// @brief Invokes a file event hook function if it is not NULL.
+/// @param mach The diff engine state context
+/// @param name The member of the hook function to invoke
+/// @param arg The argument to pass to the hook function
 #define invokehook(mach, name, arg)                                            \
   do {                                                                         \
     if ((mach)->hooks->name != NULL) (mach)->hooks->name(arg);                 \
   } while (0)
 
+/// @def notifyhook
+/// @brief Invokes the notify hook function if it is not NULL.
+/// @param mach The diff engine state context
+/// @param type The notification type to pass to the hook
 #define notifyhook(mach, type)                                                 \
   do {                                                                         \
     if ((mach)->hooks->notify != NULL) (mach)->hooks->notify(type);            \

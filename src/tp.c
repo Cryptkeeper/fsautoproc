@@ -1,3 +1,5 @@
+/// @file tp.c
+/// @brief Thread pool implementation for executing work requests.
 #include "tp.h"
 
 #include <assert.h>
@@ -14,19 +16,27 @@
 #include "lcmd.h"
 #include "log.h"
 
+/// @struct thrd_s
+/// @brief Initialized worker thread in the thread pool.
 struct thrd_s {
-  _Atomic bool rsrvd;   /* thread reservation/lock flag */
-  _Atomic bool canwork; /* work request ready to process flag */
-  struct tpreq_s work;  /* work request to process */
-  pthread_t tid;        /* pthread work thread id */
-  _Bool fdsopen;        /* file descriptor set open flag */
-  struct fdset_s fds;   /* file descriptor set */
+  _Atomic bool rsrvd;   ///< Work request reservation flag
+  _Atomic bool canwork; ///< Work request ready to process flag
+  struct tpreq_s work;  ///< Work request to process
+  pthread_t tid;        ///< System thread identifier
+  _Bool fdsopen;        ///< File descriptor set open flag
+  struct fdset_s fds;   ///< Output file descriptor set
 };
 
-static struct thrd_s** thrds;  /* thread pool */
-static _Atomic bool haltthrds; /* thread pool halt flag */
-static _Atomic int thrdrc;     /* thread pool reference counter */
+static struct thrd_s** thrds;  ///< Thread pool worker threads array
+static _Atomic bool haltthrds; ///< Thread pool halt flag
+static _Atomic int thrdrc;     ///< Thread pool thread count
 
+/// @brief Thread pool worker thread entry point. The thread will spin lock
+/// while waiting to be reserved. Once reserved, it spin locks while waiting
+/// for the main thread to finalize the work request. Once ready, the work
+/// request is executed and the thread is released back to the pool.
+/// @param arg The thread self context
+/// @return NULL in all cases
 static void* tpentrypoint(void* arg) {
   struct thrd_s* self = arg;
   atomic_fetch_add(&thrdrc, 1);
@@ -54,6 +64,12 @@ static void* tpentrypoint(void* arg) {
   return NULL;
 }
 
+/// @brief Configures an initialized thread with the specified options. If the
+/// TPOPT_LOGFILES flag is set, the file descriptor set is initialized. If the
+/// file descriptor set initialization fails, or the flag is not set, the file
+/// descriptors will default to \p STDOUT_FILENO and \p STDERR_FILENO.
+/// @param t The thread to configure
+/// @param flags The configuration flags
 static void tpinitthrd(struct thrd_s* t, const int flags) {
   int err;
   if (flags & TPOPT_LOGFILES) {

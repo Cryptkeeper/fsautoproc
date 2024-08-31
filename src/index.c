@@ -1,3 +1,5 @@
+/// @file index.c
+/// @brief File index mapping and serialization implementation.
 #include "index.h"
 
 #include <errno.h>
@@ -7,6 +9,8 @@
 
 #include "log.h"
 
+/// @def INDEXMAXFP
+/// @brief The maximum filepath length of a file in the index.
 #define INDEXMAXFP 512
 
 /// @brief Hashes the filepath string into an index bucket.
@@ -28,6 +32,11 @@ struct inode_s* indexfind(const struct index_s* idx, const char* fp) {
   return NULL;
 }
 
+/// @brief Compares two file nodes for sorting in ascending order by filepath.
+/// @param a The first file node to compare
+/// @param b The second file node to compare
+/// @return The result of the comparison.
+/// @note This function is equivalent to `strcmp(a->fp, b->fp)`.
 static int indexnodecmp(const void* a, const void* b) {
   const struct inode_s* na = *(const struct inode_s**) a;
   const struct inode_s* nb = *(const struct inode_s**) b;
