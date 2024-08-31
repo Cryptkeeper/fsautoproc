@@ -17,17 +17,17 @@
 #include "tp.h"
 
 static struct {
-  char* configfile;
-  char* indexfile;
-  char* lockfile;
-  char* searchdir;
-  char* tracefile;
-  _Bool pipefiles;
-  _Bool includejunk;
-  _Bool listspent;
-  _Bool skipproc;
-  int threads;
-  _Bool verbose;
+  char* configfile; // configuration file path (-c)
+  char* indexfile;  // index file path (-i)
+  char* lockfile;   // exclusive lock file path (-x)
+  char* searchdir;  // search directory root (-s)
+  char* tracefile;  // trace file path (-r)
+  _Bool pipefiles;  // pipe subprocess stdout/stderr to files (-p)
+  _Bool includejunk;// include ignored files in index (-j)
+  _Bool listspent;  // list time spent for each command set (-l)
+  _Bool skipproc;   // skip processing files, only update file index (-u)
+  int threads;      // number of worker threads (-t)
+  _Bool verbose;    // enable verbose output (-v)
 } initargs;
 
 /// @brief Frees all duplicated initialization arguments.
