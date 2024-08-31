@@ -8,6 +8,7 @@
 
 #include "deng.h"
 #include "fd.h"
+#include "fl.h"
 #include "fs.h"
 #include "index.h"
 #include "lcmd.h"
@@ -18,6 +19,7 @@
 static struct {
   char* configfile;
   char* indexfile;
+  char* lockfile;
   char* searchdir;
   char* tracefile;
   _Bool pipefiles;
@@ -32,6 +34,7 @@ static struct {
 static void freeinitargs(void) {
   free(initargs.configfile);
   free(initargs.tracefile);
+  free(initargs.lockfile);
   free(initargs.indexfile);
   free(initargs.searchdir);
 }
@@ -41,8 +44,16 @@ static struct lcmdset_s** cmdsets;
 static struct index_s lastmap; /* stored index from previous run (if any) */
 static struct index_s thismap; /* live checked index from this run */
 
+static struct flock_s worklock; /* exclusive lock for work directory */
+
 /// @brief Frees all allocated resources.
 static void freeall(void) {
+  // release work lock, if successfully opened
+  if (worklock.open && flunlock(&worklock))
+    log_error("error releasing lock file for local directory: %s (you may need "
+              "to delete it manually)",
+              worklock.path);
+
   tpshutdown();
   freeinitargs();
   lcmdfree_r(cmdsets);
@@ -61,7 +72,7 @@ static void freeall(void) {
 
 static int parseinitargs(const int argc, char** const argv) {
   int c;
-  while ((c = getopt(argc, argv, ":hc:i:jlps:t:r:uv")) != -1) {
+  while ((c = getopt(argc, argv, ":hc:i:jlps:t:r:uvx:")) != -1) {
     switch (c) {
       case 'h':
         printf("Usage: %s -i <file>\n"
@@ -69,15 +80,15 @@ static int parseinitargs(const int argc, char** const argv) {
                "Options:\n"
                "  -c <file>   Configuration file (default: `fsautoproc.json`)\n"
                "  -i <file>   File index write path\n"
-               "  -j          Include ignored files in index (default: false)\n"
+               "  -j          Enable including ignored files in index\n"
                "  -l          List time spent for each command set\n"
-               "  -p          Pipe subprocess stdout/stderr to files "
-               "(default: false)\n"
+               "  -p          Pipe subprocess stdout/stderr to files\n"
                "  -s <dir>    Search directory root (default: `.`)\n"
                "  -t <#>      Number of worker threads (default: 4)\n"
                "  -r <file>   Trace which command sets match the file\n"
                "  -u          Skip processing files, only update file index\n"
-               "  -v          Enable verbose output\n",
+               "  -v          Enable verbose output\n"
+               "  -x <file>   Exclusive lock file path\n",
                argv[0]);
         exit(0);
       case 'c':
@@ -110,6 +121,9 @@ static int parseinitargs(const int argc, char** const argv) {
       case 'v':
         initargs.verbose = true;
         break;
+      case 'x':
+        strdupoptarg(initargs.lockfile);
+        break;
       case ':':
         log_error("option is missing argument: %c", optopt);
         return 1;
@@ -132,6 +146,13 @@ static int parseinitargs(const int argc, char** const argv) {
     char fp[256];
     snprintf(fp, sizeof(fp), "%s/index.dat", initargs.searchdir);
     if ((initargs.indexfile = strdup(fp)) == NULL) return 1;
+  }
+
+  if (initargs.lockfile == NULL) {
+    // default to using fsautoproc.lock inside search directory
+    char fp[256];
+    snprintf(fp, sizeof(fp), "%s/fsautoproc.lock", initargs.searchdir);
+    if ((initargs.lockfile = strdup(fp)) == NULL) return 1;
   }
 
   if (initargs.threads == 0) initargs.threads = 4;
@@ -270,8 +291,19 @@ int main(int argc, char** argv) {
   atexit(freeall);
   if (parseinitargs(argc, argv)) return 1;
 
-  // init worker thread pool
   int err;
+
+  // establish work lock
+  worklock = flinit(initargs.lockfile);
+  if ((err = fllock(&worklock))) {
+    log_error("error establishing exclusive lock file for local directory "
+              "`%s`: %d (is another instance already running? did a previous "
+              "instance crash?)",
+              worklock.path, err);
+    return 1;
+  }
+
+  // init worker thread pool
   const int tpflags = initargs.pipefiles ? TPOPT_LOGFILES : 0;
   if ((err = tpinit(initargs.threads, tpflags))) {
     log_error("error initializing thread pool: %d", err);

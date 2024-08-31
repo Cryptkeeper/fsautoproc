@@ -45,13 +45,15 @@ Usage: fsautoproc -i <file>
 Options:
   -c <file>   Configuration file (default: `fsautoproc.json`)
   -i <file>   File index write path
-  -j          Include ignored files in index (default: false)
-  -l          List time spent for each command set (default: false)
-  -p          Pipe subprocess stdout/stderr to files (default: false)
+  -j          Enable including ignored files in index
+  -l          List time spent for each command set
+  -p          Pipe subprocess stdout/stderr to files
   -s <dir>    Search directory root (default: `.`)
   -t <#>      Number of worker threads (default: 4)
+  -r <file>   Trace which command sets match the file
   -u          Skip processing files, only update file index
   -v          Enable verbose output
+  -x <file>   Exclusive lock file path
 ```
 
 ### Basic Configuration
@@ -84,3 +86,7 @@ fsautoproc uses a symbol table when logging file changes and program status. Thi
 | `[s]`  | A directory is being scanned          |
 | `[x]`  | A system command is being invoked     |
 | `[!]`  | An error has occurred                 |
+
+#### Locking
+
+`fsautoproc` uses a single, exclusive file lock to prevent multiple instances of the program from running simultaneously within the same search ("working") directory. The lock file is created in the working directory by default, but can be specified via the `-x` flag. The lock file is removed when the program exits. Should the program crash or exit unexpectedly, the lock file may remain and must be manually removed.
