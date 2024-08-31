@@ -1,0 +1,14 @@
+<map id="stagepost" name="stagepost">
+<area shape="rect" id="Node000001" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="5,55,84,80"/>
+<area shape="rect" id="Node000002" href="$fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="141,5,196,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,52,126,32,128,37,80,56"/>
+<area shape="rect" id="Node000003" href="$index_8c.html#a805436c943765cd435c11338ca3d64f1" title="Searches the index for a node with a matching filepath." alt="" coords="132,55,205,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="84,65,116,65,116,70,84,70"/>
+<area shape="rect" id="Node000005" href="$index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping." alt="" coords="133,104,204,130"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="80,79,121,95,119,100,78,83"/>
+<area shape="rect" id="Node000004" href="$index_8c.html#ad3da01df685012e02522b0db9f3f8fef" title="Hashes the filepath string into an index bucket." alt="" coords="262,55,342,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="206,65,246,65,246,70,206,70"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="203,101,250,84,252,89,205,106"/>
+<area shape="rect" id="Node000006" href="$index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="253,104,351,130"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="204,114,238,114,238,120,204,120"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="lcmdfree_r" name="lcmdfree_r">
+<area shape="rect" id="Node000001" title="Iterates and frees all memory allocated by the command set array." alt="" coords="5,5,88,31"/>
+<area shape="rect" id="Node000002" href="$lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="136,5,207,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="88,16,120,16,120,21,88,21"/>
+</map>

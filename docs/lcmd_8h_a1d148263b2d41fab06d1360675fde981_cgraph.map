@@ -1,0 +1,15 @@
+<map id="lcmdparse" name="lcmdparse">
+<area shape="rect" id="Node000001" title="Prses the provided file path and populates an array of command sets. The file must be a valid JSON fi..." alt="" coords="5,55,87,80"/>
+<area shape="rect" id="Node000002" href="$lcmd_8c.html#aea1ce3fc2d45ddb3c059cf9f35a0a674" title="Reads the contents of the file described by filepath fp into a dynamically allocated buffer returned ..." alt="" coords="150,5,222,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,52,134,33,136,38,86,57"/>
+<area shape="rect" id="Node000003" href="$lcmd_8c.html#a36d31b28aae66a8e5e5d1d0a4bf454d8" title="Iterates and frees all memory allocated by the command set array." alt="" coords="145,55,227,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="87,65,129,65,129,70,87,70"/>
+<area shape="rect" id="Node000005" href="$lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="135,104,237,130"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="86,78,134,96,132,101,84,83"/>
+<area shape="rect" id="Node000004" href="$lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="304,55,375,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="227,65,288,65,288,70,227,70"/>
+<area shape="rect" id="Node000006" href="$lcmd_8c.html#a6a3fd8d01dba4b434b70b85ca5fdba45" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="292,104,387,130"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="238,114,277,114,277,120,238,120"/>
+<area shape="rect" id="Node000007" href="$lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="285,153,394,179"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="229,128,283,145,282,150,228,133"/>
+</map>

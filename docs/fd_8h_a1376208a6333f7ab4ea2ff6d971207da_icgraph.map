@@ -1,0 +1,9 @@
+<map id="fdinit" name="fdinit">
+<area shape="rect" id="Node000001" title="Initializes stdout/stderr files used for redirecting output from a child process. The file descriptor..." alt="" coords="319,5,369,31"/>
+<area shape="rect" id="Node000002" href="$tp_8c.html#a6ac68f6c615b14248d0cab25fcde9894" title="Configures an initialized thread with the specified options. If the TPOPT_LOGFILES flag is set,..." alt="" coords="200,5,271,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="304,21,272,21,272,16,304,16"/>
+<area shape="rect" id="Node000003" href="$tp_8c.html#a1ba58530a307f93d627c37f920a19945" title="Initializes a global worker thread pool of the given size." alt="" coords="103,5,152,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="184,21,153,21,153,16,184,16"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

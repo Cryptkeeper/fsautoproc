@@ -1,0 +1,7 @@
+<map id="include/prog.h" name="include/prog.h">
+<area shape="rect" id="Node000001" title="Progress bar format and printing functions." alt="" coords="47,5,150,31"/>
+<area shape="rect" id="Node000002" href="$main_8c.html" title="Main program entry point." alt="" coords="5,79,88,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,45,57,80,53,77,79,42"/>
+<area shape="rect" id="Node000003" href="$prog_8c.html" title="Progress bar format and printing implementation." alt="" coords="112,79,192,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,42,145,77,141,80,114,45"/>
+</map>

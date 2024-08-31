@@ -1,0 +1,5 @@
+<map id="indexfree" name="indexfree">
+<area shape="rect" id="Node000001" title="Frees all nodes in the index map." alt="" coords="5,5,80,31"/>
+<area shape="rect" id="Node000002" href="$index_8c.html#a595066efa8470d25061301ab56dc7946" title="Recursively frees a linked list of nodes starting from a given head." alt="" coords="128,5,213,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="80,16,112,16,112,21,80,21"/>
+</map>

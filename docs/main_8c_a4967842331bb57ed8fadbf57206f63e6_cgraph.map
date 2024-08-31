@@ -1,0 +1,7 @@
+<map id="filterjunk" name="filterjunk">
+<area shape="rect" id="Node000001" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="5,5,76,31"/>
+<area shape="rect" id="Node000002" href="$lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="124,5,230,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,16,108,16,108,21,76,21"/>
+<area shape="rect" id="Node000003" href="$lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="278,5,363,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="230,16,262,16,262,21,230,21"/>
+</map>

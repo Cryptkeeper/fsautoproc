@@ -1,0 +1,14 @@
+<map id="thrd_s" name="thrd_s">
+<area shape="rect" id="Node000001" title="Initialized worker thread in the thread pool." alt="" coords="85,271,143,297"/>
+<area shape="rect" id="Node000002" href="$structtpreq__s.html" title="Pending work request which contains a command set to execute on a thread in the pool,..." alt="" coords="38,183,102,208"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,221,110,270,106,272,81,223"/>
+<area shape="rect" id="Node000003" href="$structlcmdset__s.html" title="A set of system commands to execute when a file event of a specific type and file path is triggered." alt="" coords="5,94,87,120"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="56,134,69,182,64,183,51,135"/>
+<area shape="rect" id="Node000004" href="$structinode__s.html" title="Individual file node in the index map." alt="" coords="110,94,176,120"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="125,133,82,184,78,181,121,130"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="193,98,203,107,195,116,177,118,177,112,192,111,198,107,190,102"/>
+<area shape="rect" id="Node000005" href="$structfsstat__s.html" title="Stat structure for storing the last modified time and file size." alt="" coords="109,5,178,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="146,47,146,94,141,94,141,47"/>
+<area shape="rect" id="Node000006" href="$structfdset__s.html" title="A set of file descriptors for redirecting writes to stdout and stderr from child processes to log fil..." alt="" coords="126,183,190,208"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="147,223,122,272,118,270,143,221"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="indexread" name="indexread">
+<area shape="rect" id="Node000001" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="5,31,83,56"/>
+<area shape="rect" id="Node000002" href="$index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping." alt="" coords="131,31,201,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,41,115,41,115,46,83,46"/>
+<area shape="rect" id="Node000003" href="$index_8c.html#ad3da01df685012e02522b0db9f3f8fef" title="Hashes the filepath string into an index bucket." alt="" coords="258,5,338,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="201,34,242,26,243,31,202,39"/>
+<area shape="rect" id="Node000004" href="$index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="249,55,347,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="202,47,234,53,233,58,201,52"/>
+</map>

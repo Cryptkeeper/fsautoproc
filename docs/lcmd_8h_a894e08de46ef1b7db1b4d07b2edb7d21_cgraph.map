@@ -1,0 +1,5 @@
+<map id="lcmdmatchany" name="lcmdmatchany">
+<area shape="rect" id="Node000001" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="5,5,112,31"/>
+<area shape="rect" id="Node000002" href="$lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="160,5,245,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,16,144,16,144,21,112,21"/>
+</map>

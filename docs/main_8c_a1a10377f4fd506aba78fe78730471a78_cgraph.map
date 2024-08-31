@@ -1,0 +1,7 @@
+<map id="onmod" name="onmod">
+<area shape="rect" id="Node000001" title="Callback function for the diff engine to handle modified file events. This will log a work request in..." alt="" coords="5,5,66,31"/>
+<area shape="rect" id="Node000002" href="$main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="114,5,202,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="66,16,98,16,98,21,66,21"/>
+<area shape="rect" id="Node000003" href="$tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="250,5,317,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="203,16,234,16,234,21,203,21"/>
+</map>

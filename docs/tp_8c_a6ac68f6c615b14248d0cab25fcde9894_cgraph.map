@@ -1,0 +1,7 @@
+<map id="tpinitthrd" name="tpinitthrd">
+<area shape="rect" id="Node000001" title="Configures an initialized thread with the specified options. If the TPOPT_LOGFILES flag is set,..." alt="" coords="5,5,77,31"/>
+<area shape="rect" id="Node000002" href="$fd_8c.html#adbbb0e1bfc4d551ab9cacff069cb335e" title="Initializes stdout/stderr files used for redirecting output from a child process. The file descriptor..." alt="" coords="125,5,174,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,16,109,16,109,21,77,21"/>
+<area shape="rect" id="Node000003" href="$fd_8c.html#af98ea384191ea18a9a5f323ab8945a19" title="Opens, or creates, a truncated file using a formatted path derived from the provided name and id argu..." alt="" coords="222,5,282,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="174,16,206,16,206,21,174,21"/>
+</map>

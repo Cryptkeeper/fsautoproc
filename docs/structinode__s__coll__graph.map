@@ -1,0 +1,6 @@
+<map id="inode_s" name="inode_s">
+<area shape="rect" id="Node000001" title="Individual file node in the index map." alt="" coords="6,94,73,120"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="90,98,99,107,91,116,73,118,73,112,89,111,94,107,86,102"/>
+<area shape="rect" id="Node000002" href="$structfsstat__s.html" title="Stat structure for storing the last modified time and file size." alt="" coords="5,5,74,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="42,47,42,94,37,94,37,47"/>
+</map>

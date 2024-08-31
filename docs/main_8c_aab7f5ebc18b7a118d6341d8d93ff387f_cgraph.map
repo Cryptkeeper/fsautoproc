@@ -1,0 +1,7 @@
+<map id="onnotify" name="onnotify">
+<area shape="rect" id="Node000001" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="5,31,73,56"/>
+<area shape="rect" id="Node000002" href="$prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="121,5,210,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,34,105,28,106,33,73,39"/>
+<area shape="rect" id="Node000003" href="$tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="137,55,194,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="73,47,123,57,122,62,72,52"/>
+</map>

@@ -1,0 +1,17 @@
+<map id="include/log.h" name="include/log.h">
+<area shape="rect" id="Node000001" title="Logging macros for the application." alt="" coords="286,5,380,31"/>
+<area shape="rect" id="Node000002" href="$deng_8c.html" title=" " alt="" coords="5,79,88,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,37,89,83,88,78,271,32"/>
+<area shape="rect" id="Node000003" href="$fd_8c.html" title="File descriptor output redirection implementation." alt="" coords="111,79,176,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="288,39,177,81,175,76,286,34"/>
+<area shape="rect" id="Node000004" href="$fs_8c.html" title="Filesystem walk and stat implementation." alt="" coords="200,79,266,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="305,42,252,81,249,76,302,38"/>
+<area shape="rect" id="Node000005" href="$index_8c.html" title="File index mapping and serialization implementation." alt="" coords="290,79,376,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="336,46,336,79,330,79,330,46"/>
+<area shape="rect" id="Node000006" href="$lcmd_8c.html" title="File&#45;specific system command execution mapping implementation." alt="" coords="400,79,482,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="366,38,424,76,421,81,363,42"/>
+<area shape="rect" id="Node000007" href="$main_8c.html" title="Main program entry point." alt="" coords="507,79,589,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="385,34,512,76,510,81,383,39"/>
+<area shape="rect" id="Node000008" href="$tp_8c.html" title="Thread pool implementation for executing work requests." alt="" coords="612,79,678,105"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="396,30,602,76,613,79,611,84,601,82,395,35"/>
+</map>

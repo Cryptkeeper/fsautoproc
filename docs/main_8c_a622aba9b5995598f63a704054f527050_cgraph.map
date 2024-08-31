@@ -1,0 +1,11 @@
+<map id="loadindex" name="loadindex">
+<area shape="rect" id="Node000001" title="Loads the index from the specified file path into the provided index." alt="" coords="5,31,82,56"/>
+<area shape="rect" id="Node000002" href="$index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="130,31,207,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,41,114,41,114,46,82,46"/>
+<area shape="rect" id="Node000003" href="$index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping." alt="" coords="255,31,325,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="207,41,239,41,239,46,207,46"/>
+<area shape="rect" id="Node000004" href="$index_8c.html#ad3da01df685012e02522b0db9f3f8fef" title="Hashes the filepath string into an index bucket." alt="" coords="382,5,463,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="325,34,367,26,368,31,326,39"/>
+<area shape="rect" id="Node000005" href="$index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="373,55,472,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="326,47,358,53,358,58,325,52"/>
+</map>

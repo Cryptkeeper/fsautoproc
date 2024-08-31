@@ -1,0 +1,36 @@
+<map id="dengsearch" name="dengsearch">
+<area shape="rect" id="Node000001" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="5,155,94,180"/>
+<area shape="rect" id="Node000002" href="$deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="142,129,248,155"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,157,126,151,127,157,94,162"/>
+<area shape="rect" id="Node000006" href="$deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="154,55,236,80"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="69,152,161,87,164,92,72,156"/>
+<area shape="rect" id="Node000010" href="$deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="156,179,234,204"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="94,172,141,180,140,185,94,177"/>
+<area shape="rect" id="Node000014" href="$deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="159,228,230,254"/>
+<area shape="poly" id="edge15_Node000001_Node000014" title=" " alt="" coords="76,179,143,214,151,219,149,223,140,219,73,183"/>
+<area shape="rect" id="Node000003" href="$index_8c.html#a805436c943765cd435c11338ca3d64f1" title="Searches the index for a node with a matching filepath." alt="" coords="296,153,369,179"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="249,149,281,155,280,160,248,154"/>
+<area shape="rect" id="Node000005" href="$index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="298,104,367,130"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="248,130,282,123,283,129,249,135"/>
+<area shape="rect" id="Node000004" href="$index_8c.html#ad3da01df685012e02522b0db9f3f8fef" title="Hashes the filepath string into an index bucket." alt="" coords="426,153,507,179"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="370,164,411,164,411,169,370,169"/>
+<area shape="rect" id="Node000007" href="$deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="301,55,364,80"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="236,65,285,65,285,70,236,70"/>
+<area shape="rect" id="Node000008" href="$fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="303,5,362,31"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="232,52,287,31,289,36,234,57"/>
+<area shape="rect" id="Node000009" href="$fs_8c.html#a8bb9fba0c594f3e6b654303e6f9f36a9" title="Error callback implementation for glob search. Logs each error using the log_error macro." alt="" coords="429,5,504,31"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="362,16,414,16,414,21,362,21"/>
+<area shape="poly" id="edge11_Node000010_Node000003" title=" " alt="" coords="234,182,280,173,281,178,235,187"/>
+<area shape="rect" id="Node000011" href="$fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="306,252,360,278"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="228,203,249,213,299,241,296,246,247,218,225,207"/>
+<area shape="rect" id="Node000012" href="$index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping." alt="" coords="298,203,368,228"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="235,196,282,204,282,209,234,201"/>
+<area shape="poly" id="edge13_Node000012_Node000004" title=" " alt="" coords="368,200,415,182,417,187,369,205"/>
+<area shape="rect" id="Node000013" href="$index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="417,203,516,228"/>
+<area shape="poly" id="edge14_Node000012_Node000013" title=" " alt="" coords="368,213,402,213,402,218,368,218"/>
+<area shape="poly" id="edge18_Node000014_Node000003" title=" " alt="" coords="225,225,247,214,297,185,299,190,249,219,228,230"/>
+<area shape="poly" id="edge16_Node000014_Node000011" title=" " alt="" coords="231,244,291,255,290,260,231,250"/>
+<area shape="poly" id="edge19_Node000014_Node000012" title=" " alt="" coords="230,232,282,222,283,227,231,237"/>
+<area shape="rect" id="Node000015" href="$fs_8c.html#a9a6b33158e9e03d0404c144b5e3dee2c" title="fsstateql() compares the fields of two struct fsstat_s values for equality. Two structs with the same..." alt="" coords="297,301,368,327"/>
+<area shape="poly" id="edge17_Node000014_Node000015" title=" " alt="" coords="222,252,295,291,293,296,220,257"/>
+</map>

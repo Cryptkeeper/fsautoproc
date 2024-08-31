@@ -1,0 +1,11 @@
+<map id="include/index.h" name="include/index.h">
+<area shape="rect" id="Node000001" title="File index mapping and serialization functions." alt="" coords="19,5,127,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,66,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,32,51,66,46,64,64,30"/>
+<area shape="rect" id="Node000003" href="$fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="90,79,133,105"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="82,30,100,64,95,66,77,32"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="28,153,102,178"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="106,106,83,141,79,138,102,103"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="126,153,190,178"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="121,103,144,138,140,141,117,106"/>
+</map>

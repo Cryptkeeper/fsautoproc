@@ -1,0 +1,12 @@
+<map id="deng_state_s" name="deng_state_s">
+<area shape="rect" id="Node000001" title="Search state context provided to the diff engine as user data which is passed to the file event hook ..." alt="" coords="52,286,152,312"/>
+<area shape="rect" id="Node000002" href="$structdeng__hooks__s.html" title="Hook functions for file system search events." alt="" coords="5,183,111,208"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="67,223,81,261,95,284,91,287,77,263,62,224"/>
+<area shape="rect" id="Node000003" href="$structindex__s.html" title="Index map structure for storing file nodes." alt="" coords="134,183,200,208"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="154,223,112,287,108,284,149,220"/>
+<area shape="rect" id="Node000004" href="$structinode__s.html" title="Individual file node in the index map." alt="" coords="134,94,200,120"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="170,135,170,182,165,182,165,135"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="217,98,227,107,219,116,201,118,201,112,216,111,222,107,214,102"/>
+<area shape="rect" id="Node000005" href="$structfsstat__s.html" title="Stat structure for storing the last modified time and file size." alt="" coords="133,5,202,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="170,47,170,94,165,94,165,47"/>
+</map>

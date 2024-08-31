@@ -1,0 +1,11 @@
+<map id="fswalk" name="fswalk">
+<area shape="rect" id="Node000001" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="512,5,571,31"/>
+<area shape="rect" id="Node000002" href="$deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="382,5,464,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="496,21,464,21,464,16,496,16"/>
+<area shape="rect" id="Node000003" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,5,334,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="367,21,335,21,335,16,367,16"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,5,198,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="230,21,199,21,199,16,230,16"/>
+<area shape="rect" id="Node000005" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

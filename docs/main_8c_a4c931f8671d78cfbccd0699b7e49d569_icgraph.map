@@ -1,0 +1,18 @@
+<map id="trigfileevent" name="trigfileevent">
+<area shape="rect" id="Node000001" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="354,80,443,106"/>
+<area shape="rect" id="Node000002" href="$main_8c.html#ae189ad9356df371fef8d2d44fbca5d69" title="Callback function for the diff engine to handle deleted file events. This will log a work request in ..." alt="" coords="250,5,302,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="362,74,298,34,301,29,365,69"/>
+<area shape="rect" id="Node000005" href="$main_8c.html#a1a10377f4fd506aba78fe78730471a78" title="Callback function for the diff engine to handle modified file events. This will log a work request in..." alt="" coords="246,55,306,80"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="339,83,306,76,307,71,340,78"/>
+<area shape="rect" id="Node000006" href="$main_8c.html#a9a93c1554c389643aec77918b96e70b1" title="Callback function for the diff engine to handle new file events. This will log a work request in the ..." alt="" coords="246,104,306,130"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="340,107,307,114,306,108,339,102"/>
+<area shape="rect" id="Node000007" href="$main_8c.html#ac9e068da7a61936aba18d138badb2d2a" title="Callback function for the diff engine to handle no&#45;op file events. This will log a work request in th..." alt="" coords="248,153,304,179"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="364,116,301,155,298,151,361,112"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,80,198,106"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="241,42,175,82,173,77,238,37"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,80,55,106"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,96,55,96,55,90,87,90"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="231,79,199,86,198,81,230,74"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="231,111,198,105,199,99,232,106"/>
+<area shape="poly" id="edge9_Node000007_Node000003" title=" " alt="" coords="238,147,173,108,175,104,241,143"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="fllock" name="fllock">
+<area shape="rect" id="Node000001" title="Locks the file at the given path. If a file descriptor cannot be obtained, or the file cannot be lock..." alt="" coords="5,5,58,31"/>
+<area shape="rect" id="Node000002" href="$fl_8c.html#ac8cdc36ad1f74a8dd0b80ee85356bc01" title="Opens the file at the given path and updates the file lock structure with the file descriptor...." alt="" coords="106,5,162,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="58,16,90,16,90,21,58,21"/>
+</map>

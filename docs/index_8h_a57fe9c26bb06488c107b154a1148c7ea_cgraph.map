@@ -1,0 +1,7 @@
+<map id="indexwrite" name="indexwrite">
+<area shape="rect" id="Node000001" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="5,31,86,56"/>
+<area shape="rect" id="Node000002" href="$index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="152,5,221,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,34,136,24,137,30,87,39"/>
+<area shape="rect" id="Node000003" href="$index_8c.html#afcb2d1b3e19fa845832a12730a2ea753" title="Compares two file nodes for sorting in ascending order by filepath." alt="" coords="134,55,239,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="87,48,119,53,118,59,86,53"/>
+</map>

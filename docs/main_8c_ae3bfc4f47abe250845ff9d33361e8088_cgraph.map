@@ -1,0 +1,21 @@
+<map id="freeall" name="freeall">
+<area shape="rect" id="Node000001" title="Frees all allocated resources." alt="" coords="5,129,62,155"/>
+<area shape="rect" id="Node000002" href="$fl_8c.html#af9edee5332ff921081fe39fc530d40bd" title="Unlocks the file at the given path. If the file is not open, or the file cannot be unlocked,..." alt="" coords="121,5,187,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="40,127,67,86,108,40,111,38,114,42,112,44,71,89,45,130"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a91224adbae9c6933e2469d45de8d340a" title="Frees all duplicated initialization arguments." alt="" coords="111,55,196,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="52,127,108,89,113,86,116,91,111,94,55,131"/>
+<area shape="rect" id="Node000004" href="$index_8c.html#ac916662497c44dfd34d1d6fd5312a317" title="Frees all nodes in the index map." alt="" coords="117,104,191,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="62,134,101,125,102,130,63,139"/>
+<area shape="rect" id="Node000006" href="$lcmd_8c.html#a36d31b28aae66a8e5e5d1d0a4bf454d8" title="Iterates and frees all memory allocated by the command set array." alt="" coords="113,153,195,179"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="63,145,98,152,97,158,62,150"/>
+<area shape="rect" id="Node000008" href="$tp_8c.html#ae363265419a031c7578b4896aab4ddde" title="Frees all memory allocated by tpinit(). This function should be called at the end of the program...." alt="" coords="127,203,181,228"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="56,153,111,189,116,192,113,197,108,194,53,158"/>
+<area shape="rect" id="Node000009" href="$tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="110,252,198,278"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="45,154,72,194,112,239,114,241,111,245,108,243,67,198,40,157"/>
+<area shape="rect" id="Node000005" href="$index_8c.html#a595066efa8470d25061301ab56dc7946" title="Recursively frees a linked list of nodes starting from a given head." alt="" coords="246,104,331,130"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="192,114,230,114,230,120,192,120"/>
+<area shape="rect" id="Node000007" href="$lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="253,153,324,179"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="196,164,237,164,237,169,196,169"/>
+<area shape="rect" id="Node000010" href="$fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="257,252,320,278"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="198,262,241,262,241,268,198,268"/>
+</map>

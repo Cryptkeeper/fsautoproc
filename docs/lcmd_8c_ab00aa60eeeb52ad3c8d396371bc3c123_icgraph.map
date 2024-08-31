@@ -1,0 +1,9 @@
+<map id="lcmdparseflags" name="lcmdparseflags">
+<area shape="rect" id="Node000001" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="382,5,492,31"/>
+<area shape="rect" id="Node000002" href="$lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="232,5,334,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="367,21,335,21,335,16,367,16"/>
+<area shape="rect" id="Node000003" href="$lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Prses the provided file path and populates an array of command sets. The file must be a valid JSON fi..." alt="" coords="103,5,184,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="216,21,185,21,185,16,216,16"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="indexput" name="indexput">
+<area shape="rect" id="Node000001" title="Copies the node and inserts it into the index mapping." alt="" coords="5,31,76,56"/>
+<area shape="rect" id="Node000002" href="$index_8c.html#ad3da01df685012e02522b0db9f3f8fef" title="Hashes the filepath string into an index bucket." alt="" coords="133,5,213,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,34,117,26,118,31,77,39"/>
+<area shape="rect" id="Node000003" href="$index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="124,55,222,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="77,47,109,53,108,58,76,52"/>
+</map>

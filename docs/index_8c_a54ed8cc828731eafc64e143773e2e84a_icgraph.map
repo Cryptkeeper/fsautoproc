@@ -1,0 +1,16 @@
+<map id="indexlist" name="indexlist">
+<area shape="rect" id="Node000001" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="537,31,606,56"/>
+<area shape="rect" id="Node000002" href="$deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="382,5,489,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="521,37,488,31,489,25,522,32"/>
+<area shape="rect" id="Node000006" href="$index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="395,55,476,80"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="522,55,476,63,475,58,521,50"/>
+<area shape="rect" id="Node000003" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,5,334,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="367,21,335,21,335,16,367,16"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,31,198,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="231,32,199,37,198,32,230,26"/>
+<area shape="rect" id="Node000005" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,31,55,56"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,46,55,46,55,41,87,41"/>
+<area shape="rect" id="Node000007" href="$main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="250,55,330,80"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="380,70,331,70,331,65,380,65"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="234,61,198,54,199,49,235,55"/>
+</map>

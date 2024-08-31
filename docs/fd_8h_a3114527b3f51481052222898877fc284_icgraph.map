@@ -1,0 +1,20 @@
+<map id="fdclose" name="fdclose">
+<area shape="rect" id="Node000001" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="606,81,669,107"/>
+<area shape="rect" id="Node000002" href="$lcmd_8c.html#ad67e4a3897bc9cd3ff8788a57ee2c019" title="Invokes a string cmd as a system command using system(3) in a forked/child process...." alt="" coords="470,56,558,82"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="591,87,558,80,559,75,592,82"/>
+<area shape="rect" id="Node000008" href="$tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="470,105,558,131"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="591,106,559,112,558,107,590,101"/>
+<area shape="rect" id="Node000003" href="$lcmd_8c.html#af7e31699c1c1ae1e5e9a33829421c462" title="Sequentially iterates the command set and executes the configured system commands on the provided fil..." alt="" coords="344,55,422,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="455,71,422,71,422,65,455,66"/>
+<area shape="rect" id="Node000004" href="$tp_8c.html#ae31cc510832d2aae3570d41b99dad62f" title="Thread pool worker thread entry point. The thread will spin lock while waiting to be reserved...." alt="" coords="207,5,296,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="331,51,287,34,289,29,333,46"/>
+<area shape="rect" id="Node000007" href="$main_8c.html#a025df48b6b6685b531947be1dee72729" title="Traces which command sets match the specified file by manually invoking the command execution logic w..." alt="" coords="218,55,285,80"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="329,70,286,70,286,65,329,65"/>
+<area shape="rect" id="Node000005" href="$tp_8c.html#a1ba58530a307f93d627c37f920a19945" title="Initializes a global worker thread pool of the given size." alt="" coords="106,19,156,44"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="192,27,156,31,156,26,191,22"/>
+<area shape="rect" id="Node000006" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,56,55,82"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="92,48,56,62,54,57,91,43"/>
+<area shape="rect" id="Node000009" href="$main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="103,80,159,106"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="454,117,159,97,160,92,454,112"/>
+<area shape="poly" id="edge9_Node000009_Node000006" title=" " alt="" coords="87,85,55,77,56,72,88,80"/>
+</map>

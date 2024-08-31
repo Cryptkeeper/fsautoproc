@@ -1,0 +1,9 @@
+<map id="execstage" name="execstage">
+<area shape="rect" id="Node000001" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="5,31,87,56"/>
+<area shape="rect" id="Node000002" href="$deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="135,5,198,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,32,119,25,120,31,88,38"/>
+<area shape="rect" id="Node000003" href="$fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="137,55,196,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="88,49,122,56,121,61,87,54"/>
+<area shape="rect" id="Node000004" href="$fs_8c.html#a8bb9fba0c594f3e6b654303e6f9f36a9" title="Error callback implementation for glob search. Logs each error using the log_error macro." alt="" coords="246,55,320,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="196,65,231,65,231,70,196,70"/>
+</map>

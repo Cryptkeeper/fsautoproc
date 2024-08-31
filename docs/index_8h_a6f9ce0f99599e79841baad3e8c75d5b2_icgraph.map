@@ -1,0 +1,19 @@
+<map id="indexput" name="indexput">
+<area shape="rect" id="Node000001" title="Copies the node and inserts it into the index mapping." alt="" coords="509,55,579,80"/>
+<area shape="rect" id="Node000002" href="$index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="383,5,460,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="495,51,454,34,457,29,497,46"/>
+<area shape="rect" id="Node000006" href="$deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="382,55,461,80"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="493,70,461,70,461,65,493,65"/>
+<area shape="rect" id="Node000008" href="$deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="386,104,457,130"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="497,89,457,106,454,101,495,84"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="252,5,328,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="367,21,329,21,329,16,367,16"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,31,198,56"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="237,30,199,37,198,32,236,25"/>
+<area shape="rect" id="Node000005" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,31,55,56"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,46,55,46,55,41,87,41"/>
+<area shape="rect" id="Node000007" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,55,334,80"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="367,70,335,70,335,65,367,65"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="230,60,198,54,199,49,231,55"/>
+<area shape="poly" id="edge9_Node000008_Node000007" title=" " alt="" coords="370,101,325,83,327,78,372,96"/>
+</map>

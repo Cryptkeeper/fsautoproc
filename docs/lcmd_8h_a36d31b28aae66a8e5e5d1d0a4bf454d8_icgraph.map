@@ -1,0 +1,10 @@
+<map id="lcmdfree_r" name="lcmdfree_r">
+<area shape="rect" id="Node000001" title="Iterates and frees all memory allocated by the command set array." alt="" coords="232,31,314,56"/>
+<area shape="rect" id="Node000002" href="$main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="115,5,172,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,35,171,26,172,21,217,30"/>
+<area shape="rect" id="Node000004" href="$lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Prses the provided file path and populates an array of command sets. The file must be a valid JSON fi..." alt="" coords="103,55,184,80"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="217,57,185,63,184,57,216,51"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,31,55,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,30,56,41,54,35,99,25"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="87,58,54,51,55,46,88,53"/>
+</map>

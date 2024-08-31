@@ -1,0 +1,20 @@
+<map id="include/fs.h" name="include/fs.h">
+<area shape="rect" id="Node000001" title="Filesystem walk and stat functions." alt="" coords="321,5,409,31"/>
+<area shape="rect" id="Node000002" href="$index_8h.html" title="File index mapping and serialization functions." alt="" coords="211,79,319,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="337,42,284,81,281,76,334,38"/>
+<area shape="rect" id="Node000003" href="$deng_8c.html" title=" " alt="" coords="5,153,88,178"/>
+<area shape="poly" id="edge7_Node000001_Node000003" title=" " alt="" coords="312,39,200,81,125,120,67,154,64,150,123,115,197,77,310,34"/>
+<area shape="rect" id="Node000006" href="$main_8c.html" title="Main program entry point." alt="" coords="328,153,410,178"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="369,47,372,152,366,152,363,47"/>
+<area shape="rect" id="Node000007" href="$tp_8c.html" title="Thread pool implementation for executing work requests." alt="" coords="434,153,499,178"/>
+<area shape="poly" id="edge10_Node000001_Node000007" title=" " alt="" coords="384,42,460,151,456,154,380,45"/>
+<area shape="rect" id="Node000008" href="$fs_8c.html" title="Filesystem walk and stat implementation." alt="" coords="454,79,519,105"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="400,37,467,76,464,81,398,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,112,85,155,83,150,213,107"/>
+<area shape="rect" id="Node000004" href="$index_8c.html" title="File index mapping and serialization implementation." alt="" coords="218,153,304,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="266,120,265,152,259,152,261,120"/>
+<area shape="rect" id="Node000005" href="$lcmd_8c.html" title="File&#45;specific system command execution mapping implementation." alt="" coords="112,153,194,178"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="235,116,174,154,171,150,232,111"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="297,111,353,150,350,154,294,116"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="315,108,434,150,432,155,313,113"/>
+</map>

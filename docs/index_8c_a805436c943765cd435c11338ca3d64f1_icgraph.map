@@ -1,0 +1,17 @@
+<map id="indexfind" name="indexfind">
+<area shape="rect" id="Node000001" title="Searches the index for a node with a matching filepath." alt="" coords="537,55,610,80"/>
+<area shape="rect" id="Node000002" href="$deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="382,5,489,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="521,52,473,34,475,29,523,47"/>
+<area shape="rect" id="Node000006" href="$deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="396,55,475,80"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="521,70,475,70,475,65,521,65"/>
+<area shape="rect" id="Node000007" href="$deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="400,104,471,130"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="523,88,472,107,471,102,521,83"/>
+<area shape="rect" id="Node000003" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,55,334,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="382,39,331,57,330,52,380,34"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,55,198,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="230,70,199,70,199,65,230,65"/>
+<area shape="rect" id="Node000005" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,55,55,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="87,70,55,70,55,65,87,65"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="381,70,335,70,335,65,381,65"/>
+<area shape="poly" id="edge8_Node000007_Node000003" title=" " alt="" coords="384,102,329,83,331,78,386,97"/>
+</map>

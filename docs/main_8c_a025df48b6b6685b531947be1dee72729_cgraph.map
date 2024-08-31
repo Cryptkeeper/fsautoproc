@@ -1,0 +1,15 @@
+<map id="tracefile" name="tracefile">
+<area shape="rect" id="Node000001" title="Traces which command sets match the specified file by manually invoking the command execution logic w..." alt="" coords="5,31,73,56"/>
+<area shape="rect" id="Node000002" href="$fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="132,5,186,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,34,116,24,118,30,74,39"/>
+<area shape="rect" id="Node000003" href="$lcmd_8c.html#af7e31699c1c1ae1e5e9a33829421c462" title="Sequentially iterates the command set and executes the configured system commands on the provided fil..." alt="" coords="121,55,198,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="74,48,106,54,105,59,73,53"/>
+<area shape="rect" id="Node000004" href="$lcmd_8c.html#ad67e4a3897bc9cd3ff8788a57ee2c019" title="Invokes a string cmd as a system command using system(3) in a forked/child process...." alt="" coords="246,29,333,55"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="198,57,230,51,231,56,199,63"/>
+<area shape="rect" id="Node000007" href="$lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="247,79,332,104"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="199,72,232,78,231,83,198,77"/>
+<area shape="rect" id="Node000005" href="$fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="381,5,445,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="333,31,365,25,366,30,334,36"/>
+<area shape="rect" id="Node000006" href="$tm_8c.html#ab71da3f073d332ab0802cd051b48ed56" title="Get the current system time in milliseconds." alt="" coords="383,55,443,80"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="334,49,368,56,367,61,333,54"/>
+</map>

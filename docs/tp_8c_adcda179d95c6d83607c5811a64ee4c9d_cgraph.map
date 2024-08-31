@@ -1,0 +1,5 @@
+<map id="tpshutdown" name="tpshutdown">
+<area shape="rect" id="Node000001" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="5,5,94,31"/>
+<area shape="rect" id="Node000002" href="$fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="142,5,205,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,16,126,16,126,21,94,21"/>
+</map>

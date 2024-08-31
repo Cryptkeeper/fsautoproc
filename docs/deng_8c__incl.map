@@ -1,0 +1,28 @@
+<map id="src/deng.c" name="src/deng.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="246,5,329,31"/>
+<area shape="rect" id="Node000002" href="$deng_8h.html" title="Differential file search comparison function and hook structure." alt="" coords="53,153,114,178"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,25,185,31,114,42,52,58,29,69,14,81,8,96,15,112,30,128,49,142,46,146,27,132,11,115,3,96,9,77,26,64,50,53,113,37,184,26,246,20"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="24,79,92,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="249,34,108,78,106,73,248,29"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="167,153,227,178"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="247,29,198,46,175,61,158,80,153,95,156,110,175,140,171,143,151,112,148,94,153,78,172,57,195,41,245,24"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="168,79,231,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="274,34,228,71,224,67,271,29"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="255,79,320,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="290,31,290,63,285,63,285,31"/>
+<area shape="rect" id="Node000008" href="$fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="354,153,397,178"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="330,24,380,41,403,57,422,78,427,95,423,113,402,143,398,140,419,110,422,95,417,80,400,61,377,46,328,29"/>
+<area shape="rect" id="Node000010" href="$index_8h.html" title="File index mapping and serialization functions." alt="" coords="344,79,407,105"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="304,29,351,67,347,71,301,34"/>
+<area shape="rect" id="Node000011" href="$log_8h.html" title="Logging macros for the application." alt="" coords="483,79,532,105"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="326,29,469,75,467,80,324,34"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="556,79,598,105"/>
+<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="330,25,423,45,541,76,540,81,422,50,328,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="113,226,187,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="97,177,131,213,127,217,93,180"/>
+<area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="354,176,203,224,201,219,353,171"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="343,226,408,252"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="378,179,378,211,373,211,373,179"/>
+<area shape="poly" id="edge11_Node000010_Node000005" title=" " alt="" coords="346,108,242,149,240,144,344,103"/>
+<area shape="poly" id="edge12_Node000010_Node000008" title=" " alt="" coords="378,105,378,137,373,137,373,105"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="fsstat" name="fsstat">
+<area shape="rect" id="Node000001" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="520,80,574,106"/>
+<area shape="rect" id="Node000002" href="$deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="388,5,466,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,73,470,44,452,34,455,29,473,40,516,69"/>
+<area shape="rect" id="Node000006" href="$deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="391,55,463,80"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="504,87,463,78,464,72,505,81"/>
+<area shape="rect" id="Node000007" href="$tp_8c.html#ae31cc510832d2aae3570d41b99dad62f" title="Thread pool worker thread entry point. The thread will spin lock while waiting to be reserved...." alt="" coords="382,104,472,130"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="505,104,473,110,472,105,504,99"/>
+<area shape="rect" id="Node000009" href="$main_8c.html#a025df48b6b6685b531947be1dee72729" title="Traces which command sets match the specified file by manually invoking the command execution logic w..." alt="" coords="393,153,461,179"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="515,117,473,144,455,155,452,151,470,140,512,113"/>
+<area shape="rect" id="Node000003" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,53,334,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="374,39,330,55,328,50,373,34"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,55,198,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="230,69,199,70,199,64,230,64"/>
+<area shape="rect" id="Node000005" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,80,55,106"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="88,83,56,90,55,85,87,78"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="376,70,335,69,335,64,376,64"/>
+<area shape="rect" id="Node000008" href="$tp_8c.html#a1ba58530a307f93d627c37f920a19945" title="Initializes a global worker thread pool of the given size." alt="" coords="126,104,175,130"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="367,120,175,120,175,114,367,114"/>
+<area shape="poly" id="edge9_Node000008_Node000005" title=" " alt="" coords="110,112,55,100,56,95,111,106"/>
+</map>

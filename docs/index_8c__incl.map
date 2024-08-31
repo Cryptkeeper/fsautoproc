@@ -1,0 +1,23 @@
+<map id="src/index.c" name="src/index.c">
+<area shape="rect" id="Node000001" title="File index mapping and serialization implementation." alt="" coords="257,5,342,31"/>
+<area shape="rect" id="Node000002" href="$index_8h.html" title="File index mapping and serialization functions." alt="" coords="41,79,104,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="262,34,120,78,119,73,260,29"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="129,79,190,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="277,34,198,74,196,69,275,29"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="214,79,292,105"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="294,33,271,67,267,64,290,30"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="316,79,379,105"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="310,30,333,64,329,67,305,33"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="403,79,468,105"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="324,29,400,69,398,74,321,34"/>
+<area shape="rect" id="Node000011" href="$log_8h.html" title="Logging macros for the application." alt="" coords="492,79,542,105"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="337,29,479,75,477,80,336,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,66,178"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="69,106,51,140,46,138,64,104"/>
+<area shape="rect" id="Node000004" href="$fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="90,153,133,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="82,104,100,138,95,140,77,106"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="28,226,102,252"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="106,180,83,215,79,212,102,177"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="126,226,190,252"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="121,177,144,212,140,215,117,180"/>
+</map>

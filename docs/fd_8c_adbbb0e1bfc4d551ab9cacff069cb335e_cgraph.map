@@ -1,0 +1,5 @@
+<map id="fdinit" name="fdinit">
+<area shape="rect" id="Node000001" title="Initializes stdout/stderr files used for redirecting output from a child process. The file descriptor..." alt="" coords="5,5,55,31"/>
+<area shape="rect" id="Node000002" href="$fd_8c.html#af98ea384191ea18a9a5f323ab8945a19" title="Opens, or creates, a truncated file using a formatted path derived from the provided name and id argu..." alt="" coords="103,5,163,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="55,16,87,16,87,21,55,21"/>
+</map>
