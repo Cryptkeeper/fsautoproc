@@ -1,3 +1,5 @@
+/// @file deng.c
+/// @brief Differential file search implementation
 #include "deng.h"
 
 #include <assert.h>
