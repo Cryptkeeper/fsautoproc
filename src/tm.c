@@ -1,3 +1,5 @@
+/// @file tm.c
+/// @brief Time utility implementation
 #include "tm.h"
 
 #include <time.h>
