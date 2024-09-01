@@ -104,6 +104,9 @@ $(function(){initNavTree('deng_8c.html',''); initResizable(true); });
   <div class="headertitle"><div class="title">deng.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Differential file search implementation.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="deng_8h_source.html">deng.h</a>&quot;</code><br />
 <code>#include &lt;assert.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
@@ -118,7 +121,7 @@ Include dependency graph for deng.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="deng_8c__incl.png" border="0" usemap="#asrc_2deng_8c" alt=""/></div>
 <map name="asrc_2deng_8c" id="asrc_2deng_8c">
-<area shape="rect" title=" " alt="" coords="246,5,329,31"/>
+<area shape="rect" title="Differential file search implementation." alt="" coords="246,5,329,31"/>
 <area shape="rect" href="deng_8h.html" title="Differential file search comparison function and hook structure." alt="" coords="53,153,114,178"/>
 <area shape="poly" title=" " alt="" coords="246,25,185,31,114,42,52,58,29,69,14,81,8,96,15,112,30,128,49,142,46,146,27,132,11,115,3,96,9,77,26,64,50,53,113,37,184,26,246,20"/>
 <area shape="rect" title=" " alt="" coords="24,79,92,105"/>
@@ -185,7 +188,9 @@ Functions</h2></td></tr>
 <tr class="memdesc:a613651bdd9fdfeee1e835550338ff2db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursively scans directory <code>sd</code> and compares the file system state with a previously saved index. Any new, modified, deleted, or unmodified files are reported to the caller via the provided hooks structure, <code>hooks</code>. The index state <code>new</code> is then updated with the current file system state.  <br /></td></tr>
 <tr class="separator:a613651bdd9fdfeee1e835550338ff2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Differential file search implementation. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a2deb27359be57d0963adb93961957701" name="a2deb27359be57d0963adb93961957701"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2deb27359be57d0963adb93961957701">&#9670;&#160;</a></span>invokehook</h2>
 

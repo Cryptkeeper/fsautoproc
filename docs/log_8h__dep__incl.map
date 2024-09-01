@@ -1,6 +1,6 @@
 <map id="include/log.h" name="include/log.h">
 <area shape="rect" id="Node000001" title="Logging macros for the application." alt="" coords="286,5,380,31"/>
-<area shape="rect" id="Node000002" href="$deng_8c.html" title=" " alt="" coords="5,79,88,105"/>
+<area shape="rect" id="Node000002" href="$deng_8c.html" title="Differential file search implementation." alt="" coords="5,79,88,105"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="272,37,89,83,88,78,271,32"/>
 <area shape="rect" id="Node000003" href="$fd_8c.html" title="File descriptor output redirection implementation." alt="" coords="111,79,176,105"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="288,39,177,81,175,76,286,34"/>
