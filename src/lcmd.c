@@ -280,8 +280,12 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node,
     _exit(err);                     /* avoid firing parent atexit handlers */
   } else {
     // parent process, wait for child process to finish
-    if (waitpid(pid, NULL, 0) < 0) {
+    int eid = 0;
+    if (waitpid(pid, &eid, 0) < 0) {
       log_error("cannot wait for child process %d: %s", pid, strerror(errno));
+      return -1;
+    } else if (eid) {
+      log_error("command `%s` failed with exit code %d", cmd, eid);
       return -1;
     }
 

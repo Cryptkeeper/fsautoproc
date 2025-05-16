@@ -66,7 +66,7 @@ Options:
 
 #### Command Execution
 
-When executing a command (or a series of commands), the commands are executed in configured order. The parent process is forked, and the child process executes the command using `system(3)`. The parent process waits for the child process to complete before continuing. If a command fails (i.e. returns a non-zero exit status), the parent process logs the failure and continues to the next command.
+When executing a command (or a series of commands), the commands are executed in configured order. The parent process is forked, and the child process executes the command using `system(3)`. The parent process waits for the child process to complete before continuing. If a command fails (i.e. returns a non-zero exit status), the parent process logs the failure and processing for that file entry is skipped. Other files in the change set will continue to be processed.
 
 The path of the file that triggered the command is available to the command as an environment variable, `FILEPATH`.
 
