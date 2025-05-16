@@ -50,4 +50,13 @@ bool fsstateql(const struct fsstat_s* a, const struct fsstat_s* b);
 /// returned and `errno` is set.
 int fsstat(const char* fp, struct fsstat_s* s);
 
+/// @brief Concatenates the two strings into a single path string, joined by a
+/// `/` (path separator) character. Neither input string is modified or freed.
+/// @param dir The directory path
+/// @param file The file path
+/// @return A dynamically allocated string containing the joined path (i.e.
+/// `dir/file`). The caller is responsible for freeing the string. NULL is
+/// returned if an error occurred.
+char* fsjoin(const char* dir, const char* file);
+
 #endif// FSAUTOPROC_FS_H

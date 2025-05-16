@@ -65,14 +65,15 @@ static void freeall(void) {
   tpfree();
 }
 
-/// @def strdupoptarg
-/// @brief Duplicates the current `optarg` value into the specified variable.
+/// @def muststrdup
+/// @brief Duplicates the source `src` string value into the specified variable.
 /// If the duplication fails, an error message is printed and the function
 /// returns 1.
-/// @param into The variable to duplicate into
-#define strdupoptarg(into)                                                     \
+/// @param src The source string to duplicate
+/// @param dest The destination string variable to store the duplicated value
+#define muststrdup(src, dest)                                                  \
   do {                                                                         \
-    if ((into = strdup(optarg)) == NULL) {                                     \
+    if ((dest = strdup(src)) == NULL) {                                        \
       perror(NULL);                                                            \
       return 1;                                                                \
     }                                                                          \
@@ -107,10 +108,10 @@ static int parseinitargs(const int argc, char** const argv) {
                argv[0]);
         exit(0);
       case 'c':
-        strdupoptarg(initargs.configfile);
+        muststrdup(optarg, initargs.configfile);
         break;
       case 'i':
-        strdupoptarg(initargs.indexfile);
+        muststrdup(optarg, initargs.indexfile);
         break;
       case 'j':
         initargs.includejunk = true;
@@ -122,13 +123,13 @@ static int parseinitargs(const int argc, char** const argv) {
         initargs.pipefiles = true;
         break;
       case 's':
-        strdupoptarg(initargs.searchdir);
+        muststrdup(optarg, initargs.searchdir);
         break;
       case 't':
         initargs.threads = (int) strtol(optarg, NULL, 10);
         break;
       case 'r':
-        strdupoptarg(initargs.tracefile);
+        muststrdup(optarg, initargs.tracefile);
         break;
       case 'u':
         initargs.skipproc = true;
@@ -137,7 +138,7 @@ static int parseinitargs(const int argc, char** const argv) {
         initargs.verbose = true;
         break;
       case 'x':
-        strdupoptarg(initargs.lockfile);
+        muststrdup(optarg, initargs.lockfile);
         break;
       case ':':
         log_error("option is missing argument: %c", optopt);
@@ -151,23 +152,22 @@ static int parseinitargs(const int argc, char** const argv) {
 
   // set default argument values
   if (initargs.configfile == NULL)
-    if ((initargs.configfile = strdup("fsautoproc.json")) == NULL) return 1;
+    muststrdup("fsautoproc.json", initargs.configfile);
 
-  if (initargs.searchdir == NULL)
-    if ((initargs.searchdir = strdup(".")) == NULL) return 1;
+  if (initargs.searchdir == NULL) muststrdup(".", initargs.searchdir);
 
-  if (initargs.indexfile == NULL) {
-    // default to using index.dat inside search directory
-    char fp[256];
-    snprintf(fp, sizeof(fp), "%s/index.dat", initargs.searchdir);
-    if ((initargs.indexfile = strdup(fp)) == NULL) return 1;
+  // default to using index.dat inside search directory
+  if (initargs.indexfile == NULL &&
+      !(initargs.indexfile = fsjoin(initargs.searchdir, "index.dat"))) {
+    perror(NULL);
+    return 1;
   }
 
-  if (initargs.lockfile == NULL) {
-    // default to using fsautoproc.lock inside search directory
-    char fp[256];
-    snprintf(fp, sizeof(fp), "%s/fsautoproc.lock", initargs.searchdir);
-    if ((initargs.lockfile = strdup(fp)) == NULL) return 1;
+  // default to using fsap.lock inside search directory
+  if (initargs.lockfile == NULL &&
+      !(initargs.lockfile = fsjoin(initargs.searchdir, "fsap.lock"))) {
+    perror(NULL);
+    return 1;
   }
 
   if (initargs.threads == 0) initargs.threads = 4;

@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <glob.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <time.h>
@@ -75,4 +76,14 @@ int fsstat(const char* fp, struct fsstat_s* s) {
   s->lmod = ts.tv_sec * 1000 + ts.tv_nsec / 1000000; /* convert to millis */
   s->fsze = st.st_size;                              /* copy file size */
   return 0;
+}
+
+char* fsjoin(const char* dir, const char* file) {
+  assert(dir != NULL);
+  assert(file != NULL);
+  const size_t sum = strlen(dir) + strlen(file) + 2; /* +1 for '/' & '\0' */
+  char* fp = malloc(sum);
+  if (fp == NULL) return NULL;
+  snprintf(fp, sum, "%s/%s", dir, file);
+  return fp;
 }
