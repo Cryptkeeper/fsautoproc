@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tpopt_5flogfiles_0',['TPOPT_LOGFILES',['../tp_8h.html#abf3602d58f0285c20625f71858b38cc6',1,'tp.h']]]
+  ['sl_5fimpl_0',['SL_IMPL',['../deng_8c.html#a1927b00b8e12ec9fbe8753002a71d56d',1,'deng.c']]]
 ];

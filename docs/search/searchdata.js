@@ -8,7 +8,7 @@ var indexSectionsWithContent =
   5: "df",
   6: "d",
   7: "d",
-  8: "cfilnpst",
+  8: "cfilmnpst",
   9: "f"
 };
 

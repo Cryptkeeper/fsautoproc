@@ -172,6 +172,9 @@ Functions</h2></td></tr>
 <tr class="memitem:ac83f71d8496de8b8b0387b315e2cc79a" id="r_ac83f71d8496de8b8b0387b315e2cc79a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac83f71d8496de8b8b0387b315e2cc79a">fsstat</a> (const char *fp, struct <a class="el" href="structfsstat__s.html">fsstat_s</a> *s)</td></tr>
 <tr class="memdesc:ac83f71d8496de8b8b0387b315e2cc79a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates all fields of a given <code class="param"><a class="el" href="structfsstat__s.html" title="Stat structure for storing the last modified time and file size.">fsstat_s</a></code> structure for the file described by the filepath <code class="param">fp</code>.  <br /></td></tr>
 <tr class="separator:ac83f71d8496de8b8b0387b315e2cc79a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d4e9bed28c32018a597913eb2b3dee" id="r_aa1d4e9bed28c32018a597913eb2b3dee"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1d4e9bed28c32018a597913eb2b3dee">fsjoin</a> (const char *dir, const char *file)</td></tr>
+<tr class="memdesc:aa1d4e9bed28c32018a597913eb2b3dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenates the two strings into a single path string, joined by a <code>/</code> (path separator) character. Neither input string is modified or freed.  <br /></td></tr>
+<tr class="separator:aa1d4e9bed28c32018a597913eb2b3dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Filesystem walk and stat functions. </p>
@@ -201,6 +204,49 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="aa1d4e9bed28c32018a597913eb2b3dee" name="aa1d4e9bed28c32018a597913eb2b3dee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1d4e9bed28c32018a597913eb2b3dee">&#9670;&#160;</a></span>fsjoin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * fsjoin </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>dir</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>file</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Concatenates the two strings into a single path string, joined by a <code>/</code> (path separator) character. Neither input string is modified or freed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>The directory path </td></tr>
+    <tr><td class="paramname">file</td><td>The file path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A dynamically allocated string containing the joined path (i.e. <code>dir/file</code>). The caller is responsible for freeing the string. NULL is returned if an error occurred. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="fs_8h_aa1d4e9bed28c32018a597913eb2b3dee_icgraph.png" border="0" usemap="#afs_8h_aa1d4e9bed28c32018a597913eb2b3dee_icgraph" alt=""/></div>
+<map name="afs_8h_aa1d4e9bed28c32018a597913eb2b3dee_icgraph" id="afs_8h_aa1d4e9bed28c32018a597913eb2b3dee_icgraph">
+<area shape="rect" title="Concatenates the two strings into a single path string, joined by a / (path separator) character...." alt="" coords="246,5,298,31"/>
+<area shape="rect" href="main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f" title="Parses the program initialization arguments into initargs." alt="" coords="103,5,198,31"/>
+<area shape="poly" title=" " alt="" coords="230,21,199,21,199,16,230,16"/>
+<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
+<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ac83f71d8496de8b8b0387b315e2cc79a" name="ac83f71d8496de8b8b0387b315e2cc79a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac83f71d8496de8b8b0387b315e2cc79a">&#9670;&#160;</a></span>fsstat()</h2>
 

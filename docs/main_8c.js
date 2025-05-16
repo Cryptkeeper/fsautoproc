@@ -1,6 +1,6 @@
 var main_8c =
 [
-    [ "strdupoptarg", "main_8c.html#af45dc296609f96abfd214445f1113bce", null ],
+    [ "muststrdup", "main_8c.html#a307c3568bc0f41ee2bcaad45ec234797", null ],
     [ "cmpchanges", "main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be", null ],
     [ "filterjunk", "main_8c.html#a4967842331bb57ed8fadbf57206f63e6", null ],
     [ "freeall", "main_8c.html#ae3bfc4f47abe250845ff9d33361e8088", null ],

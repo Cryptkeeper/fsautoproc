@@ -109,6 +109,7 @@ $(function(){initNavTree('fs_8c.html',''); initResizable(true); });
 <code>#include &lt;assert.h&gt;</code><br />
 <code>#include &lt;glob.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
 <code>#include &lt;sys/stat.h&gt;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
@@ -118,23 +119,25 @@ Include dependency graph for fs.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="fs_8c__incl.png" border="0" usemap="#asrc_2fs_8c" alt=""/></div>
 <map name="asrc_2fs_8c" id="asrc_2fs_8c">
-<area shape="rect" title="Filesystem walk and stat implementation." alt="" coords="348,5,414,31"/>
+<area shape="rect" title="Filesystem walk and stat implementation." alt="" coords="391,5,456,31"/>
 <area shape="rect" href="fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="68,79,111,105"/>
-<area shape="poly" title=" " alt="" coords="349,29,253,49,126,81,125,76,251,44,348,23"/>
+<area shape="poly" title=" " alt="" coords="391,27,278,47,126,81,125,76,277,42,390,22"/>
 <area shape="rect" title=" " alt="" coords="135,79,203,105"/>
-<area shape="poly" title=" " alt="" coords="349,33,219,77,217,72,347,28"/>
+<area shape="poly" title=" " alt="" coords="391,31,219,79,217,74,390,26"/>
 <area shape="rect" title=" " alt="" coords="228,79,284,105"/>
-<area shape="poly" title=" " alt="" coords="361,34,291,73,289,69,359,29"/>
+<area shape="poly" title=" " alt="" coords="396,34,300,75,297,70,394,29"/>
 <area shape="rect" title=" " alt="" coords="308,79,369,105"/>
-<area shape="poly" title=" " alt="" coords="376,33,356,67,351,64,372,30"/>
-<area shape="rect" title=" " alt="" coords="393,79,457,105"/>
-<area shape="poly" title=" " alt="" coords="391,30,412,64,407,67,386,33"/>
-<area shape="rect" title=" " alt="" coords="482,79,561,105"/>
-<area shape="poly" title=" " alt="" coords="406,29,485,69,483,74,404,34"/>
-<area shape="rect" title=" " alt="" coords="584,79,642,105"/>
-<area shape="poly" title=" " alt="" coords="415,27,571,75,569,80,414,32"/>
-<area shape="rect" href="log_8h.html" title="Logging macros for the application." alt="" coords="666,79,715,105"/>
-<area shape="poly" title=" " alt="" coords="415,23,517,44,651,76,650,81,516,49,414,28"/>
+<area shape="poly" title=" " alt="" coords="411,34,366,71,363,67,408,29"/>
+<area shape="rect" title=" " alt="" coords="392,79,456,105"/>
+<area shape="poly" title=" " alt="" coords="426,31,426,63,421,63,421,31"/>
+<area shape="rect" title=" " alt="" coords="480,79,544,105"/>
+<area shape="poly" title=" " alt="" coords="440,29,487,67,484,71,437,34"/>
+<area shape="rect" title=" " alt="" coords="568,79,648,105"/>
+<area shape="poly" title=" " alt="" coords="456,29,563,71,561,75,454,34"/>
+<area shape="rect" title=" " alt="" coords="671,79,728,105"/>
+<area shape="poly" title=" " alt="" coords="458,25,657,75,655,81,456,30"/>
+<area shape="rect" href="log_8h.html" title="Logging macros for the application." alt="" coords="752,79,802,105"/>
+<area shape="poly" title=" " alt="" coords="457,22,578,42,738,76,737,81,577,47,457,27"/>
 <area shape="rect" title=" " alt="" coords="5,153,80,178"/>
 <area shape="poly" title=" " alt="" coords="84,106,61,141,56,138,79,103"/>
 <area shape="rect" title=" " alt="" coords="104,153,168,178"/>
@@ -156,10 +159,56 @@ Functions</h2></td></tr>
 <tr class="memitem:ac83f71d8496de8b8b0387b315e2cc79a" id="r_ac83f71d8496de8b8b0387b315e2cc79a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac83f71d8496de8b8b0387b315e2cc79a">fsstat</a> (const char *fp, struct <a class="el" href="structfsstat__s.html">fsstat_s</a> *s)</td></tr>
 <tr class="memdesc:ac83f71d8496de8b8b0387b315e2cc79a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates all fields of a given <code class="param"><a class="el" href="structfsstat__s.html" title="Stat structure for storing the last modified time and file size.">fsstat_s</a></code> structure for the file described by the filepath <code class="param">fp</code>.  <br /></td></tr>
 <tr class="separator:ac83f71d8496de8b8b0387b315e2cc79a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d4e9bed28c32018a597913eb2b3dee" id="r_aa1d4e9bed28c32018a597913eb2b3dee"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa1d4e9bed28c32018a597913eb2b3dee">fsjoin</a> (const char *dir, const char *file)</td></tr>
+<tr class="memdesc:aa1d4e9bed28c32018a597913eb2b3dee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenates the two strings into a single path string, joined by a <code>/</code> (path separator) character. Neither input string is modified or freed.  <br /></td></tr>
+<tr class="separator:aa1d4e9bed28c32018a597913eb2b3dee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Filesystem walk and stat implementation. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
+<a id="aa1d4e9bed28c32018a597913eb2b3dee" name="aa1d4e9bed28c32018a597913eb2b3dee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1d4e9bed28c32018a597913eb2b3dee">&#9670;&#160;</a></span>fsjoin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * fsjoin </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>dir</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>file</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Concatenates the two strings into a single path string, joined by a <code>/</code> (path separator) character. Neither input string is modified or freed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>The directory path </td></tr>
+    <tr><td class="paramname">file</td><td>The file path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A dynamically allocated string containing the joined path (i.e. <code>dir/file</code>). The caller is responsible for freeing the string. NULL is returned if an error occurred. </dd></dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="fs_8c_aa1d4e9bed28c32018a597913eb2b3dee_icgraph.png" border="0" usemap="#afs_8c_aa1d4e9bed28c32018a597913eb2b3dee_icgraph" alt=""/></div>
+<map name="afs_8c_aa1d4e9bed28c32018a597913eb2b3dee_icgraph" id="afs_8c_aa1d4e9bed28c32018a597913eb2b3dee_icgraph">
+<area shape="rect" title="Concatenates the two strings into a single path string, joined by a / (path separator) character...." alt="" coords="246,5,298,31"/>
+<area shape="rect" href="main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f" title="Parses the program initialization arguments into initargs." alt="" coords="103,5,198,31"/>
+<area shape="poly" title=" " alt="" coords="230,21,199,21,199,16,230,16"/>
+<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
+<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="ac83f71d8496de8b8b0387b315e2cc79a" name="ac83f71d8496de8b8b0387b315e2cc79a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac83f71d8496de8b8b0387b315e2cc79a">&#9670;&#160;</a></span>fsstat()</h2>
 
