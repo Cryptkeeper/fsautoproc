@@ -18,21 +18,21 @@
 /// @brief Search state context provided to the diff engine as user data which
 /// is passed to the file event hook functions.
 struct deng_state_s {
-  slist_t* dirqueue;                ///< Processing directory queue
-  deng_filter_t ffn;                ///< File filter function
-  const struct deng_hooks_s* hooks; ///< File event hook functions
-  const struct index_s* lastmap;    ///< Previous index state
-  struct index_s* thismap;          ///< Current index state
+  slist_t* dirqueue;               ///< Processing directory queue
+  deng_filter_t ffn;               ///< File filter function
+  const struct deng_hooks_s* hooks;///< File event hook functions
+  const struct index_s* lastmap;   ///< Previous index state
+  struct index_s* thismap;         ///< Current index state
 };
 
-/// @def invokehook
+/// @def callevent
 /// @brief Invokes a file event hook function if it is not NULL.
 /// @param mach The diff engine state context
-/// @param name The member of the hook function to invoke
+/// @param type The event type to pass to the hook function
 /// @param arg The argument to pass to the hook function
-#define invokehook(mach, name, arg)                                            \
+#define callevent(mach, type, arg)                                             \
   do {                                                                         \
-    if ((mach)->hooks->name != NULL) (mach)->hooks->name(arg);                 \
+    if ((mach)->hooks->event != NULL) (mach)->hooks->event(type, arg);         \
   } while (0)
 
 /// @def notifyhook
@@ -67,11 +67,11 @@ static int stagepre(const char* fp, void* udata) {
     if ((curr = indexput(mach->thismap, finfo)) == NULL) return -1;
 
   if (prev != NULL && !fsstateql(&prev->st, &curr->st)) {
-    invokehook(mach, mod, curr);
+    callevent(mach, DENG_FEVENT_MOD, curr);
   } else if (prev != NULL) {
-    invokehook(mach, nop, curr);
+    callevent(mach, DENG_FEVENT_NOP, curr);
   } else {
-    invokehook(mach, new, curr);
+    callevent(mach, DENG_FEVENT_NEW, curr);
   }
 
   return 0;
@@ -100,7 +100,7 @@ static int stagepost(const char* fp, void* udata) {
   if ((finfo.fp = strdup(fp)) == NULL) return -1;
   if (fsstat(fp, &finfo.st)) return -1;
   if ((curr = indexput(mach->thismap, finfo)) == NULL) return -1;
-  invokehook(mach, new, curr);
+  callevent(mach, DENG_FEVENT_NEW, curr);
 
   return 0;
 }
@@ -156,7 +156,7 @@ static int checkremoved(struct deng_state_s* mach) {
   for (long i = 0; i < mach->lastmap->size; i++) {
     struct inode_s* prev = lastlist[i];
     if (indexfind(mach->thismap, prev->fp) != NULL) continue;
-    invokehook(mach, del, prev);
+    callevent(mach, DENG_FEVENT_DEL, prev);
   }
   free(lastlist);
   notifyhook(mach, DENG_NOTIF_STAGE_DONE);

@@ -11,18 +11,24 @@ struct index_s;
 /// @enum deng_notif_t
 /// @brief Notification events for the file search process
 enum deng_notif_t {
-  DENG_NOTIF_DIR_DONE,   ///< Occurs when a directory has been fully processed
-  DENG_NOTIF_STAGE_DONE, ///< Occurs when a stage has been fully processed
+  DENG_NOTIF_DIR_DONE,  ///< Occurs when a directory has been fully processed
+  DENG_NOTIF_STAGE_DONE,///< Occurs when a stage has been fully processed
+};
+
+/// @enum deng_fevent_t
+/// @brief File change event types for the file comparison process
+enum deng_fevent_t {
+  DENG_FEVENT_NEW,///< New file event
+  DENG_FEVENT_DEL,///< Deleted file event
+  DENG_FEVENT_MOD,///< Modified file event
+  DENG_FEVENT_NOP,///< Unmodified file event
 };
 
 /// @struct deng_hooks_s
 /// @brief Hook functions for file system search events
 struct deng_hooks_s {
-  void (*notify)(enum deng_notif_t notif); ///< Progress notification event
-  void (*new)(struct inode_s* in);         ///< New file event
-  void (*del)(struct inode_s* in);         ///< Deleted file event
-  void (*mod)(struct inode_s* in);         ///< Modified file event
-  void (*nop)(struct inode_s* in);         ///< Unmodified file event
+  void (*notify)(enum deng_notif_t notif);///< Progress notification event
+  void (*event)(enum deng_fevent_t event, struct inode_s* in);///< File event
 };
 
 /// @typedef deng_filter_t

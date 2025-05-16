@@ -42,12 +42,12 @@ static void freeinitargs(void) {
   free(initargs.searchdir);
 }
 
-static struct lcmdset_s** cmdsets; ///< Command sets loaded from configuration
+static struct lcmdset_s** cmdsets;///< Command sets loaded from configuration
 
-static struct index_s lastmap; ///< Stored index from previous run (if any)
-static struct index_s thismap; ///< Live checked index from this run
+static struct index_s lastmap;///< Stored index from previous run (if any)
+static struct index_s thismap;///< Live checked index from this run
 
-static struct flock_s worklock; ///< Exclusive work lock for local directory
+static struct flock_s worklock;///< Exclusive work lock for local directory
 
 /// @brief Frees all allocated resources.
 static void freeall(void) {
@@ -241,39 +241,30 @@ static void trigfileevent(struct inode_s* in, const int trig) {
     log_error("error executing command set for `%s`: %d", in->fp, err);
 }
 
-/// @brief Callback function for the diff engine to handle new file events.
+/// @brief Callback function for the diff engine to handle file events.
 /// This will log a work request in the thread pool for any command sets which
-/// match the new file event.
-/// @param in The inode for the new file
-static void onnew(struct inode_s* in) {
-  log_info("[+] %s", in->fp);
-  trigfileevent(in, LCTRIG_NEW);
-}
-
-/// @brief Callback function for the diff engine to handle deleted file events.
-/// This will log a work request in the thread pool for any command sets which
-/// match the deleted file event.
-/// @param in The inode for the deleted file
-static void ondel(struct inode_s* in) {
-  log_info("[-] %s", in->fp);
-  trigfileevent(in, LCTRIG_DEL);
-}
-
-/// @brief Callback function for the diff engine to handle modified file events.
-/// This will log a work request in the thread pool for any command sets which
-/// match the modified file event.
-/// @param in The inode for the modified file
-static void onmod(struct inode_s* in) {
-  log_info("[*] %s", in->fp);
-  trigfileevent(in, LCTRIG_MOD);
-}
-
-/// @brief Callback function for the diff engine to handle no-op file events.
-/// This will log a work request in the thread pool for any command sets which
-/// match the unmodified file event.
-static void onnop(struct inode_s* in) {
-  if (initargs.verbose) log_info("[n] %s", in->fp);
-  trigfileevent(in, LCTRIG_NOP);
+/// match the file event and type.
+/// @param event The file event type
+/// @param in The inode for the file
+static void onevent(const enum deng_fevent_t event, struct inode_s* in) {
+  switch (event) {
+    case DENG_FEVENT_NEW:
+      log_info("[+] %s", in->fp);
+      trigfileevent(in, LCTRIG_NEW);
+      break;
+    case DENG_FEVENT_DEL:
+      log_info("[-] %s", in->fp);
+      trigfileevent(in, LCTRIG_DEL);
+      break;
+    case DENG_FEVENT_MOD:
+      log_info("[*] %s", in->fp);
+      trigfileevent(in, LCTRIG_MOD);
+      break;
+    case DENG_FEVENT_NOP:
+      if (initargs.verbose) log_info("[n] %s", in->fp);
+      trigfileevent(in, LCTRIG_NOP);
+      break;
+  }
 }
 
 /// @brief Compares the current file system state with a previously saved index.
@@ -287,7 +278,7 @@ static int cmpchanges(void) {
     }
   }
 
-  const struct deng_hooks_s hooks = {onnotify, onnew, ondel, onmod, onnop};
+  const struct deng_hooks_s hooks = {onnotify, onevent};
 
   int err;
   if ((err = dengsearch(initargs.searchdir, filterjunk, &hooks, &lastmap,

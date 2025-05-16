@@ -17,24 +17,24 @@ struct evcounts_s {
 
 static struct evcounts_s evcounts; /* recycled global used for hook callbacks */
 
-static void onnew(struct inode_s* in) {
+static void onevent(const enum deng_fevent_t type, struct inode_s* in) {
   assert(in != NULL);
-  evcounts.new ++;
-}
-
-static void ondel(struct inode_s* in) {
-  assert(in != NULL);
-  evcounts.del++;
-}
-
-static void onmod(struct inode_s* in) {
-  assert(in != NULL);
-  evcounts.mod++;
-}
-
-static void onnop(struct inode_s* in) {
-  assert(in != NULL);
-  evcounts.nop++;
+  switch (type) {
+    case DENG_FEVENT_NEW:
+      evcounts.new ++;
+      break;
+    case DENG_FEVENT_DEL:
+      evcounts.del++;
+      break;
+    case DENG_FEVENT_MOD:
+      evcounts.mod++;
+      break;
+    case DENG_FEVENT_NOP:
+      evcounts.nop++;
+      break;
+    default:
+      assert("unknown event type %d");
+  }
 }
 
 struct scantest_s {
@@ -57,12 +57,7 @@ static const struct scantest_s scantests[SCANTESTCOUNT] = {
 };
 
 int main(void) {
-  const struct deng_hooks_s hooks = {
-          .new = onnew,
-          .del = ondel,
-          .mod = onmod,
-          .nop = onnop,
-  };
+  const struct deng_hooks_s hooks = {NULL, onevent};
 
   for (int i = 0; i < SCANTESTCOUNT; i++) {
     const struct scantest_s* test = &scantests[i];
