@@ -18,6 +18,5 @@ var searchData=
   ['indexread_15',['indexread',['../index_8c.html#a4125d43775953ef8370561fc6eb43f85',1,'indexread(struct index_s *idx, FILE *s):&#160;index.c'],['../index_8h.html#a4125d43775953ef8370561fc6eb43f85',1,'indexread(struct index_s *idx, FILE *s):&#160;index.c']]],
   ['indexwrite_16',['indexwrite',['../index_8c.html#a57fe9c26bb06488c107b154a1148c7ea',1,'indexwrite(struct index_s *idx, FILE *s):&#160;index.c'],['../index_8h.html#a57fe9c26bb06488c107b154a1148c7ea',1,'indexwrite(struct index_s *idx, FILE *s):&#160;index.c']]],
   ['initargs_17',['initargs',['../main_8c.html#ac985417dd85848ccd04ad551a7db6028',1,'main.c']]],
-  ['inode_5fs_18',['inode_s',['../structinode__s.html',1,'']]],
-  ['invokehook_19',['invokehook',['../deng_8c.html#a2deb27359be57d0963adb93961957701',1,'deng.c']]]
+  ['inode_5fs_18',['inode_s',['../structinode__s.html',1,'']]]
 ];

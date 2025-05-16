@@ -1,7 +1,7 @@
 var deng_8c =
 [
     [ "deng_state_s", "structdeng__state__s.html", "structdeng__state__s" ],
-    [ "invokehook", "deng_8c.html#a2deb27359be57d0963adb93961957701", null ],
+    [ "callevent", "deng_8c.html#ab01230e39bfcb0538cb42d864221c111", null ],
     [ "notifyhook", "deng_8c.html#aa64917a12a6c98922a8027b298bbed15", null ],
     [ "SL_IMPL", "deng_8c.html#a1927b00b8e12ec9fbe8753002a71d56d", null ],
     [ "checkremoved", "deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601", null ],

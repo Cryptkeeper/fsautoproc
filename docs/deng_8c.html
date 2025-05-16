@@ -160,9 +160,9 @@ Data Structures</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a1927b00b8e12ec9fbe8753002a71d56d" id="r_a1927b00b8e12ec9fbe8753002a71d56d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1927b00b8e12ec9fbe8753002a71d56d">SL_IMPL</a></td></tr>
 <tr class="separator:a1927b00b8e12ec9fbe8753002a71d56d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2deb27359be57d0963adb93961957701" id="r_a2deb27359be57d0963adb93961957701"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2deb27359be57d0963adb93961957701">invokehook</a>(mach,  name,  arg)</td></tr>
-<tr class="memdesc:a2deb27359be57d0963adb93961957701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes a file event hook function if it is not NULL.  <br /></td></tr>
-<tr class="separator:a2deb27359be57d0963adb93961957701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab01230e39bfcb0538cb42d864221c111" id="r_ab01230e39bfcb0538cb42d864221c111"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab01230e39bfcb0538cb42d864221c111">callevent</a>(mach,  type,  arg)</td></tr>
+<tr class="memdesc:ab01230e39bfcb0538cb42d864221c111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes a file event hook function if it is not NULL.  <br /></td></tr>
+<tr class="separator:ab01230e39bfcb0538cb42d864221c111"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa64917a12a6c98922a8027b298bbed15" id="r_aa64917a12a6c98922a8027b298bbed15"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa64917a12a6c98922a8027b298bbed15">notifyhook</a>(mach,  type)</td></tr>
 <tr class="memdesc:aa64917a12a6c98922a8027b298bbed15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invokes the notify hook function if it is not NULL.  <br /></td></tr>
 <tr class="separator:aa64917a12a6c98922a8027b298bbed15"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,21 +191,21 @@ Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Differential file search implementation. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a2deb27359be57d0963adb93961957701" name="a2deb27359be57d0963adb93961957701"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2deb27359be57d0963adb93961957701">&#9670;&#160;</a></span>invokehook</h2>
+<a id="ab01230e39bfcb0538cb42d864221c111" name="ab01230e39bfcb0538cb42d864221c111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab01230e39bfcb0538cb42d864221c111">&#9670;&#160;</a></span>callevent</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define invokehook</td>
+          <td class="memname">#define callevent</td>
           <td>(</td>
           <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>mach</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -215,14 +215,14 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">  <span class="keywordflow">do</span> {                                                                         \</div>
-<div class="line">    if ((mach)-&gt;hooks-&gt;name != NULL) (mach)-&gt;hooks-&gt;name(arg);                 \</div>
+<div class="line">    if ((mach)-&gt;hooks-&gt;event != NULL) (mach)-&gt;hooks-&gt;event(type, arg);         \</div>
 <div class="line">  } <span class="keywordflow">while</span> (0)</div>
 </div><!-- fragment -->
 <p>Invokes a file event hook function if it is not NULL. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">mach</td><td>The diff engine state context </td></tr>
-    <tr><td class="paramname">name</td><td>The member of the hook function to invoke </td></tr>
+    <tr><td class="paramname">type</td><td>The event type to pass to the hook function </td></tr>
     <tr><td class="paramname">arg</td><td>The argument to pass to the hook function </td></tr>
   </table>
   </dd>

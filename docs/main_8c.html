@@ -208,18 +208,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a4c931f8671d78cfbccd0699b7e49d569" id="r_a4c931f8671d78cfbccd0699b7e49d569"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c931f8671d78cfbccd0699b7e49d569">trigfileevent</a> (struct <a class="el" href="structinode__s.html">inode_s</a> *in, const int trig)</td></tr>
 <tr class="memdesc:a4c931f8671d78cfbccd0699b7e49d569"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues command execution for a file event of the specified type, using the provided inode for the file information. If the <code>skipproc</code> flag is set, the command execution is skipped. If the <code>verbose</code> flag is set, the command execution is done with verbose output.  <br /></td></tr>
 <tr class="separator:a4c931f8671d78cfbccd0699b7e49d569"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a93c1554c389643aec77918b96e70b1" id="r_a9a93c1554c389643aec77918b96e70b1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a93c1554c389643aec77918b96e70b1">onnew</a> (struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
-<tr class="memdesc:a9a93c1554c389643aec77918b96e70b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the diff engine to handle new file events. This will log a work request in the thread pool for any command sets which match the new file event.  <br /></td></tr>
-<tr class="separator:a9a93c1554c389643aec77918b96e70b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae189ad9356df371fef8d2d44fbca5d69" id="r_ae189ad9356df371fef8d2d44fbca5d69"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae189ad9356df371fef8d2d44fbca5d69">ondel</a> (struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
-<tr class="memdesc:ae189ad9356df371fef8d2d44fbca5d69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the diff engine to handle deleted file events. This will log a work request in the thread pool for any command sets which match the deleted file event.  <br /></td></tr>
-<tr class="separator:ae189ad9356df371fef8d2d44fbca5d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a10377f4fd506aba78fe78730471a78" id="r_a1a10377f4fd506aba78fe78730471a78"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a10377f4fd506aba78fe78730471a78">onmod</a> (struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
-<tr class="memdesc:a1a10377f4fd506aba78fe78730471a78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the diff engine to handle modified file events. This will log a work request in the thread pool for any command sets which match the modified file event.  <br /></td></tr>
-<tr class="separator:a1a10377f4fd506aba78fe78730471a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9e068da7a61936aba18d138badb2d2a" id="r_ac9e068da7a61936aba18d138badb2d2a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9e068da7a61936aba18d138badb2d2a">onnop</a> (struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
-<tr class="memdesc:ac9e068da7a61936aba18d138badb2d2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the diff engine to handle no-op file events. This will log a work request in the thread pool for any command sets which match the unmodified file event.  <br /></td></tr>
-<tr class="separator:ac9e068da7a61936aba18d138badb2d2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acef2570122c7ca15cdc3fd1b2247fc28" id="r_acef2570122c7ca15cdc3fd1b2247fc28"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acef2570122c7ca15cdc3fd1b2247fc28">onevent</a> (const enum <a class="el" href="deng_8h.html#a789d56065b6d1df39eaac79325be36da">deng_fevent_t</a> event, struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
+<tr class="memdesc:acef2570122c7ca15cdc3fd1b2247fc28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the diff engine to handle file events. This will log a work request in the thread pool for any command sets which match the file event and type.  <br /></td></tr>
+<tr class="separator:acef2570122c7ca15cdc3fd1b2247fc28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6e14ac597b28e7ab66e367b76b3a4be" id="r_ae6e14ac597b28e7ab66e367b76b3a4be"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae6e14ac597b28e7ab66e367b76b3a4be">cmpchanges</a> (void)</td></tr>
 <tr class="memdesc:ae6e14ac597b28e7ab66e367b76b3a4be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares the current file system state with a previously saved index.  <br /></td></tr>
 <tr class="separator:ae6e14ac597b28e7ab66e367b76b3a4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -351,81 +342,72 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c_ae6e14ac597b28e7ab66e367b76b3a4be_cgraph.png" border="0" usemap="#amain_8c_ae6e14ac597b28e7ab66e367b76b3a4be_cgraph" alt=""/></div>
 <map name="amain_8c_ae6e14ac597b28e7ab66e367b76b3a4be_cgraph" id="amain_8c_ae6e14ac597b28e7ab66e367b76b3a4be_cgraph">
-<area shape="rect" title="Compares the current file system state with a previously saved index." alt="" coords="5,400,101,426"/>
+<area shape="rect" title="Compares the current file system state with a previously saved index." alt="" coords="5,327,101,352"/>
 <area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="149,203,237,228"/>
-<area shape="poly" title=" " alt="" coords="61,398,172,239,176,243,66,401"/>
-<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="158,301,228,327"/>
-<area shape="poly" title=" " alt="" coords="68,397,147,336,152,333,155,337,150,340,71,401"/>
-<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="155,128,231,154"/>
-<area shape="poly" title=" " alt="" coords="56,399,88,308,114,248,146,189,166,163,170,167,151,192,119,250,93,310,61,400"/>
-<area shape="rect" href="main_8c.html#ae189ad9356df371fef8d2d44fbca5d69" title="Callback function for the diff engine to handle deleted file events. This will log a work request in ..." alt="" coords="167,548,219,574"/>
-<area shape="poly" title=" " alt="" coords="64,425,98,476,123,507,150,535,156,539,152,543,147,539,119,510,94,480,60,428"/>
-<area shape="rect" href="main_8c.html#a1a10377f4fd506aba78fe78730471a78" title="Callback function for the diff engine to handle modified file events. This will log a work request in..." alt="" coords="163,597,223,623"/>
-<area shape="poly" title=" " alt="" coords="61,425,92,498,118,543,151,584,152,586,148,590,147,588,113,546,87,501,56,427"/>
-<area shape="rect" href="main_8c.html#a9a93c1554c389643aec77918b96e70b1" title="Callback function for the diff engine to handle new file events. This will log a work request in the ..." alt="" coords="163,449,222,475"/>
-<area shape="poly" title=" " alt="" coords="93,424,150,444,148,449,91,429"/>
-<area shape="rect" href="main_8c.html#ac9e068da7a61936aba18d138badb2d2a" title="Callback function for the diff engine to handle no&#45;op file events. This will log a work request in th..." alt="" coords="165,499,221,524"/>
-<area shape="poly" title=" " alt="" coords="71,424,150,485,155,488,152,493,147,490,68,428"/>
+<area shape="poly" title=" " alt="" coords="67,324,164,237,168,241,71,328"/>
+<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="158,351,228,376"/>
+<area shape="poly" title=" " alt="" coords="102,345,142,352,142,357,101,350"/>
+<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="155,129,231,155"/>
+<area shape="poly" title=" " alt="" coords="59,325,95,265,147,189,166,165,170,169,151,192,100,268,64,328"/>
+<area shape="rect" href="main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="159,473,226,499"/>
+<area shape="poly" title=" " alt="" coords="68,351,171,460,167,464,65,354"/>
 <area shape="rect" href="main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="159,400,226,426"/>
-<area shape="poly" title=" " alt="" coords="101,410,144,410,144,416,101,416"/>
-<area shape="rect" href="main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="153,351,233,376"/>
-<area shape="poly" title=" " alt="" coords="91,397,139,380,141,385,93,402"/>
+<area shape="poly" title=" " alt="" coords="81,351,155,390,152,395,78,355"/>
+<area shape="rect" href="main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="153,301,233,327"/>
+<area shape="poly" title=" " alt="" coords="101,328,137,322,138,327,102,333"/>
 <area shape="rect" href="deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="285,252,391,278"/>
 <area shape="poly" title=" " alt="" coords="234,226,285,244,283,249,232,232"/>
 <area shape="rect" href="deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="298,55,379,80"/>
-<area shape="poly" title=" " alt="" coords="205,200,235,165,248,144,256,125,266,108,283,90,287,87,290,91,287,93,270,111,261,128,253,146,239,168,209,204"/>
+<area shape="poly" title=" " alt="" coords="205,200,235,166,248,145,256,126,266,108,283,90,286,87,290,91,287,93,270,112,261,129,253,147,239,169,209,204"/>
 <area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="299,153,377,179"/>
 <area shape="poly" title=" " alt="" coords="232,199,283,182,285,187,234,205"/>
 <area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="302,203,374,228"/>
 <area shape="poly" title=" " alt="" coords="237,213,287,213,287,218,237,218"/>
-<area shape="rect" href="index_8c.html#a805436c943765cd435c11338ca3d64f1" title="Searches the index for a node with a matching filepath." alt="" coords="455,203,529,228"/>
-<area shape="poly" title=" " alt="" coords="380,249,440,229,442,234,382,254"/>
+<area shape="rect" href="index_8c.html#a805436c943765cd435c11338ca3d64f1" title="Searches the index for a node with a matching filepath." alt="" coords="455,252,529,278"/>
+<area shape="poly" title=" " alt="" coords="392,262,440,262,440,268,392,268"/>
 <area shape="rect" href="index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="457,301,527,327"/>
 <area shape="poly" title=" " alt="" coords="382,276,443,296,442,301,380,281"/>
-<area shape="rect" href="index_8c.html#ad3da01df685012e02522b0db9f3f8fef" title="Hashes the filepath string into an index bucket." alt="" coords="602,179,682,204"/>
-<area shape="poly" title=" " alt="" coords="529,207,586,198,587,203,529,212"/>
+<area shape="rect" href="index_8c.html#ad3da01df685012e02522b0db9f3f8fef" title="Hashes the filepath string into an index bucket." alt="" coords="602,203,682,228"/>
+<area shape="poly" title=" " alt="" coords="528,250,586,231,588,236,530,255"/>
 <area shape="rect" href="deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="460,5,524,31"/>
 <area shape="poly" title=" " alt="" coords="378,52,444,30,446,36,380,57"/>
 <area shape="rect" href="fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="462,55,522,80"/>
 <area shape="poly" title=" " alt="" coords="379,65,446,65,446,70,379,70"/>
 <area shape="rect" href="fs_8c.html#a8bb9fba0c594f3e6b654303e6f9f36a9" title="Error callback implementation for glob search. Logs each error using the log_error macro." alt="" coords="605,55,679,80"/>
 <area shape="poly" title=" " alt="" coords="522,65,589,65,589,70,522,70"/>
-<area shape="poly" title=" " alt="" coords="378,176,442,197,440,202,377,181"/>
+<area shape="poly" title=" " alt="" coords="375,177,393,188,408,201,417,214,427,226,441,239,446,242,443,246,438,243,423,230,413,217,404,205,390,192,372,182"/>
 <area shape="rect" href="fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="465,153,519,179"/>
 <area shape="poly" title=" " alt="" coords="378,164,449,164,449,169,378,169"/>
 <area shape="rect" href="index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping." alt="" coords="457,104,527,130"/>
 <area shape="poly" title=" " alt="" coords="377,151,441,130,443,135,378,156"/>
-<area shape="poly" title=" " alt="" coords="524,128,546,138,604,169,601,173,543,143,522,133"/>
+<area shape="poly" title=" " alt="" coords="526,128,546,139,616,190,612,194,543,143,524,133"/>
 <area shape="rect" href="index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="593,104,691,130"/>
 <area shape="poly" title=" " alt="" coords="527,114,577,114,577,120,527,120"/>
-<area shape="poly" title=" " alt="" coords="374,213,440,213,440,218,374,218"/>
+<area shape="poly" title=" " alt="" coords="375,224,441,246,440,251,373,229"/>
 <area shape="poly" title=" " alt="" coords="373,202,449,177,451,182,375,207"/>
 <area shape="poly" title=" " alt="" coords="372,200,390,189,404,177,413,165,423,152,438,139,443,135,446,140,441,143,427,156,417,168,408,180,393,194,375,204"/>
-<area shape="rect" href="fs_8c.html#a9a6b33158e9e03d0404c144b5e3dee2c" title="fsstateql() compares the fields of two struct fsstat_s values for equality. Two structs with the same..." alt="" coords="456,252,528,278"/>
-<area shape="poly" title=" " alt="" coords="375,224,442,246,441,251,373,229"/>
-<area shape="rect" href="lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="285,301,391,327"/>
-<area shape="poly" title=" " alt="" coords="228,312,269,312,269,317,228,317"/>
-<area shape="rect" href="lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="449,351,535,376"/>
-<area shape="poly" title=" " alt="" coords="382,325,436,343,434,348,380,330"/>
+<area shape="rect" href="fs_8c.html#a9a6b33158e9e03d0404c144b5e3dee2c" title="fsstateql() compares the fields of two struct fsstat_s values for equality. Two structs with the same..." alt="" coords="456,203,528,228"/>
+<area shape="poly" title=" " alt="" coords="374,213,441,213,441,218,374,218"/>
+<area shape="rect" href="lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="285,351,391,376"/>
+<area shape="poly" title=" " alt="" coords="228,361,269,361,269,366,228,366"/>
+<area shape="rect" href="lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="449,400,535,426"/>
+<area shape="poly" title=" " alt="" coords="382,374,436,392,434,397,380,380"/>
 <area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="300,104,377,130"/>
-<area shape="poly" title=" " alt="" coords="231,132,284,123,285,128,232,137"/>
+<area shape="poly" title=" " alt="" coords="231,133,284,124,285,129,232,138"/>
 <area shape="poly" title=" " alt="" coords="377,114,441,114,441,120,377,120"/>
-<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="294,523,382,548"/>
-<area shape="poly" title=" " alt="" coords="219,554,279,543,279,548,219,559"/>
-<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="458,523,526,548"/>
-<area shape="poly" title=" " alt="" coords="383,533,443,533,443,538,383,538"/>
-<area shape="poly" title=" " alt="" coords="218,594,296,554,299,558,221,599"/>
-<area shape="poly" title=" " alt="" coords="222,473,298,513,296,518,219,478"/>
-<area shape="poly" title=" " alt="" coords="222,513,279,523,278,528,221,519"/>
+<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="294,499,382,524"/>
+<area shape="poly" title=" " alt="" coords="227,489,279,498,278,504,226,495"/>
+<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="458,499,526,524"/>
+<area shape="poly" title=" " alt="" coords="383,509,443,509,443,514,383,514"/>
 <area shape="rect" href="prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="294,400,383,426"/>
 <area shape="poly" title=" " alt="" coords="227,410,278,410,278,416,227,416"/>
 <area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="310,449,366,475"/>
 <area shape="poly" title=" " alt="" coords="228,422,296,445,294,450,226,427"/>
-<area shape="rect" href="index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="298,351,378,376"/>
-<area shape="poly" title=" " alt="" coords="234,361,282,361,282,366,234,366"/>
-<area shape="poly" title=" " alt="" coords="378,348,442,327,443,332,380,353"/>
-<area shape="rect" href="index_8c.html#afcb2d1b3e19fa845832a12730a2ea753" title="Compares two file nodes for sorting in ascending order by filepath." alt="" coords="439,400,545,426"/>
-<area shape="poly" title=" " alt="" coords="380,374,436,392,434,397,378,379"/>
+<area shape="rect" href="index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="298,301,378,327"/>
+<area shape="poly" title=" " alt="" coords="234,312,282,312,282,317,234,317"/>
+<area shape="poly" title=" " alt="" coords="379,312,442,312,442,317,379,317"/>
+<area shape="rect" href="index_8c.html#afcb2d1b3e19fa845832a12730a2ea753" title="Compares two file nodes for sorting in ascending order by filepath." alt="" coords="439,351,545,376"/>
+<area shape="poly" title=" " alt="" coords="380,324,436,343,434,348,378,330"/>
 </map>
 </div>
 <div class="dynheader">
@@ -701,121 +683,121 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph.png" border="0" usemap="#amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph" alt=""/></div>
 <map name="amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph" id="amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph">
-<area shape="rect" title="Main program entry point." alt="" coords="5,844,55,870"/>
-<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,327,198,352"/>
-<area shape="poly" title=" " alt="" coords="32,843,140,367,146,368,37,844"/>
-<area shape="rect" href="fl_8c.html#a00b62bc8baa9dd0647aa066b870a0386" title="Locks the file at the given path. If a file descriptor cannot be obtained, or the file cannot be lock..." alt="" coords="125,621,177,647"/>
-<area shape="poly" title=" " alt="" coords="36,842,133,659,138,662,41,845"/>
-<area shape="rect" href="main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="123,745,179,771"/>
-<area shape="poly" title=" " alt="" coords="46,841,121,779,124,783,49,846"/>
-<area shape="rect" href="lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Prses the provided file path and populates an array of command sets. The file must be a valid JSON fi..." alt="" coords="110,844,192,870"/>
-<area shape="poly" title=" " alt="" coords="55,854,95,854,95,860,55,860"/>
-<area shape="rect" href="main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f" title="Parses the program initialization arguments into initargs." alt="" coords="103,893,198,919"/>
-<area shape="poly" title=" " alt="" coords="56,864,105,885,103,889,54,869"/>
-<area shape="rect" href="main_8c.html#ae29622551563546e0b7a146fac8323dc" title="Prints the time spent for each command set to the console." alt="" coords="103,943,199,968"/>
-<area shape="poly" title=" " alt="" coords="44,869,70,898,104,929,108,932,105,937,101,934,66,902,40,872"/>
-<area shape="rect" href="tp_8c.html#a1ba58530a307f93d627c37f920a19945" title="Initializes a global worker thread pool of the given size." alt="" coords="126,1005,176,1031"/>
-<area shape="poly" title=" " alt="" coords="39,869,65,920,83,950,105,979,120,994,116,997,101,983,79,953,60,922,35,871"/>
-<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="254,203,342,228"/>
-<area shape="poly" title=" " alt="" coords="160,324,195,283,245,237,250,234,253,238,249,242,199,287,164,328"/>
-<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="263,252,333,278"/>
-<area shape="poly" title=" " alt="" coords="175,324,246,286,254,282,256,287,248,291,178,328"/>
-<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="260,301,336,327"/>
-<area shape="poly" title=" " alt="" coords="199,329,244,321,245,326,200,334"/>
-<area shape="rect" href="main_8c.html#ae189ad9356df371fef8d2d44fbca5d69" title="Callback function for the diff engine to handle deleted file events. This will log a work request in ..." alt="" coords="272,351,324,376"/>
-<area shape="poly" title=" " alt="" coords="200,345,257,354,256,359,199,350"/>
-<area shape="rect" href="main_8c.html#a1a10377f4fd506aba78fe78730471a78" title="Callback function for the diff engine to handle modified file events. This will log a work request in..." alt="" coords="268,400,328,426"/>
-<area shape="poly" title=" " alt="" coords="179,351,248,386,256,390,254,395,246,391,176,355"/>
-<area shape="rect" href="main_8c.html#a9a93c1554c389643aec77918b96e70b1" title="Callback function for the diff engine to handle new file events. This will log a work request in the ..." alt="" coords="268,449,328,475"/>
-<area shape="poly" title=" " alt="" coords="164,351,199,392,249,436,256,441,253,445,245,440,196,395,160,355"/>
-<area shape="rect" href="main_8c.html#ac9e068da7a61936aba18d138badb2d2a" title="Callback function for the diff engine to handle no&#45;op file events. This will log a work request in th..." alt="" coords="270,499,326,524"/>
-<area shape="poly" title=" " alt="" coords="160,351,192,414,218,452,249,486,258,492,255,497,245,489,214,455,188,417,155,354"/>
-<area shape="rect" href="main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="264,55,332,80"/>
-<area shape="poly" title=" " alt="" coords="155,325,191,245,245,139,276,92,280,94,249,142,195,248,160,327"/>
-<area shape="rect" href="main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="258,153,338,179"/>
-<area shape="poly" title=" " alt="" coords="155,325,187,261,213,223,245,188,248,186,252,190,249,192,218,226,192,264,160,327"/>
-<area shape="rect" href="deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="399,203,505,228"/>
-<area shape="poly" title=" " alt="" coords="343,213,383,213,383,218,343,218"/>
-<area shape="rect" href="deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="411,104,493,130"/>
-<area shape="poly" title=" " alt="" coords="330,200,348,189,362,177,371,164,381,152,396,139,401,135,404,139,399,143,385,156,375,168,366,180,351,194,333,204"/>
-<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="413,301,491,327"/>
-<area shape="poly" title=" " alt="" coords="333,227,351,237,366,251,375,263,385,275,399,288,404,292,401,296,396,292,381,279,371,267,362,254,348,242,330,231"/>
-<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="416,252,488,278"/>
-<area shape="poly" title=" " alt="" coords="342,226,402,246,401,251,340,232"/>
-<area shape="rect" href="index_8c.html#a805436c943765cd435c11338ca3d64f1" title="Searches the index for a node with a matching filepath." alt="" coords="555,252,628,278"/>
-<area shape="poly" title=" " alt="" coords="492,226,541,244,539,249,490,231"/>
-<area shape="rect" href="index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="557,179,626,204"/>
-<area shape="poly" title=" " alt="" coords="505,204,541,197,542,203,506,209"/>
-<area shape="rect" href="deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="560,117,623,143"/>
-<area shape="poly" title=" " alt="" coords="493,118,545,123,544,128,493,123"/>
-<area shape="rect" href="fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="562,68,621,94"/>
-<area shape="poly" title=" " alt="" coords="493,104,546,90,547,95,494,109"/>
-<area shape="poly" title=" " alt="" coords="490,298,539,280,541,285,492,303"/>
-<area shape="rect" href="fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="564,301,618,327"/>
-<area shape="poly" title=" " alt="" coords="492,312,549,312,549,317,492,317"/>
-<area shape="poly" title=" " alt="" coords="488,262,539,262,539,268,488,268"/>
-<area shape="poly" title=" " alt="" coords="489,275,551,297,549,302,487,280"/>
-<area shape="rect" href="lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="399,351,505,376"/>
-<area shape="poly" title=" " alt="" coords="333,276,351,287,366,300,375,313,385,325,399,337,404,341,401,345,396,342,381,328,371,316,362,304,348,291,330,280"/>
-<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="413,400,491,426"/>
-<area shape="poly" title=" " alt="" coords="333,325,351,336,366,349,375,362,385,374,399,387,404,390,401,395,396,391,381,378,371,365,362,353,348,340,330,330"/>
-<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="408,449,496,475"/>
-<area shape="poly" title=" " alt="" coords="326,371,351,385,366,399,375,411,385,423,399,436,404,440,401,444,396,440,381,427,371,415,362,402,348,390,324,376"/>
-<area shape="poly" title=" " alt="" coords="329,420,396,442,394,447,328,425"/>
-<area shape="poly" title=" " alt="" coords="328,460,393,460,393,465,328,465"/>
-<area shape="poly" title=" " alt="" coords="326,500,395,478,397,483,328,505"/>
-<area shape="rect" href="prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="407,5,497,31"/>
-<area shape="poly" title=" " alt="" coords="331,54,395,34,396,39,333,59"/>
-<area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="424,55,480,80"/>
-<area shape="poly" title=" " alt="" coords="332,65,408,65,408,70,332,70"/>
-<area shape="rect" href="index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="412,153,492,179"/>
-<area shape="poly" title=" " alt="" coords="339,164,397,164,397,169,339,169"/>
-<area shape="poly" title=" " alt="" coords="493,171,542,180,541,185,492,176"/>
-<area shape="rect" href="fl_8c.html#ac8cdc36ad1f74a8dd0b80ee85356bc01" title="Opens the file at the given path and updates the file lock structure with the file descriptor...." alt="" coords="270,548,326,574"/>
-<area shape="poly" title=" " alt="" coords="176,618,246,582,254,578,257,583,248,587,179,623"/>
-<area shape="rect" href="fl_8c.html#af9edee5332ff921081fe39fc530d40bd" title="Unlocks the file at the given path. If the file is not open, or the file cannot be unlocked,..." alt="" coords="265,597,331,623"/>
-<area shape="poly" title=" " alt="" coords="157,744,191,691,216,660,245,632,250,629,253,633,249,636,220,664,196,694,162,746"/>
-<area shape="rect" href="main_8c.html#a91224adbae9c6933e2469d45de8d340a" title="Frees all duplicated initialization arguments." alt="" coords="256,647,341,672"/>
-<area shape="poly" title=" " alt="" coords="165,743,201,713,246,681,251,678,254,682,248,686,204,717,169,747"/>
-<area shape="rect" href="index_8c.html#ac916662497c44dfd34d1d6fd5312a317" title="Frees all nodes in the index map." alt="" coords="261,696,335,722"/>
-<area shape="poly" title=" " alt="" coords="179,746,245,724,247,729,180,751"/>
-<area shape="rect" href="lcmd_8c.html#a36d31b28aae66a8e5e5d1d0a4bf454d8" title="Iterates and frees all memory allocated by the command set array." alt="" coords="257,844,339,870"/>
-<area shape="poly" title=" " alt="" coords="169,769,204,799,248,831,254,834,251,839,246,835,201,803,165,773"/>
-<area shape="rect" href="tp_8c.html#ae363265419a031c7578b4896aab4ddde" title="Frees all memory allocated by tpinit(). This function should be called at the end of the program...." alt="" coords="271,745,325,771"/>
-<area shape="poly" title=" " alt="" coords="179,756,256,756,256,761,179,761"/>
-<area shape="rect" href="tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="254,795,342,820"/>
-<area shape="poly" title=" " alt="" coords="180,765,245,787,243,792,179,770"/>
-<area shape="rect" href="index_8c.html#a595066efa8470d25061301ab56dc7946" title="Recursively frees a linked list of nodes starting from a given head." alt="" coords="409,696,495,722"/>
-<area shape="poly" title=" " alt="" coords="336,706,394,706,394,712,336,712"/>
-<area shape="rect" href="lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="416,844,488,870"/>
-<area shape="poly" title=" " alt="" coords="340,854,401,854,401,860,340,860"/>
-<area shape="rect" href="fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="420,795,484,820"/>
-<area shape="poly" title=" " alt="" coords="343,805,405,805,405,810,343,810"/>
-<area shape="poly" title=" " alt="" coords="192,854,241,854,241,860,192,860"/>
-<area shape="rect" href="lcmd_8c.html#aea1ce3fc2d45ddb3c059cf9f35a0a674" title="Reads the contents of the file described by filepath fp into a dynamically allocated buffer returned ..." alt="" coords="262,893,334,919"/>
-<area shape="poly" title=" " alt="" coords="193,868,249,887,247,892,191,873"/>
-<area shape="rect" href="lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="247,943,349,968"/>
-<area shape="poly" title=" " alt="" coords="183,868,201,879,215,892,225,905,234,917,249,929,253,933,250,937,245,934,230,920,221,908,211,896,197,883,180,872"/>
-<area shape="rect" href="lcmd_8c.html#a6a3fd8d01dba4b434b70b85ca5fdba45" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="405,893,499,919"/>
-<area shape="poly" title=" " alt="" coords="340,939,394,922,396,927,342,945"/>
-<area shape="rect" href="lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="397,943,507,968"/>
-<area shape="poly" title=" " alt="" coords="350,953,382,953,382,958,350,958"/>
-<area shape="rect" href="tp_8c.html#ae31cc510832d2aae3570d41b99dad62f" title="Thread pool worker thread entry point. The thread will spin lock while waiting to be reserved...." alt="" coords="254,1005,343,1031"/>
-<area shape="poly" title=" " alt="" coords="176,1016,238,1016,238,1021,176,1021"/>
-<area shape="rect" href="tp_8c.html#a6ac68f6c615b14248d0cab25fcde9894" title="Configures an initialized thread with the specified options. If the TPOPT_LOGFILES flag is set,..." alt="" coords="262,1080,334,1106"/>
-<area shape="poly" title=" " alt="" coords="177,1028,259,1070,256,1075,175,1033"/>
-<area shape="poly" title=" " alt="" coords="343,1021,383,1022,427,1018,469,1004,488,993,505,979,512,966,520,944,535,878,559,689,576,487,586,342,591,343,582,487,564,690,540,879,525,946,517,968,509,983,491,998,471,1009,428,1023,383,1028,343,1027"/>
-<area shape="rect" href="lcmd_8c.html#af7e31699c1c1ae1e5e9a33829421c462" title="Sequentially iterates the command set and executes the configured system commands on the provided fil..." alt="" coords="413,1044,491,1070"/>
-<area shape="poly" title=" " alt="" coords="344,1027,399,1041,398,1046,343,1032"/>
-<area shape="rect" href="fd_8c.html#adbbb0e1bfc4d551ab9cacff069cb335e" title="Initializes stdout/stderr files used for redirecting output from a child process. The file descriptor..." alt="" coords="427,1093,477,1119"/>
-<area shape="poly" title=" " alt="" coords="334,1093,412,1100,412,1105,334,1099"/>
+<area shape="rect" title="Main program entry point." alt="" coords="5,724,55,750"/>
+<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,403,198,428"/>
+<area shape="poly" title=" " alt="" coords="34,723,137,442,142,444,39,724"/>
+<area shape="rect" href="fl_8c.html#a00b62bc8baa9dd0647aa066b870a0386" title="Locks the file at the given path. If a file descriptor cannot be obtained, or the file cannot be lock..." alt="" coords="125,624,177,650"/>
+<area shape="poly" title=" " alt="" coords="46,721,121,658,124,662,49,725"/>
+<area shape="rect" href="main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="123,724,179,750"/>
+<area shape="poly" title=" " alt="" coords="55,734,107,734,107,740,55,740"/>
+<area shape="rect" href="lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Prses the provided file path and populates an array of command sets. The file must be a valid JSON fi..." alt="" coords="110,797,192,823"/>
+<area shape="poly" title=" " alt="" coords="54,748,116,786,114,791,52,753"/>
+<area shape="rect" href="main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f" title="Parses the program initialization arguments into initargs." alt="" coords="103,847,198,872"/>
+<area shape="poly" title=" " alt="" coords="41,749,66,790,84,813,104,834,108,836,104,840,101,837,80,816,61,793,36,752"/>
+<area shape="rect" href="main_8c.html#ae29622551563546e0b7a146fac8323dc" title="Prints the time spent for each command set to the console." alt="" coords="103,896,199,922"/>
+<area shape="poly" title=" " alt="" coords="37,749,59,812,79,849,105,883,106,884,102,888,101,887,74,852,54,814,32,751"/>
+<area shape="rect" href="tp_8c.html#a1ba58530a307f93d627c37f920a19945" title="Initializes a global worker thread pool of the given size." alt="" coords="126,131,176,156"/>
+<area shape="poly" title=" " alt="" coords="31,723,141,171,147,172,37,724"/>
+<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="254,403,342,428"/>
+<area shape="poly" title=" " alt="" coords="199,413,239,413,239,418,199,418"/>
+<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="263,187,333,212"/>
+<area shape="poly" title=" " alt="" coords="154,401,186,326,213,278,245,234,260,220,263,224,249,237,217,281,191,328,159,403"/>
+<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="260,452,336,478"/>
+<area shape="poly" title=" " alt="" coords="193,426,246,445,244,450,191,432"/>
+<area shape="rect" href="main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="264,501,332,527"/>
+<area shape="poly" title=" " alt="" coords="169,427,204,456,248,488,254,491,251,496,246,492,201,460,165,431"/>
+<area shape="rect" href="main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="264,304,332,330"/>
+<area shape="poly" title=" " alt="" coords="170,400,263,337,266,341,173,404"/>
+<area shape="rect" href="main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="258,248,338,274"/>
+<area shape="poly" title=" " alt="" coords="158,401,192,349,217,318,245,290,257,280,260,285,249,293,221,322,197,352,162,404"/>
+<area shape="rect" href="deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="399,353,505,379"/>
+<area shape="poly" title=" " alt="" coords="340,399,394,382,396,387,342,405"/>
+<area shape="rect" href="deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="411,551,493,576"/>
+<area shape="poly" title=" " alt="" coords="337,427,351,438,369,464,376,489,382,513,399,538,401,539,398,543,395,541,377,515,371,490,364,466,347,441,334,431"/>
+<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="413,403,491,428"/>
+<area shape="poly" title=" " alt="" coords="343,413,397,413,397,418,343,418"/>
+<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="416,452,488,478"/>
+<area shape="poly" title=" " alt="" coords="342,426,402,446,401,451,340,432"/>
+<area shape="rect" href="index_8c.html#a805436c943765cd435c11338ca3d64f1" title="Searches the index for a node with a matching filepath." alt="" coords="561,403,634,428"/>
+<area shape="poly" title=" " alt="" coords="493,377,547,396,545,401,491,382"/>
+<area shape="rect" href="index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="563,255,632,280"/>
+<area shape="poly" title=" " alt="" coords="486,350,505,340,540,315,570,289,573,293,543,319,508,344,488,355"/>
+<area shape="rect" href="deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="566,600,629,626"/>
+<area shape="poly" title=" " alt="" coords="493,574,552,595,550,600,491,580"/>
+<area shape="rect" href="fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="568,551,627,576"/>
+<area shape="poly" title=" " alt="" coords="493,561,552,561,552,566,493,566"/>
+<area shape="poly" title=" " alt="" coords="492,413,545,413,545,418,492,418"/>
+<area shape="rect" href="fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="570,353,624,379"/>
+<area shape="poly" title=" " alt="" coords="491,400,555,378,556,383,492,405"/>
+<area shape="rect" href="index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping." alt="" coords="562,501,632,527"/>
+<area shape="poly" title=" " alt="" coords="490,427,508,437,523,450,533,463,556,488,560,491,556,495,553,492,529,466,519,454,505,442,487,431"/>
+<area shape="poly" title=" " alt="" coords="487,450,545,430,547,435,489,455"/>
+<area shape="poly" title=" " alt="" coords="487,449,505,439,519,426,529,414,553,388,556,386,560,390,556,392,533,418,523,430,508,443,490,454"/>
+<area shape="poly" title=" " alt="" coords="489,474,549,495,547,500,487,479"/>
+<area shape="rect" href="fs_8c.html#a9a6b33158e9e03d0404c144b5e3dee2c" title="fsstateql() compares the fields of two struct fsstat_s values for equality. Two structs with the same..." alt="" coords="562,452,633,478"/>
+<area shape="poly" title=" " alt="" coords="488,462,547,462,547,468,488,468"/>
+<area shape="rect" href="lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="399,104,505,130"/>
+<area shape="poly" title=" " alt="" coords="323,184,412,135,414,140,325,188"/>
+<area shape="rect" href="lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="555,80,640,106"/>
+<area shape="poly" title=" " alt="" coords="505,105,539,100,540,105,506,111"/>
+<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="413,501,491,527"/>
+<area shape="poly" title=" " alt="" coords="338,474,399,495,398,500,336,480"/>
+<area shape="poly" title=" " alt="" coords="491,512,547,512,547,517,491,517"/>
+<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="408,600,496,626"/>
+<area shape="poly" title=" " alt="" coords="333,525,351,536,366,549,375,562,385,574,399,587,404,590,401,595,396,591,381,578,371,565,362,553,348,540,330,530"/>
+<area shape="rect" href="prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="407,255,497,280"/>
+<area shape="poly" title=" " alt="" coords="331,304,395,283,396,288,333,309"/>
+<area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="424,304,480,330"/>
+<area shape="poly" title=" " alt="" coords="332,314,408,314,408,320,332,320"/>
+<area shape="rect" href="index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="412,205,492,231"/>
+<area shape="poly" title=" " alt="" coords="338,247,397,231,398,236,340,252"/>
+<area shape="poly" title=" " alt="" coords="493,229,549,249,548,254,491,234"/>
+<area shape="rect" href="fl_8c.html#ac8cdc36ad1f74a8dd0b80ee85356bc01" title="Opens the file at the given path and updates the file lock structure with the file descriptor...." alt="" coords="270,551,326,576"/>
+<area shape="poly" title=" " alt="" coords="176,621,246,585,254,581,257,586,248,590,179,626"/>
+<area shape="rect" href="fl_8c.html#af9edee5332ff921081fe39fc530d40bd" title="Unlocks the file at the given path. If the file is not open, or the file cannot be unlocked,..." alt="" coords="265,649,331,675"/>
+<area shape="poly" title=" " alt="" coords="175,721,246,684,254,680,256,684,248,689,178,726"/>
+<area shape="rect" href="main_8c.html#a91224adbae9c6933e2469d45de8d340a" title="Frees all duplicated initialization arguments." alt="" coords="256,699,341,724"/>
+<area shape="poly" title=" " alt="" coords="179,729,240,719,241,724,180,735"/>
+<area shape="rect" href="index_8c.html#ac916662497c44dfd34d1d6fd5312a317" title="Frees all nodes in the index map." alt="" coords="261,748,335,774"/>
+<area shape="poly" title=" " alt="" coords="180,739,246,750,245,755,179,744"/>
+<area shape="rect" href="lcmd_8c.html#a36d31b28aae66a8e5e5d1d0a4bf454d8" title="Iterates and frees all memory allocated by the command set array." alt="" coords="257,847,339,872"/>
+<area shape="poly" title=" " alt="" coords="167,748,201,783,224,810,249,833,253,837,250,841,245,838,220,814,197,787,163,752"/>
+<area shape="rect" href="tp_8c.html#ae363265419a031c7578b4896aab4ddde" title="Frees all memory allocated by tpinit(). This function should be called at the end of the program...." alt="" coords="271,797,325,823"/>
+<area shape="poly" title=" " alt="" coords="179,748,248,784,258,789,256,793,246,789,176,753"/>
+<area shape="rect" href="tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="254,600,342,626"/>
+<area shape="poly" title=" " alt="" coords="160,722,195,680,245,635,250,631,253,636,249,639,199,684,164,725"/>
+<area shape="rect" href="index_8c.html#a595066efa8470d25061301ab56dc7946" title="Recursively frees a linked list of nodes starting from a given head." alt="" coords="409,748,495,774"/>
+<area shape="poly" title=" " alt="" coords="336,758,394,758,394,764,336,764"/>
+<area shape="rect" href="lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="416,847,488,872"/>
+<area shape="poly" title=" " alt="" coords="340,857,401,857,401,862,340,862"/>
+<area shape="rect" href="fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="420,649,484,675"/>
+<area shape="poly" title=" " alt="" coords="342,624,407,645,405,650,340,629"/>
+<area shape="poly" title=" " alt="" coords="193,821,244,839,242,844,191,826"/>
+<area shape="rect" href="lcmd_8c.html#aea1ce3fc2d45ddb3c059cf9f35a0a674" title="Reads the contents of the file described by filepath fp into a dynamically allocated buffer returned ..." alt="" coords="262,896,334,922"/>
+<area shape="poly" title=" " alt="" coords="183,821,201,832,215,846,225,858,234,870,249,883,253,886,250,890,245,887,230,874,221,861,211,849,197,836,180,826"/>
+<area shape="rect" href="lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="247,945,349,971"/>
+<area shape="poly" title=" " alt="" coords="187,822,201,832,219,859,225,884,232,908,249,932,251,934,247,938,245,936,227,910,220,885,214,861,197,836,184,826"/>
+<area shape="rect" href="lcmd_8c.html#a6a3fd8d01dba4b434b70b85ca5fdba45" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="405,969,499,995"/>
+<area shape="poly" title=" " alt="" coords="350,964,390,970,389,975,349,969"/>
+<area shape="rect" href="lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="397,920,507,946"/>
+<area shape="poly" title=" " alt="" coords="349,947,381,942,382,947,350,952"/>
+<area shape="rect" href="tp_8c.html#ae31cc510832d2aae3570d41b99dad62f" title="Thread pool worker thread entry point. The thread will spin lock while waiting to be reserved...." alt="" coords="254,131,343,156"/>
+<area shape="poly" title=" " alt="" coords="176,141,238,141,238,146,176,146"/>
+<area shape="rect" href="tp_8c.html#a6ac68f6c615b14248d0cab25fcde9894" title="Configures an initialized thread with the specified options. If the TPOPT_LOGFILES flag is set,..." alt="" coords="262,44,334,70"/>
+<area shape="poly" title=" " alt="" coords="173,128,260,76,263,80,176,133"/>
+<area shape="poly" title=" " alt="" coords="343,141,382,144,425,152,469,167,508,191,529,214,539,237,545,262,557,292,583,339,578,341,552,294,540,264,534,239,525,217,505,195,467,172,424,157,381,149,343,146"/>
+<area shape="rect" href="lcmd_8c.html#af7e31699c1c1ae1e5e9a33829421c462" title="Sequentially iterates the command set and executes the configured system commands on the provided fil..." alt="" coords="413,55,491,80"/>
+<area shape="poly" title=" " alt="" coords="323,128,396,89,405,85,407,90,399,94,325,132"/>
+<area shape="poly" title=" " alt="" coords="492,72,540,80,539,85,491,77"/>
+<area shape="rect" href="fd_8c.html#adbbb0e1bfc4d551ab9cacff069cb335e" title="Initializes stdout/stderr files used for redirecting output from a child process. The file descriptor..." alt="" coords="427,5,477,31"/>
+<area shape="poly" title=" " alt="" coords="334,45,412,25,413,31,335,51"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ae189ad9356df371fef8d2d44fbca5d69" name="ae189ad9356df371fef8d2d44fbca5d69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae189ad9356df371fef8d2d44fbca5d69">&#9670;&#160;</a></span>ondel()</h2>
+<a id="acef2570122c7ca15cdc3fd1b2247fc28" name="acef2570122c7ca15cdc3fd1b2247fc28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acef2570122c7ca15cdc3fd1b2247fc28">&#9670;&#160;</a></span>onevent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -824,10 +806,14 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void ondel </td>
+          <td class="memname">static void onevent </td>
           <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structinode__s.html">inode_s</a> *</td>          <td class="paramname"><span class="paramname"><em>in</em></span></td><td>)</td>
+          <td class="paramtype">const enum <a class="el" href="deng_8h.html#a789d56065b6d1df39eaac79325be36da">deng_fevent_t</a></td>          <td class="paramname"><span class="paramname"><em>event</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">struct <a class="el" href="structinode__s.html">inode_s</a> *</td>          <td class="paramname"><span class="paramname"><em>in</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -837,196 +823,32 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Callback function for the diff engine to handle deleted file events. This will log a work request in the thread pool for any command sets which match the deleted file event. </p>
+<p>Callback function for the diff engine to handle file events. This will log a work request in the thread pool for any command sets which match the file event and type. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">in</td><td>The inode for the deleted file </td></tr>
+    <tr><td class="paramname">event</td><td>The file event type </td></tr>
+    <tr><td class="paramname">in</td><td>The inode for the file </td></tr>
   </table>
   </dd>
 </dl>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8c_ae189ad9356df371fef8d2d44fbca5d69_cgraph.png" border="0" usemap="#amain_8c_ae189ad9356df371fef8d2d44fbca5d69_cgraph" alt=""/></div>
-<map name="amain_8c_ae189ad9356df371fef8d2d44fbca5d69_cgraph" id="amain_8c_ae189ad9356df371fef8d2d44fbca5d69_cgraph">
-<area shape="rect" title="Callback function for the diff engine to handle deleted file events. This will log a work request in ..." alt="" coords="5,5,58,31"/>
-<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="106,5,194,31"/>
-<area shape="poly" title=" " alt="" coords="58,16,90,16,90,21,58,21"/>
-<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="242,5,309,31"/>
-<area shape="poly" title=" " alt="" coords="195,16,226,16,226,21,195,21"/>
+<div class="center"><img src="main_8c_acef2570122c7ca15cdc3fd1b2247fc28_cgraph.png" border="0" usemap="#amain_8c_acef2570122c7ca15cdc3fd1b2247fc28_cgraph" alt=""/></div>
+<map name="amain_8c_acef2570122c7ca15cdc3fd1b2247fc28_cgraph" id="amain_8c_acef2570122c7ca15cdc3fd1b2247fc28_cgraph">
+<area shape="rect" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="5,5,73,31"/>
+<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="121,5,209,31"/>
+<area shape="poly" title=" " alt="" coords="73,16,105,16,105,21,73,21"/>
+<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="257,5,324,31"/>
+<area shape="poly" title=" " alt="" coords="210,16,241,16,241,21,210,21"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="main_8c_ae189ad9356df371fef8d2d44fbca5d69_icgraph.png" border="0" usemap="#amain_8c_ae189ad9356df371fef8d2d44fbca5d69_icgraph" alt=""/></div>
-<map name="amain_8c_ae189ad9356df371fef8d2d44fbca5d69_icgraph" id="amain_8c_ae189ad9356df371fef8d2d44fbca5d69_icgraph">
-<area shape="rect" title="Callback function for the diff engine to handle deleted file events. This will log a work request in ..." alt="" coords="246,5,298,31"/>
-<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,5,198,31"/>
-<area shape="poly" title=" " alt="" coords="230,21,199,21,199,16,230,16"/>
-<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
-<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a1a10377f4fd506aba78fe78730471a78" name="a1a10377f4fd506aba78fe78730471a78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a10377f4fd506aba78fe78730471a78">&#9670;&#160;</a></span>onmod()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void onmod </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structinode__s.html">inode_s</a> *</td>          <td class="paramname"><span class="paramname"><em>in</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Callback function for the diff engine to handle modified file events. This will log a work request in the thread pool for any command sets which match the modified file event. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">in</td><td>The inode for the modified file </td></tr>
-  </table>
-  </dd>
-</dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a1a10377f4fd506aba78fe78730471a78_cgraph.png" border="0" usemap="#amain_8c_a1a10377f4fd506aba78fe78730471a78_cgraph" alt=""/></div>
-<map name="amain_8c_a1a10377f4fd506aba78fe78730471a78_cgraph" id="amain_8c_a1a10377f4fd506aba78fe78730471a78_cgraph">
-<area shape="rect" title="Callback function for the diff engine to handle modified file events. This will log a work request in..." alt="" coords="5,5,66,31"/>
-<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="114,5,202,31"/>
-<area shape="poly" title=" " alt="" coords="66,16,98,16,98,21,66,21"/>
-<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="250,5,317,31"/>
-<area shape="poly" title=" " alt="" coords="203,16,234,16,234,21,203,21"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a1a10377f4fd506aba78fe78730471a78_icgraph.png" border="0" usemap="#amain_8c_a1a10377f4fd506aba78fe78730471a78_icgraph" alt=""/></div>
-<map name="amain_8c_a1a10377f4fd506aba78fe78730471a78_icgraph" id="amain_8c_a1a10377f4fd506aba78fe78730471a78_icgraph">
-<area shape="rect" title="Callback function for the diff engine to handle modified file events. This will log a work request in..." alt="" coords="246,5,306,31"/>
-<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,5,198,31"/>
-<area shape="poly" title=" " alt="" coords="231,21,198,21,198,16,231,16"/>
-<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
-<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a9a93c1554c389643aec77918b96e70b1" name="a9a93c1554c389643aec77918b96e70b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a93c1554c389643aec77918b96e70b1">&#9670;&#160;</a></span>onnew()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void onnew </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structinode__s.html">inode_s</a> *</td>          <td class="paramname"><span class="paramname"><em>in</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Callback function for the diff engine to handle new file events. This will log a work request in the thread pool for any command sets which match the new file event. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">in</td><td>The inode for the new file </td></tr>
-  </table>
-  </dd>
-</dl>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a9a93c1554c389643aec77918b96e70b1_cgraph.png" border="0" usemap="#amain_8c_a9a93c1554c389643aec77918b96e70b1_cgraph" alt=""/></div>
-<map name="amain_8c_a9a93c1554c389643aec77918b96e70b1_cgraph" id="amain_8c_a9a93c1554c389643aec77918b96e70b1_cgraph">
-<area shape="rect" title="Callback function for the diff engine to handle new file events. This will log a work request in the ..." alt="" coords="5,5,65,31"/>
-<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="113,5,201,31"/>
-<area shape="poly" title=" " alt="" coords="65,16,97,16,97,21,65,21"/>
-<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="249,5,316,31"/>
-<area shape="poly" title=" " alt="" coords="202,16,233,16,233,21,202,21"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_a9a93c1554c389643aec77918b96e70b1_icgraph.png" border="0" usemap="#amain_8c_a9a93c1554c389643aec77918b96e70b1_icgraph" alt=""/></div>
-<map name="amain_8c_a9a93c1554c389643aec77918b96e70b1_icgraph" id="amain_8c_a9a93c1554c389643aec77918b96e70b1_icgraph">
-<area shape="rect" title="Callback function for the diff engine to handle new file events. This will log a work request in the ..." alt="" coords="246,5,305,31"/>
-<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,5,198,31"/>
-<area shape="poly" title=" " alt="" coords="231,21,198,21,198,16,231,16"/>
-<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
-<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ac9e068da7a61936aba18d138badb2d2a" name="ac9e068da7a61936aba18d138badb2d2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9e068da7a61936aba18d138badb2d2a">&#9670;&#160;</a></span>onnop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void onnop </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structinode__s.html">inode_s</a> *</td>          <td class="paramname"><span class="paramname"><em>in</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Callback function for the diff engine to handle no-op file events. This will log a work request in the thread pool for any command sets which match the unmodified file event. </p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_ac9e068da7a61936aba18d138badb2d2a_cgraph.png" border="0" usemap="#amain_8c_ac9e068da7a61936aba18d138badb2d2a_cgraph" alt=""/></div>
-<map name="amain_8c_ac9e068da7a61936aba18d138badb2d2a_cgraph" id="amain_8c_ac9e068da7a61936aba18d138badb2d2a_cgraph">
-<area shape="rect" title="Callback function for the diff engine to handle no&#45;op file events. This will log a work request in th..." alt="" coords="5,5,62,31"/>
-<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="110,5,198,31"/>
-<area shape="poly" title=" " alt="" coords="62,16,94,16,94,21,62,21"/>
-<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="246,5,313,31"/>
-<area shape="poly" title=" " alt="" coords="199,16,230,16,230,21,199,21"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="main_8c_ac9e068da7a61936aba18d138badb2d2a_icgraph.png" border="0" usemap="#amain_8c_ac9e068da7a61936aba18d138badb2d2a_icgraph" alt=""/></div>
-<map name="amain_8c_ac9e068da7a61936aba18d138badb2d2a_icgraph" id="amain_8c_ac9e068da7a61936aba18d138badb2d2a_icgraph">
-<area shape="rect" title="Callback function for the diff engine to handle no&#45;op file events. This will log a work request in th..." alt="" coords="246,5,302,31"/>
+<div class="center"><img src="main_8c_acef2570122c7ca15cdc3fd1b2247fc28_icgraph.png" border="0" usemap="#amain_8c_acef2570122c7ca15cdc3fd1b2247fc28_icgraph" alt=""/></div>
+<map name="amain_8c_acef2570122c7ca15cdc3fd1b2247fc28_icgraph" id="amain_8c_acef2570122c7ca15cdc3fd1b2247fc28_icgraph">
+<area shape="rect" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="246,5,313,31"/>
 <area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,5,198,31"/>
 <area shape="poly" title=" " alt="" coords="230,21,199,21,199,16,230,16"/>
 <area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
@@ -1284,22 +1106,13 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c_a4c931f8671d78cfbccd0699b7e49d569_icgraph.png" border="0" usemap="#amain_8c_a4c931f8671d78cfbccd0699b7e49d569_icgraph" alt=""/></div>
 <map name="amain_8c_a4c931f8671d78cfbccd0699b7e49d569_icgraph" id="amain_8c_a4c931f8671d78cfbccd0699b7e49d569_icgraph">
-<area shape="rect" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="354,80,443,106"/>
-<area shape="rect" href="main_8c.html#ae189ad9356df371fef8d2d44fbca5d69" title="Callback function for the diff engine to handle deleted file events. This will log a work request in ..." alt="" coords="250,5,302,31"/>
-<area shape="poly" title=" " alt="" coords="362,74,298,34,301,29,365,69"/>
-<area shape="rect" href="main_8c.html#a1a10377f4fd506aba78fe78730471a78" title="Callback function for the diff engine to handle modified file events. This will log a work request in..." alt="" coords="246,55,306,80"/>
-<area shape="poly" title=" " alt="" coords="339,83,306,76,307,71,340,78"/>
-<area shape="rect" href="main_8c.html#a9a93c1554c389643aec77918b96e70b1" title="Callback function for the diff engine to handle new file events. This will log a work request in the ..." alt="" coords="246,104,306,130"/>
-<area shape="poly" title=" " alt="" coords="340,107,307,114,306,108,339,102"/>
-<area shape="rect" href="main_8c.html#ac9e068da7a61936aba18d138badb2d2a" title="Callback function for the diff engine to handle no&#45;op file events. This will log a work request in th..." alt="" coords="248,153,304,179"/>
-<area shape="poly" title=" " alt="" coords="364,116,301,155,298,151,361,112"/>
-<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,80,198,106"/>
-<area shape="poly" title=" " alt="" coords="241,42,175,82,173,77,238,37"/>
-<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,80,55,106"/>
-<area shape="poly" title=" " alt="" coords="87,96,55,96,55,90,87,90"/>
-<area shape="poly" title=" " alt="" coords="231,79,199,86,198,81,230,74"/>
-<area shape="poly" title=" " alt="" coords="231,111,198,105,199,99,232,106"/>
-<area shape="poly" title=" " alt="" coords="238,147,173,108,175,104,241,143"/>
+<area shape="rect" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="361,5,450,31"/>
+<area shape="rect" href="main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="246,5,313,31"/>
+<area shape="poly" title=" " alt="" coords="346,21,314,21,314,16,346,16"/>
+<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,5,198,31"/>
+<area shape="poly" title=" " alt="" coords="230,21,199,21,199,16,230,16"/>
+<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
+<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
 </map>
 </div>
 

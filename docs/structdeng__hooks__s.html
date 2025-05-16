@@ -113,83 +113,26 @@ Data Fields</h2></td></tr>
 <tr class="memitem:ac5c5be853b3abe702ca623cce75322c4" id="r_ac5c5be853b3abe702ca623cce75322c4"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac5c5be853b3abe702ca623cce75322c4">notify</a> )(enum <a class="el" href="deng_8h.html#ac61c6e238b41a96795d7228812e25fe4">deng_notif_t</a> notif)</td></tr>
 <tr class="memdesc:ac5c5be853b3abe702ca623cce75322c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Progress notification event.  <br /></td></tr>
 <tr class="separator:ac5c5be853b3abe702ca623cce75322c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9179064ff3563a2ef90ffb1c48e8a3dd" id="r_a9179064ff3563a2ef90ffb1c48e8a3dd"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9179064ff3563a2ef90ffb1c48e8a3dd">new</a> )(struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
-<tr class="memdesc:a9179064ff3563a2ef90ffb1c48e8a3dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">New file event.  <br /></td></tr>
-<tr class="separator:a9179064ff3563a2ef90ffb1c48e8a3dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7c715e7e2cb4be6ffc50213ae90fffd" id="r_aa7c715e7e2cb4be6ffc50213ae90fffd"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa7c715e7e2cb4be6ffc50213ae90fffd">del</a> )(struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
-<tr class="memdesc:aa7c715e7e2cb4be6ffc50213ae90fffd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted file event.  <br /></td></tr>
-<tr class="separator:aa7c715e7e2cb4be6ffc50213ae90fffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6eca7771f53ad42d1b883247341ae414" id="r_a6eca7771f53ad42d1b883247341ae414"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6eca7771f53ad42d1b883247341ae414">mod</a> )(struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
-<tr class="memdesc:a6eca7771f53ad42d1b883247341ae414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modified file event.  <br /></td></tr>
-<tr class="separator:a6eca7771f53ad42d1b883247341ae414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50d558805f493bcbba642349248ab996" id="r_a50d558805f493bcbba642349248ab996"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50d558805f493bcbba642349248ab996">nop</a> )(struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
-<tr class="memdesc:a50d558805f493bcbba642349248ab996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmodified file event.  <br /></td></tr>
-<tr class="separator:a50d558805f493bcbba642349248ab996"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a467f4f44eeb681e05bc22145d2afddc7" id="r_a467f4f44eeb681e05bc22145d2afddc7"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a467f4f44eeb681e05bc22145d2afddc7">event</a> )(enum <a class="el" href="deng_8h.html#a789d56065b6d1df39eaac79325be36da">deng_fevent_t</a> event, struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td></tr>
+<tr class="memdesc:a467f4f44eeb681e05bc22145d2afddc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">File event.  <br /></td></tr>
+<tr class="separator:a467f4f44eeb681e05bc22145d2afddc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Hook functions for file system search events. </p>
 </div><h2 class="groupheader">Field Documentation</h2>
-<a id="aa7c715e7e2cb4be6ffc50213ae90fffd" name="aa7c715e7e2cb4be6ffc50213ae90fffd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7c715e7e2cb4be6ffc50213ae90fffd">&#9670;&#160;</a></span>del</h2>
+<a id="a467f4f44eeb681e05bc22145d2afddc7" name="a467f4f44eeb681e05bc22145d2afddc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a467f4f44eeb681e05bc22145d2afddc7">&#9670;&#160;</a></span>event</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* deng_hooks_s::del) (struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td>
+          <td class="memname">void(* deng_hooks_s::event) (enum <a class="el" href="deng_8h.html#a789d56065b6d1df39eaac79325be36da">deng_fevent_t</a> event, struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Deleted file event. </p>
-
-</div>
-</div>
-<a id="a6eca7771f53ad42d1b883247341ae414" name="a6eca7771f53ad42d1b883247341ae414"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6eca7771f53ad42d1b883247341ae414">&#9670;&#160;</a></span>mod</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void(* deng_hooks_s::mod) (struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Modified file event. </p>
-
-</div>
-</div>
-<a id="a9179064ff3563a2ef90ffb1c48e8a3dd" name="a9179064ff3563a2ef90ffb1c48e8a3dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9179064ff3563a2ef90ffb1c48e8a3dd">&#9670;&#160;</a></span>new</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void(* deng_hooks_s::new) (struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>New file event. </p>
-
-</div>
-</div>
-<a id="a50d558805f493bcbba642349248ab996" name="a50d558805f493bcbba642349248ab996"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50d558805f493bcbba642349248ab996">&#9670;&#160;</a></span>nop</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void(* deng_hooks_s::nop) (struct <a class="el" href="structinode__s.html">inode_s</a> *in)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Unmodified file event. </p>
+<p>File event. </p>
 
 </div>
 </div>
