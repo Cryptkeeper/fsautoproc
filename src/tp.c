@@ -69,11 +69,12 @@ static void* tpentrypoint(void* arg) {
 /// file descriptor set initialization fails, or the flag is not set, the file
 /// descriptors will default to \p STDOUT_FILENO and \p STDERR_FILENO.
 /// @param t The thread to configure
+/// @param uid The thread pool thread ID for logging
 /// @param flags The configuration flags
-static void tpinitthrd(struct thrd_s* t, const int flags) {
+static void tpinitthrd(struct thrd_s* t, const int uid, const int flags) {
   int err;
   if (flags & TPOPT_LOGFILES) {
-    if ((err = fdinit(&t->fds, 0))) {
+    if ((err = fdinit(&t->fds, uid))) {
       log_error("file descriptor set open error: %d", err);
     } else {
       t->fdsopen = true;
@@ -94,7 +95,7 @@ int tpinit(const int size, const int flags) {
   for (int i = 0; i < size; i++) {
     if ((thrds[i] = calloc(1, sizeof(struct thrd_s))) == NULL) goto fail;
     struct thrd_s* t = thrds[i];
-    tpinitthrd(t, flags);
+    tpinitthrd(t, i, flags);
     int err;
     if ((err = pthread_create(&t->tid, NULL, tpentrypoint, t))) {
       log_error("cannot create thread: %s", strerror(err));

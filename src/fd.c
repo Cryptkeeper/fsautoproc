@@ -2,6 +2,7 @@
 /// @brief File descriptor output redirection implementation.
 #include "fd.h"
 
+#include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -28,6 +29,17 @@ static int openfd(const char* name, const unsigned int id) {
   return fno;
 }
 
+/// @brief Closes the file descriptor if open (indicated by a value of >=0) and
+/// sets it to -1.
+/// @param fd Pointer to the file descriptor to close, must not be NULL.
+static void closefd(int* fd) {
+  assert(fd != NULL);
+  if (*fd >= 0) {
+    close(*fd);
+    *fd = -1;
+  }
+}
+
 int fdinit(struct fdset_s* fds, const unsigned int id) {
   fds->out = fds->err = -1;
   if ((fds->out = openfd("stdout", id)) < 0) return -1;
@@ -39,12 +51,6 @@ int fdinit(struct fdset_s* fds, const unsigned int id) {
 }
 
 void fdclose(struct fdset_s* fds) {
-  if (fds->out >= 0) {
-    close(fds->out);
-    fds->out = -1;
-  }
-  if (fds->err >= 0) {
-    close(fds->err);
-    fds->err = -1;
-  }
+  closefd(&fds->out);
+  closefd(&fds->err);
 }
