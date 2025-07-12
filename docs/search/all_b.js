@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['parseinitargs_0',['parseinitargs',['../main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f',1,'main.c']]],
-  ['path_1',['path',['../structflock__s.html#a4d37610f6b39a2e2a4e3bb9c11427169',1,'flock_s']]],
-  ['pipefiles_2',['pipefiles',['../main_8c.html#a7e179ccfaa4ceb469b270380289f0f9a',1,'main.c']]],
-  ['printmsspent_3',['printmsspent',['../main_8c.html#ae29622551563546e0b7a146fac8323dc',1,'main.c']]],
-  ['printprogbar_4',['printprogbar',['../prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25',1,'printprogbar(const long curr, const long max):&#160;prog.c'],['../prog_8h.html#a396af39fccdf152db614e23113996a8e',1,'printprogbar(long curr, long max):&#160;prog.c']]],
-  ['prog_2ec_5',['prog.c',['../prog_8c.html',1,'']]],
-  ['prog_2eh_6',['prog.h',['../prog_8h.html',1,'']]],
-  ['progbarlen_7',['PROGBARLEN',['../prog_8c.html#a32a0466a1bed5a7ccbffcdf791a15563',1,'prog.c']]]
+  ['onevent_0',['onevent',['../main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28',1,'main.c']]],
+  ['onflags_1',['onflags',['../structlcmdset__s.html#a9a6353b25282791617f439d7904c9169',1,'lcmdset_s']]],
+  ['onnotify_2',['onnotify',['../main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f',1,'main.c']]],
+  ['open_3',['open',['../structflock__s.html#a67647f2603dbfc8572f754da575effcd',1,'flock_s']]],
+  ['openfd_4',['openfd',['../fd_8c.html#af98ea384191ea18a9a5f323ab8945a19',1,'fd.c']]],
+  ['out_5',['out',['../structfdset__s.html#a28b1a2ecbfc2fd1b73141ba759224a4e',1,'fdset_s']]]
 ];

@@ -6,10 +6,12 @@
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="74,48,106,54,105,59,73,53"/>
 <area shape="rect" id="Node000004" href="$lcmd_8c.html#ad67e4a3897bc9cd3ff8788a57ee2c019" title="Invokes a string cmd as a system command using system(3) in a forked/child process...." alt="" coords="246,29,333,55"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="198,57,230,51,231,56,199,63"/>
-<area shape="rect" id="Node000007" href="$lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="247,79,332,104"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="199,72,232,78,231,83,198,77"/>
+<area shape="rect" id="Node000008" href="$lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="247,79,332,104"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="199,72,232,78,231,83,198,77"/>
 <area shape="rect" id="Node000005" href="$fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="381,5,445,31"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="333,31,365,25,366,30,334,36"/>
-<area shape="rect" id="Node000006" href="$tm_8c.html#ab71da3f073d332ab0802cd051b48ed56" title="Get the current system time in milliseconds." alt="" coords="383,55,443,80"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="334,49,368,56,367,61,333,54"/>
+<area shape="rect" id="Node000007" href="$tm_8c.html#ab71da3f073d332ab0802cd051b48ed56" title="Get the current system time in milliseconds." alt="" coords="383,55,443,80"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="334,49,368,56,367,61,333,54"/>
+<area shape="rect" id="Node000006" href="$fd_8c.html#a5ab6993faaefa1cffa8184696b7af825" title="Closes the file descriptor if open (indicated by a value of &gt;=0) and sets it to &#45;1." alt="" coords="493,5,556,31"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="445,16,477,16,477,21,445,21"/>
 </map>
