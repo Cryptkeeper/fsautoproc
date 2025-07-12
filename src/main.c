@@ -49,6 +49,7 @@ static struct lcmdset_s** cmdsets;///< Command sets loaded from configuration
 
 static struct index_s lastmap;///< Stored index from previous run (if any)
 static struct index_s thismap;///< Live checked index from this run
+static struct index_s goodmap;///< File paths known to match at least one regex
 
 static struct flock_s worklock;///< Exclusive work lock for local directory
 
@@ -65,6 +66,7 @@ static void freeall(void) {
   lcmdfree_r(cmdsets);
   indexfree(&lastmap);
   indexfree(&thismap);
+  indexfree(&goodmap);
   tpfree();
 }
 
@@ -203,13 +205,30 @@ static int writeindex(struct index_s* idx, const char* fp) {
   return err;
 }
 
+/// @brief Creates a fake inode_s value with the specified file path and inserts
+/// it into the goodmap index. This is used to mark files as "good" so they are
+/// known to match at least one command set regex and are not filtered out as
+/// junk files in the future.
+/// @param fp The file path to mark as good
+static void markgood(const char* fp) {
+  char* str = je_strdup(fp);
+  if (str == NULL) return;// out of memory, ignore and force regex checks
+  struct inode_s node = {.fp = str};
+  if (indexput(&goodmap, node) == NULL) je_free(str);// put failed
+}
+
 /// @brief Filters out junk files from the index based on loaded command sets
 /// \p cmdsets and the \p initargs.includejunk flag/program option.
 /// @param fp The file path to filter
 /// @return True if the file is considered junk, otherwise false.
 static bool filterjunk(const char* fp) {
+  if (indexfind(&goodmap, fp)) return false;// previously matched
   const bool junk = !initargs.includejunk && !lcmdmatchany(cmdsets, fp);
-  if (junk && initargs.verbose) log_info("[j] %s", fp);
+  if (junk) {
+    if (initargs.verbose) log_info("[j] %s", fp);
+  } else {
+    markgood(fp);
+  }
   return junk;
 }
 
