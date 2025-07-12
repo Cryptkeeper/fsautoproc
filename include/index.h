@@ -10,19 +10,27 @@
 /// @struct inode_s
 /// @brief Individual file node in the index map.
 struct inode_s {
-  char* fp;             ///< File path (string duplicated)
-  struct fsstat_s st;   ///< File stat info structure
-  struct inode_s* next; ///< Next node in the index map
+  char* fp;            ///< File path (string duplicated)
+  struct fsstat_s st;  ///< File stat info structure
+  struct inode_s* next;///< Next node in the index map
 };
 
 /// @def INDEXBUCKETS
 /// @brief The fixed number of buckets in the index map.
-#define INDEXBUCKETS 64
+/// @note This is a magic number, but via testing, performance is healthy around
+/// ~40 nodes per bucket, so this should roughly accommodate ~150k nodes.
+#define INDEXBUCKETS 4096
+
+/// @def INDEXBUCKETSMASK
+/// @brief The bitmask used for deriving the bucket index from the hash value.
+/// @note This should correspond to the number of buckets defined in
+/// `INDEXBUCKETS` (0xFFF, 0b1111_1111_1111, 2^12-1 = 4095).
+#define INDEXBUCKETSMASK 0xFFF ///< Maximum bucket index mask
 
 /// @struct index_s
 /// @brief Index map structure for storing file nodes.
 struct index_s {
-  struct inode_s* buckets[INDEXBUCKETS]; ///< Array of index buckets
+  struct inode_s* buckets[INDEXBUCKETS];///< Array of index buckets
   long size;                            ///< Number of sum nodes in the index
 };
 
@@ -48,7 +56,8 @@ int indexwrite(struct index_s* idx, FILE* s);
 /// is set.
 int indexread(struct index_s* idx, FILE* s);
 
-/// @brief Copies the node and inserts it into the index mapping.
+/// @brief Copies the node and inserts it into the index mapping. The copy is
+/// by assignment, so pointers within the node are retained (not duplicated).
 /// @param idx The index to insert into
 /// @param node The node to insert
 /// @return The pointer to the new node in the index map, otherwise NULL is

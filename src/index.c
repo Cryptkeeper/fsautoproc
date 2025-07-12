@@ -13,18 +13,28 @@
 /// @brief The maximum filepath length of a file in the index.
 #define INDEXMAXFP 512
 
-/// @brief Hashes the filepath string into an index bucket.
+/// @brief Hashes the filepath string.
+/// @note 64-bit FNV-1a implementation is used for hashing.
 /// @param fp The filepath string to hash
-/// @return The index bucket number.
-static int indexhash(const char* fp) {
-  int h = 0;
-  for (const char* p = fp; *p != '\0'; p++) h = (h << 5) - h + *p;
-  if (h < 0) h = -h;
-  return h % INDEXBUCKETS;
+/// @return The hashed value of the filepath.
+static uint64_t indexhash(const char* fp) {
+  uint64_t hash = 14695981039346656037u;// FNV offset basis
+  while (*fp) {
+    hash ^= (uint8_t) *fp;// XOR byte into hash
+    hash *= 1099511628211;// FNV prime
+    fp++;
+  }
+  return hash;
 }
 
+/// @def indexbucket
+/// @brief Maps and casts the hash value to a bucket index via the last N bits
+/// (where N is the number of buckets, `INDEXBUCKETS`).
+#define indexbucket(hash) ((int) (hash & INDEXBUCKETSMASK))
+
 struct inode_s* indexfind(const struct index_s* idx, const char* fp) {
-  struct inode_s* head = idx->buckets[indexhash(fp)];
+  const uint64_t hash = indexhash(fp);
+  struct inode_s* head = idx->buckets[indexbucket(hash)];
   while (head != NULL) {
     if (strcmp(head->fp, fp) == 0) return head;
     head = head->next;
@@ -72,8 +82,11 @@ int indexread(struct index_s* idx, FILE* s) {
                 &b.st.fsze) == 3) {
     // duplicate the string onto the heap
     if ((b.fp = strdup(b.fp)) == NULL) return -1;
-    if (indexput(idx, b) == NULL) return -1;
-    b.fp = fp;
+    if (indexput(idx, b) == NULL) {
+      free(b.fp);
+      return -1;
+    }
+    b.fp = fp;// reset to static buffer
   }
 
   return 0;
@@ -93,10 +106,11 @@ static struct inode_s* indexprepend(struct inode_s* idx,
 }
 
 struct inode_s* indexput(struct index_s* idx, const struct inode_s node) {
-  struct inode_s* bucket = idx->buckets[indexhash(node.fp)];
+  const int bi = indexbucket(indexhash(node.fp));
+  struct inode_s* bucket = idx->buckets[bi];
   struct inode_s* head = indexprepend(bucket, node);
   if (head == NULL) return NULL;
-  idx->buckets[indexhash(node.fp)] = head;
+  idx->buckets[bi] = head;
   idx->size++;
   return head;
 }
