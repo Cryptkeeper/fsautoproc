@@ -8,11 +8,14 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "jemalloc/jemalloc.h"
+
 #include "deng.h"
 #include "fd.h"
 #include "fl.h"
 #include "fs.h"
 #include "index.h"
+#include "je.h"
 #include "lcmd.h"
 #include "log.h"
 #include "prog.h"
@@ -35,11 +38,11 @@ static struct {
 
 /// @brief Frees all duplicated initialization arguments.
 static void freeinitargs(void) {
-  free(initargs.configfile);
-  free(initargs.tracefile);
-  free(initargs.lockfile);
-  free(initargs.indexfile);
-  free(initargs.searchdir);
+  je_free(initargs.configfile);
+  je_free(initargs.tracefile);
+  je_free(initargs.lockfile);
+  je_free(initargs.indexfile);
+  je_free(initargs.searchdir);
 }
 
 static struct lcmdset_s** cmdsets;///< Command sets loaded from configuration
@@ -73,7 +76,7 @@ static void freeall(void) {
 /// @param dest The destination string variable to store the duplicated value
 #define muststrdup(src, dest)                                                  \
   do {                                                                         \
-    if ((dest = strdup(src)) == NULL) {                                        \
+    if ((dest = je_strdup(src)) == NULL) {                                     \
       perror(NULL);                                                            \
       return 1;                                                                \
     }                                                                          \

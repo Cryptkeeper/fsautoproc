@@ -4,3 +4,6 @@
 [submodule "dep/logc"]
 	path = dep/logc
 	url = https://github.com/rxi/log.c.git
+[submodule "dep/jemalloc"]
+	path = dep/jemalloc
+	url = https://github.com/jemalloc/jemalloc

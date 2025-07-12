@@ -4,12 +4,18 @@
 
 #include <assert.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+
+#include "jemalloc/jemalloc.h"
 
 #include "fs.h"
 #include "index.h"
+#include "je.h"
 #include "log.h"
+
+#define SL_OVERRIDE
+#define SLX_REALLOC je_realloc
+#define SLX_FREE je_free
+#define SLX_STRDUP je_strdup
 
 #define SL_IMPL
 #include "sl.h"
@@ -55,7 +61,7 @@ static int stagepre(const char* fp, void* udata) {
   if (mach->ffn != NULL && mach->ffn(fp)) return 0;
 
   struct inode_s finfo = {0};
-  if ((finfo.fp = strdup(fp)) == NULL) return -1;
+  if ((finfo.fp = je_strdup(fp)) == NULL) return -1;
   if (fsstat(fp, &finfo.st)) return -1;
 
   // attempt to match file in previous index
@@ -97,7 +103,7 @@ static int stagepost(const char* fp, void* udata) {
   }
 
   struct inode_s finfo = {0};
-  if ((finfo.fp = strdup(fp)) == NULL) return -1;
+  if ((finfo.fp = je_strdup(fp)) == NULL) return -1;
   if (fsstat(fp, &finfo.st)) return -1;
   if ((curr = indexput(mach->thismap, finfo)) == NULL) return -1;
   callevent(mach, DENG_FEVENT_NEW, curr);
@@ -137,7 +143,7 @@ static int execstage(struct deng_state_s* mach, const char* sd,
       return -1;
     }
     notifyhook(mach, DENG_NOTIF_DIR_DONE);
-    free(dir);
+    je_free(dir);
   }
   notifyhook(mach, DENG_NOTIF_STAGE_DONE);
 
@@ -158,7 +164,7 @@ static int checkremoved(struct deng_state_s* mach) {
     if (indexfind(mach->thismap, prev->fp) != NULL) continue;
     callevent(mach, DENG_FEVENT_DEL, prev);
   }
-  free(lastlist);
+  je_free(lastlist);
   notifyhook(mach, DENG_NOTIF_STAGE_DONE);
 
   return 0;

@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "jemalloc/jemalloc.h"
+
+#include "je.h"
 #include "log.h"
 
 /// @def INDEXMAXFP
@@ -70,7 +73,7 @@ int indexwrite(struct index_s* idx, FILE* s) {
       break;
     }
   }
-  free(fl);
+  je_free(fl);
   return err;
 }
 
@@ -81,9 +84,9 @@ int indexread(struct index_s* idx, FILE* s) {
   while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 "\n", b.fp, &b.st.lmod,
                 &b.st.fsze) == 3) {
     // duplicate the string onto the heap
-    if ((b.fp = strdup(b.fp)) == NULL) return -1;
+    if ((b.fp = je_strdup(b.fp)) == NULL) return -1;
     if (indexput(idx, b) == NULL) {
-      free(b.fp);
+      je_free(b.fp);
       return -1;
     }
     b.fp = fp;// reset to static buffer
@@ -99,7 +102,7 @@ int indexread(struct index_s* idx, FILE* s) {
 static struct inode_s* indexprepend(struct inode_s* idx,
                                     const struct inode_s tail) {
   struct inode_s* node;
-  if ((node = malloc(sizeof(tail))) == NULL) return NULL;
+  if ((node = je_malloc(sizeof(tail))) == NULL) return NULL;
   memcpy(node, &tail, sizeof(tail));
   node->next = idx;
   return node;
@@ -120,9 +123,9 @@ struct inode_s* indexput(struct index_s* idx, const struct inode_s node) {
 static void indexfree_r(struct inode_s* idx) {
   struct inode_s *head, *prev;
   for (head = idx; head != NULL;) {
-    free(head->fp);
+    je_free(head->fp);
     prev = head, head = head->next;
-    free(prev); /* free previous node */
+    je_free(prev); /* free previous node */
   }
 }
 
@@ -133,7 +136,7 @@ void indexfree(struct index_s* idx) {
 struct inode_s** indexlist(const struct index_s* idx) {
   errno = 0;
   struct inode_s** fl;
-  if ((fl = calloc(idx->size, sizeof(*fl))) == NULL) return NULL;
+  if ((fl = je_calloc(idx->size, sizeof(*fl))) == NULL) return NULL;
   long ni = 0;
   for (int i = 0; i < INDEXBUCKETS; i++) {
     for (struct inode_s* head = idx->buckets[i]; head != NULL;
@@ -142,7 +145,7 @@ struct inode_s** indexlist(const struct index_s* idx) {
       if (ni >= idx->size) {
         errno = ERANGE;
         log_error("indexlist: size error (limit %ld, at %ld)", idx->size, ni);
-        free(fl);
+        je_free(fl);
         return NULL;
       }
       fl[ni++] = head;

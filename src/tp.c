@@ -6,9 +6,10 @@
 #include <pthread.h>
 #include <stdatomic.h>
 #include <stdbool.h>
-#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
+#include "jemalloc/jemalloc.h"
 
 #include "fd.h"
 #include "fs.h"
@@ -19,17 +20,17 @@
 /// @struct thrd_s
 /// @brief Initialized worker thread in the thread pool.
 struct thrd_s {
-  _Atomic bool rsrvd;   ///< Work request reservation flag
-  _Atomic bool canwork; ///< Work request ready to process flag
-  struct tpreq_s work;  ///< Work request to process
-  pthread_t tid;        ///< System thread identifier
-  _Bool fdsopen;        ///< File descriptor set open flag
-  struct fdset_s fds;   ///< Output file descriptor set
+  _Atomic bool rsrvd;  ///< Work request reservation flag
+  _Atomic bool canwork;///< Work request ready to process flag
+  struct tpreq_s work; ///< Work request to process
+  pthread_t tid;       ///< System thread identifier
+  _Bool fdsopen;       ///< File descriptor set open flag
+  struct fdset_s fds;  ///< Output file descriptor set
 };
 
-static struct thrd_s** thrds;  ///< Thread pool worker threads array
-static _Atomic bool haltthrds; ///< Thread pool halt flag
-static _Atomic int thrdrc;     ///< Thread pool thread count
+static struct thrd_s** thrds; ///< Thread pool worker threads array
+static _Atomic bool haltthrds;///< Thread pool halt flag
+static _Atomic int thrdrc;    ///< Thread pool thread count
 
 /// @brief Thread pool worker thread entry point. The thread will spin lock
 /// while waiting to be reserved. Once reserved, it spin locks while waiting
@@ -91,9 +92,9 @@ int tpinit(const int size, const int flags) {
   assert(size > 0);
 
   // add one for the NULL sentinel
-  if ((thrds = calloc(size + 1, sizeof(struct thrd_s*))) == NULL) goto fail;
+  if ((thrds = je_calloc(size + 1, sizeof(struct thrd_s*))) == NULL) goto fail;
   for (int i = 0; i < size; i++) {
-    if ((thrds[i] = calloc(1, sizeof(struct thrd_s))) == NULL) goto fail;
+    if ((thrds[i] = je_calloc(1, sizeof(struct thrd_s))) == NULL) goto fail;
     struct thrd_s* t = thrds[i];
     tpinitthrd(t, i, flags);
     int err;
@@ -104,8 +105,8 @@ int tpinit(const int size, const int flags) {
   }
   return 0;
 fail:
-  for (int i = 0; i < size; i++) free(thrds[i]);
-  free(thrds);
+  for (int i = 0; i < size; i++) je_free(thrds[i]);
+  je_free(thrds);
   return -1;
 }
 
@@ -148,7 +149,7 @@ void tpshutdown(void) {
 }
 
 void tpfree(void) {
-  for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) free(thrds[i]);
-  free(thrds);
+  for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) je_free(thrds[i]);
+  je_free(thrds);
   thrds = NULL;
 }

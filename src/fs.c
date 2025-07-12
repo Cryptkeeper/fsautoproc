@@ -5,10 +5,11 @@
 #include <assert.h>
 #include <glob.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <time.h>
+
+#include "jemalloc/jemalloc.h"
 
 #include "log.h"
 
@@ -82,7 +83,7 @@ char* fsjoin(const char* dir, const char* file) {
   assert(dir != NULL);
   assert(file != NULL);
   const size_t sum = strlen(dir) + strlen(file) + 2; /* +1 for '/' & '\0' */
-  char* fp = malloc(sum);
+  char* fp = je_malloc(sum);
   if (fp == NULL) return NULL;
   snprintf(fp, sum, "%s/%s", dir, file);
   return fp;

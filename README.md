@@ -35,6 +35,7 @@ C11 is used for basic atomic boolean operations when scheduling work across thre
 Git submodules provide:
 
 - [cJSON](https://github.com/DaveGamble/cJSON)
+- [jemalloc](https://github.com/jemalloc/jemalloc) (requires autoconf during build)
 
 ### Usage
 

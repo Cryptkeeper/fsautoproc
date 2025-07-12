@@ -9,14 +9,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
 #include "cJSON/cJSON.h"
+#include "jemalloc/jemalloc.h"
 
 #include "fd.h"
 #include "index.h"
+#include "je.h"
 #include "log.h"
 #include "sl.h"
 #include "tm.h"
@@ -28,17 +29,17 @@ static void lcmdfree(struct lcmdset_s* cmd) {
     regex_t* reg = cmd->fpatterns[i];
     if (reg == NULL) continue;
     regfree(reg);
-    free(reg);
+    je_free(reg);
   }
-  free(cmd->fpatterns);
-  free(cmd->name);
+  je_free(cmd->fpatterns);
+  je_free(cmd->name);
   slfree(cmd->syscmds);
-  free(cmd);
+  je_free(cmd);
 }
 
 void lcmdfree_r(struct lcmdset_s** cs) {
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) lcmdfree(cs[i]);
-  free(cs);
+  je_free(cs);
 }
 
 /// @brief Reads the contents of the file described by filepath \p fp into a
@@ -59,14 +60,14 @@ static char* fsreadstr(const char* fp) {
     goto err;
 
   // read file contents into buffer
-  if ((fbuf = malloc(fsze + 1)) == NULL) goto err;
+  if ((fbuf = je_malloc(fsze + 1)) == NULL) goto err;
   if ((long) fread(fbuf, 1, fsze, fh) != fsze) goto err;
   fbuf[fsze] = '\0';
   fclose(fh);
   return fbuf;
 
 err:
-  free(fbuf);
+  je_free(fbuf);
   fclose(fh);
   return NULL;
 }
@@ -140,15 +141,15 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
   // copy description, otherwise use the index as the name
   cJSON* desc = cJSON_GetObjectItem(obj, "description");
   if (cJSON_IsString(desc)) {
-    if ((cmd->name = strdup(desc->valuestring)) == NULL) return -1;
+    if ((cmd->name = je_strdup(desc->valuestring)) == NULL) return -1;
   } else {
     char b[32] = {0};
     snprintf(b, sizeof(b), "cmdset %d", id);
-    if ((cmd->name = strdup(b)) == NULL) return -1;
+    if ((cmd->name = je_strdup(b)) == NULL) return -1;
   }
 
   const int regcount = cJSON_GetArraySize(plist);
-  if ((cmd->fpatterns = calloc(regcount + 1, sizeof(regex_t*))) == NULL)
+  if ((cmd->fpatterns = je_calloc(regcount + 1, sizeof(regex_t*))) == NULL)
     return -1;
 
   // compile regex patterns
@@ -157,7 +158,8 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
     if (!cJSON_IsString(p)) return -1;
 
     regex_t* reg;
-    if ((reg = cmd->fpatterns[i] = calloc(1, sizeof(*reg))) == NULL) return -1;
+    if ((reg = cmd->fpatterns[i] = je_calloc(1, sizeof(*reg))) == NULL)
+      return -1;
 
     int regmode = REG_EXTENDED | REG_NOSUB;
 #ifdef __APPLE__
@@ -191,7 +193,7 @@ struct lcmdset_s** lcmdparse(const char* fp) {
   }
 
   const int len = cJSON_GetArraySize(jt);
-  if ((cs = calloc(len + 1, sizeof(cs))) == NULL) goto err;
+  if ((cs = je_calloc(len + 1, sizeof(cs))) == NULL) goto err;
 
   // iterate over each command block
   cJSON* item;
@@ -199,7 +201,7 @@ struct lcmdset_s** lcmdparse(const char* fp) {
   cJSON_ArrayForEach(item, jt) {
     assert(i < len);
     struct lcmdset_s* cmd;
-    if ((cmd = cs[i] = malloc(sizeof(*cmd))) == NULL) goto err;
+    if ((cmd = cs[i] = je_malloc(sizeof(*cmd))) == NULL) goto err;
     if (lcmdparseone(item, cmd, i)) {
       log_error("error parsing command block %d", i);
       goto err;
@@ -212,7 +214,7 @@ struct lcmdset_s** lcmdparse(const char* fp) {
 err:
   lcmdfree_r(cs);
 ok:
-  free(fbuf);
+  je_free(fbuf);
   if (jt != NULL) cJSON_Delete(jt);
   return cs;
 }

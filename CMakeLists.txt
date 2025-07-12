@@ -24,16 +24,22 @@ file(GLOB SOURCES "src/*.c")
 file(GLOB HEADERS "include/*.h")
 add_executable(fsautoproc ${SOURCES} ${HEADERS})
 
-target_link_directories(fsautoproc PRIVATE dep)
-target_link_libraries(fsautoproc PRIVATE cjson pthread)
-target_include_directories(fsautoproc PRIVATE include dep)
-set_target_properties(fsautoproc PROPERTIES PUBLIC_HEADER "${HEADERS}")
+# building on Linux seems to auto demangle (e.g. je_free -> free) symbols, and ALSO undef the mangled ones
+# this allows jemalloc to provide demangled names, but also retain the prefixed ones
+add_compile_definitions(JEMALLOC_NO_DEMANGLE)
+
+target_link_directories(fsautoproc PRIVATE dep dep/jemalloc/lib)
+target_link_libraries(fsautoproc PRIVATE cjson pthread libjemalloc.a)
+target_include_directories(fsautoproc PRIVATE include dep dep/jemalloc/include)
 
 install(TARGETS fsautoproc DESTINATION bin)
 
 # libdeng shared library for unit tests
-add_library(deng STATIC src/deng.c src/index.c src/fs.c)
-target_include_directories(deng PUBLIC include dep)
+add_library(deng STATIC src/deng.c src/index.c src/fs.c src/je.c)
+
+target_link_directories(deng PUBLIC dep/jemalloc/lib)
+target_link_libraries(deng PUBLIC libjemalloc.a)
+target_include_directories(deng PUBLIC include dep dep/jemalloc/include)
 
 # unit tests
 enable_testing()
