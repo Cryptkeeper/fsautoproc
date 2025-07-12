@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['path_0',['path',['../structflock__s.html#a4d37610f6b39a2e2a4e3bb9c11427169',1,'flock_s']]],
-  ['pipefiles_1',['pipefiles',['../main_8c.html#a7e179ccfaa4ceb469b270380289f0f9a',1,'main.c']]]
+  ['onflags_0',['onflags',['../structlcmdset__s.html#a9a6353b25282791617f439d7904c9169',1,'lcmdset_s']]],
+  ['open_1',['open',['../structflock__s.html#a67647f2603dbfc8572f754da575effcd',1,'flock_s']]],
+  ['out_2',['out',['../structfdset__s.html#a28b1a2ecbfc2fd1b73141ba759224a4e',1,'fdset_s']]]
 ];
