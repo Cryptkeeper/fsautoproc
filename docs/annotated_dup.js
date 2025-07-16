@@ -5,6 +5,7 @@ var annotated_dup =
     [ "fdset_s", "structfdset__s.html", "structfdset__s" ],
     [ "flock_s", "structflock__s.html", "structflock__s" ],
     [ "fsstat_s", "structfsstat__s.html", "structfsstat__s" ],
+    [ "ibucket_s", "structibucket__s.html", "structibucket__s" ],
     [ "index_s", "structindex__s.html", "structindex__s" ],
     [ "inode_s", "structinode__s.html", "structinode__s" ],
     [ "lcmdset_s", "structlcmdset__s.html", "structlcmdset__s" ],

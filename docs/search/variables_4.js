@@ -7,5 +7,6 @@ var searchData=
   ['flags_4',['flags',['../structtpreq__s.html#afa1282fa375a7125ac1e56c7077ae2c0',1,'tpreq_s']]],
   ['fp_5',['fp',['../structinode__s.html#ab2c18e17334f129e0c096ecef3d695bf',1,'inode_s']]],
   ['fpatterns_6',['fpatterns',['../structlcmdset__s.html#aa57be808bd3162aeaefba93946dea99f',1,'lcmdset_s']]],
-  ['fsze_7',['fsze',['../structfsstat__s.html#a667435bed6c10c16926e35c1fd03e638',1,'fsstat_s']]]
+  ['fphash_7',['fphash',['../structinode__s.html#ad50925e6a8e2e8ef7dfa7656b4ec95b1',1,'inode_s']]],
+  ['fsze_8',['fsze',['../structfsstat__s.html#a667435bed6c10c16926e35c1fd03e638',1,'fsstat_s']]]
 ];

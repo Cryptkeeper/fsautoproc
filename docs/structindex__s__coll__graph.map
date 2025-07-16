@@ -1,8 +1,10 @@
 <map id="index_s" name="index_s">
-<area shape="rect" id="Node000001" title="Index map structure for storing file nodes." alt="" coords="6,199,73,224"/>
-<area shape="rect" id="Node000002" href="$structinode__s.html" title="Individual file node in the index map." alt="" coords="6,102,73,128"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="42,143,42,198,37,198,37,143"/>
-<area shape="poly" id="edge3_Node000002_Node000002" title=" " alt="" coords="89,105,96,108,99,115,91,124,73,127,73,121,89,120,94,114,92,112,87,110"/>
-<area shape="rect" id="Node000003" href="$structfsstat__s.html" title="Stat structure for storing the last modified time and file size." alt="" coords="5,5,74,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="42,46,42,101,37,101,37,46"/>
+<area shape="rect" id="Node000001" title="Index map structure for storing file nodes." alt="" coords="11,316,77,341"/>
+<area shape="rect" id="Node000002" href="$structibucket__s.html" title="Index bucket structure for storing linked list head/tail pointers." alt="" coords="5,219,83,245"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="47,260,47,315,41,315,41,260"/>
+<area shape="rect" id="Node000003" href="$structinode__s.html" title="Individual file node in the index map." alt="" coords="11,102,77,128"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="47,143,47,219,41,219,41,143"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="94,105,101,108,104,115,95,124,78,127,77,121,93,120,99,114,97,112,91,110"/>
+<area shape="rect" id="Node000004" href="$structfsstat__s.html" title="Stat structure for storing the last modified time and file size." alt="" coords="10,5,78,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="47,46,47,101,41,101,41,46"/>
 </map>

@@ -145,20 +145,20 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acb52a0047985761a1f29a194b2df77c9" id="r_acb52a0047985761a1f29a194b2df77c9"><td class="memItemLeft" align="right" valign="top">static uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acb52a0047985761a1f29a194b2df77c9">indexhash</a> (const char *fp)</td></tr>
-<tr class="memdesc:acb52a0047985761a1f29a194b2df77c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashes the filepath string.  <br /></td></tr>
-<tr class="memitem:a805436c943765cd435c11338ca3d64f1" id="r_a805436c943765cd435c11338ca3d64f1"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structinode__s.html">inode_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a805436c943765cd435c11338ca3d64f1">indexfind</a> (const struct <a class="el" href="structindex__s.html">index_s</a> *idx, const char *fp)</td></tr>
-<tr class="memdesc:a805436c943765cd435c11338ca3d64f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the index for a node with a matching filepath.  <br /></td></tr>
+<tr class="memitem:a6e7fdf0f1a1bd989474656767d009c86" id="r_a6e7fdf0f1a1bd989474656767d009c86"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6e7fdf0f1a1bd989474656767d009c86">indexhash</a> (const char *fp)</td></tr>
+<tr class="memdesc:a6e7fdf0f1a1bd989474656767d009c86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashes the filepath string for use in the index map.  <br /></td></tr>
+<tr class="memitem:af6b4ddc8aeb0c90e77c6c7cc85e74491" id="r_af6b4ddc8aeb0c90e77c6c7cc85e74491"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structinode__s.html">inode_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6b4ddc8aeb0c90e77c6c7cc85e74491">indexfind</a> (const struct <a class="el" href="structindex__s.html">index_s</a> *idx, const char *fp, const uint64_t fphash)</td></tr>
+<tr class="memdesc:af6b4ddc8aeb0c90e77c6c7cc85e74491"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches the index for a node with a matching filepath.  <br /></td></tr>
 <tr class="memitem:afcb2d1b3e19fa845832a12730a2ea753" id="r_afcb2d1b3e19fa845832a12730a2ea753"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afcb2d1b3e19fa845832a12730a2ea753">indexnodecmp</a> (const void *a, const void *b)</td></tr>
 <tr class="memdesc:afcb2d1b3e19fa845832a12730a2ea753"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares two file nodes for sorting in ascending order by filepath.  <br /></td></tr>
 <tr class="memitem:a57fe9c26bb06488c107b154a1148c7ea" id="r_a57fe9c26bb06488c107b154a1148c7ea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57fe9c26bb06488c107b154a1148c7ea">indexwrite</a> (struct <a class="el" href="structindex__s.html">index_s</a> *idx, FILE *s)</td></tr>
 <tr class="memdesc:a57fe9c26bb06488c107b154a1148c7ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the file stream and freed.  <br /></td></tr>
 <tr class="memitem:a4125d43775953ef8370561fc6eb43f85" id="r_a4125d43775953ef8370561fc6eb43f85"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4125d43775953ef8370561fc6eb43f85">indexread</a> (struct <a class="el" href="structindex__s.html">index_s</a> *idx, FILE *s)</td></tr>
 <tr class="memdesc:a4125d43775953ef8370561fc6eb43f85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a file stream and deserializes the contents into a map of individual file nodes.  <br /></td></tr>
-<tr class="memitem:a52c66fc3fe79d362a7652bdc7299597f" id="r_a52c66fc3fe79d362a7652bdc7299597f"><td class="memItemLeft" align="right" valign="top">static struct <a class="el" href="structinode__s.html">inode_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a52c66fc3fe79d362a7652bdc7299597f">indexprepend</a> (struct <a class="el" href="structinode__s.html">inode_s</a> *idx, const struct <a class="el" href="structinode__s.html">inode_s</a> tail)</td></tr>
-<tr class="memdesc:a52c66fc3fe79d362a7652bdc7299597f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepends a new node to the linked list by overwriting the head.  <br /></td></tr>
-<tr class="memitem:a12e66e2c3cc6dede8a3426d0a3856ea8" id="r_a12e66e2c3cc6dede8a3426d0a3856ea8"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structinode__s.html">inode_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12e66e2c3cc6dede8a3426d0a3856ea8">indexput</a> (struct <a class="el" href="structindex__s.html">index_s</a> *idx, const struct <a class="el" href="structinode__s.html">inode_s</a> node)</td></tr>
-<tr class="memdesc:a12e66e2c3cc6dede8a3426d0a3856ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the node and inserts it into the index mapping. The copy is by assignment, so pointers within the node are retained (not duplicated).  <br /></td></tr>
+<tr class="memitem:a4c24a5d6c47d6bb2afac2d57fa5ff80a" id="r_a4c24a5d6c47d6bb2afac2d57fa5ff80a"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4c24a5d6c47d6bb2afac2d57fa5ff80a">indexappend</a> (struct <a class="el" href="structibucket__s.html">ibucket_s</a> *bucket, struct <a class="el" href="structinode__s.html">inode_s</a> *node)</td></tr>
+<tr class="memdesc:a4c24a5d6c47d6bb2afac2d57fa5ff80a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the node to the end of the bucket (linked list), potentially assigning a new head if the bucket is empty.  <br /></td></tr>
+<tr class="memitem:a22149a90a735c655ae66e71ba063271b" id="r_a22149a90a735c655ae66e71ba063271b"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structinode__s.html">inode_s</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22149a90a735c655ae66e71ba063271b">indexput</a> (struct <a class="el" href="structindex__s.html">index_s</a> *idx, const char *fp, const uint64_t fphash, const struct <a class="el" href="structfsstat__s.html">fsstat_s</a> st)</td></tr>
+<tr class="memdesc:a22149a90a735c655ae66e71ba063271b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the node and inserts it into the index mapping.  <br /></td></tr>
 <tr class="memitem:a595066efa8470d25061301ab56dc7946" id="r_a595066efa8470d25061301ab56dc7946"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a595066efa8470d25061301ab56dc7946">indexfree_r</a> (struct <a class="el" href="structinode__s.html">inode_s</a> *idx)</td></tr>
 <tr class="memdesc:a595066efa8470d25061301ab56dc7946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recursively frees a linked list of nodes starting from a given head.  <br /></td></tr>
 <tr class="memitem:ac916662497c44dfd34d1d6fd5312a317" id="r_ac916662497c44dfd34d1d6fd5312a317"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac916662497c44dfd34d1d6fd5312a317">indexfree</a> (struct <a class="el" href="structindex__s.html">index_s</a> *idx)</td></tr>
@@ -184,7 +184,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">((int) (hash &amp; <a class="code hl_define" href="index_8h.html#ab52db11cd271bd5413172ea0c930be92">INDEXBUCKETSMASK</a>))</div>
-<div class="ttc" id="aindex_8h_html_ab52db11cd271bd5413172ea0c930be92"><div class="ttname"><a href="index_8h.html#ab52db11cd271bd5413172ea0c930be92">INDEXBUCKETSMASK</a></div><div class="ttdeci">#define INDEXBUCKETSMASK</div><div class="ttdoc">The bitmask used for deriving the bucket index from the hash value.</div><div class="ttdef"><b>Definition</b> index.h:28</div></div>
+<div class="ttc" id="aindex_8h_html_ab52db11cd271bd5413172ea0c930be92"><div class="ttname"><a href="index_8h.html#ab52db11cd271bd5413172ea0c930be92">INDEXBUCKETSMASK</a></div><div class="ttdeci">#define INDEXBUCKETSMASK</div><div class="ttdoc">The bitmask used for deriving the bucket index from the hash value.</div><div class="ttdef"><b>Definition</b> index.h:36</div></div>
 </div><!-- fragment -->
 <p>Maps and casts the hash value to a bucket index via the last N bits (where N is the number of buckets, <span class="tt">INDEXBUCKETS</span>). </p>
 
@@ -207,8 +207,75 @@ Functions</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a805436c943765cd435c11338ca3d64f1" name="a805436c943765cd435c11338ca3d64f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a805436c943765cd435c11338ca3d64f1">&#9670;&#160;</a></span>indexfind()</h2>
+<a id="a4c24a5d6c47d6bb2afac2d57fa5ff80a" name="a4c24a5d6c47d6bb2afac2d57fa5ff80a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c24a5d6c47d6bb2afac2d57fa5ff80a">&#9670;&#160;</a></span>indexappend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void indexappend </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structibucket__s.html">ibucket_s</a> *</td>          <td class="paramname"><span class="paramname"><em>bucket</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structinode__s.html">inode_s</a> *</td>          <td class="paramname"><span class="paramname"><em>node</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends the node to the end of the bucket (linked list), potentially assigning a new head if the bucket is empty. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">head</td><td>The head of the linked list </td></tr>
+    <tr><td class="paramname">node</td><td>The node pointer to insert </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="index_8c_a4c24a5d6c47d6bb2afac2d57fa5ff80a_icgraph.png" border="0" usemap="#aindex_8c_a4c24a5d6c47d6bb2afac2d57fa5ff80a_icgraph" loading="lazy" alt=""/></div>
+<map name="aindex_8c_a4c24a5d6c47d6bb2afac2d57fa5ff80a_icgraph" id="aindex_8c_a4c24a5d6c47d6bb2afac2d57fa5ff80a_icgraph">
+<area shape="rect" title="Appends the node to the end of the bucket (linked list), potentially assigning a new head if the buck..." alt="" coords="627,80,721,106"/>
+<area shape="rect" href="index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="509,80,579,106"/>
+<area shape="poly" title=" " alt="" coords="611,96,579,96,579,90,611,90"/>
+<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="255,5,325,31"/>
+<area shape="poly" title=" " alt="" coords="513,73,487,58,460,45,425,34,389,28,325,22,326,16,390,22,426,29,462,40,490,53,515,69"/>
+<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="383,55,460,80"/>
+<area shape="poly" title=" " alt="" coords="493,85,460,78,461,73,494,80"/>
+<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="382,104,461,130"/>
+<area shape="poly" title=" " alt="" coords="494,105,462,112,461,107,493,100"/>
+<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="386,153,457,179"/>
+<area shape="poly" title=" " alt="" coords="509,116,446,155,443,151,507,112"/>
+<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,55,198,80"/>
+<area shape="poly" title=" " alt="" coords="241,38,190,57,188,52,239,33"/>
+<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,55,55,80"/>
+<area shape="poly" title=" " alt="" coords="87,70,55,70,55,65,87,65"/>
+<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="252,55,328,80"/>
+<area shape="poly" title=" " alt="" coords="367,70,329,70,329,65,367,65"/>
+<area shape="poly" title=" " alt="" coords="236,70,198,70,198,65,236,65"/>
+<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,104,334,130"/>
+<area shape="poly" title=" " alt="" coords="367,120,335,120,335,114,367,114"/>
+<area shape="poly" title=" " alt="" coords="236,101,188,83,190,78,238,96"/>
+<area shape="poly" title=" " alt="" coords="370,150,325,133,327,128,372,145"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="af6b4ddc8aeb0c90e77c6c7cc85e74491" name="af6b4ddc8aeb0c90e77c6c7cc85e74491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6b4ddc8aeb0c90e77c6c7cc85e74491">&#9670;&#160;</a></span>indexfind()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -221,7 +288,12 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>fp</em></span>&#160;)</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>fp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>fphash</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -231,25 +303,16 @@ Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index to search </td></tr>
     <tr><td class="paramname">fp</td><td>The search value (filepath) to compare </td></tr>
+    <tr><td class="paramname">fphash</td><td>The hash value of the filepath to compare </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If a match is found, its pointer is returned, otherwise NULL. </dd></dl>
 <div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="index_8c_a805436c943765cd435c11338ca3d64f1_cgraph.png" border="0" usemap="#aindex_8c_a805436c943765cd435c11338ca3d64f1_cgraph" loading="lazy" alt=""/></div>
-<map name="aindex_8c_a805436c943765cd435c11338ca3d64f1_cgraph" id="aindex_8c_a805436c943765cd435c11338ca3d64f1_cgraph">
-<area shape="rect" title="Searches the index for a node with a matching filepath." alt="" coords="5,5,79,31"/>
-<area shape="rect" href="index_8c.html#acb52a0047985761a1f29a194b2df77c9" title="Hashes the filepath string." alt="" coords="127,5,207,31"/>
-<area shape="poly" title=" " alt="" coords="79,16,111,16,111,21,79,21"/>
-</map>
-</div>
-<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="index_8c_a805436c943765cd435c11338ca3d64f1_icgraph.png" border="0" usemap="#aindex_8c_a805436c943765cd435c11338ca3d64f1_icgraph" loading="lazy" alt=""/></div>
-<map name="aindex_8c_a805436c943765cd435c11338ca3d64f1_icgraph" id="aindex_8c_a805436c943765cd435c11338ca3d64f1_icgraph">
+<div class="center"><img src="index_8c_af6b4ddc8aeb0c90e77c6c7cc85e74491_icgraph.png" border="0" usemap="#aindex_8c_af6b4ddc8aeb0c90e77c6c7cc85e74491_icgraph" loading="lazy" alt=""/></div>
+<map name="aindex_8c_af6b4ddc8aeb0c90e77c6c7cc85e74491_icgraph" id="aindex_8c_af6b4ddc8aeb0c90e77c6c7cc85e74491_icgraph">
 <area shape="rect" title="Searches the index for a node with a matching filepath." alt="" coords="537,80,610,106"/>
 <area shape="rect" href="deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="382,5,489,31"/>
 <area shape="poly" title=" " alt="" coords="537,74,487,45,466,34,468,29,490,40,540,69"/>
@@ -367,14 +430,11 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="acb52a0047985761a1f29a194b2df77c9" name="acb52a0047985761a1f29a194b2df77c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb52a0047985761a1f29a194b2df77c9">&#9670;&#160;</a></span>indexhash()</h2>
+<a id="a6e7fdf0f1a1bd989474656767d009c86" name="a6e7fdf0f1a1bd989474656767d009c86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e7fdf0f1a1bd989474656767d009c86">&#9670;&#160;</a></span>indexhash()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">uint64_t indexhash </td>
@@ -383,14 +443,9 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Hashes the filepath string. </p>
+<p>Hashes the filepath string for use in the index map. </p>
 <dl class="section note"><dt>Note</dt><dd>64-bit FNV-1a implementation is used for hashing. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -402,40 +457,28 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="index_8c_acb52a0047985761a1f29a194b2df77c9_icgraph.png" border="0" usemap="#aindex_8c_acb52a0047985761a1f29a194b2df77c9_icgraph" loading="lazy" alt=""/></div>
-<map name="aindex_8c_acb52a0047985761a1f29a194b2df77c9_icgraph" id="aindex_8c_acb52a0047985761a1f29a194b2df77c9_icgraph">
-<area shape="rect" title="Hashes the filepath string." alt="" coords="658,132,738,158"/>
-<area shape="rect" href="index_8c.html#a805436c943765cd435c11338ca3d64f1" title="Searches the index for a node with a matching filepath." alt="" coords="537,107,610,132"/>
-<area shape="poly" title=" " alt="" coords="642,136,610,130,611,124,643,131"/>
-<area shape="rect" href="index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping. The copy is by assignment, so pointers within ..." alt="" coords="538,156,608,182"/>
-<area shape="poly" title=" " alt="" coords="643,158,609,165,608,159,642,153"/>
-<area shape="rect" href="deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="382,5,489,31"/>
-<area shape="poly" title=" " alt="" coords="544,98,487,52,459,34,461,29,490,48,548,94"/>
-<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="255,169,325,195"/>
-<area shape="poly" title=" " alt="" coords="528,103,495,93,458,87,420,87,383,97,367,108,358,121,350,136,336,153,314,171,311,167,332,150,346,134,354,118,364,104,381,92,419,81,458,81,496,88,529,98"/>
-<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="396,107,475,132"/>
-<area shape="poly" title=" " alt="" coords="521,122,475,122,475,117,521,117"/>
-<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="400,156,471,182"/>
-<area shape="poly" title=" " alt="" coords="523,140,472,159,471,154,521,135"/>
-<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,113,334,139"/>
-<area shape="poly" title=" " alt="" coords="400,42,384,52,307,115,304,111,381,48,397,37"/>
-<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,169,198,195"/>
-<area shape="poly" title=" " alt="" coords="243,148,186,171,184,166,241,143"/>
-<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,169,55,195"/>
-<area shape="poly" title=" " alt="" coords="87,185,55,185,55,180,87,180"/>
-<area shape="poly" title=" " alt="" coords="239,185,198,185,198,180,239,180"/>
-<area shape="poly" title=" " alt="" coords="381,125,335,127,335,121,381,119"/>
-<area shape="poly" title=" " alt="" coords="384,157,334,142,335,137,386,152"/>
-<area shape="poly" title=" " alt="" coords="523,154,473,135,475,130,525,149"/>
-<area shape="poly" title=" " alt="" coords="523,172,472,172,472,166,523,166"/>
-<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="397,255,474,280"/>
-<area shape="poly" title=" " alt="" coords="551,195,523,221,490,246,471,257,468,252,487,241,519,217,547,191"/>
-<area shape="rect" href="main_8c.html#a1be08bf3f3684b56f83f221a71d50d0e" title="Creates a fake inode_s value with the specified file path and inserts it into the goodmap index...." alt="" coords="396,205,475,231"/>
-<area shape="poly" title=" " alt="" coords="525,189,475,207,473,202,523,184"/>
-<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="252,231,328,256"/>
-<area shape="poly" title=" " alt="" coords="381,261,328,252,329,247,382,256"/>
-<area shape="poly" title=" " alt="" coords="244,226,181,198,183,193,246,222"/>
-<area shape="poly" title=" " alt="" coords="381,207,325,193,327,188,382,202"/>
+<div class="center"><img src="index_8c_a6e7fdf0f1a1bd989474656767d009c86_icgraph.png" border="0" usemap="#aindex_8c_a6e7fdf0f1a1bd989474656767d009c86_icgraph" loading="lazy" alt=""/></div>
+<map name="aindex_8c_a6e7fdf0f1a1bd989474656767d009c86_icgraph" id="aindex_8c_a6e7fdf0f1a1bd989474656767d009c86_icgraph">
+<area shape="rect" title="Hashes the filepath string for use in the index map." alt="" coords="509,80,589,106"/>
+<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="255,5,325,31"/>
+<area shape="poly" title=" " alt="" coords="516,74,489,58,460,45,389,28,325,22,326,16,390,23,462,40,492,53,519,69"/>
+<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="383,55,460,80"/>
+<area shape="poly" title=" " alt="" coords="492,84,460,78,461,73,494,79"/>
+<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="382,104,461,130"/>
+<area shape="poly" title=" " alt="" coords="494,106,462,112,461,107,493,101"/>
+<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="386,153,457,179"/>
+<area shape="poly" title=" " alt="" coords="513,116,447,155,444,151,510,112"/>
+<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,55,198,80"/>
+<area shape="poly" title=" " alt="" coords="241,38,190,57,188,52,239,33"/>
+<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,55,55,80"/>
+<area shape="poly" title=" " alt="" coords="87,70,55,70,55,65,87,65"/>
+<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="252,55,328,80"/>
+<area shape="poly" title=" " alt="" coords="367,70,329,70,329,65,367,65"/>
+<area shape="poly" title=" " alt="" coords="236,70,198,70,198,65,236,65"/>
+<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,104,334,130"/>
+<area shape="poly" title=" " alt="" coords="367,120,335,120,335,114,367,114"/>
+<area shape="poly" title=" " alt="" coords="236,101,188,83,190,78,238,96"/>
+<area shape="poly" title=" " alt="" coords="370,150,325,133,327,128,372,145"/>
 </map>
 </div>
 
@@ -544,78 +587,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a52c66fc3fe79d362a7652bdc7299597f" name="a52c66fc3fe79d362a7652bdc7299597f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52c66fc3fe79d362a7652bdc7299597f">&#9670;&#160;</a></span>indexprepend()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="structinode__s.html">inode_s</a> * indexprepend </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structinode__s.html">inode_s</a> *</td>          <td class="paramname"><span class="paramname"><em>idx</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const struct <a class="el" href="structinode__s.html">inode_s</a></td>          <td class="paramname"><span class="paramname"><em>tail</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Prepends a new node to the linked list by overwriting the head. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">idx</td><td>The head of the linked list </td></tr>
-    <tr><td class="paramname">tail</td><td>The new node to prepend </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The new head of the linked list or NULL if memory allocation fails. </dd></dl>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="index_8c_a52c66fc3fe79d362a7652bdc7299597f_icgraph.png" border="0" usemap="#aindex_8c_a52c66fc3fe79d362a7652bdc7299597f_icgraph" loading="lazy" alt=""/></div>
-<map name="aindex_8c_a52c66fc3fe79d362a7652bdc7299597f_icgraph" id="aindex_8c_a52c66fc3fe79d362a7652bdc7299597f_icgraph">
-<area shape="rect" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="627,80,725,106"/>
-<area shape="rect" href="index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping. The copy is by assignment, so pointers within ..." alt="" coords="509,80,579,106"/>
-<area shape="poly" title=" " alt="" coords="612,96,579,96,579,90,612,90"/>
-<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="383,5,460,31"/>
-<area shape="poly" title=" " alt="" coords="507,74,443,34,446,29,510,69"/>
-<area shape="rect" href="main_8c.html#a1be08bf3f3684b56f83f221a71d50d0e" title="Creates a fake inode_s value with the specified file path and inserts it into the goodmap index...." alt="" coords="382,55,461,80"/>
-<area shape="poly" title=" " alt="" coords="493,85,461,78,462,73,494,80"/>
-<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="382,104,461,130"/>
-<area shape="poly" title=" " alt="" coords="494,105,462,112,461,107,493,100"/>
-<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="386,153,457,179"/>
-<area shape="poly" title=" " alt="" coords="509,116,446,155,443,151,507,112"/>
-<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="252,5,328,31"/>
-<area shape="poly" title=" " alt="" coords="367,21,329,21,329,16,367,16"/>
-<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,55,198,80"/>
-<area shape="poly" title=" " alt="" coords="238,39,190,57,188,52,236,34"/>
-<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,55,55,80"/>
-<area shape="poly" title=" " alt="" coords="87,70,55,70,55,65,87,65"/>
-<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="255,55,325,80"/>
-<area shape="poly" title=" " alt="" coords="367,70,326,70,326,65,367,65"/>
-<area shape="poly" title=" " alt="" coords="239,70,198,70,198,65,239,65"/>
-<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,104,334,130"/>
-<area shape="poly" title=" " alt="" coords="367,120,335,120,335,114,367,114"/>
-<area shape="poly" title=" " alt="" coords="236,101,188,83,190,78,238,96"/>
-<area shape="poly" title=" " alt="" coords="370,150,325,133,327,128,372,145"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="a12e66e2c3cc6dede8a3426d0a3856ea8" name="a12e66e2c3cc6dede8a3426d0a3856ea8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12e66e2c3cc6dede8a3426d0a3856ea8">&#9670;&#160;</a></span>indexput()</h2>
+<a id="a22149a90a735c655ae66e71ba063271b" name="a22149a90a735c655ae66e71ba063271b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22149a90a735c655ae66e71ba063271b">&#9670;&#160;</a></span>indexput()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -628,16 +601,28 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">struct <a class="el" href="structinode__s.html">inode_s</a></td>          <td class="paramname"><span class="paramname"><em>node</em></span>&#160;)</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>fp</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t</td>          <td class="paramname"><span class="paramname"><em>fphash</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structfsstat__s.html">fsstat_s</a></td>          <td class="paramname"><span class="paramname"><em>st</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copies the node and inserts it into the index mapping. The copy is by assignment, so pointers within the node are retained (not duplicated). </p>
+<p>Copies the node and inserts it into the index mapping. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index to insert into </td></tr>
-    <tr><td class="paramname">node</td><td>The node to insert </td></tr>
+    <tr><td class="paramname">fp</td><td>The file path to use for the new node, duplicated internally </td></tr>
+    <tr><td class="paramname">fphash</td><td>The file path hash value to use for the new node </td></tr>
+    <tr><td class="paramname">st</td><td>The file stat info to use for the new node </td></tr>
   </table>
   </dd>
 </dl>
@@ -645,38 +630,36 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="index_8c_a12e66e2c3cc6dede8a3426d0a3856ea8_cgraph.png" border="0" usemap="#aindex_8c_a12e66e2c3cc6dede8a3426d0a3856ea8_cgraph" loading="lazy" alt=""/></div>
-<map name="aindex_8c_a12e66e2c3cc6dede8a3426d0a3856ea8_cgraph" id="aindex_8c_a12e66e2c3cc6dede8a3426d0a3856ea8_cgraph">
-<area shape="rect" title="Copies the node and inserts it into the index mapping. The copy is by assignment, so pointers within ..." alt="" coords="5,31,76,56"/>
-<area shape="rect" href="index_8c.html#acb52a0047985761a1f29a194b2df77c9" title="Hashes the filepath string." alt="" coords="133,5,213,31"/>
-<area shape="poly" title=" " alt="" coords="76,34,117,26,118,31,77,39"/>
-<area shape="rect" href="index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="124,55,222,80"/>
-<area shape="poly" title=" " alt="" coords="77,47,109,53,108,58,76,52"/>
+<div class="center"><img src="index_8c_a22149a90a735c655ae66e71ba063271b_cgraph.png" border="0" usemap="#aindex_8c_a22149a90a735c655ae66e71ba063271b_cgraph" loading="lazy" alt=""/></div>
+<map name="aindex_8c_a22149a90a735c655ae66e71ba063271b_cgraph" id="aindex_8c_a22149a90a735c655ae66e71ba063271b_cgraph">
+<area shape="rect" title="Copies the node and inserts it into the index mapping." alt="" coords="5,31,76,56"/>
+<area shape="rect" href="index_8c.html#a4c24a5d6c47d6bb2afac2d57fa5ff80a" title="Appends the node to the end of the bucket (linked list), potentially assigning a new head if the buck..." alt="" coords="124,5,218,31"/>
+<area shape="poly" title=" " alt="" coords="76,34,108,28,109,33,77,39"/>
+<area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="134,55,208,80"/>
+<area shape="poly" title=" " alt="" coords="77,47,119,55,118,61,76,53"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="index_8c_a12e66e2c3cc6dede8a3426d0a3856ea8_icgraph.png" border="0" usemap="#aindex_8c_a12e66e2c3cc6dede8a3426d0a3856ea8_icgraph" loading="lazy" alt=""/></div>
-<map name="aindex_8c_a12e66e2c3cc6dede8a3426d0a3856ea8_icgraph" id="aindex_8c_a12e66e2c3cc6dede8a3426d0a3856ea8_icgraph">
-<area shape="rect" title="Copies the node and inserts it into the index mapping. The copy is by assignment, so pointers within ..." alt="" coords="509,80,579,106"/>
-<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="383,5,460,31"/>
-<area shape="poly" title=" " alt="" coords="507,74,443,34,446,29,510,69"/>
-<area shape="rect" href="main_8c.html#a1be08bf3f3684b56f83f221a71d50d0e" title="Creates a fake inode_s value with the specified file path and inserts it into the goodmap index...." alt="" coords="382,55,461,80"/>
-<area shape="poly" title=" " alt="" coords="493,85,461,78,462,73,494,80"/>
+<div class="center"><img src="index_8c_a22149a90a735c655ae66e71ba063271b_icgraph.png" border="0" usemap="#aindex_8c_a22149a90a735c655ae66e71ba063271b_icgraph" loading="lazy" alt=""/></div>
+<map name="aindex_8c_a22149a90a735c655ae66e71ba063271b_icgraph" id="aindex_8c_a22149a90a735c655ae66e71ba063271b_icgraph">
+<area shape="rect" title="Copies the node and inserts it into the index mapping." alt="" coords="509,80,579,106"/>
+<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="255,5,325,31"/>
+<area shape="poly" title=" " alt="" coords="513,73,487,58,460,45,425,34,389,28,325,22,326,16,390,22,426,29,462,40,490,53,515,69"/>
+<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="383,55,460,80"/>
+<area shape="poly" title=" " alt="" coords="493,85,460,78,461,73,494,80"/>
 <area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="382,104,461,130"/>
 <area shape="poly" title=" " alt="" coords="494,105,462,112,461,107,493,100"/>
 <area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="386,153,457,179"/>
 <area shape="poly" title=" " alt="" coords="509,116,446,155,443,151,507,112"/>
-<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="252,5,328,31"/>
-<area shape="poly" title=" " alt="" coords="367,21,329,21,329,16,367,16"/>
 <area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,55,198,80"/>
-<area shape="poly" title=" " alt="" coords="238,39,190,57,188,52,236,34"/>
+<area shape="poly" title=" " alt="" coords="241,38,190,57,188,52,239,33"/>
 <area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,55,55,80"/>
 <area shape="poly" title=" " alt="" coords="87,70,55,70,55,65,87,65"/>
-<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="255,55,325,80"/>
-<area shape="poly" title=" " alt="" coords="367,70,326,70,326,65,367,65"/>
-<area shape="poly" title=" " alt="" coords="239,70,198,70,198,65,239,65"/>
+<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="252,55,328,80"/>
+<area shape="poly" title=" " alt="" coords="367,70,329,70,329,65,367,65"/>
+<area shape="poly" title=" " alt="" coords="236,70,198,70,198,65,236,65"/>
 <area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,104,334,130"/>
 <area shape="poly" title=" " alt="" coords="367,120,335,120,335,114,367,114"/>
 <area shape="poly" title=" " alt="" coords="236,101,188,83,190,78,238,96"/>
@@ -719,15 +702,15 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="index_8c_a4125d43775953ef8370561fc6eb43f85_cgraph.png" border="0" usemap="#aindex_8c_a4125d43775953ef8370561fc6eb43f85_cgraph" loading="lazy" alt=""/></div>
 <map name="aindex_8c_a4125d43775953ef8370561fc6eb43f85_cgraph" id="aindex_8c_a4125d43775953ef8370561fc6eb43f85_cgraph">
-<area shape="rect" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="5,55,83,80"/>
-<area shape="rect" href="index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping. The copy is by assignment, so pointers within ..." alt="" coords="133,29,203,55"/>
-<area shape="poly" title=" " alt="" coords="82,57,117,50,118,55,84,62"/>
-<area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="131,79,205,104"/>
-<area shape="poly" title=" " alt="" coords="84,72,116,79,115,84,82,78"/>
-<area shape="rect" href="index_8c.html#acb52a0047985761a1f29a194b2df77c9" title="Hashes the filepath string." alt="" coords="262,5,342,31"/>
-<area shape="poly" title=" " alt="" coords="203,33,246,25,247,31,204,39"/>
-<area shape="rect" href="index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="253,55,351,80"/>
-<area shape="poly" title=" " alt="" coords="204,46,238,53,237,58,203,51"/>
+<area shape="rect" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="5,31,83,56"/>
+<area shape="rect" href="index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="131,5,211,31"/>
+<area shape="poly" title=" " alt="" coords="83,33,115,27,116,32,84,38"/>
+<area shape="rect" href="index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="136,55,206,80"/>
+<area shape="poly" title=" " alt="" coords="84,48,121,55,120,61,83,53"/>
+<area shape="rect" href="index_8c.html#a4c24a5d6c47d6bb2afac2d57fa5ff80a" title="Appends the node to the end of the bucket (linked list), potentially assigning a new head if the buck..." alt="" coords="259,29,353,55"/>
+<area shape="poly" title=" " alt="" coords="206,58,243,51,244,56,207,64"/>
+<area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="269,79,343,104"/>
+<area shape="poly" title=" " alt="" coords="207,71,254,80,253,85,206,76"/>
 </map>
 </div>
 <div class="dynheader">

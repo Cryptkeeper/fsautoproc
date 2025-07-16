@@ -1,77 +1,74 @@
 <map id="cmpchanges" name="cmpchanges">
-<area shape="rect" id="Node000001" title="Compares the current file system state with a previously saved index." alt="" coords="5,391,101,416"/>
-<area shape="rect" id="Node000002" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="149,153,237,179"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,389,174,191,179,194,64,391"/>
-<area shape="rect" id="Node000018" href="$main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="158,377,228,403"/>
-<area shape="poly" id="edge23_Node000001_Node000018" title=" " alt="" coords="101,396,142,392,142,398,101,402"/>
-<area shape="rect" id="Node000022" href="$main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="155,304,231,330"/>
-<area shape="poly" id="edge30_Node000001_Node000022" title=" " alt="" coords="74,388,156,336,159,341,77,393"/>
-<area shape="rect" id="Node000024" href="$main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="159,575,226,600"/>
-<area shape="poly" id="edge34_Node000001_Node000024" title=" " alt="" coords="65,415,101,470,151,538,170,561,166,564,147,541,97,473,60,418"/>
-<area shape="rect" id="Node000027" href="$main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="159,501,226,527"/>
-<area shape="poly" id="edge37_Node000001_Node000027" title=" " alt="" coords="72,415,165,489,161,493,69,419"/>
-<area shape="rect" id="Node000030" href="$main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="153,440,233,466"/>
-<area shape="poly" id="edge40_Node000001_Node000030" title=" " alt="" coords="93,414,141,432,139,437,91,419"/>
-<area shape="rect" id="Node000003" href="$deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="285,255,391,280"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,177,307,243,304,248,211,182"/>
-<area shape="rect" id="Node000007" href="$deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="298,55,379,80"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="206,151,240,121,284,89,289,86,292,90,286,94,244,125,210,155"/>
-<area shape="rect" id="Node000011" href="$deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="299,153,377,179"/>
-<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="237,164,283,164,283,169,237,169"/>
-<area shape="rect" id="Node000016" href="$deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="302,104,374,130"/>
-<area shape="poly" id="edge17_Node000002_Node000016" title=" " alt="" coords="232,150,287,131,289,136,234,155"/>
-<area shape="rect" id="Node000004" href="$index_8c.html#a805436c943765cd435c11338ca3d64f1" title="Searches the index for a node with a matching filepath." alt="" coords="455,203,529,228"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="378,252,440,230,442,235,379,257"/>
-<area shape="rect" id="Node000006" href="$index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="457,428,527,454"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="379,279,393,290,406,306,413,323,418,354,423,384,430,399,441,415,446,419,442,423,437,419,425,402,418,386,413,355,408,324,401,309,389,293,376,283"/>
-<area shape="rect" id="Node000005" href="$index_8c.html#acb52a0047985761a1f29a194b2df77c9" title="Hashes the filepath string." alt="" coords="602,227,682,252"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="529,219,587,228,586,233,529,224"/>
-<area shape="rect" id="Node000008" href="$deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="460,55,524,80"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="379,65,445,65,445,70,379,70"/>
-<area shape="rect" id="Node000009" href="$fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="462,5,522,31"/>
-<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="378,52,447,30,448,35,380,57"/>
-<area shape="rect" id="Node000010" href="$fs_8c.html#a8bb9fba0c594f3e6b654303e6f9f36a9" title="Error callback implementation for glob search. Logs each error using the log_error macro." alt="" coords="605,5,679,31"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="522,16,589,16,589,21,522,21"/>
-<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="378,176,442,197,440,202,377,181"/>
-<area shape="rect" id="Node000012" href="$fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="465,153,519,179"/>
-<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="378,164,449,164,449,169,378,169"/>
-<area shape="rect" id="Node000013" href="$index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping. The copy is by assignment, so pointers within ..." alt="" coords="457,301,527,327"/>
-<area shape="poly" id="edge13_Node000011_Node000013" title=" " alt="" coords="349,178,385,230,411,261,441,288,445,291,442,295,438,292,408,264,381,233,345,181"/>
-<area shape="rect" id="Node000015" href="$je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="455,252,529,278"/>
-<area shape="poly" id="edge16_Node000011_Node000015" title=" " alt="" coords="357,177,394,207,441,239,447,242,445,247,438,243,391,211,353,181"/>
-<area shape="poly" id="edge14_Node000013_Node000005" title=" " alt="" coords="522,298,543,288,601,258,604,262,546,293,524,303"/>
-<area shape="rect" id="Node000014" href="$index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="593,301,691,327"/>
-<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="527,312,577,312,577,317,527,317"/>
-<area shape="poly" id="edge20_Node000016_Node000004" title=" " alt="" coords="375,128,393,139,408,152,417,165,427,177,441,189,446,193,443,197,438,194,423,180,413,168,404,156,390,143,372,133"/>
-<area shape="poly" id="edge18_Node000016_Node000012" title=" " alt="" coords="375,126,451,150,449,155,373,131"/>
-<area shape="poly" id="edge21_Node000016_Node000013" title=" " alt="" coords="376,126,393,139,407,159,414,178,418,215,421,252,428,270,441,288,446,293,442,297,437,292,424,272,416,253,413,216,409,179,402,161,389,143,372,130"/>
-<area shape="poly" id="edge22_Node000016_Node000015" title=" " alt="" coords="376,127,393,139,411,165,418,190,424,214,441,239,444,241,440,245,437,243,420,217,413,192,406,167,389,143,372,131"/>
-<area shape="rect" id="Node000017" href="$fs_8c.html#a9a6b33158e9e03d0404c144b5e3dee2c" title="fsstateql() compares the fields of two struct fsstat_s values for equality. Two structs with the same..." alt="" coords="456,104,528,130"/>
-<area shape="poly" id="edge19_Node000016_Node000017" title=" " alt="" coords="374,114,441,114,441,120,374,120"/>
-<area shape="poly" id="edge24_Node000018_Node000004" title=" " alt="" coords="206,375,235,341,248,312,254,287,262,263,283,240,321,220,362,210,403,206,440,207,440,212,403,211,363,215,323,225,287,244,267,266,259,288,253,314,239,344,210,378"/>
-<area shape="rect" id="Node000019" href="$lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="285,403,391,428"/>
-<area shape="poly" id="edge25_Node000018_Node000019" title=" " alt="" coords="229,394,270,401,269,406,228,399"/>
-<area shape="rect" id="Node000021" href="$main_8c.html#a1be08bf3f3684b56f83f221a71d50d0e" title="Creates a fake inode_s value with the specified file path and inserts it into the goodmap index...." alt="" coords="299,353,377,379"/>
-<area shape="poly" id="edge27_Node000018_Node000021" title=" " alt="" coords="228,382,283,373,284,378,229,387"/>
-<area shape="rect" id="Node000020" href="$lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="449,379,535,404"/>
-<area shape="poly" id="edge26_Node000019_Node000020" title=" " alt="" coords="392,405,433,398,434,403,392,410"/>
-<area shape="poly" id="edge28_Node000021_Node000013" title=" " alt="" coords="377,351,442,328,444,333,379,356"/>
-<area shape="poly" id="edge29_Node000021_Node000015" title=" " alt="" coords="372,351,390,340,404,327,413,314,423,301,438,287,443,283,446,288,441,291,427,304,418,317,408,330,393,344,375,355"/>
-<area shape="rect" id="Node000023" href="$index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="300,304,377,330"/>
-<area shape="poly" id="edge31_Node000022_Node000023" title=" " alt="" coords="232,314,284,314,284,320,232,320"/>
-<area shape="poly" id="edge32_Node000023_Node000013" title=" " alt="" coords="377,314,441,312,441,318,377,319"/>
-<area shape="poly" id="edge33_Node000023_Node000015" title=" " alt="" coords="376,301,439,280,441,285,378,306"/>
-<area shape="rect" id="Node000025" href="$main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="294,600,382,626"/>
-<area shape="poly" id="edge35_Node000024_Node000025" title=" " alt="" coords="227,591,279,600,278,605,226,596"/>
-<area shape="rect" id="Node000026" href="$tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="458,600,526,626"/>
-<area shape="poly" id="edge36_Node000025_Node000026" title=" " alt="" coords="383,610,443,610,443,616,383,616"/>
-<area shape="rect" id="Node000028" href="$prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="294,501,383,527"/>
-<area shape="poly" id="edge38_Node000027_Node000028" title=" " alt="" coords="227,512,278,512,278,517,227,517"/>
-<area shape="rect" id="Node000029" href="$tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="310,551,366,576"/>
-<area shape="poly" id="edge39_Node000027_Node000029" title=" " alt="" coords="228,523,296,547,294,552,226,528"/>
-<area shape="rect" id="Node000031" href="$index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="298,452,378,478"/>
-<area shape="poly" id="edge41_Node000030_Node000031" title=" " alt="" coords="234,453,283,458,282,463,233,459"/>
-<area shape="poly" id="edge42_Node000031_Node000006" title=" " alt="" coords="378,456,441,446,442,451,379,461"/>
-<area shape="rect" id="Node000032" href="$index_8c.html#afcb2d1b3e19fa845832a12730a2ea753" title="Compares two file nodes for sorting in ascending order by filepath." alt="" coords="439,477,545,503"/>
-<area shape="poly" id="edge43_Node000031_Node000032" title=" " alt="" coords="379,469,424,476,423,482,378,474"/>
+<area shape="rect" id="Node000001" title="Compares the current file system state with a previously saved index." alt="" coords="5,277,101,303"/>
+<area shape="rect" id="Node000002" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="149,252,237,278"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,279,133,273,134,278,102,284"/>
+<area shape="rect" id="Node000018" href="$main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="303,55,373,80"/>
+<area shape="poly" id="edge22_Node000001_Node000018" title=" " alt="" coords="57,276,89,212,115,174,147,140,181,117,217,99,287,75,289,80,219,104,183,122,150,144,119,177,93,214,62,278"/>
+<area shape="rect" id="Node000021" href="$main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="155,155,231,180"/>
+<area shape="poly" id="edge28_Node000001_Node000021" title=" " alt="" coords="67,275,164,189,167,193,71,279"/>
+<area shape="rect" id="Node000023" href="$main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="159,327,226,352"/>
+<area shape="poly" id="edge32_Node000001_Node000023" title=" " alt="" coords="93,301,145,320,143,325,91,306"/>
+<area shape="rect" id="Node000026" href="$main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="159,400,226,426"/>
+<area shape="poly" id="edge35_Node000001_Node000026" title=" " alt="" coords="71,301,167,387,164,391,67,305"/>
+<area shape="rect" id="Node000029" href="$main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="153,473,233,499"/>
+<area shape="poly" id="edge38_Node000001_Node000029" title=" " alt="" coords="64,302,100,361,151,437,170,460,166,463,147,440,95,364,59,305"/>
+<area shape="rect" id="Node000003" href="$deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="285,252,391,278"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="237,262,269,262,269,268,237,268"/>
+<area shape="rect" id="Node000006" href="$deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="298,301,379,327"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="234,276,285,293,283,298,232,281"/>
+<area shape="rect" id="Node000010" href="$deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="299,153,377,179"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="206,249,240,220,284,188,289,184,292,189,286,192,244,224,210,253"/>
+<area shape="rect" id="Node000016" href="$deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="302,203,374,228"/>
+<area shape="poly" id="edge16_Node000002_Node000016" title=" " alt="" coords="232,249,287,230,289,235,234,254"/>
+<area shape="rect" id="Node000004" href="$index_8c.html#af6b4ddc8aeb0c90e77c6c7cc85e74491" title="Searches the index for a node with a matching filepath." alt="" coords="456,203,529,228"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="380,249,440,229,442,234,382,254"/>
+<area shape="rect" id="Node000005" href="$index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="458,449,527,475"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="380,276,393,287,407,307,414,326,418,363,421,400,428,418,441,436,447,442,443,445,437,440,424,420,416,401,413,364,409,327,402,309,389,291,377,280"/>
+<area shape="rect" id="Node000007" href="$deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="461,301,524,327"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="379,312,445,312,445,317,379,317"/>
+<area shape="rect" id="Node000008" href="$fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="463,351,522,376"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="380,325,449,347,448,352,379,330"/>
+<area shape="rect" id="Node000009" href="$fs_8c.html#a8bb9fba0c594f3e6b654303e6f9f36a9" title="Error callback implementation for glob search. Logs each error using the log_error macro." alt="" coords="604,351,678,376"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="523,361,588,361,588,366,523,366"/>
+<area shape="poly" id="edge11_Node000010_Node000004" title=" " alt="" coords="379,176,442,197,440,202,377,181"/>
+<area shape="rect" id="Node000011" href="$fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="465,153,520,179"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="378,164,450,164,450,169,378,169"/>
+<area shape="rect" id="Node000012" href="$index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="452,104,533,130"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="377,151,436,132,438,137,379,156"/>
+<area shape="rect" id="Node000013" href="$index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="457,55,528,80"/>
+<area shape="poly" id="edge13_Node000010_Node000013" title=" " alt="" coords="372,150,390,140,404,127,413,115,423,103,438,89,443,86,446,90,441,94,427,106,417,118,408,131,393,144,375,155"/>
+<area shape="rect" id="Node000014" href="$index_8c.html#a4c24a5d6c47d6bb2afac2d57fa5ff80a" title="Appends the node to the end of the bucket (linked list), potentially assigning a new head if the buck..." alt="" coords="594,104,688,130"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="529,77,586,96,585,101,527,82"/>
+<area shape="rect" id="Node000015" href="$je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="604,55,678,80"/>
+<area shape="poly" id="edge15_Node000013_Node000015" title=" " alt="" coords="528,65,588,65,588,70,528,70"/>
+<area shape="poly" id="edge19_Node000016_Node000004" title=" " alt="" coords="374,213,440,213,440,218,374,218"/>
+<area shape="poly" id="edge17_Node000016_Node000011" title=" " alt="" coords="373,202,450,177,452,182,375,207"/>
+<area shape="poly" id="edge20_Node000016_Node000012" title=" " alt="" coords="372,200,390,189,404,177,413,165,423,152,438,139,443,135,446,140,441,143,427,156,417,168,408,180,393,194,375,204"/>
+<area shape="poly" id="edge21_Node000016_Node000013" title=" " alt="" coords="372,201,389,190,406,165,413,141,420,116,437,90,442,86,446,90,441,93,424,118,418,142,411,167,393,193,376,206"/>
+<area shape="rect" id="Node000017" href="$fs_8c.html#a9a6b33158e9e03d0404c144b5e3dee2c" title="fsstateql() compares the fields of two struct fsstat_s values for equality. Two structs with the same..." alt="" coords="457,252,528,278"/>
+<area shape="poly" id="edge18_Node000016_Node000017" title=" " alt="" coords="375,224,443,246,442,252,373,229"/>
+<area shape="poly" id="edge23_Node000018_Node000004" title=" " alt="" coords="376,77,393,90,411,116,418,141,424,165,441,190,445,193,441,197,437,193,420,167,413,142,406,118,389,93,372,82"/>
+<area shape="poly" id="edge24_Node000018_Node000012" title=" " alt="" coords="375,76,439,97,437,102,373,81"/>
+<area shape="poly" id="edge25_Node000018_Node000013" title=" " alt="" coords="374,65,442,65,442,70,374,70"/>
+<area shape="rect" id="Node000019" href="$lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="439,5,546,31"/>
+<area shape="poly" id="edge26_Node000018_Node000019" title=" " alt="" coords="373,54,435,34,436,39,375,59"/>
+<area shape="rect" id="Node000020" href="$lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="598,5,684,31"/>
+<area shape="poly" id="edge27_Node000019_Node000020" title=" " alt="" coords="546,16,582,16,582,21,546,21"/>
+<area shape="rect" id="Node000022" href="$index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="300,104,377,130"/>
+<area shape="poly" id="edge29_Node000021_Node000022" title=" " alt="" coords="231,152,284,133,286,138,233,157"/>
+<area shape="poly" id="edge30_Node000022_Node000012" title=" " alt="" coords="377,114,437,114,437,120,377,120"/>
+<area shape="poly" id="edge31_Node000022_Node000013" title=" " alt="" coords="377,102,442,81,444,86,378,107"/>
+<area shape="rect" id="Node000024" href="$main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="294,351,382,376"/>
+<area shape="poly" id="edge33_Node000023_Node000024" title=" " alt="" coords="227,342,279,351,278,356,226,348"/>
+<area shape="rect" id="Node000025" href="$tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="459,400,526,426"/>
+<area shape="poly" id="edge34_Node000024_Node000025" title=" " alt="" coords="382,374,445,395,444,400,380,380"/>
+<area shape="rect" id="Node000027" href="$prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="294,400,383,426"/>
+<area shape="poly" id="edge36_Node000026_Node000027" title=" " alt="" coords="227,410,278,410,278,416,227,416"/>
+<area shape="rect" id="Node000028" href="$tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="310,449,366,475"/>
+<area shape="poly" id="edge37_Node000026_Node000028" title=" " alt="" coords="228,422,296,445,294,450,226,427"/>
+<area shape="rect" id="Node000030" href="$index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="298,499,378,524"/>
+<area shape="poly" id="edge39_Node000029_Node000030" title=" " alt="" coords="234,491,283,499,282,504,233,496"/>
+<area shape="poly" id="edge40_Node000030_Node000005" title=" " alt="" coords="378,496,442,475,444,480,380,501"/>
+<area shape="rect" id="Node000031" href="$index_8c.html#afcb2d1b3e19fa845832a12730a2ea753" title="Compares two file nodes for sorting in ascending order by filepath." alt="" coords="440,499,545,524"/>
+<area shape="poly" id="edge41_Node000030_Node000031" title=" " alt="" coords="379,509,424,509,424,514,379,514"/>
 </map>

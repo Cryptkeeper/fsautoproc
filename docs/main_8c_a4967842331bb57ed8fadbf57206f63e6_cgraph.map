@@ -1,20 +1,17 @@
 <map id="filterjunk" name="filterjunk">
-<area shape="rect" id="Node000001" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="5,55,76,80"/>
-<area shape="rect" id="Node000002" href="$index_8c.html#a805436c943765cd435c11338ca3d64f1" title="Searches the index for a node with a matching filepath." alt="" coords="140,5,214,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,52,125,34,127,39,77,57"/>
-<area shape="rect" id="Node000004" href="$lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="124,55,230,80"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="76,65,108,65,108,70,76,70"/>
-<area shape="rect" id="Node000006" href="$main_8c.html#a1be08bf3f3684b56f83f221a71d50d0e" title="Creates a fake inode_s value with the specified file path and inserts it into the goodmap index...." alt="" coords="138,104,216,130"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="77,78,126,96,124,101,75,83"/>
-<area shape="rect" id="Node000003" href="$index_8c.html#acb52a0047985761a1f29a194b2df77c9" title="Hashes the filepath string." alt="" coords="420,29,501,55"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,19,405,35,405,40,214,24"/>
-<area shape="rect" id="Node000005" href="$lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="278,55,363,80"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="230,65,262,65,262,70,230,70"/>
-<area shape="rect" id="Node000007" href="$index_8c.html#a12e66e2c3cc6dede8a3426d0a3856ea8" title="Copies the node and inserts it into the index mapping. The copy is by assignment, so pointers within ..." alt="" coords="286,104,356,130"/>
-<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="216,114,270,114,270,120,216,120"/>
-<area shape="rect" id="Node000009" href="$je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="284,153,358,179"/>
-<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="217,128,270,146,268,151,215,133"/>
-<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="345,101,420,61,422,65,348,106"/>
-<area shape="rect" id="Node000008" href="$index_8c.html#a52c66fc3fe79d362a7652bdc7299597f" title="Prepends a new node to the linked list by overwriting the head." alt="" coords="411,104,510,130"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="356,114,396,114,396,120,356,120"/>
+<area shape="rect" id="Node000001" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="5,80,76,106"/>
+<area shape="rect" id="Node000002" href="$index_8c.html#af6b4ddc8aeb0c90e77c6c7cc85e74491" title="Searches the index for a node with a matching filepath." alt="" coords="140,5,214,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="60,77,122,40,130,36,133,40,125,44,63,82"/>
+<area shape="rect" id="Node000003" href="$index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="137,55,217,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="76,84,121,75,122,80,77,89"/>
+<area shape="rect" id="Node000004" href="$index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="142,104,212,130"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="77,96,127,105,126,111,76,102"/>
+<area shape="rect" id="Node000007" href="$lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="124,153,230,179"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="64,104,125,140,133,144,130,149,122,145,61,109"/>
+<area shape="rect" id="Node000005" href="$index_8c.html#a4c24a5d6c47d6bb2afac2d57fa5ff80a" title="Appends the node to the end of the bucket (linked list), potentially assigning a new head if the buck..." alt="" coords="278,55,372,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="211,103,269,83,271,88,213,108"/>
+<area shape="rect" id="Node000006" href="$je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="288,104,362,130"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="212,114,272,114,272,120,212,120"/>
+<area shape="rect" id="Node000008" href="$lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="282,153,368,179"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="230,164,267,164,267,169,230,169"/>
 </map>
