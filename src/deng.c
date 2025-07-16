@@ -63,13 +63,15 @@ static int stagepre(const char* fp, void* udata) {
   struct fsstat_s st = {0};
   if (fsstat(fp, &st)) return -1;
 
+  const uint64_t fphash = indexhash(fp);
+
   // attempt to match file in previous index
-  struct inode_s* prev = indexfind(mach->lastmap, fp);
+  struct inode_s* prev = indexfind(mach->lastmap, fp, fphash);
 
   // lookup from previous iteration or insert new record and lookup
-  struct inode_s* curr = indexfind(mach->thismap, fp);
+  struct inode_s* curr = indexfind(mach->thismap, fp, fphash);
   if (curr == NULL)
-    if ((curr = indexput(mach->thismap, fp, st)) == NULL) return -1;
+    if ((curr = indexput(mach->thismap, fp, fphash, st)) == NULL) return -1;
 
   if (prev != NULL && !fsstateql(&prev->st, &curr->st)) {
     callevent(mach, DENG_FEVENT_MOD, curr);
@@ -92,7 +94,9 @@ static int stagepost(const char* fp, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
   if (mach->ffn != NULL && mach->ffn(fp)) return 0;
 
-  struct inode_s* curr = indexfind(mach->thismap, fp);
+  const uint64_t fphash = indexhash(fp);
+
+  struct inode_s* curr = indexfind(mach->thismap, fp, fphash);
   if (curr != NULL) {
     // check if the file was modified during the command execution
     struct fsstat_s mod = {0};
@@ -103,7 +107,7 @@ static int stagepost(const char* fp, void* udata) {
 
   struct fsstat_s st = {0};
   if (fsstat(fp, &st)) return -1;
-  if ((curr = indexput(mach->thismap, fp, st)) == NULL) return -1;
+  if ((curr = indexput(mach->thismap, fp, fphash, st)) == NULL) return -1;
   callevent(mach, DENG_FEVENT_NEW, curr);
 
   return 0;
@@ -159,7 +163,7 @@ static int checkremoved(struct deng_state_s* mach) {
   if ((lastlist = indexlist(mach->lastmap)) == NULL) return -1;
   for (long i = 0; i < mach->lastmap->size; i++) {
     struct inode_s* prev = lastlist[i];
-    if (indexfind(mach->thismap, prev->fp) != NULL) continue;
+    if (indexfind(mach->thismap, prev->fp, prev->fphash) != NULL) continue;
     callevent(mach, DENG_FEVENT_DEL, prev);
   }
   je_free(lastlist);

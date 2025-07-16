@@ -16,11 +16,12 @@
 /// @brief The maximum filepath length of a file in the index.
 #define INDEXMAXFP 512
 
-/// @brief Hashes the filepath string.
-/// @note 64-bit FNV-1a implementation is used for hashing.
-/// @param fp The filepath string to hash
-/// @return The hashed value of the filepath.
-static uint64_t indexhash(const char* fp) {
+/// @def indexbucket
+/// @brief Maps and casts the hash value to a bucket index via the last N bits
+/// (where N is the number of buckets, `INDEXBUCKETS`).
+#define indexbucket(hash) ((int) (hash & INDEXBUCKETSMASK))
+
+uint64_t indexhash(const char* fp) {
   uint64_t hash = 14695981039346656037u;// FNV offset basis
   while (*fp) {
     hash ^= (uint8_t) *fp;// XOR byte into hash
@@ -30,16 +31,11 @@ static uint64_t indexhash(const char* fp) {
   return hash;
 }
 
-/// @def indexbucket
-/// @brief Maps and casts the hash value to a bucket index via the last N bits
-/// (where N is the number of buckets, `INDEXBUCKETS`).
-#define indexbucket(hash) ((int) (hash & INDEXBUCKETSMASK))
-
-struct inode_s* indexfind(const struct index_s* idx, const char* fp) {
-  const uint64_t hash = indexhash(fp);
-  struct inode_s* head = idx->buckets[indexbucket(hash)];
+struct inode_s* indexfind(const struct index_s* idx, const char* fp,
+                          const uint64_t fphash) {
+  struct inode_s* head = idx->buckets[indexbucket(fphash)].head;
   while (head != NULL) {
-    if (head->fphash == hash) {
+    if (head->fphash == fphash) {
       if (strcmp(head->fp, fp) == 0) return head;
     }
     head = head->next;
@@ -84,38 +80,39 @@ int indexread(struct index_s* idx, FILE* s) {
   struct fsstat_s st = {0};  /* fscanf file stat structure */
   while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 "\n", fp, &st.lmod, &st.fsze) ==
          3) {
-    if (indexput(idx, fp, st) == NULL) return -1;
+    const uint64_t fphash = indexhash(fp);
+    if (indexput(idx, fp, fphash, st) == NULL) return -1;
   }
   return 0;
 }
 
-/// @brief Prepends a new node to the linked list by overwriting the head.
-/// @param idx The head of the linked list
-/// @param tail The new node to prepend
-/// @return The new head of the linked list or NULL if memory allocation fails.
-static struct inode_s* indexprepend(struct inode_s* idx,
-                                    const struct inode_s tail) {
-  struct inode_s* node;
-  if ((node = je_malloc(sizeof(tail))) == NULL) return NULL;
-  memcpy(node, &tail, sizeof(tail));
-  node->next = idx;
-  return node;
+/// @brief Appends the node to the end of the bucket (linked list), potentially
+/// assigning a new head if the bucket is empty.
+/// @param head The head of the linked list
+/// @param node The node pointer to insert
+static void indexappend(struct ibucket_s* bucket, struct inode_s* node) {
+  node->next = NULL;// ensure value is initialized
+  if (bucket->tail != NULL) {
+    bucket->tail->next = node;
+    bucket->tail = node;
+  } else {
+    bucket->head = bucket->tail = node;
+  }
 }
 
 struct inode_s* indexput(struct index_s* idx, const char* fp,
-                         const struct fsstat_s st) {
-  const uint64_t fphash = indexhash(fp);
-  struct inode_s node = {NULL, fphash, st, NULL};
-  if ((node.fp = je_strdup(fp)) == NULL) return NULL;
-  struct inode_s* bucket = idx->buckets[indexbucket(fphash)];
-  struct inode_s* head = indexprepend(bucket, node);
-  if (head == NULL) {
-    je_free(node.fp);
+                         const uint64_t fphash, const struct fsstat_s st) {
+  struct inode_s* node = je_malloc(sizeof(struct inode_s));
+  if (node == NULL) return NULL;
+  if ((fp = je_strdup(fp)) == NULL) {// duplicate filepath string
+    je_free(node);
     return NULL;
   }
-  idx->buckets[indexbucket(fphash)] = head;
+  *node = (struct inode_s) {(char*) fp, fphash, st, NULL};
+  struct ibucket_s* bucket = &idx->buckets[indexbucket(node->fphash)];
+  indexappend(bucket, node);
   idx->size++;
-  return head;
+  return node;
 }
 
 /// @brief Recursively frees a linked list of nodes starting from a given head.
@@ -130,7 +127,7 @@ static void indexfree_r(struct inode_s* idx) {
 }
 
 void indexfree(struct index_s* idx) {
-  for (int i = 0; i < INDEXBUCKETS; i++) indexfree_r(idx->buckets[i]);
+  for (int i = 0; i < INDEXBUCKETS; i++) indexfree_r(idx->buckets[i].head);
 }
 
 struct inode_s** indexlist(const struct index_s* idx) {
@@ -139,7 +136,7 @@ struct inode_s** indexlist(const struct index_s* idx) {
   if ((fl = je_calloc(idx->size, sizeof(*fl))) == NULL) return NULL;
   long ni = 0;
   for (int i = 0; i < INDEXBUCKETS; i++) {
-    for (struct inode_s* head = idx->buckets[i]; head != NULL;
+    for (struct inode_s* head = idx->buckets[i].head; head != NULL;
          head = head->next) {
       // prevent linked-list data from exceeding the expected/alloc'd index size
       if (ni >= idx->size) {

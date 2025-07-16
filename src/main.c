@@ -210,12 +210,13 @@ static int writeindex(struct index_s* idx, const char* fp) {
 /// @param fp The file path to filter
 /// @return True if the file is considered junk, otherwise false.
 static bool filterjunk(const char* fp) {
-  if (indexfind(&goodmap, fp)) return false;// previously matched
+  const uint64_t fphash = indexhash(fp);
+  if (indexfind(&goodmap, fp, fphash)) return false;// previously matched
   const bool junk = !initargs.includejunk && !lcmdmatchany(cmdsets, fp);
   if (junk) {
     if (initargs.verbose) log_info("[j] %s", fp);
   } else {
-    indexput(&goodmap, fp, (struct fsstat_s){0}); // mark as known good
+    indexput(&goodmap, fp, fphash, (struct fsstat_s){0}); // mark as known good
   }
   return junk;
 }
