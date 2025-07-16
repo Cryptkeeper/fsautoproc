@@ -11,6 +11,7 @@
 /// @brief Individual file node in the index map.
 struct inode_s {
   char* fp;            ///< File path (string duplicated)
+  uint64_t fphash;     ///< File path hash value
   struct fsstat_s st;  ///< File stat info structure
   struct inode_s* next;///< Next node in the index map
 };
@@ -56,13 +57,13 @@ int indexwrite(struct index_s* idx, FILE* s);
 /// is set.
 int indexread(struct index_s* idx, FILE* s);
 
-/// @brief Copies the node and inserts it into the index mapping. The copy is
-/// by assignment, so pointers within the node are retained (not duplicated).
+/// @brief Copies the node and inserts it into the index mapping.
 /// @param idx The index to insert into
-/// @param node The node to insert
+/// @param fp The file path to use for the new node, duplicated internally
+/// @param st The file stat info to use for the new node
 /// @return The pointer to the new node in the index map, otherwise NULL is
 /// returned and `errno` is set.
-struct inode_s* indexput(struct index_s* idx, struct inode_s node);
+struct inode_s* indexput(struct index_s* idx, const char* fp, struct fsstat_s st);
 
 /// @brief Frees all nodes in the index map.
 /// @param idx The index to free

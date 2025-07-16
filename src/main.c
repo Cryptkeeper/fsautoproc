@@ -205,18 +205,6 @@ static int writeindex(struct index_s* idx, const char* fp) {
   return err;
 }
 
-/// @brief Creates a fake inode_s value with the specified file path and inserts
-/// it into the goodmap index. This is used to mark files as "good" so they are
-/// known to match at least one command set regex and are not filtered out as
-/// junk files in the future.
-/// @param fp The file path to mark as good
-static void markgood(const char* fp) {
-  char* str = je_strdup(fp);
-  if (str == NULL) return;// out of memory, ignore and force regex checks
-  struct inode_s node = {.fp = str};
-  if (indexput(&goodmap, node) == NULL) je_free(str);// put failed
-}
-
 /// @brief Filters out junk files from the index based on loaded command sets
 /// \p cmdsets and the \p initargs.includejunk flag/program option.
 /// @param fp The file path to filter
@@ -227,7 +215,7 @@ static bool filterjunk(const char* fp) {
   if (junk) {
     if (initargs.verbose) log_info("[j] %s", fp);
   } else {
-    markgood(fp);
+    indexput(&goodmap, fp, (struct fsstat_s){0}); // mark as known good
   }
   return junk;
 }

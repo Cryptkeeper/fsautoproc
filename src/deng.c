@@ -60,9 +60,8 @@ static int stagepre(const char* fp, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
   if (mach->ffn != NULL && mach->ffn(fp)) return 0;
 
-  struct inode_s finfo = {0};
-  if ((finfo.fp = je_strdup(fp)) == NULL) return -1;
-  if (fsstat(fp, &finfo.st)) return -1;
+  struct fsstat_s st = {0};
+  if (fsstat(fp, &st)) return -1;
 
   // attempt to match file in previous index
   struct inode_s* prev = indexfind(mach->lastmap, fp);
@@ -70,7 +69,7 @@ static int stagepre(const char* fp, void* udata) {
   // lookup from previous iteration or insert new record and lookup
   struct inode_s* curr = indexfind(mach->thismap, fp);
   if (curr == NULL)
-    if ((curr = indexput(mach->thismap, finfo)) == NULL) return -1;
+    if ((curr = indexput(mach->thismap, fp, st)) == NULL) return -1;
 
   if (prev != NULL && !fsstateql(&prev->st, &curr->st)) {
     callevent(mach, DENG_FEVENT_MOD, curr);
@@ -102,10 +101,9 @@ static int stagepost(const char* fp, void* udata) {
     return 0;
   }
 
-  struct inode_s finfo = {0};
-  if ((finfo.fp = je_strdup(fp)) == NULL) return -1;
-  if (fsstat(fp, &finfo.st)) return -1;
-  if ((curr = indexput(mach->thismap, finfo)) == NULL) return -1;
+  struct fsstat_s st = {0};
+  if (fsstat(fp, &st)) return -1;
+  if ((curr = indexput(mach->thismap, fp, st)) == NULL) return -1;
   callevent(mach, DENG_FEVENT_NEW, curr);
 
   return 0;

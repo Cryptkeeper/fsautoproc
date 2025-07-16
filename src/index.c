@@ -39,7 +39,9 @@ struct inode_s* indexfind(const struct index_s* idx, const char* fp) {
   const uint64_t hash = indexhash(fp);
   struct inode_s* head = idx->buckets[indexbucket(hash)];
   while (head != NULL) {
-    if (strcmp(head->fp, fp) == 0) return head;
+    if (head->fphash == hash) {
+      if (strcmp(head->fp, fp) == 0) return head;
+    }
     head = head->next;
   }
   return NULL;
@@ -78,20 +80,12 @@ int indexwrite(struct index_s* idx, FILE* s) {
 }
 
 int indexread(struct index_s* idx, FILE* s) {
-  char fp[INDEXMAXFP] = {0};          /* fscanf filepath string buffer */
-  struct inode_s b = {fp, {0}, NULL}; /* fscanf node buffer */
-
-  while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 "\n", b.fp, &b.st.lmod,
-                &b.st.fsze) == 3) {
-    // duplicate the string onto the heap
-    if ((b.fp = je_strdup(b.fp)) == NULL) return -1;
-    if (indexput(idx, b) == NULL) {
-      je_free(b.fp);
-      return -1;
-    }
-    b.fp = fp;// reset to static buffer
+  char fp[INDEXMAXFP] = {0}; /* fscanf filepath string buffer */
+  struct fsstat_s st = {0};  /* fscanf file stat structure */
+  while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 "\n", fp, &st.lmod, &st.fsze) ==
+         3) {
+    if (indexput(idx, fp, st) == NULL) return -1;
   }
-
   return 0;
 }
 
@@ -108,12 +102,18 @@ static struct inode_s* indexprepend(struct inode_s* idx,
   return node;
 }
 
-struct inode_s* indexput(struct index_s* idx, const struct inode_s node) {
-  const int bi = indexbucket(indexhash(node.fp));
-  struct inode_s* bucket = idx->buckets[bi];
+struct inode_s* indexput(struct index_s* idx, const char* fp,
+                         const struct fsstat_s st) {
+  const uint64_t fphash = indexhash(fp);
+  struct inode_s node = {NULL, fphash, st, NULL};
+  if ((node.fp = je_strdup(fp)) == NULL) return NULL;
+  struct inode_s* bucket = idx->buckets[indexbucket(fphash)];
   struct inode_s* head = indexprepend(bucket, node);
-  if (head == NULL) return NULL;
-  idx->buckets[bi] = head;
+  if (head == NULL) {
+    je_free(node.fp);
+    return NULL;
+  }
+  idx->buckets[indexbucket(fphash)] = head;
   idx->size++;
   return head;
 }
