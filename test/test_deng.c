@@ -12,7 +12,6 @@ struct evcounts_s {
   int new;
   int del;
   int mod;
-  int nop;
 };
 
 static struct evcounts_s evcounts; /* recycled global used for hook callbacks */
@@ -29,9 +28,6 @@ static void onevent(const enum deng_fevent_t type, struct inode_s* in) {
     case DENG_FEVENT_MOD:
       evcounts.mod++;
       break;
-    case DENG_FEVENT_NOP:
-      evcounts.nop++;
-      break;
     default:
       assert("unknown event type %d");
   }
@@ -47,13 +43,13 @@ struct scantest_s {
 
 static const struct scantest_s scantests[SCANTESTCOUNT] = {
         /* scan of a directory with no previous index */
-        {"../test/new-files-test", false, {3, 0, 0, 0}},
+        {"../test/new-files-test", false, {3, 0, 0}},
         /* scan of a directory with an outdated index */
-        {"../test/modified-files-test", true, {1, 0, 3, 0}},
+        {"../test/modified-files-test", true, {1, 0, 3}},
         /* scan of a directory with removed files */
-        {"../test/deleted-files-test", true, {1, 3, 0, 0}},
+        {"../test/deleted-files-test", true, {1, 3, 0}},
         /* scan of a directory with new/modified files */
-        {"../test/mixed-files-test", true, {4, 3, 0, 0}},
+        {"../test/mixed-files-test", true, {4, 3, 0}},
 };
 
 int main(void) {
@@ -81,12 +77,10 @@ int main(void) {
     log_verbose("%d new files (expected %d)", evcounts.new, test->expected.new);
     log_verbose("%d del files (expected %d)", evcounts.del, test->expected.del);
     log_verbose("%d mod files (expected %d)", evcounts.mod, test->expected.mod);
-    log_verbose("%d nop files (expected %d)", evcounts.nop, test->expected.nop);
 
     assert(test->expected.new == evcounts.new);
     assert(test->expected.del == evcounts.del);
     assert(test->expected.mod == evcounts.mod);
-    assert(test->expected.nop == evcounts.nop);
 
     memset(&evcounts, 0, sizeof(evcounts));
 

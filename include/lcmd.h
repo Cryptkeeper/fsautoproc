@@ -24,13 +24,9 @@ struct fdset_s;
 /// @brief Trigger bit flag for deleted file events
 #define LCTRIG_DEL (1 << 2)
 
-/// @def LCTRIG_NOP
-/// @brief Trigger bit flag for no operation/unmodified file events
-#define LCTRIG_NOP (1 << 3)
-
 /// @def LCTRIG_ALL
 /// @brief Trigger bit flag for all file events
-#define LCTRIG_ALL (LCTRIG_NEW | LCTRIG_MOD | LCTRIG_DEL | LCTRIG_NOP)
+#define LCTRIG_ALL (LCTRIG_NEW | LCTRIG_MOD | LCTRIG_DEL)
 
 /// @def LCTOPT_TRACE
 /// @brief Option bit flag for tracing command set matches by printing to stdout

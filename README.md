@@ -63,7 +63,7 @@ Options:
 - `description` (string): An optional, brief string describing the action (for logging purposes when used with the `-l` flag)
 - `patterns` (array of strings): An array of regex patterns to match against file paths (regex behavior may vary by platform, see `man 3 regcomp` for details), a file must match at least one pattern to trigger the action
 - `commands` (array of strings): An array of commands to execute when a file matching a pattern is detected (commands are executed in order, command execution behavior may vary by platform, see `man 3 system` for details)
-- `on` (array of strings): An array of file events on which to trigger the action for a file (`new` for new files, `del` for deleted files, `mod` for modified files, `nop` for unmodified files)
+- `on` (array of strings): An array of file events on which to trigger the action for a file (`new` for new files, `del` for deleted files, `mod` for modified files)
 
 #### Command Execution
 
@@ -83,7 +83,6 @@ fsautoproc uses a symbol table when logging file changes and program status. Thi
 | `[*]`  | A file was modified                   |
 | `[-]`  | A file was deleted/removed            |
 | `[j]`  | A file was ignored/considered junk    |
-| `[n]`  | A file was not detected as modified   |
 | `[s]`  | A directory is being scanned          |
 | `[x]`  | A system command is being invoked     |
 | `[!]`  | An error has occurred                 |

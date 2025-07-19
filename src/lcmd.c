@@ -96,8 +96,8 @@ err:
 
 /// @brief Parses a cJSON array of strings into a set of file event bit flags.
 /// Non-string entries are ignored. Unrecognized string entries will log an
-/// error message. Accepted strings are "new", "mod", "del", and "nop" which map
-/// to \p LCTRIG_NEW, \p LCTRIG_MOD, \p LCTRIG_DEL, and \p LCTRIG_NOP respectively.
+/// error message. Accepted strings are "new", "mod", and "del" which map to
+/// \p LCTRIG_NEW, \p LCTRIG_MOD, and \p LCTRIG_DEL respectively.
 /// @param item cJSON array of strings
 /// @return Bit flags representing the file event types, or 0 if no flags were
 /// correctly parsed.
@@ -112,8 +112,6 @@ static int lcmdparseflags(const cJSON* item) {
       flags |= LCTRIG_MOD;
     } else if (strcmp(e->valuestring, "del") == 0) {
       flags |= LCTRIG_DEL;
-    } else if (strcmp(e->valuestring, "nop") == 0) {
-      flags |= LCTRIG_NOP;
     } else {
       log_error("unknown flag name `%s`", e->valuestring);
     }

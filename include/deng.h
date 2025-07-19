@@ -21,7 +21,6 @@ enum deng_fevent_t {
   DENG_FEVENT_NEW,///< New file event
   DENG_FEVENT_DEL,///< Deleted file event
   DENG_FEVENT_MOD,///< Modified file event
-  DENG_FEVENT_NOP,///< Unmodified file event
 };
 
 /// @struct deng_hooks_s

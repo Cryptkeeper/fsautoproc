@@ -271,10 +271,6 @@ static void onevent(const enum deng_fevent_t event, struct inode_s* in) {
       log_info("[*] %s", in->fp);
       trigfileevent(in, LCTRIG_MOD);
       break;
-    case DENG_FEVENT_NOP:
-      if (initargs.verbose) log_info("[n] %s", in->fp);
-      trigfileevent(in, LCTRIG_NOP);
-      break;
   }
 }
 

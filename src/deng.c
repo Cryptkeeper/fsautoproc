@@ -73,10 +73,10 @@ static int stagepre(const char* fp, void* udata) {
   if (curr == NULL)
     if ((curr = indexput(mach->thismap, fp, fphash, st)) == NULL) return -1;
 
-  if (prev != NULL && !fsstateql(&prev->st, &curr->st)) {
-    callevent(mach, DENG_FEVENT_MOD, curr);
-  } else if (prev != NULL) {
-    callevent(mach, DENG_FEVENT_NOP, curr);
+  if (prev != NULL) {
+    if (!fsstateql(&prev->st, &curr->st)) {
+      callevent(mach, DENG_FEVENT_MOD, curr);
+    }
   } else {
     callevent(mach, DENG_FEVENT_NEW, curr);
   }
