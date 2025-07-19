@@ -177,10 +177,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a36d31b28aae66a8e5e5d1d0a4bf454d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates and frees all memory allocated by the command set array.  <br /></td></tr>
 <tr class="memitem:aea1ce3fc2d45ddb3c059cf9f35a0a674" id="r_aea1ce3fc2d45ddb3c059cf9f35a0a674"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea1ce3fc2d45ddb3c059cf9f35a0a674">fsreadstr</a> (const char *fp)</td></tr>
 <tr class="memdesc:aea1ce3fc2d45ddb3c059cf9f35a0a674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the contents of the file described by filepath <code class="param">fp</code> into a dynamically allocated buffer returned by the function.  <br /></td></tr>
-<tr class="memitem:a6a3fd8d01dba4b434b70b85ca5fdba45" id="r_a6a3fd8d01dba4b434b70b85ca5fdba45"><td class="memItemLeft" align="right" valign="top">static slist_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a3fd8d01dba4b434b70b85ca5fdba45">lcmdjsontosl</a> (const cJSON *arr)</td></tr>
-<tr class="memdesc:a6a3fd8d01dba4b434b70b85ca5fdba45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail <span class="tt">cJSON_IsString</span> will be ignored and a warning printed.  <br /></td></tr>
+<tr class="memitem:a124832f00584c93167d1e2e55e36ed79" id="r_a124832f00584c93167d1e2e55e36ed79"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a124832f00584c93167d1e2e55e36ed79">lcmdjsontosl</a> (const cJSON *arr, slist_t *sl)</td></tr>
+<tr class="memdesc:a124832f00584c93167d1e2e55e36ed79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail <span class="tt">cJSON_IsString</span> will be ignored and a warning printed.  <br /></td></tr>
 <tr class="memitem:ab00aa60eeeb52ad3c8d396371bc3c123" id="r_ab00aa60eeeb52ad3c8d396371bc3c123"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab00aa60eeeb52ad3c8d396371bc3c123">lcmdparseflags</a> (const cJSON *item)</td></tr>
-<tr class="memdesc:ab00aa60eeeb52ad3c8d396371bc3c123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a cJSON array of strings into a set of file event bit flags. Non-string entries are ignored. Unrecognized string entries will log an error message. Accepted strings are "new", "mod", "del", and "nop" which map to <code class="param">LCTRIG_NEW</code>, <code class="param">LCTRIG_MOD</code>, <code class="param">LCTRIG_DEL</code>, and <code class="param">LCTRIG_NOP</code> respectively.  <br /></td></tr>
+<tr class="memdesc:ab00aa60eeeb52ad3c8d396371bc3c123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses a cJSON array of strings into a set of file event bit flags. Non-string entries are ignored. Unrecognized string entries will log an error message. Accepted strings are "new", "mod", and "del" which map to <code class="param">LCTRIG_NEW</code>, <code class="param">LCTRIG_MOD</code>, and <code class="param">LCTRIG_DEL</code> respectively.  <br /></td></tr>
 <tr class="memitem:aade9f5cdec127396b23b4efc7b11aca7" id="r_aade9f5cdec127396b23b4efc7b11aca7"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aade9f5cdec127396b23b4efc7b11aca7">lcmdparseone</a> (const cJSON *obj, struct <a class="el" href="structlcmdset__s.html">lcmdset_s</a> *cmd, const int id)</td></tr>
 <tr class="memdesc:aade9f5cdec127396b23b4efc7b11aca7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates a single command struct by parsing the fields of the provided cJSON object.  <br /></td></tr>
 <tr class="memitem:a1d148263b2d41fab06d1360675fde981" id="r_a1d148263b2d41fab06d1360675fde981"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structlcmdset__s.html">lcmdset_s</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d148263b2d41fab06d1360675fde981">lcmdparse</a> (const char *fp)</td></tr>
@@ -509,8 +509,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a6a3fd8d01dba4b434b70b85ca5fdba45" name="a6a3fd8d01dba4b434b70b85ca5fdba45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a3fd8d01dba4b434b70b85ca5fdba45">&#9670;&#160;</a></span>lcmdjsontosl()</h2>
+<a id="a124832f00584c93167d1e2e55e36ed79" name="a124832f00584c93167d1e2e55e36ed79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a124832f00584c93167d1e2e55e36ed79">&#9670;&#160;</a></span>lcmdjsontosl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -519,10 +519,14 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">slist_t * lcmdjsontosl </td>
+          <td class="memname">int lcmdjsontosl </td>
           <td>(</td>
-          <td class="paramtype">const cJSON *</td>          <td class="paramname"><span class="paramname"><em>arr</em></span></td><td>)</td>
+          <td class="paramtype">const cJSON *</td>          <td class="paramname"><span class="paramname"><em>arr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">slist_t *</td>          <td class="paramname"><span class="paramname"><em>sl</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -536,15 +540,16 @@ Here is the caller graph for this function:</div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">arr</td><td>cJSON array of strings </td></tr>
+    <tr><td class="paramname">sl</td><td>Pointer to a slist_t to populate with the strings. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>NULL if an error occurred, otherwise a pointer to a dynamically allocated slist_t. The caller is responsible for freeing the list using <span class="tt">slfree</span>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>-1 if an error occurs, otherwise 0 on success. </dd></dl>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="lcmd_8c_a6a3fd8d01dba4b434b70b85ca5fdba45_icgraph.png" border="0" usemap="#alcmd_8c_a6a3fd8d01dba4b434b70b85ca5fdba45_icgraph" loading="lazy" alt=""/></div>
-<map name="alcmd_8c_a6a3fd8d01dba4b434b70b85ca5fdba45_icgraph" id="alcmd_8c_a6a3fd8d01dba4b434b70b85ca5fdba45_icgraph">
+<div class="center"><img src="lcmd_8c_a124832f00584c93167d1e2e55e36ed79_icgraph.png" border="0" usemap="#alcmd_8c_a124832f00584c93167d1e2e55e36ed79_icgraph" loading="lazy" alt=""/></div>
+<map name="alcmd_8c_a124832f00584c93167d1e2e55e36ed79_icgraph" id="alcmd_8c_a124832f00584c93167d1e2e55e36ed79_icgraph">
 <area shape="rect" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="382,5,477,31"/>
 <area shape="rect" href="lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="232,5,334,31"/>
 <area shape="poly" title=" " alt="" coords="367,21,335,21,335,16,367,16"/>
@@ -724,7 +729,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="227,61,288,56,289,61,228,67"/>
 <area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="302,91,377,116"/>
 <area shape="poly" title=" " alt="" coords="237,118,287,109,288,115,238,123"/>
-<area shape="rect" href="lcmd_8c.html#a6a3fd8d01dba4b434b70b85ca5fdba45" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="292,140,387,166"/>
+<area shape="rect" href="lcmd_8c.html#a124832f00584c93167d1e2e55e36ed79" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="292,140,387,166"/>
 <area shape="poly" title=" " alt="" coords="238,134,278,140,277,146,237,139"/>
 <area shape="rect" href="lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="285,189,394,215"/>
 <area shape="poly" title=" " alt="" coords="214,140,286,176,295,180,293,185,284,181,212,145"/>
@@ -766,7 +771,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Parses a cJSON array of strings into a set of file event bit flags. Non-string entries are ignored. Unrecognized string entries will log an error message. Accepted strings are "new", "mod", "del", and "nop" which map to <code class="param">LCTRIG_NEW</code>, <code class="param">LCTRIG_MOD</code>, <code class="param">LCTRIG_DEL</code>, and <code class="param">LCTRIG_NOP</code> respectively. </p>
+<p>Parses a cJSON array of strings into a set of file event bit flags. Non-string entries are ignored. Unrecognized string entries will log an error message. Accepted strings are "new", "mod", and "del" which map to <code class="param">LCTRIG_NEW</code>, <code class="param">LCTRIG_MOD</code>, and <code class="param">LCTRIG_DEL</code> respectively. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">item</td><td>cJSON array of strings </td></tr>
@@ -841,7 +846,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="5,55,108,80"/>
 <area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="173,5,248,31"/>
 <area shape="poly" title=" " alt="" coords="98,51,158,32,160,37,100,57"/>
-<area shape="rect" href="lcmd_8c.html#a6a3fd8d01dba4b434b70b85ca5fdba45" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="163,55,258,80"/>
+<area shape="rect" href="lcmd_8c.html#a124832f00584c93167d1e2e55e36ed79" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="163,55,258,80"/>
 <area shape="poly" title=" " alt="" coords="108,65,148,65,148,70,108,70"/>
 <area shape="rect" href="lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="156,104,265,130"/>
 <area shape="poly" title=" " alt="" coords="100,78,154,96,152,101,98,84"/>

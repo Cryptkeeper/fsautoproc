@@ -151,7 +151,7 @@ Basic Configuration</h2>
 <li><span class="tt">description</span> (string): An optional, brief string describing the action (for logging purposes when used with the <span class="tt">-l</span> flag)</li>
 <li><span class="tt">patterns</span> (array of strings): An array of regex patterns to match against file paths (regex behavior may vary by platform, see <span class="tt">man 3 regcomp</span> for details), a file must match at least one pattern to trigger the action</li>
 <li><span class="tt">commands</span> (array of strings): An array of commands to execute when a file matching a pattern is detected (commands are executed in order, command execution behavior may vary by platform, see <span class="tt">man 3 system</span> for details)</li>
-<li><span class="tt">on</span> (array of strings): An array of file events on which to trigger the action for a file (<span class="tt">new</span> for new files, <span class="tt">del</span> for deleted files, <span class="tt">mod</span> for modified files, <span class="tt">nop</span> for unmodified files)</li>
+<li><span class="tt">on</span> (array of strings): An array of file events on which to trigger the action for a file (<span class="tt">new</span> for new files, <span class="tt">del</span> for deleted files, <span class="tt">mod</span> for modified files)</li>
 </ul>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
 Command Execution</h3>
@@ -173,12 +173,10 @@ Logging Symbols</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><span class="tt">[j]</span>  </td><td class="markdownTableBodyNone">A file was ignored/considered junk  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">[n]</span>  </td><td class="markdownTableBodyNone">A file was not detected as modified  </td></tr>
-<tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><span class="tt">[s]</span>  </td><td class="markdownTableBodyNone">A directory is being scanned  </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><span class="tt">[x]</span>  </td><td class="markdownTableBodyNone">A system command is being invoked  </td></tr>
 <tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">[x]</span>  </td><td class="markdownTableBodyNone">A system command is being invoked  </td></tr>
+<tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><span class="tt">[!]</span>  </td><td class="markdownTableBodyNone">An error has occurred  </td></tr>
 </table>
 <h3 class="doxsection"><a class="anchor" id="autotoc_md7"></a>

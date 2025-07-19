@@ -145,9 +145,7 @@ Macros</h2></td></tr>
 <tr class="memdesc:af3d607798dc2ca6e14d3d0e3696d516a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger bit flag for modified file events.  <br /></td></tr>
 <tr class="memitem:a285442411fe48cbde5734ffc2b9dad2f" id="r_a285442411fe48cbde5734ffc2b9dad2f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a285442411fe48cbde5734ffc2b9dad2f">LCTRIG_DEL</a>&#160;&#160;&#160;(1 &lt;&lt; 2)</td></tr>
 <tr class="memdesc:a285442411fe48cbde5734ffc2b9dad2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger bit flag for deleted file events.  <br /></td></tr>
-<tr class="memitem:ae7e0227201ce13d4abb0ff8a183ffc00" id="r_ae7e0227201ce13d4abb0ff8a183ffc00"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7e0227201ce13d4abb0ff8a183ffc00">LCTRIG_NOP</a>&#160;&#160;&#160;(1 &lt;&lt; 3)</td></tr>
-<tr class="memdesc:ae7e0227201ce13d4abb0ff8a183ffc00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger bit flag for no operation/unmodified file events.  <br /></td></tr>
-<tr class="memitem:aab75a5f9f9e5197918b30f3e05869eef" id="r_aab75a5f9f9e5197918b30f3e05869eef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab75a5f9f9e5197918b30f3e05869eef">LCTRIG_ALL</a>&#160;&#160;&#160;(<a class="el" href="#a76e42ece380189152c2ed16111b7166c">LCTRIG_NEW</a> | <a class="el" href="#af3d607798dc2ca6e14d3d0e3696d516a">LCTRIG_MOD</a> | <a class="el" href="#a285442411fe48cbde5734ffc2b9dad2f">LCTRIG_DEL</a> | <a class="el" href="#ae7e0227201ce13d4abb0ff8a183ffc00">LCTRIG_NOP</a>)</td></tr>
+<tr class="memitem:aab75a5f9f9e5197918b30f3e05869eef" id="r_aab75a5f9f9e5197918b30f3e05869eef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab75a5f9f9e5197918b30f3e05869eef">LCTRIG_ALL</a>&#160;&#160;&#160;(<a class="el" href="#a76e42ece380189152c2ed16111b7166c">LCTRIG_NEW</a> | <a class="el" href="#af3d607798dc2ca6e14d3d0e3696d516a">LCTRIG_MOD</a> | <a class="el" href="#a285442411fe48cbde5734ffc2b9dad2f">LCTRIG_DEL</a>)</td></tr>
 <tr class="memdesc:aab75a5f9f9e5197918b30f3e05869eef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trigger bit flag for all file events.  <br /></td></tr>
 <tr class="memitem:abfcb2d2c25764bac51d7e0901c31f5cf" id="r_abfcb2d2c25764bac51d7e0901c31f5cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abfcb2d2c25764bac51d7e0901c31f5cf">LCTOPT_TRACE</a>&#160;&#160;&#160;(1 &lt;&lt; 7)</td></tr>
 <tr class="memdesc:abfcb2d2c25764bac51d7e0901c31f5cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Option bit flag for tracing command set matches by printing to stdout.  <br /></td></tr>
@@ -207,7 +205,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define LCTRIG_ALL&#160;&#160;&#160;(<a class="el" href="#a76e42ece380189152c2ed16111b7166c">LCTRIG_NEW</a> | <a class="el" href="#af3d607798dc2ca6e14d3d0e3696d516a">LCTRIG_MOD</a> | <a class="el" href="#a285442411fe48cbde5734ffc2b9dad2f">LCTRIG_DEL</a> | <a class="el" href="#ae7e0227201ce13d4abb0ff8a183ffc00">LCTRIG_NOP</a>)</td>
+          <td class="memname">#define LCTRIG_ALL&#160;&#160;&#160;(<a class="el" href="#a76e42ece380189152c2ed16111b7166c">LCTRIG_NEW</a> | <a class="el" href="#af3d607798dc2ca6e14d3d0e3696d516a">LCTRIG_MOD</a> | <a class="el" href="#a285442411fe48cbde5734ffc2b9dad2f">LCTRIG_DEL</a>)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -261,22 +259,6 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Trigger bit flag for new file events. </p>
-
-</div>
-</div>
-<a id="ae7e0227201ce13d4abb0ff8a183ffc00" name="ae7e0227201ce13d4abb0ff8a183ffc00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7e0227201ce13d4abb0ff8a183ffc00">&#9670;&#160;</a></span>LCTRIG_NOP</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define LCTRIG_NOP&#160;&#160;&#160;(1 &lt;&lt; 3)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Trigger bit flag for no operation/unmodified file events. </p>
 
 </div>
 </div>
@@ -511,7 +493,7 @@ Here is the call graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="227,61,288,56,289,61,228,67"/>
 <area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="302,91,377,116"/>
 <area shape="poly" title=" " alt="" coords="237,118,287,109,288,115,238,123"/>
-<area shape="rect" href="lcmd_8c.html#a6a3fd8d01dba4b434b70b85ca5fdba45" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="292,140,387,166"/>
+<area shape="rect" href="lcmd_8c.html#a124832f00584c93167d1e2e55e36ed79" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="292,140,387,166"/>
 <area shape="poly" title=" " alt="" coords="238,134,278,140,277,146,237,139"/>
 <area shape="rect" href="lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="285,189,394,215"/>
 <area shape="poly" title=" " alt="" coords="214,140,286,176,295,180,293,185,284,181,212,145"/>

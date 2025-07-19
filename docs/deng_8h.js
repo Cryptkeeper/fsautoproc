@@ -5,8 +5,7 @@ var deng_8h =
     [ "deng_fevent_t", "deng_8h.html#a789d56065b6d1df39eaac79325be36da", [
       [ "DENG_FEVENT_NEW", "deng_8h.html#a789d56065b6d1df39eaac79325be36daa12e87bfd697634e3e03e250e6128a722", null ],
       [ "DENG_FEVENT_DEL", "deng_8h.html#a789d56065b6d1df39eaac79325be36daa1865b9ce4de7957d9d922e12a16e3e40", null ],
-      [ "DENG_FEVENT_MOD", "deng_8h.html#a789d56065b6d1df39eaac79325be36daae73f8b263bb9d8e1ce80c0577ab983c2", null ],
-      [ "DENG_FEVENT_NOP", "deng_8h.html#a789d56065b6d1df39eaac79325be36daa0f73d6177332e5c944367be516aef19e", null ]
+      [ "DENG_FEVENT_MOD", "deng_8h.html#a789d56065b6d1df39eaac79325be36daae73f8b263bb9d8e1ce80c0577ab983c2", null ]
     ] ],
     [ "deng_notif_t", "deng_8h.html#ac61c6e238b41a96795d7228812e25fe4", [
       [ "DENG_NOTIF_DIR_DONE", "deng_8h.html#ac61c6e238b41a96795d7228812e25fe4af82ce4959eeb5d2a05b182dd2ae520ed", null ],
