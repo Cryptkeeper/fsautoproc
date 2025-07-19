@@ -40,11 +40,11 @@ struct fdset_s;
 /// @brief A set of system commands to execute when a file event of a specific
 /// type and file path is triggered.
 struct lcmdset_s {
-  int onflags;         ///< Command set trigger bit flags
-  regex_t** fpatterns; ///< Compiled regex patterns used for file path matching
-  slist_t* syscmds;    ///< Commands to pass to `system(3)`
-  char* name;          ///< Command set name or description for logging
-  uint64_t msspent;    ///< Sum milliseconds spent executing commands
+  int onflags;        ///< Command set trigger bit flags
+  regex_t** fpatterns;///< Compiled regex patterns used for file path matching
+  slist_t syscmds;    ///< Commands to pass to `system(3)`
+  char* name;         ///< Command set name or description for logging
+  uint64_t msspent;   ///< Sum milliseconds spent executing commands
 };
 
 /// @brief Iterates and frees all memory allocated by the command set array.

@@ -9,20 +9,28 @@
 #ifndef SL_H
 #define SL_H
 
-typedef char *slist_t;
+/// @struct slist_s
+/// @brief A resizable string list structure wrapping an array of strings.
+struct slist_s {
+  char **strings; //< Array of strings, array itself is NULL terminated
+  long len;       //< Current number of strings in the list
+  long cap;       //< Total capacity of the strings list
+};
+
+typedef struct slist_s slist_t;
 
 /// @brief 'sladd' duplicates a string and appends it to the end of the string
-/// list. The list is resized by one element to accommodate the new string. The
-/// potentially reallocated list is returned in 'sl'. A new string list is
-/// allocated by passing a non-NULL pointer (to a NULL value) to 'sl'. The
-/// caller is responsible for freeing the list using 'slfree'.
-/// @param sl The string list to append to, return in the event of reallocation.
+/// list. The list may be resized if necessary to accommodate the new string.
+/// 'sladd' will not automatically shrink the list capacity.
+/// @param sl The string list to append to, must not be NULL. A zero initialized
+/// list is treated as an empty list.
 /// @param str The string to duplicate and append, must not be NULL.
 /// @return 0 if successful and 'sl' is set to the new string list, otherwise -1
 /// is returned, 'errno' is set, and the original list is left unchanged.
-int sladd(slist_t **sl, const char *str);
+int sladd(slist_t *sl, const char *str);
 
-/// @brief 'slfree' frees all strings in the string list and the list itself.
+/// @brief 'slfree' frees any/all strings in the string list. The list may be
+/// reused safely after this call.
 /// @param sl The string list to free, may be NULL.
 void slfree(slist_t *sl);
 
@@ -35,8 +43,7 @@ void slfree(slist_t *sl);
 /// empty, NULL is returned.
 char *slpop(slist_t *sl);
 
-/// @brief 'slcount' returns the number of elements in the string list. This
-/// function is O(n) and should be used sparingly in performance-critical code.
+/// @brief 'slcount' returns the number of elements in the string list.
 /// @param sl The string list to count elements in.
 /// @return The number of elements in the list. If the list is NULL or empty, 0
 /// is returned. The return value is always non-negative.
@@ -61,39 +68,43 @@ long slcount(const slist_t *sl);
 #define SLX_STRDUP strdup
 #endif
 
-int sladd(slist_t **sl, const char *str) {
-  slist_t *r = NULL;
-  const long c = slcount(*sl);
-  if ((r = SLX_REALLOC(*sl, (c + 2) * sizeof(char *))) == NULL ||
-      (r[c] = SLX_STRDUP(str)) == NULL)
+int sladd(slist_t *sl, const char *str) {
+  if (sl->len + 1 >= sl->cap) {
+    const long newcap = sl->cap == 0 ? 4 : (long)((double)sl->cap * 1.5);
+    char **r;
+    if ((r = SLX_REALLOC(sl->strings, (newcap + 1) * sizeof(char *))) == NULL)
+      return -1;
+    sl->strings = r;
+    sl->cap = newcap;
+  }
+  if ((sl->strings[sl->len] = SLX_STRDUP(str)) == NULL)
     return -1;
-  r[c + 1] = NULL;
-  *sl = r;
+  sl->strings[++sl->len] = NULL;
   return 0;
 }
 
 void slfree(slist_t *sl) {
+  if (sl == NULL)
+    return;
   long i;
-  for (i = 0; sl != NULL && sl[i] != NULL; i++)
-    SLX_FREE(sl[i]);
-  SLX_FREE(sl);
+  for (i = 0; sl->strings != NULL && sl->strings[i] != NULL; i++)
+    SLX_FREE(sl->strings[i]);
+  SLX_FREE(sl->strings);
+  sl->strings = NULL;
+  sl->len = sl->cap = 0;
 }
 
 char *slpop(slist_t *sl) {
-  const long c = slcount(sl);
-  char *r = NULL;
-  if (c == 0)
+  if (sl == NULL || sl->len == 0)
     return NULL;
-  r = sl[c - 1];
-  sl[c - 1] = NULL;
-  return r;
+  sl->len--;
+  char *const str = sl->strings[sl->len];
+  sl->strings[sl->len] = NULL;
+  return str;
 }
 
 long slcount(const slist_t *sl) {
-  long c = 0;
-  for (; sl != NULL && sl[c] != NULL; c++)
-    ;
-  return c;
+  return sl != NULL ? sl->len : 0;
 }
 
 #endif // SL_IMPL_ONCE

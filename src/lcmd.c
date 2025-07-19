@@ -33,7 +33,7 @@ static void lcmdfree(struct lcmdset_s* cmd) {
   }
   je_free(cmd->fpatterns);
   je_free(cmd->name);
-  slfree(cmd->syscmds);
+  slfree(&cmd->syscmds);
   je_free(cmd);
 }
 
@@ -75,23 +75,18 @@ err:
 /// @brief Duplicates a cJSON array of strings into a slist_t. cJSON array
 /// entries that fail `cJSON_IsString` will be ignored and a warning printed.
 /// @param arr cJSON array of strings
-/// @return NULL if an error occurred, otherwise a pointer to a dynamically
-/// allocated slist_t. The caller is responsible for freeing the list using
-/// `slfree`.
-static slist_t* lcmdjsontosl(const cJSON* arr) {
-  slist_t* sl = NULL;
+/// @param sl Pointer to a slist_t to populate with the strings.
+/// @return -1 if an error occurs, otherwise 0 on success.
+static int lcmdjsontosl(const cJSON* arr, slist_t *sl) {
   cJSON* e;
   cJSON_ArrayForEach(e, arr) {
     if (!cJSON_IsString(e)) {
       log_error("error converting cmd, not a string: %s", e->valuestring);
-    } else if (sladd(&sl, e->valuestring)) {
-      goto err;
+    } else if (sladd(sl, e->valuestring)) {
+      return -1;
     }
   }
-  return sl;
-err:
-  slfree(sl);
-  return NULL;
+  return 0;
 }
 
 /// @brief Parses a cJSON array of strings into a set of file event bit flags.
@@ -134,7 +129,9 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
     return -1;
 
   if ((cmd->onflags = lcmdparseflags(onlist)) == 0) return -1;
-  if ((cmd->syscmds = lcmdjsontosl(clist)) == NULL) return -1;
+
+  cmd->syscmds = (slist_t){0};
+  if (lcmdjsontosl(clist, &cmd->syscmds)) return -1;
 
   // copy description, otherwise use the index as the name
   cJSON* desc = cJSON_GetObjectItem(obj, "description");
@@ -317,8 +314,8 @@ int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node,
     }
 
     // invoke all system commands
-    for (size_t j = 0; s->syscmds[j] != NULL; j++)
-      if ((ret = lcmdinvoke(s->syscmds[j], node, fds, flags, &s->msspent)))
+    for (size_t j = 0; s->syscmds.strings[j] != NULL; j++)
+      if ((ret = lcmdinvoke(s->syscmds.strings[j], node, fds, flags, &s->msspent)))
         break;
   }
   return ret;

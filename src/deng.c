@@ -24,7 +24,7 @@
 /// @brief Search state context provided to the diff engine as user data which
 /// is passed to the file event hook functions.
 struct deng_state_s {
-  slist_t* dirqueue;               ///< Processing directory queue
+  slist_t dirqueue;                ///< Processing directory queue
   deng_filter_t ffn;               ///< File filter function
   const struct deng_hooks_s* hooks;///< File event hook functions
   const struct index_s* lastmap;   ///< Previous index state
@@ -133,12 +133,12 @@ static int dqpush(const char* fp, void* udata) {
 /// @return 0 if successful, otherwise a non-zero error code.
 static int execstage(struct deng_state_s* mach, const char* sd,
                      fswalkfn_t filefn) {
-  slfree(mach->dirqueue);
-  mach->dirqueue = NULL;
+  slfree(&mach->dirqueue);
+  mach->dirqueue = (slist_t){0};
   if (sladd(&mach->dirqueue, sd)) return -1;
 
   char* dir;
-  while ((dir = slpop(mach->dirqueue)) != NULL) {
+  while ((dir = slpop(&mach->dirqueue)) != NULL) {
     int err;
     if ((err = fswalk(dir, filefn, dqpush, (void*) mach))) {
       log_error("file func for `%s` returned %d", dir, err);
@@ -180,12 +180,12 @@ int dengsearch(const char* sd, deng_filter_t filter,
   assert(old != NULL);
   assert(new != NULL);
 
-  struct deng_state_s mach = {NULL, filter, hooks, old, new};
+  struct deng_state_s mach = {{0}, filter, hooks, old, new};
   int err;
   if ((err = execstage(&mach, sd, stagepre))) goto ret;
   if ((err = checkremoved(&mach))) goto ret;
   if ((err = execstage(&mach, sd, stagepost))) goto ret;
 ret:
-  slfree(mach.dirqueue);
+  slfree(&mach.dirqueue);
   return err;
 }
