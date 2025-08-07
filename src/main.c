@@ -70,6 +70,19 @@ static void freeall(void) {
   tpfree();
 }
 
+/// @brief Allocates and formats a string for the index file path based on the
+/// provided configuration file path. The resulting string will have the same
+/// name as the configuration file but with an added `.idx` suffix.
+/// @param configfp The configuration file path to base the index file path on
+/// @return A dynamically allocated string containing the index file path.
+/// The caller is responsible for freeing the returned string.
+static char* mkindexpath(const char* configfp) {
+  const size_t l = strlen(configfp) + 5;// +5 for ".idx\0" suffix
+  char* str = je_malloc(l);
+  if (str) snprintf(str, l, "%s.idx", configfp);
+  return str;
+}
+
 /// @def muststrdup
 /// @brief Duplicates the source `src` string value into the specified variable.
 /// If the duplication fails, an error message is printed and the function
@@ -161,9 +174,9 @@ static int parseinitargs(const int argc, char** const argv) {
 
   if (initargs.searchdir == NULL) muststrdup(".", initargs.searchdir);
 
-  // default to using index.dat inside search directory
+  // default to using config file name with .dat suffix
   if (initargs.indexfile == NULL &&
-      !(initargs.indexfile = fsjoin(initargs.searchdir, "index.dat"))) {
+      !(initargs.indexfile = mkindexpath(initargs.configfile))) {
     perror(NULL);
     return 1;
   }
@@ -216,7 +229,7 @@ static bool filterjunk(const char* fp) {
   if (junk) {
     if (initargs.verbose) log_info("[j] %s", fp);
   } else {
-    indexput(&goodmap, fp, fphash, (struct fsstat_s){0}); // mark as known good
+    indexput(&goodmap, fp, fphash, (struct fsstat_s) {0});// mark as known good
   }
   return junk;
 }

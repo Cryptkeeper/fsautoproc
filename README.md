@@ -41,7 +41,7 @@ Git submodules provide:
 
 ```
 $ fsautoproc -h
-Usage: fsautoproc -i <file>
+Usage: fsautoproc -c <file>
 
 Options:
   -c <file>   Configuration file (default: `fsautoproc.json`)
