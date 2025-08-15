@@ -52,7 +52,7 @@ static void* tpentrypoint(void* arg) {
 
     const struct tpreq_s* req = &self->work;
     int err;
-    if ((err = lcmdexec(req->cs, req->node, &self->fds, req->flags)))
+    if ((err = lcmdexec(req->cs, req->node->fp, self->fds, req->flags)))
       log_error("thread execution error: %d", err);
     if (req->flags & (LCTRIG_NEW | LCTRIG_MOD)) {
       if ((err = fsstat(req->node->fp, &req->node->st)))

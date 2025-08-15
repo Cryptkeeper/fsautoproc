@@ -16,7 +16,6 @@
 #include "jemalloc/jemalloc.h"
 
 #include "fd.h"
-#include "index.h"
 #include "je.h"
 #include "log.h"
 #include "sl.h"
@@ -77,7 +76,7 @@ err:
 /// @param arr cJSON array of strings
 /// @param sl Pointer to a slist_t to populate with the strings.
 /// @return -1 if an error occurs, otherwise 0 on success.
-static int lcmdjsontosl(const cJSON* arr, slist_t *sl) {
+static int lcmdjsontosl(const cJSON* arr, slist_t* sl) {
   cJSON* e;
   cJSON_ArrayForEach(e, arr) {
     if (!cJSON_IsString(e)) {
@@ -130,7 +129,7 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
 
   if ((cmd->onflags = lcmdparseflags(onlist)) == 0) return -1;
 
-  cmd->syscmds = (slist_t){0};
+  cmd->syscmds = (slist_t) {0};
   if (lcmdjsontosl(clist, &cmd->syscmds)) return -1;
 
   // copy description, otherwise use the index as the name
@@ -236,7 +235,7 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp) {
 /// variable for use in the command. File descriptor set \p fds is used to
 /// optionally redirect stdout and stderr of the child command processes.
 /// @param cmd The command string to execute
-/// @param node The file node to use for the FILEPATH environment variable
+/// @param fp The file path to assign to the FILEPATH environment variable
 /// @param fds The file descriptor set to use for stdout/stderr redirection
 /// @param flags Bit flags for controlling command execution. If the
 /// `LCTOPT_VERBOSE` flag is set, the command will be printed to stdout before
@@ -245,9 +244,8 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp) {
 /// @param msspent Optional pointer to a uint64_t value to which the time spent
 /// executing the command (in milliseconds) will be added.
 /// @return 0 if successful, otherwise -1 to indicate an error.
-static int lcmdinvoke(const char* cmd, const struct inode_s* node,
-                      const struct fdset_s* fds, const int flags,
-                      uint64_t* msspent) {
+static int lcmdinvoke(const char* cmd, const char* fp, struct fdset_s fds,
+                      const int flags, uint64_t* msspent) {
   if (flags & LCTOPT_VERBOSE) log_verbose("[x] %s", cmd);
 
   const uint64_t start = tmnow();
@@ -258,23 +256,23 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node,
     log_error("process forking error `%s`: %s", cmd, strerror(errno));
     return -1;
   } else if (pid == 0) {
-    if (dup2(fds->out, STDOUT_FILENO) < 0) {
-      log_error("cannot redirect stdout to %d: %s", fds->out, strerror(errno));
+    if (dup2(fds.out, STDOUT_FILENO) < 0) {
+      log_error("cannot redirect stdout to %d: %s", fds.out, strerror(errno));
       _exit(1); /* avoid firing parent atexit handlers */
     }
-    if (dup2(fds->err, STDERR_FILENO) < 0) {
-      log_error("cannot redirect stderr to %d: %s", fds->err, strerror(errno));
+    if (dup2(fds.err, STDERR_FILENO) < 0) {
+      log_error("cannot redirect stderr to %d: %s", fds.err, strerror(errno));
       _exit(1); /* avoid firing parent atexit handlers */
     }
 
     // child process, modify local environment variables for use in commands
-    setenv("FILEPATH", node->fp, 1);
+    setenv("FILEPATH", fp, 1);
 
     // execute the command and instantly exit child process
     int err;
     if ((err = system(cmd))) log_error("command `%s` returned %d", cmd, err);
-    fdclose((struct fdset_s*) fds); /* close child process references */
-    _exit(err);                     /* avoid firing parent atexit handlers */
+    fdclose(&fds); /* close child process references */
+    _exit(err);    /* avoid firing parent atexit handlers */
   } else {
     // parent process, wait for child process to finish
     int eid = 0;
@@ -292,8 +290,8 @@ static int lcmdinvoke(const char* cmd, const struct inode_s* node,
   }
 }
 
-int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node,
-             const struct fdset_s* fds, int flags) {
+int lcmdexec(struct lcmdset_s** cs, const char* fp, const struct fdset_s fds,
+             int flags) {
   int ret = 0;
   for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
     struct lcmdset_s* s = cs[i];
@@ -302,20 +300,21 @@ int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node,
         log_info("cmdset %zu ignored flags: 0x%02X", i, flags);
       continue;
     }
-    if (!lcmdmatch(s->fpatterns, node->fp)) {
+    if (!lcmdmatch(s->fpatterns, fp)) {
       if (flags & LCTOPT_TRACE)
-        log_info("cmdset %zu ignored filepath: %s", i, node->fp);
+        log_info("cmdset %zu ignored filepath: %s", i, fp);
       continue;
     }
 
     if (flags & LCTOPT_TRACE) {
-      log_info("cmdset %zu (0x%02X) matched: %s", i, s->onflags, node->fp);
+      log_info("cmdset %zu (0x%02X) matched: %s", i, s->onflags, fp);
       continue;// skip executing commands
     }
 
     // invoke all system commands
     for (size_t j = 0; s->syscmds.strings[j] != NULL; j++)
-      if ((ret = lcmdinvoke(s->syscmds.strings[j], node, fds, flags, &s->msspent)))
+      if ((ret = lcmdinvoke(s->syscmds.strings[j], fp, fds, flags,
+                            &s->msspent)))
         break;
   }
   return ret;

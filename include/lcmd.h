@@ -9,7 +9,6 @@
 
 #include "sl.h"
 
-struct inode_s;
 struct fdset_s;
 
 /// @def LCTRIG_NEW
@@ -51,7 +50,7 @@ struct lcmdset_s {
 /// @param cs The command set array to free
 void lcmdfree_r(struct lcmdset_s** cs);
 
-/// @brief Prses the provided file path and populates an array of command sets.
+/// @brief Parses the provided file path and populates an array of command sets.
 /// The file must be a valid JSON file containing an array of objects. Each
 /// object must contain the following keys:
 /// - `on`: An array of trigger flags to match
@@ -80,7 +79,7 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp);
 /// system commands on the provided file node if the trigger flags and file
 /// patterns match.
 /// @param cs The command set array to filter and execute
-/// @param node The file node to execute on
+/// @param fp The file path to match against the command set
 /// @param fds The file descriptor set to use for stdout/stderr redirection
 /// @param flags The trigger flags to match, see `LCTRIG_*`. If `LCTOPT_VERBOSE`
 /// is set, the commands will be printed to stdout before execution. If
@@ -88,7 +87,7 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp);
 /// be printed to stdout.
 /// @return 0 if successful, otherwise the first non-zero return value from
 /// `system(3)` is returned.
-int lcmdexec(struct lcmdset_s** cs, const struct inode_s* node,
-             const struct fdset_s* fds, int flags);
+int lcmdexec(struct lcmdset_s** cs, const char* fp, struct fdset_s fds,
+             int flags);
 
 #endif//FSAUTOPROC_LCMD_H

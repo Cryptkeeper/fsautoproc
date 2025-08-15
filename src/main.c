@@ -323,10 +323,8 @@ static int cmpchanges(void) {
 /// @param fp The file path to trace
 /// @return 0 if successful, otherwise a non-zero error code.
 static int tracefile(const char* fp) {
-  struct inode_s node = {.fp = (char*) fp};
-  if (fsstat(fp, &node.st)) return -1;
   const struct fdset_s fds = {.out = STDOUT_FILENO, .err = STDERR_FILENO};
-  return lcmdexec(cmdsets, &node, &fds, LCTOPT_TRACE | LCTRIG_ALL);
+  return lcmdexec(cmdsets, fp, fds, LCTOPT_TRACE | LCTRIG_ALL);
 }
 
 /// @brief Prints the time spent for each command set to the console.
