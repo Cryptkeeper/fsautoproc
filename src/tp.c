@@ -20,6 +20,7 @@
 /// @struct thrd_s
 /// @brief Initialized worker thread in the thread pool.
 struct thrd_s {
+  _Atomic bool initd;  ///< Thread initialized flag
   _Atomic bool rsrvd;  ///< Work request reservation flag
   _Atomic bool canwork;///< Work request ready to process flag
   struct tpreq_s work; ///< Work request to process
@@ -95,13 +96,7 @@ int tpinit(const int size, const int flags) {
   if ((thrds = je_calloc(size + 1, sizeof(struct thrd_s*))) == NULL) goto fail;
   for (int i = 0; i < size; i++) {
     if ((thrds[i] = je_calloc(1, sizeof(struct thrd_s))) == NULL) goto fail;
-    struct thrd_s* t = thrds[i];
-    tpinitthrd(t, i, flags);
-    int err;
-    if ((err = pthread_create(&t->tid, NULL, tpentrypoint, t))) {
-      log_error("cannot create thread: %s", strerror(err));
-      return -1;
-    }
+    tpinitthrd(thrds[i], i, flags);
   }
   return 0;
 fail:
@@ -117,9 +112,15 @@ int tpqueue(const struct tpreq_s* req) {
 findnext:
   for (size_t i = 0; thrds[i] != NULL; i++) {
     struct thrd_s* t = thrds[i];
-    bool isrsrvd = false;
-    if (!atomic_compare_exchange_strong(&t->rsrvd, &isrsrvd, true))
-      continue; /* thread is already reserved */
+    if (atomic_exchange(&t->rsrvd, true))
+      continue;                              /* thread is already reserved */
+    if (!atomic_exchange(&t->initd, true)) { /* lazy init pthread instance */
+      int err;
+      if ((err = pthread_create(&t->tid, NULL, tpentrypoint, t))) {
+        log_error("cannot create thread: %s", strerror(err));
+        return -1;
+      }
+    }
     memcpy(&t->work, req, sizeof(*req));
     atomic_store(&t->canwork, true); /* release lock/allow thread to continue */
     return 0;
@@ -140,7 +141,7 @@ void tpshutdown(void) {
     ;
   for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) {
     struct thrd_s* t = thrds[i];
-    pthread_join(t->tid, NULL);
+    if (atomic_exchange(&t->initd, false)) pthread_join(t->tid, NULL);
     if (t->fdsopen) {
       t->fdsopen = false;
       fdclose(&t->fds);
