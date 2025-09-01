@@ -23,7 +23,7 @@
 <area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="367,120,335,120,335,114,367,114"/>
 <area shape="poly" id="edge10_Node000009_Node000004" title=" " alt="" coords="230,109,198,104,199,98,231,104"/>
 <area shape="poly" id="edge12_Node000010_Node000009" title=" " alt="" coords="370,150,325,133,327,128,372,145"/>
-<area shape="rect" id="Node000012" href="$lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Prses the provided file path and populates an array of command sets. The file must be a valid JSON fi..." alt="" coords="110,155,191,180"/>
+<area shape="rect" id="Node000012" href="$lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Parses the provided file path and populates an array of command sets. The file must be a valid JSON f..." alt="" coords="110,155,191,180"/>
 <area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="493,196,382,194,279,186,191,176,192,170,279,180,382,189,493,190"/>
 <area shape="poly" id="edge15_Node000012_Node000005" title=" " alt="" coords="94,159,54,151,56,146,95,154"/>
 </map>

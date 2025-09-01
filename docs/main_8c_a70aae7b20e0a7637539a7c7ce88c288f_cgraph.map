@@ -1,5 +1,7 @@
 <map id="parseinitargs" name="parseinitargs">
-<area shape="rect" id="Node000001" title="Parses the program initialization arguments into initargs." alt="" coords="5,5,101,31"/>
-<area shape="rect" id="Node000002" href="$fs_8c.html#aa1d4e9bed28c32018a597913eb2b3dee" title="Concatenates the two strings into a single path string, joined by a / (path separator) character...." alt="" coords="149,5,201,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,16,133,16,133,21,101,21"/>
+<area shape="rect" id="Node000001" title="Parses the program initialization arguments into initargs." alt="" coords="5,31,101,56"/>
+<area shape="rect" id="Node000002" href="$fs_8c.html#aa1d4e9bed28c32018a597913eb2b3dee" title="Concatenates the two strings into a single path string, joined by a / (path separator) character...." alt="" coords="170,5,222,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,32,154,23,155,28,102,38"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a60d3e3e702ef1f4037f234ec08e63d2b" title="Allocates and formats a string for the index file path based on the provided configuration file path...." alt="" coords="149,55,244,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="102,49,134,54,133,60,101,54"/>
 </map>

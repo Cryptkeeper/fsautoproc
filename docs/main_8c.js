@@ -7,6 +7,7 @@ var main_8c =
     [ "freeinitargs", "main_8c.html#a91224adbae9c6933e2469d45de8d340a", null ],
     [ "loadindex", "main_8c.html#a622aba9b5995598f63a704054f527050", null ],
     [ "main", "main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627", null ],
+    [ "mkindexpath", "main_8c.html#a60d3e3e702ef1f4037f234ec08e63d2b", null ],
     [ "onevent", "main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28", null ],
     [ "onnotify", "main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f", null ],
     [ "parseinitargs", "main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f", null ],
