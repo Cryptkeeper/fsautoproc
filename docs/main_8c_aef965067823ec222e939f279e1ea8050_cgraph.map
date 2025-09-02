@@ -1,0 +1,5 @@
+<map id="interruptsig" name="interruptsig">
+<area shape="rect" id="Node000001" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="5,5,91,31"/>
+<area shape="rect" id="Node000002" href="$tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="139,5,195,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,16,123,16,123,21,91,21"/>
+</map>

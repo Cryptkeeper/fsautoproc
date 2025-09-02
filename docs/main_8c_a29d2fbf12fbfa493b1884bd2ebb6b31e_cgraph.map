@@ -1,0 +1,7 @@
+<map id="siglisten" name="siglisten">
+<area shape="rect" id="Node000001" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="5,5,75,31"/>
+<area shape="rect" id="Node000002" href="$main_8c.html#aef965067823ec222e939f279e1ea8050" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="123,5,208,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,16,107,16,107,21,75,21"/>
+<area shape="rect" id="Node000003" href="$tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="256,5,312,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="209,16,240,16,240,21,209,21"/>
+</map>

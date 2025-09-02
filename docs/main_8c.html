@@ -97,6 +97,7 @@ $(function(){initNavTree('main_8c.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;assert.h&gt;</code><br />
 <code>#include &lt;errno.h&gt;</code><br />
+<code>#include &lt;signal.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
@@ -118,55 +119,57 @@ Include dependency graph for main.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c__incl.png" border="0" usemap="#asrc_2main_8c" loading="lazy" alt=""/></div>
 <map name="asrc_2main_8c" id="asrc_2main_8c">
-<area shape="rect" title="Main program entry point." alt="" coords="560,5,642,31"/>
+<area shape="rect" title="Main program entry point." alt="" coords="606,5,689,31"/>
 <area shape="rect" title=" " alt="" coords="5,79,74,105"/>
-<area shape="poly" title=" " alt="" coords="559,25,361,44,228,60,89,81,88,76,227,55,360,38,559,20"/>
+<area shape="poly" title=" " alt="" coords="606,25,389,42,242,59,89,81,89,76,241,54,388,37,605,19"/>
 <area shape="rect" title=" " alt="" coords="98,79,160,105"/>
-<area shape="poly" title=" " alt="" coords="560,27,393,48,179,82,175,82,174,77,178,76,392,42,559,21"/>
-<area shape="rect" title=" " alt="" coords="229,226,303,252"/>
-<area shape="poly" title=" " alt="" coords="559,26,420,45,351,61,325,70,306,81,294,94,284,109,272,144,267,179,266,211,261,211,261,179,266,142,279,107,290,91,303,77,323,66,350,56,419,39,559,20"/>
-<area shape="rect" title=" " alt="" coords="352,153,412,178"/>
-<area shape="poly" title=" " alt="" coords="576,34,490,81,446,113,408,145,405,141,443,109,487,77,573,29"/>
-<area shape="rect" title=" " alt="" coords="525,79,588,105"/>
-<area shape="poly" title=" " alt="" coords="596,33,575,67,570,64,591,30"/>
-<area shape="rect" title=" " alt="" coords="613,79,677,105"/>
-<area shape="poly" title=" " alt="" coords="610,30,632,64,627,67,606,33"/>
-<area shape="rect" title=" " alt="" coords="700,79,768,105"/>
-<area shape="poly" title=" " alt="" coords="625,29,699,69,697,74,622,34"/>
-<area shape="rect" title=" " alt="" coords="792,79,924,105"/>
-<area shape="poly" title=" " alt="" coords="643,28,801,72,799,77,641,33"/>
-<area shape="rect" href="deng_8h.html" title="Differential file search comparison function and hook structure." alt="" coords="149,153,210,178"/>
-<area shape="poly" title=" " alt="" coords="559,24,479,30,382,41,291,58,256,69,230,81,217,93,205,108,190,140,185,137,201,105,213,90,227,77,254,64,290,53,381,36,479,25,559,19"/>
-<area shape="rect" href="fd_8h.html" title="File descriptor output redirection for child processes." alt="" coords="948,79,992,105"/>
-<area shape="poly" title=" " alt="" coords="643,22,770,42,934,76,933,81,769,47,642,27"/>
-<area shape="rect" href="fl_8h.html" title="Basic file lock API." alt="" coords="1016,79,1055,105"/>
-<area shape="poly" title=" " alt="" coords="643,20,797,38,897,54,1001,76,1000,82,896,60,796,43,642,26"/>
-<area shape="rect" href="fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="284,153,328,178"/>
-<area shape="poly" title=" " alt="" coords="560,26,498,32,428,44,365,60,341,70,325,81,317,93,311,107,307,138,302,137,306,106,312,91,322,77,339,65,364,55,427,38,498,27,559,20"/>
-<area shape="rect" href="index_8h.html" title="File index mapping and serialization functions." alt="" coords="336,79,399,105"/>
-<area shape="poly" title=" " alt="" coords="562,34,415,79,413,74,560,29"/>
-<area shape="rect" href="je_8h.html" title="jemalloc&#45;related utility functions." alt="" coords="1080,79,1122,105"/>
-<area shape="poly" title=" " alt="" coords="643,19,823,36,942,53,1065,76,1064,82,941,58,822,41,642,25"/>
-<area shape="rect" href="lcmd_8h.html" title="File&#45;specific system command execution mapping functions." alt="" coords="436,153,496,178"/>
-<area shape="poly" title=" " alt="" coords="578,34,546,54,515,81,494,110,479,139,474,137,490,107,511,77,543,50,575,29"/>
-<area shape="rect" href="log_8h.html" title="Logging macros for the application." alt="" coords="1146,79,1195,105"/>
-<area shape="poly" title=" " alt="" coords="643,19,849,34,988,51,1131,76,1130,81,987,57,849,40,642,24"/>
-<area shape="rect" href="prog_8h.html" title="Progress bar format and printing functions." alt="" coords="1219,79,1276,105"/>
-<area shape="poly" title=" " alt="" coords="643,18,878,33,1038,51,1204,76,1203,81,1037,56,877,39,642,24"/>
-<area shape="rect" href="tp_8h.html" title="Thread pool API for executing work requests." alt="" coords="1300,79,1344,105"/>
-<area shape="poly" title=" " alt="" coords="643,17,753,19,910,28,1095,45,1191,59,1286,76,1285,82,1190,64,1094,51,910,33,752,25,642,22"/>
-<area shape="poly" title=" " alt="" coords="196,177,242,214,238,218,193,181"/>
-<area shape="poly" title=" " alt="" coords="302,180,283,214,278,212,297,177"/>
-<area shape="rect" title=" " alt="" coords="337,226,401,252"/>
-<area shape="poly" title=" " alt="" coords="319,177,350,213,346,216,315,180"/>
-<area shape="poly" title=" " alt="" coords="373,104,379,137,374,138,367,105"/>
-<area shape="poly" title=" " alt="" coords="359,107,328,142,324,139,355,103"/>
-<area shape="poly" title=" " alt="" coords="436,180,315,223,314,218,434,175"/>
-<area shape="poly" title=" " alt="" coords="451,181,399,219,396,215,448,177"/>
-<area shape="rect" title=" " alt="" coords="429,226,493,252"/>
-<area shape="poly" title=" " alt="" coords="468,179,466,211,460,211,463,178"/>
-<area shape="rect" title=" " alt="" coords="517,226,559,252"/>
-<area shape="poly" title=" " alt="" coords="480,177,517,213,513,217,476,180"/>
+<area shape="poly" title=" " alt="" coords="606,25,423,44,302,60,175,81,175,76,301,55,422,39,606,20"/>
+<area shape="rect" title=" " alt="" coords="184,79,250,105"/>
+<area shape="poly" title=" " alt="" coords="606,28,457,50,269,82,265,82,264,77,268,76,456,44,606,23"/>
+<area shape="rect" title=" " alt="" coords="320,226,394,252"/>
+<area shape="poly" title=" " alt="" coords="606,21,559,24,504,33,447,51,421,64,397,81,375,109,363,144,358,180,357,211,352,211,352,179,357,143,370,107,394,77,418,60,445,46,502,28,558,19,606,16"/>
+<area shape="rect" title=" " alt="" coords="443,153,503,178"/>
+<area shape="poly" title=" " alt="" coords="635,33,500,145,497,141,632,29"/>
+<area shape="rect" title=" " alt="" coords="616,79,679,105"/>
+<area shape="poly" title=" " alt="" coords="650,31,650,63,645,63,645,31"/>
+<area shape="rect" title=" " alt="" coords="703,79,768,105"/>
+<area shape="poly" title=" " alt="" coords="664,29,711,67,707,71,661,34"/>
+<area shape="rect" title=" " alt="" coords="791,79,858,105"/>
+<area shape="poly" title=" " alt="" coords="679,29,782,70,780,75,677,34"/>
+<area shape="rect" title=" " alt="" coords="883,79,1015,105"/>
+<area shape="poly" title=" " alt="" coords="689,27,883,72,882,78,688,32"/>
+<area shape="rect" href="deng_8h.html" title="Differential file search comparison function and hook structure." alt="" coords="240,153,300,178"/>
+<area shape="poly" title=" " alt="" coords="606,25,451,44,373,60,343,70,321,81,308,93,296,108,281,139,276,137,292,105,304,90,318,77,341,65,372,55,450,39,606,20"/>
+<area shape="rect" href="fd_8h.html" title="File descriptor output redirection for child processes." alt="" coords="1039,79,1082,105"/>
+<area shape="poly" title=" " alt="" coords="689,21,834,39,927,55,1025,76,1023,81,926,61,833,45,689,26"/>
+<area shape="rect" href="fl_8h.html" title="Basic file lock API." alt="" coords="1106,79,1146,105"/>
+<area shape="poly" title=" " alt="" coords="690,19,862,36,975,53,1092,76,1091,82,974,58,861,42,689,25"/>
+<area shape="rect" href="fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="375,153,418,178"/>
+<area shape="poly" title=" " alt="" coords="606,27,498,47,448,63,416,81,407,93,402,108,398,138,393,137,397,106,403,91,412,77,446,58,497,42,605,22"/>
+<area shape="rect" href="index_8h.html" title="File index mapping and serialization functions." alt="" coords="426,79,490,105"/>
+<area shape="poly" title=" " alt="" coords="616,34,505,76,503,71,614,29"/>
+<area shape="rect" href="je_8h.html" title="jemalloc&#45;related utility functions." alt="" coords="1170,79,1213,105"/>
+<area shape="poly" title=" " alt="" coords="689,19,887,34,1019,51,1156,76,1155,82,1018,56,887,39,689,24"/>
+<area shape="rect" href="lcmd_8h.html" title="File&#45;specific system command execution mapping functions." alt="" coords="527,153,587,178"/>
+<area shape="poly" title=" " alt="" coords="640,33,606,80,572,140,567,138,601,78,636,30"/>
+<area shape="rect" href="log_8h.html" title="Logging macros for the application." alt="" coords="1236,79,1286,105"/>
+<area shape="poly" title=" " alt="" coords="689,18,913,33,1065,50,1222,76,1221,81,1064,55,913,38,689,24"/>
+<area shape="rect" href="prog_8h.html" title="Progress bar format and printing functions." alt="" coords="1310,79,1367,105"/>
+<area shape="poly" title=" " alt="" coords="689,18,942,32,1115,49,1294,76,1294,81,1114,55,941,37,689,23"/>
+<area shape="rect" href="tp_8h.html" title="Thread pool API for executing work requests." alt="" coords="1391,79,1434,105"/>
+<area shape="poly" title=" " alt="" coords="689,17,806,18,975,26,1172,44,1275,58,1377,76,1376,82,1274,63,1172,49,974,31,806,24,689,22"/>
+<area shape="poly" title=" " alt="" coords="287,177,332,214,329,218,283,181"/>
+<area shape="poly" title=" " alt="" coords="393,180,373,214,369,212,388,177"/>
+<area shape="rect" title=" " alt="" coords="427,226,492,252"/>
+<area shape="poly" title=" " alt="" coords="409,177,441,213,437,216,405,180"/>
+<area shape="poly" title=" " alt="" coords="463,104,470,137,465,138,458,105"/>
+<area shape="poly" title=" " alt="" coords="450,107,419,142,415,139,446,103"/>
+<area shape="poly" title=" " alt="" coords="527,180,406,223,404,218,525,175"/>
+<area shape="poly" title=" " alt="" coords="542,181,489,219,486,215,539,177"/>
+<area shape="rect" title=" " alt="" coords="519,226,584,252"/>
+<area shape="poly" title=" " alt="" coords="559,179,556,211,551,211,553,178"/>
+<area shape="rect" title=" " alt="" coords="608,226,650,252"/>
+<area shape="poly" title=" " alt="" coords="571,177,608,213,604,217,567,180"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -185,6 +188,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a60d3e3e702ef1f4037f234ec08e63d2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates and formats a string for the index file path based on the provided configuration file path. The resulting string will have the same name as the configuration file but with an added <span class="tt">.idx</span> suffix.  <br /></td></tr>
 <tr class="memitem:a70aae7b20e0a7637539a7c7ce88c288f" id="r_a70aae7b20e0a7637539a7c7ce88c288f"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70aae7b20e0a7637539a7c7ce88c288f">parseinitargs</a> (const int argc, char **const argv)</td></tr>
 <tr class="memdesc:a70aae7b20e0a7637539a7c7ce88c288f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the program initialization arguments into <code class="param">initargs</code>.  <br /></td></tr>
+<tr class="memitem:aef965067823ec222e939f279e1ea8050" id="r_aef965067823ec222e939f279e1ea8050"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef965067823ec222e939f279e1ea8050">interruptsig</a> (const int signo)</td></tr>
+<tr class="memdesc:aef965067823ec222e939f279e1ea8050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interrupt signal handler for cleanly exiting on SIGINT.  <br /></td></tr>
+<tr class="memitem:a29d2fbf12fbfa493b1884bd2ebb6b31e" id="r_a29d2fbf12fbfa493b1884bd2ebb6b31e"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a29d2fbf12fbfa493b1884bd2ebb6b31e">siglisten</a> (void)</td></tr>
+<tr class="memdesc:a29d2fbf12fbfa493b1884bd2ebb6b31e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches the interrupt signal handler to handle SIGINT signals.  <br /></td></tr>
 <tr class="memitem:a622aba9b5995598f63a704054f527050" id="r_a622aba9b5995598f63a704054f527050"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a622aba9b5995598f63a704054f527050">loadindex</a> (struct <a class="el" href="structindex__s.html">index_s</a> *idx, const char *fp)</td></tr>
 <tr class="memdesc:a622aba9b5995598f63a704054f527050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the index from the specified file path into the provided index.  <br /></td></tr>
 <tr class="memitem:ab4dbc177c0ff9528fefc8ee63e2755bc" id="r_ab4dbc177c0ff9528fefc8ee63e2755bc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4dbc177c0ff9528fefc8ee63e2755bc">writeindex</a> (struct <a class="el" href="structindex__s.html">index_s</a> *idx, const char *fp)</td></tr>
@@ -315,92 +322,97 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c_ae6e14ac597b28e7ab66e367b76b3a4be_cgraph.png" border="0" usemap="#amain_8c_ae6e14ac597b28e7ab66e367b76b3a4be_cgraph" loading="lazy" alt=""/></div>
 <map name="amain_8c_ae6e14ac597b28e7ab66e367b76b3a4be_cgraph" id="amain_8c_ae6e14ac597b28e7ab66e367b76b3a4be_cgraph">
-<area shape="rect" title="Compares the current file system state with a previously saved index." alt="" coords="5,266,101,291"/>
-<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="149,240,237,266"/>
-<area shape="poly" title=" " alt="" coords="101,267,133,261,134,267,102,273"/>
-<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="303,40,373,66"/>
-<area shape="poly" title=" " alt="" coords="57,264,88,200,114,161,147,127,180,104,217,86,287,62,289,67,219,91,183,109,150,131,119,165,93,203,62,267"/>
-<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="155,142,231,167"/>
-<area shape="poly" title=" " alt="" coords="67,263,164,176,168,180,71,267"/>
-<area shape="rect" href="main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="159,315,226,341"/>
-<area shape="poly" title=" " alt="" coords="93,290,145,308,143,314,91,295"/>
-<area shape="rect" href="main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="159,388,226,414"/>
-<area shape="poly" title=" " alt="" coords="71,290,167,376,164,380,67,294"/>
-<area shape="rect" href="main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="153,463,233,489"/>
-<area shape="poly" title=" " alt="" coords="64,290,100,350,151,425,171,450,167,453,147,428,95,353,60,293"/>
-<area shape="rect" href="deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="285,290,391,315"/>
-<area shape="poly" title=" " alt="" coords="234,264,285,282,283,287,232,269"/>
-<area shape="rect" href="deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="298,240,379,266"/>
-<area shape="poly" title=" " alt="" coords="237,251,282,251,282,256,237,256"/>
-<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="299,139,377,165"/>
-<area shape="poly" title=" " alt="" coords="206,238,241,209,284,176,294,170,296,175,286,181,244,213,210,242"/>
-<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="302,191,374,217"/>
-<area shape="poly" title=" " alt="" coords="232,237,287,218,289,223,234,242"/>
-<area shape="rect" href="index_8c.html#af6b4ddc8aeb0c90e77c6c7cc85e74491" title="Searches the index for a node with a matching filepath." alt="" coords="455,190,529,215"/>
-<area shape="poly" title=" " alt="" coords="372,287,390,276,404,264,413,251,423,238,438,225,443,221,446,226,441,229,427,242,417,254,408,267,393,281,375,292"/>
-<area shape="rect" href="index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="457,488,527,514"/>
-<area shape="poly" title=" " alt="" coords="380,314,393,325,407,345,415,364,418,402,421,438,428,457,441,476,446,480,442,484,437,479,423,459,416,440,413,402,409,366,402,347,389,328,377,318"/>
-<area shape="rect" href="deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="460,390,524,415"/>
-<area shape="poly" title=" " alt="" coords="378,264,393,275,411,302,418,327,424,352,441,377,449,383,445,387,437,380,419,354,413,329,406,304,389,279,375,269"/>
-<area shape="rect" href="fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="462,340,522,366"/>
-<area shape="poly" title=" " alt="" coords="373,264,393,275,418,297,441,319,456,330,453,334,438,323,414,301,390,279,371,269"/>
-<area shape="rect" href="fs_8c.html#a8bb9fba0c594f3e6b654303e6f9f36a9" title="Error callback implementation for glob search. Logs each error using the log_error macro." alt="" coords="603,340,677,366"/>
-<area shape="poly" title=" " alt="" coords="522,351,587,351,587,356,522,356"/>
-<area shape="poly" title=" " alt="" coords="378,162,442,183,440,188,377,167"/>
-<area shape="rect" href="fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="761,290,815,315"/>
-<area shape="poly" title=" " alt="" coords="378,150,456,156,501,164,545,175,606,197,664,225,756,279,753,283,661,230,604,202,544,180,500,169,455,162,378,155"/>
-<area shape="rect" href="index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="452,88,532,114"/>
-<area shape="poly" title=" " alt="" coords="377,137,436,117,438,122,378,142"/>
-<area shape="rect" href="index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="457,39,527,65"/>
-<area shape="poly" title=" " alt="" coords="372,136,390,126,404,113,413,100,423,88,438,74,443,71,446,75,441,78,427,91,417,104,408,116,393,130,375,141"/>
-<area shape="rect" href="index_8c.html#a4c24a5d6c47d6bb2afac2d57fa5ff80a" title="Appends the node to the end of the bucket (linked list), potentially assigning a new head if the buck..." alt="" coords="593,88,687,114"/>
-<area shape="poly" title=" " alt="" coords="529,61,586,81,584,86,527,66"/>
-<area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="603,39,677,65"/>
-<area shape="poly" title=" " alt="" coords="528,49,587,49,587,55,528,55"/>
-<area shape="poly" title=" " alt="" coords="374,201,440,200,440,206,374,206"/>
-<area shape="poly" title=" " alt="" coords="374,215,393,226,407,240,416,253,425,265,441,275,480,290,521,301,605,311,683,311,745,306,746,311,684,317,605,316,520,306,478,295,438,280,422,269,412,256,403,243,390,230,372,220"/>
-<area shape="poly" title=" " alt="" coords="366,188,390,175,462,122,465,126,393,180,369,193"/>
-<area shape="poly" title=" " alt="" coords="372,188,389,175,406,150,413,126,419,100,437,74,442,70,445,74,441,78,424,103,418,127,411,152,393,179,375,193"/>
-<area shape="rect" href="fs_8c.html#a9a6b33158e9e03d0404c144b5e3dee2c" title="fsstateql() compares the fields of two struct fsstat_s values for equality. Two structs with the same..." alt="" coords="456,239,528,265"/>
-<area shape="poly" title=" " alt="" coords="375,212,442,234,441,239,373,218"/>
-<area shape="poly" title=" " alt="" coords="375,64,393,75,432,119,475,175,470,179,428,122,390,79,372,69"/>
-<area shape="poly" title=" " alt="" coords="375,62,438,82,437,87,373,67"/>
-<area shape="poly" title=" " alt="" coords="374,50,441,50,441,55,374,56"/>
-<area shape="rect" href="lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="735,115,841,141"/>
-<area shape="poly" title=" " alt="" coords="373,38,434,21,514,6,558,3,602,4,646,11,688,24,714,39,738,59,772,100,768,103,734,63,711,43,686,29,645,16,602,10,558,8,515,11,435,26,374,43"/>
-<area shape="rect" href="lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="890,291,976,317"/>
-<area shape="poly" title=" " alt="" coords="802,140,914,277,910,281,798,143"/>
-<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="300,90,377,115"/>
-<area shape="poly" title=" " alt="" coords="230,139,285,119,287,124,232,144"/>
-<area shape="poly" title=" " alt="" coords="377,100,436,99,436,104,377,105"/>
-<area shape="poly" title=" " alt="" coords="376,87,442,66,443,71,378,93"/>
-<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="294,339,382,365"/>
-<area shape="poly" title=" " alt="" coords="227,331,279,340,278,345,226,336"/>
-<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="458,439,526,465"/>
-<area shape="poly" title=" " alt="" coords="375,363,393,374,408,388,417,400,427,413,441,426,446,430,443,434,438,430,423,416,413,404,404,391,390,378,372,368"/>
-<area shape="rect" href="tp_8c.html#ae31cc510832d2aae3570d41b99dad62f" title="Thread pool worker thread entry point. The thread will spin lock while waiting to be reserved...." alt="" coords="595,390,684,415"/>
-<area shape="poly" title=" " alt="" coords="525,438,584,418,585,424,527,443"/>
-<area shape="poly" title=" " alt="" coords="667,387,686,376,758,323,761,328,688,381,670,391"/>
-<area shape="rect" href="lcmd_8c.html#ad8fe3619c5ae3f36b5b3785e223b9af8" title="Sequentially iterates the command set and executes the configured system commands on the provided fil..." alt="" coords="750,364,827,390"/>
-<area shape="poly" title=" " alt="" coords="684,392,734,384,735,389,685,398"/>
-<area shape="poly" title=" " alt="" coords="814,361,891,322,893,327,817,366"/>
-<area shape="rect" href="lcmd_8c.html#a57eeceba78ee6bc0c351ea6a19c56a67" title="Invokes a string cmd as a system command using system(3) in a forked/child process...." alt="" coords="889,364,977,390"/>
-<area shape="poly" title=" " alt="" coords="827,375,874,375,874,380,827,380"/>
-<area shape="rect" href="fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="1025,339,1088,365"/>
-<area shape="poly" title=" " alt="" coords="977,366,1009,359,1010,364,978,371"/>
-<area shape="rect" href="tm_8c.html#ab71da3f073d332ab0802cd051b48ed56" title="Get the current system time in milliseconds." alt="" coords="1026,388,1086,414"/>
-<area shape="poly" title=" " alt="" coords="978,383,1012,390,1010,395,977,388"/>
-<area shape="rect" href="fd_8c.html#a5ab6993faaefa1cffa8184696b7af825" title="Closes the file descriptor if open (indicated by a value of &gt;=0) and sets it to &#45;1." alt="" coords="1136,339,1199,365"/>
-<area shape="poly" title=" " alt="" coords="1089,349,1120,349,1120,355,1089,355"/>
-<area shape="rect" href="prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="294,388,383,414"/>
-<area shape="poly" title=" " alt="" coords="227,399,278,399,278,404,227,404"/>
-<area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="310,438,366,463"/>
-<area shape="poly" title=" " alt="" coords="228,410,296,434,294,439,226,415"/>
-<area shape="rect" href="index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="298,488,378,514"/>
-<area shape="poly" title=" " alt="" coords="234,480,283,489,282,494,233,486"/>
-<area shape="poly" title=" " alt="" coords="379,499,442,499,442,504,379,504"/>
-<area shape="rect" href="index_8c.html#afcb2d1b3e19fa845832a12730a2ea753" title="Compares two file nodes for sorting in ascending order by filepath." alt="" coords="439,538,545,563"/>
-<area shape="poly" title=" " alt="" coords="380,512,436,530,434,535,378,517"/>
+<area shape="rect" title="Compares the current file system state with a previously saved index." alt="" coords="5,386,101,412"/>
+<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="149,269,237,295"/>
+<area shape="poly" title=" " alt="" coords="68,384,163,303,166,307,72,388"/>
+<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="303,37,373,63"/>
+<area shape="poly" title=" " alt="" coords="53,386,59,339,74,272,102,197,122,162,147,131,179,104,215,83,253,68,287,57,289,62,254,73,217,88,182,108,151,134,127,165,107,200,79,273,64,340,58,386"/>
+<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="155,145,231,171"/>
+<area shape="poly" title=" " alt="" coords="60,384,174,183,179,185,64,387"/>
+<area shape="rect" href="main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="159,436,226,461"/>
+<area shape="poly" title=" " alt="" coords="93,410,145,429,143,434,91,415"/>
+<area shape="rect" href="main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="159,486,226,512"/>
+<area shape="poly" title=" " alt="" coords="71,410,150,472,157,476,154,480,147,476,68,414"/>
+<area shape="rect" href="main_8c.html#a29d2fbf12fbfa493b1884bd2ebb6b31e" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="158,561,228,587"/>
+<area shape="poly" title=" " alt="" coords="66,411,151,523,172,547,168,551,147,526,62,414"/>
+<area shape="rect" href="main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="153,386,233,412"/>
+<area shape="poly" title=" " alt="" coords="101,396,137,396,137,402,101,402"/>
+<area shape="rect" href="deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="285,269,391,295"/>
+<area shape="poly" title=" " alt="" coords="237,279,269,279,269,284,237,284"/>
+<area shape="rect" href="deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="298,337,379,363"/>
+<area shape="poly" title=" " alt="" coords="224,293,296,327,294,332,221,298"/>
+<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="299,136,377,161"/>
+<area shape="poly" title=" " alt="" coords="204,267,283,188,306,169,309,173,287,192,208,271"/>
+<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="302,202,374,228"/>
+<area shape="poly" title=" " alt="" coords="222,266,293,232,296,237,224,271"/>
+<area shape="rect" href="index_8c.html#af6b4ddc8aeb0c90e77c6c7cc85e74491" title="Searches the index for a node with a matching filepath." alt="" coords="455,186,529,212"/>
+<area shape="poly" title=" " alt="" coords="363,266,452,217,454,222,365,271"/>
+<area shape="rect" href="index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="457,386,527,412"/>
+<area shape="poly" title=" " alt="" coords="358,293,393,322,416,349,441,373,446,376,443,380,438,377,412,353,389,326,355,297"/>
+<area shape="rect" href="deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="460,337,524,363"/>
+<area shape="poly" title=" " alt="" coords="379,347,445,347,445,352,379,352"/>
+<area shape="rect" href="fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="462,436,522,461"/>
+<area shape="poly" title=" " alt="" coords="375,361,393,372,408,385,417,397,427,410,441,422,450,428,447,433,438,426,423,413,413,401,404,389,390,376,372,365"/>
+<area shape="rect" href="fs_8c.html#a8bb9fba0c594f3e6b654303e6f9f36a9" title="Error callback implementation for glob search. Logs each error using the log_error macro." alt="" coords="603,361,677,387"/>
+<area shape="poly" title=" " alt="" coords="521,433,543,422,591,395,598,392,601,396,594,400,546,427,523,438"/>
+<area shape="poly" title=" " alt="" coords="378,159,442,180,440,185,377,164"/>
+<area shape="rect" href="fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="761,237,815,263"/>
+<area shape="poly" title=" " alt="" coords="378,148,455,156,545,171,655,201,747,232,745,237,654,206,544,176,455,162,377,154"/>
+<area shape="rect" href="index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="452,85,532,111"/>
+<area shape="poly" title=" " alt="" coords="377,133,436,113,438,118,378,138"/>
+<area shape="rect" href="index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="457,36,527,61"/>
+<area shape="poly" title=" " alt="" coords="372,133,390,122,404,109,413,97,423,84,438,70,443,67,446,71,441,74,427,88,417,100,408,113,393,127,375,137"/>
+<area shape="rect" href="index_8c.html#a4c24a5d6c47d6bb2afac2d57fa5ff80a" title="Appends the node to the end of the bucket (linked list), potentially assigning a new head if the buck..." alt="" coords="593,85,687,111"/>
+<area shape="poly" title=" " alt="" coords="529,58,586,77,584,82,527,63"/>
+<area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="603,36,677,61"/>
+<area shape="poly" title=" " alt="" coords="528,46,587,46,587,51,528,51"/>
+<area shape="poly" title=" " alt="" coords="374,209,440,202,440,207,374,214"/>
+<area shape="poly" title=" " alt="" coords="374,216,440,222,746,244,745,250,439,227,374,221"/>
+<area shape="poly" title=" " alt="" coords="355,199,460,118,463,122,358,204"/>
+<area shape="poly" title=" " alt="" coords="359,200,389,172,404,145,411,121,419,96,437,71,442,66,445,70,441,74,424,99,416,122,409,147,393,175,362,204"/>
+<area shape="rect" href="fs_8c.html#a9a6b33158e9e03d0404c144b5e3dee2c" title="fsstateql() compares the fields of two struct fsstat_s values for equality. Two structs with the same..." alt="" coords="456,288,528,313"/>
+<area shape="poly" title=" " alt="" coords="364,226,455,277,453,282,362,231"/>
+<area shape="poly" title=" " alt="" coords="375,61,393,72,432,115,475,172,470,175,428,119,390,76,372,65"/>
+<area shape="poly" title=" " alt="" coords="375,58,438,78,437,83,373,63"/>
+<area shape="poly" title=" " alt="" coords="374,47,441,46,441,51,374,52"/>
+<area shape="rect" href="lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="735,86,841,112"/>
+<area shape="poly" title=" " alt="" coords="373,36,433,20,513,7,601,4,645,10,688,21,732,44,766,73,763,77,729,48,686,26,644,15,601,10,513,12,435,25,374,41"/>
+<area shape="rect" href="lcmd_8c.html#ab6300c6bab124cad6bd5defb474217b0" title="Checks if the provided filepath matches any of the compiled regex patterns in the provided array." alt="" coords="890,238,976,264"/>
+<area shape="poly" title=" " alt="" coords="804,111,911,225,907,228,800,114"/>
+<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="300,86,377,112"/>
+<area shape="poly" title=" " alt="" coords="226,142,289,116,292,121,228,147"/>
+<area shape="poly" title=" " alt="" coords="377,96,436,96,436,101,377,101"/>
+<area shape="poly" title=" " alt="" coords="376,84,442,62,443,67,378,89"/>
+<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="294,436,382,461"/>
+<area shape="poly" title=" " alt="" coords="227,446,278,446,278,451,227,451"/>
+<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="458,534,526,560"/>
+<area shape="poly" title=" " alt="" coords="364,459,393,478,417,500,441,521,446,524,444,529,438,525,413,504,390,482,361,464"/>
+<area shape="rect" href="tp_8c.html#ae31cc510832d2aae3570d41b99dad62f" title="Thread pool worker thread entry point. The thread will spin lock while waiting to be reserved...." alt="" coords="595,410,684,436"/>
+<area shape="poly" title=" " alt="" coords="525,532,543,521,585,484,618,446,622,450,589,487,546,525,527,536"/>
+<area shape="poly" title=" " alt="" coords="671,408,685,397,703,373,710,350,718,325,733,297,757,271,761,275,737,301,723,328,716,351,707,375,689,401,675,412"/>
+<area shape="rect" href="lcmd_8c.html#ad8fe3619c5ae3f36b5b3785e223b9af8" title="Sequentially iterates the command set and executes the configured system commands on the provided fil..." alt="" coords="750,312,827,337"/>
+<area shape="poly" title=" " alt="" coords="667,407,686,397,758,345,761,349,688,401,670,412"/>
+<area shape="poly" title=" " alt="" coords="814,309,891,269,893,274,817,313"/>
+<area shape="rect" href="lcmd_8c.html#a57eeceba78ee6bc0c351ea6a19c56a67" title="Invokes a string cmd as a system command using system(3) in a forked/child process...." alt="" coords="889,312,977,337"/>
+<area shape="poly" title=" " alt="" coords="827,322,874,322,874,327,827,327"/>
+<area shape="rect" href="fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="1025,286,1088,312"/>
+<area shape="poly" title=" " alt="" coords="977,313,1009,306,1010,311,978,318"/>
+<area shape="rect" href="tm_8c.html#ab71da3f073d332ab0802cd051b48ed56" title="Get the current system time in milliseconds." alt="" coords="1026,336,1086,361"/>
+<area shape="poly" title=" " alt="" coords="978,330,1012,337,1010,342,977,336"/>
+<area shape="rect" href="fd_8c.html#a5ab6993faaefa1cffa8184696b7af825" title="Closes the file descriptor if open (indicated by a value of &gt;=0) and sets it to &#45;1." alt="" coords="1136,286,1199,312"/>
+<area shape="poly" title=" " alt="" coords="1089,296,1120,296,1120,302,1089,302"/>
+<area shape="rect" href="prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="294,537,383,563"/>
+<area shape="poly" title=" " alt="" coords="228,508,286,529,284,534,226,513"/>
+<area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="464,585,520,611"/>
+<area shape="poly" title=" " alt="" coords="227,494,305,498,350,506,393,522,409,533,418,545,427,558,441,570,451,577,449,581,438,574,423,561,414,548,405,537,390,527,348,511,304,503,227,500"/>
+<area shape="rect" href="main_8c.html#aef965067823ec222e939f279e1ea8050" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="296,586,381,612"/>
+<area shape="poly" title=" " alt="" coords="228,577,281,586,280,592,228,582"/>
+<area shape="poly" title=" " alt="" coords="381,596,448,595,448,601,381,601"/>
+<area shape="rect" href="index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="298,386,378,412"/>
+<area shape="poly" title=" " alt="" coords="234,396,282,396,282,402,234,402"/>
+<area shape="poly" title=" " alt="" coords="379,396,442,396,442,402,379,402"/>
+<area shape="rect" href="index_8c.html#afcb2d1b3e19fa845832a12730a2ea753" title="Compares two file nodes for sorting in ascending order by filepath." alt="" coords="439,485,545,511"/>
+<area shape="poly" title=" " alt="" coords="375,410,393,421,408,434,417,447,427,459,441,472,446,475,443,479,438,476,423,462,413,450,404,438,390,425,372,415"/>
 </map>
 </div>
 <div class="dynheader">
@@ -588,6 +600,63 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="aef965067823ec222e939f279e1ea8050" name="aef965067823ec222e939f279e1ea8050"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef965067823ec222e939f279e1ea8050">&#9670;&#160;</a></span>interruptsig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void interruptsig </td>
+          <td>(</td>
+          <td class="paramtype">const int</td>          <td class="paramname"><span class="paramname"><em>signo</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Interrupt signal handler for cleanly exiting on SIGINT. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">signo</td><td>The signal number (should be SIGINT) </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c_aef965067823ec222e939f279e1ea8050_cgraph.png" border="0" usemap="#amain_8c_aef965067823ec222e939f279e1ea8050_cgraph" loading="lazy" alt=""/></div>
+<map name="amain_8c_aef965067823ec222e939f279e1ea8050_cgraph" id="amain_8c_aef965067823ec222e939f279e1ea8050_cgraph">
+<area shape="rect" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="5,5,91,31"/>
+<area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="139,5,195,31"/>
+<area shape="poly" title=" " alt="" coords="91,16,123,16,123,21,91,21"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c_aef965067823ec222e939f279e1ea8050_icgraph.png" border="0" usemap="#amain_8c_aef965067823ec222e939f279e1ea8050_icgraph" loading="lazy" alt=""/></div>
+<map name="amain_8c_aef965067823ec222e939f279e1ea8050_icgraph" id="amain_8c_aef965067823ec222e939f279e1ea8050_icgraph">
+<area shape="rect" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="363,5,449,31"/>
+<area shape="rect" href="main_8c.html#a29d2fbf12fbfa493b1884bd2ebb6b31e" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="246,5,315,31"/>
+<area shape="poly" title=" " alt="" coords="348,21,316,21,316,16,348,16"/>
+<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,5,198,31"/>
+<area shape="poly" title=" " alt="" coords="230,21,198,21,198,16,230,16"/>
+<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
+<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="a622aba9b5995598f63a704054f527050" name="a622aba9b5995598f63a704054f527050"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a622aba9b5995598f63a704054f527050">&#9670;&#160;</a></span>loadindex()</h2>
 
@@ -690,118 +759,118 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="main_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph.png" border="0" usemap="#amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph" loading="lazy" alt=""/></div>
 <map name="amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph" id="amain_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph">
-<area shape="rect" title="Main program entry point." alt="" coords="5,995,55,1020"/>
-<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,357,198,383"/>
-<area shape="poly" title=" " alt="" coords="31,994,142,398,147,399,36,995"/>
-<area shape="rect" href="fl_8c.html#a00b62bc8baa9dd0647aa066b870a0386" title="Locks the file at the given path. If a file descriptor cannot be obtained, or the file cannot be lock..." alt="" coords="125,995,177,1020"/>
-<area shape="poly" title=" " alt="" coords="55,1005,109,1005,109,1010,55,1010"/>
-<area shape="rect" href="main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="123,847,179,872"/>
-<area shape="poly" title=" " alt="" coords="40,993,127,883,132,886,44,996"/>
-<area shape="rect" href="lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Parses the provided file path and populates an array of command sets. The file must be a valid JSON f..." alt="" coords="110,675,192,700"/>
-<area shape="poly" title=" " alt="" coords="34,993,137,714,142,716,39,995"/>
-<area shape="rect" href="main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f" title="Parses the program initialization arguments into initargs." alt="" coords="103,1044,198,1070"/>
-<area shape="poly" title=" " alt="" coords="56,1015,105,1035,103,1040,54,1020"/>
-<area shape="rect" href="main_8c.html#ae29622551563546e0b7a146fac8323dc" title="Prints the time spent for each command set to the console." alt="" coords="103,1093,199,1119"/>
-<area shape="poly" title=" " alt="" coords="44,1019,70,1049,104,1080,108,1083,105,1087,101,1084,66,1053,40,1023"/>
-<area shape="rect" href="tp_8c.html#a1ba58530a307f93d627c37f920a19945" title="Initializes a global worker thread pool of the given size." alt="" coords="126,1143,176,1168"/>
-<area shape="poly" title=" " alt="" coords="38,1020,62,1072,81,1102,105,1130,114,1137,111,1141,101,1133,77,1105,58,1074,34,1022"/>
-<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="254,153,342,179"/>
-<area shape="poly" title=" " alt="" coords="157,356,193,295,245,219,271,189,275,192,249,222,198,298,162,358"/>
-<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="417,203,487,228"/>
-<area shape="poly" title=" " alt="" coords="163,355,198,321,246,287,285,266,326,249,401,225,402,230,328,254,287,271,248,291,201,326,166,359"/>
-<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="260,419,336,444"/>
-<area shape="poly" title=" " alt="" coords="185,381,252,410,250,415,183,386"/>
-<area shape="rect" href="main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="264,301,332,327"/>
-<area shape="poly" title=" " alt="" coords="186,354,249,330,251,335,188,359"/>
-<area shape="rect" href="main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="264,357,332,383"/>
-<area shape="poly" title=" " alt="" coords="199,368,249,368,249,373,199,373"/>
-<area shape="rect" href="main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="258,492,338,518"/>
-<area shape="poly" title=" " alt="" coords="168,382,273,479,270,483,165,386"/>
-<area shape="rect" href="deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="399,252,505,278"/>
-<area shape="poly" title=" " alt="" coords="316,177,353,207,399,239,406,242,403,247,396,243,350,211,313,182"/>
-<area shape="rect" href="deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="411,55,493,80"/>
-<area shape="poly" title=" " alt="" coords="313,151,350,121,396,89,403,85,406,90,399,94,353,125,316,155"/>
-<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="413,104,491,130"/>
-<area shape="poly" title=" " alt="" coords="340,150,397,131,399,137,342,155"/>
-<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="416,153,488,179"/>
-<area shape="poly" title=" " alt="" coords="343,164,401,164,401,169,343,169"/>
-<area shape="rect" href="index_8c.html#af6b4ddc8aeb0c90e77c6c7cc85e74491" title="Searches the index for a node with a matching filepath." alt="" coords="571,153,644,179"/>
-<area shape="poly" title=" " alt="" coords="487,249,505,239,519,226,529,214,538,201,553,188,558,185,561,189,556,192,542,205,533,217,523,230,508,243,490,254"/>
-<area shape="rect" href="index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="573,424,642,450"/>
-<area shape="poly" title=" " alt="" coords="492,276,508,287,537,316,562,349,596,409,592,411,557,351,533,319,505,291,489,281"/>
-<area shape="rect" href="deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="576,55,640,80"/>
-<area shape="poly" title=" " alt="" coords="493,65,561,65,561,70,493,70"/>
-<area shape="rect" href="fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0" title="Recursively walks the single directory described by dir and calls filefn for each file found and dirf..." alt="" coords="578,5,638,31"/>
-<area shape="poly" title=" " alt="" coords="492,52,562,30,564,35,494,57"/>
-<area shape="poly" title=" " alt="" coords="492,127,558,148,556,153,491,132"/>
-<area shape="rect" href="fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a" title="Populates all fields of a given fsstat_s structure for the file described by the filepath fp." alt="" coords="581,104,635,130"/>
-<area shape="poly" title=" " alt="" coords="492,114,565,114,565,120,492,120"/>
-<area shape="rect" href="index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="568,252,648,278"/>
-<area shape="poly" title=" " alt="" coords="493,128,509,139,527,165,533,190,540,214,557,239,559,241,555,245,553,243,535,217,528,191,522,167,505,143,490,132"/>
-<area shape="rect" href="index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="573,203,643,228"/>
-<area shape="poly" title=" " alt="" coords="490,128,508,139,523,152,533,165,542,177,556,189,561,193,558,197,553,194,538,180,529,168,519,156,505,143,487,132"/>
-<area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="709,376,783,402"/>
-<area shape="poly" title=" " alt="" coords="645,225,663,237,689,267,710,300,738,360,733,362,705,302,684,270,659,242,642,230"/>
-<area shape="poly" title=" " alt="" coords="488,164,556,164,556,169,488,169"/>
-<area shape="poly" title=" " alt="" coords="487,152,565,127,567,132,489,158"/>
-<area shape="poly" title=" " alt="" coords="490,177,508,188,523,201,533,214,542,226,556,239,561,242,558,246,553,243,538,230,529,217,519,205,505,192,487,182"/>
-<area shape="poly" title=" " alt="" coords="489,175,559,197,557,202,487,180"/>
-<area shape="poly" title=" " alt="" coords="487,202,556,180,557,185,489,207"/>
-<area shape="poly" title=" " alt="" coords="489,224,554,245,552,250,487,229"/>
-<area shape="poly" title=" " alt="" coords="488,213,557,213,557,218,488,218"/>
-<area shape="rect" href="lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="555,301,661,327"/>
-<area shape="poly" title=" " alt="" coords="489,226,508,237,523,251,533,263,542,275,556,288,561,291,558,296,553,292,538,279,529,266,519,254,505,242,486,231"/>
-<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="413,449,491,475"/>
-<area shape="poly" title=" " alt="" coords="337,436,398,449,397,454,336,442"/>
-<area shape="poly" title=" " alt="" coords="489,448,505,436,518,418,525,400,528,363,532,326,539,307,553,287,554,286,558,289,557,291,544,309,537,327,533,364,530,401,523,420,509,440,493,452"/>
-<area shape="poly" title=" " alt="" coords="490,448,505,436,521,411,528,387,528,339,528,290,536,264,553,238,558,233,561,236,557,241,541,266,534,291,533,339,533,388,525,414,509,440,493,452"/>
-<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="408,301,496,327"/>
-<area shape="poly" title=" " alt="" coords="332,312,392,312,392,317,332,317"/>
-<area shape="rect" href="prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="407,400,497,426"/>
-<area shape="poly" title=" " alt="" coords="333,377,393,394,392,399,332,382"/>
-<area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="424,351,480,376"/>
-<area shape="poly" title=" " alt="" coords="332,366,408,363,408,368,332,371"/>
+<area shape="rect" title="Main program entry point." alt="" coords="5,748,55,774"/>
+<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,573,198,599"/>
+<area shape="poly" title=" " alt="" coords="38,746,130,610,134,613,42,749"/>
+<area shape="rect" href="fl_8c.html#a00b62bc8baa9dd0647aa066b870a0386" title="Locks the file at the given path. If a file descriptor cannot be obtained, or the file cannot be lock..." alt="" coords="125,748,177,774"/>
+<area shape="poly" title=" " alt="" coords="55,758,109,758,109,764,55,764"/>
+<area shape="rect" href="main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="123,252,179,278"/>
+<area shape="poly" title=" " alt="" coords="32,747,140,292,145,293,37,748"/>
+<area shape="rect" href="lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Parses the provided file path and populates an array of command sets. The file must be a valid JSON f..." alt="" coords="110,80,192,106"/>
+<area shape="poly" title=" " alt="" coords="30,747,50,545,71,394,100,239,118,174,137,119,142,121,123,176,105,240,76,395,55,546,35,748"/>
+<area shape="rect" href="main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f" title="Parses the program initialization arguments into initargs." alt="" coords="103,797,198,823"/>
+<area shape="poly" title=" " alt="" coords="56,768,105,789,103,793,54,773"/>
+<area shape="rect" href="main_8c.html#ae29622551563546e0b7a146fac8323dc" title="Prints the time spent for each command set to the console." alt="" coords="103,847,199,872"/>
+<area shape="poly" title=" " alt="" coords="44,773,70,802,104,833,108,836,105,841,101,838,66,806,40,776"/>
+<area shape="rect" href="tp_8c.html#a1ba58530a307f93d627c37f920a19945" title="Initializes a global worker thread pool of the given size." alt="" coords="126,896,176,922"/>
+<area shape="poly" title=" " alt="" coords="38,773,62,825,81,856,105,883,114,891,111,895,101,887,77,859,58,828,34,775"/>
+<area shape="rect" href="deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="254,649,342,675"/>
+<area shape="poly" title=" " alt="" coords="179,597,259,640,257,644,176,602"/>
+<area shape="rect" href="main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="417,647,487,672"/>
+<area shape="poly" title=" " alt="" coords="199,595,402,645,401,650,198,600"/>
+<area shape="rect" href="main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="260,699,336,724"/>
+<area shape="poly" title=" " alt="" coords="164,598,199,640,249,685,253,689,250,693,245,690,195,643,160,601"/>
+<area shape="rect" href="main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="264,548,332,574"/>
+<area shape="poly" title=" " alt="" coords="199,575,249,566,250,572,200,581"/>
+<area shape="rect" href="main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="264,449,332,475"/>
+<area shape="poly" title=" " alt="" coords="160,571,195,529,245,484,250,481,253,485,249,488,199,533,164,574"/>
+<area shape="rect" href="main_8c.html#a29d2fbf12fbfa493b1884bd2ebb6b31e" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="264,400,333,426"/>
+<area shape="poly" title=" " alt="" coords="155,572,187,508,213,469,245,435,249,432,252,436,249,439,218,473,192,511,160,574"/>
+<area shape="rect" href="main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="258,499,338,524"/>
+<area shape="poly" title=" " alt="" coords="175,570,246,533,254,529,256,534,248,538,178,575"/>
+<area shape="rect" href="deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="399,597,505,623"/>
+<area shape="poly" title=" " alt="" coords="338,646,397,626,398,631,339,651"/>
+<area shape="rect" href="deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="411,844,493,870"/>
+<area shape="poly" title=" " alt="" coords="338,673,351,684,365,704,372,723,376,759,379,795,386,813,399,831,401,833,397,836,395,835,382,815,374,796,370,760,367,724,360,706,347,688,335,678"/>
+<area shape="rect" href="deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="413,745,491,771"/>
+<area shape="poly" title=" " alt="" coords="333,673,351,684,375,708,399,732,404,735,401,740,396,736,371,712,348,688,330,678"/>
+<area shape="rect" href="deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="416,696,488,722"/>
+<area shape="poly" title=" " alt="" coords="344,673,402,691,401,696,342,678"/>
+<area shape="rect" href="index_8c.html#af6b4ddc8aeb0c90e77c6c7cc85e74491" title="Searches the index for a node with a matching filepath." alt="" coords="571,647,644,672"/>
+<area shape="poly" title=" " alt="" coords="496,621,557,641,556,646,494,626"/>
+<area shape="rect" href="index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="573,523,642,548"/>
+<area shape="poly" title=" " alt="" coords="483,594,506,584,566,553,569,558,508,589,485,599"/>
+<area shape="rect" href="deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2" title="Pushes a directory path onto the directory queue for processing." alt="" coords="576,844,640,870"/>
+<area shape="poly" title=" " alt="" coords="493,854,561,854,561,860,493,860"/>
+<area shape="poly" title=" " alt="" coords="487,743,505,732,519,719,529,707,538,695,553,681,558,678,561,682,556,686,542,698,533,710,523,723,508,736,490,747"/>
+<area shape="rect" href="index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="568,696,648,722"/>
+<area shape="poly" title=" " alt="" coords="491,743,552,724,554,729,492,748"/>
+<area shape="rect" href="index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="573,745,643,771"/>
+<area shape="poly" title=" " alt="" coords="492,756,558,756,558,761,492,761"/>
+<area shape="rect" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="709,375,783,400"/>
+<area shape="poly" title=" " alt="" coords="642,746,659,732,685,694,705,652,720,608,731,563,741,479,743,416,748,416,747,480,736,564,725,609,710,654,690,697,663,736,645,750"/>
+<area shape="poly" title=" " alt="" coords="487,695,556,673,558,678,489,700"/>
+<area shape="poly" title=" " alt="" coords="488,706,552,706,552,712,488,712"/>
+<area shape="poly" title=" " alt="" coords="489,717,559,740,557,745,487,723"/>
+<area shape="poly" title=" " alt="" coords="488,657,556,657,556,662,488,662"/>
+<area shape="poly" title=" " alt="" coords="489,668,554,689,552,694,487,673"/>
+<area shape="poly" title=" " alt="" coords="489,670,508,681,523,695,533,707,542,719,556,732,561,735,558,740,553,736,538,723,529,710,519,698,505,686,486,675"/>
+<area shape="rect" href="lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="555,597,661,623"/>
+<area shape="poly" title=" " alt="" coords="487,646,550,626,551,631,489,651"/>
+<area shape="rect" href="index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="413,795,491,820"/>
+<area shape="poly" title=" " alt="" coords="333,723,351,733,375,758,399,781,404,785,401,789,396,786,371,762,348,738,330,727"/>
+<area shape="poly" title=" " alt="" coords="487,792,505,781,519,769,529,757,538,744,553,731,558,727,561,732,556,735,542,748,533,760,523,772,508,786,490,796"/>
+<area shape="poly" title=" " alt="" coords="490,793,557,771,559,776,492,798"/>
+<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="408,548,496,574"/>
+<area shape="poly" title=" " alt="" coords="332,558,392,558,392,564,332,564"/>
+<area shape="rect" href="prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="407,449,497,475"/>
+<area shape="poly" title=" " alt="" coords="332,460,392,460,392,465,332,465"/>
+<area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="580,373,636,399"/>
+<area shape="poly" title=" " alt="" coords="331,451,397,434,564,394,565,399,398,439,333,456"/>
+<area shape="rect" href="main_8c.html#aef965067823ec222e939f279e1ea8050" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="409,348,495,374"/>
+<area shape="poly" title=" " alt="" coords="333,399,396,377,398,382,334,404"/>
+<area shape="poly" title=" " alt="" coords="496,365,565,377,564,382,495,370"/>
 <area shape="rect" href="index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="412,499,492,524"/>
-<area shape="poly" title=" " alt="" coords="339,504,397,506,397,512,339,509"/>
-<area shape="poly" title=" " alt="" coords="483,496,506,485,566,455,569,459,508,490,485,500"/>
-<area shape="rect" href="fl_8c.html#ac8cdc36ad1f74a8dd0b80ee85356bc01" title="Opens the file at the given path and updates the file lock structure with the file descriptor...." alt="" coords="270,995,326,1020"/>
-<area shape="poly" title=" " alt="" coords="177,1005,254,1005,254,1010,177,1010"/>
-<area shape="rect" href="fl_8c.html#af9edee5332ff921081fe39fc530d40bd" title="Unlocks the file at the given path. If the file is not open, or the file cannot be unlocked,..." alt="" coords="265,748,331,774"/>
-<area shape="poly" title=" " alt="" coords="165,844,201,815,246,783,251,779,254,784,248,787,204,819,169,848"/>
-<area shape="rect" href="main_8c.html#a91224adbae9c6933e2469d45de8d340a" title="Frees all duplicated initialization arguments." alt="" coords="256,797,341,823"/>
-<area shape="poly" title=" " alt="" coords="179,848,243,826,245,831,180,853"/>
-<area shape="rect" href="index_8c.html#ac916662497c44dfd34d1d6fd5312a317" title="Frees all nodes in the index map." alt="" coords="261,847,335,872"/>
-<area shape="poly" title=" " alt="" coords="179,857,246,857,246,862,179,862"/>
-<area shape="rect" href="lcmd_8c.html#a36d31b28aae66a8e5e5d1d0a4bf454d8" title="Iterates and frees all memory allocated by the command set array." alt="" coords="257,699,339,724"/>
-<area shape="poly" title=" " alt="" coords="157,845,191,792,216,761,245,733,249,731,252,735,249,738,220,765,196,796,162,848"/>
-<area shape="rect" href="tp_8c.html#ae363265419a031c7578b4896aab4ddde" title="Frees all memory allocated by tpinit(). This function should be called at the end of the program...." alt="" coords="271,896,325,922"/>
-<area shape="poly" title=" " alt="" coords="180,866,257,893,255,898,179,871"/>
-<area shape="rect" href="tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="254,945,342,971"/>
-<area shape="poly" title=" " alt="" coords="169,871,204,900,248,932,254,935,251,940,246,936,201,904,165,875"/>
-<area shape="rect" href="index_8c.html#a595066efa8470d25061301ab56dc7946" title="Recursively frees a linked list of nodes starting from a given head." alt="" coords="409,847,495,872"/>
-<area shape="poly" title=" " alt="" coords="336,857,394,857,394,862,336,862"/>
-<area shape="rect" href="lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="416,699,488,724"/>
-<area shape="poly" title=" " alt="" coords="340,709,401,709,401,714,340,714"/>
-<area shape="rect" href="fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="420,945,484,971"/>
-<area shape="poly" title=" " alt="" coords="343,956,405,956,405,961,343,961"/>
-<area shape="poly" title=" " alt="" coords="193,691,242,700,241,705,192,697"/>
-<area shape="rect" href="lcmd_8c.html#aea1ce3fc2d45ddb3c059cf9f35a0a674" title="Reads the contents of the file described by filepath fp into a dynamically allocated buffer returned ..." alt="" coords="262,649,334,675"/>
-<area shape="poly" title=" " alt="" coords="192,678,246,668,247,674,193,683"/>
-<area shape="rect" href="lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="247,600,349,626"/>
-<area shape="poly" title=" " alt="" coords="175,672,246,634,254,630,256,635,248,639,178,676"/>
-<area shape="poly" title=" " alt="" coords="346,597,411,576,491,546,577,507,660,460,692,436,719,411,723,415,695,440,662,464,580,512,493,551,413,581,348,602"/>
-<area shape="rect" href="lcmd_8c.html#a124832f00584c93167d1e2e55e36ed79" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="405,600,499,626"/>
-<area shape="poly" title=" " alt="" coords="350,610,390,610,390,616,350,616"/>
-<area shape="rect" href="lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="397,649,507,675"/>
-<area shape="poly" title=" " alt="" coords="342,624,396,641,394,646,340,629"/>
-<area shape="rect" href="fs_8c.html#aa1d4e9bed28c32018a597913eb2b3dee" title="Concatenates the two strings into a single path string, joined by a / (path separator) character...." alt="" coords="272,1044,324,1070"/>
-<area shape="poly" title=" " alt="" coords="199,1054,256,1054,256,1060,199,1060"/>
-<area shape="rect" href="main_8c.html#a60d3e3e702ef1f4037f234ec08e63d2b" title="Allocates and formats a string for the index file path based on the provided configuration file path...." alt="" coords="250,1093,346,1119"/>
-<area shape="poly" title=" " alt="" coords="193,1068,244,1085,242,1090,191,1073"/>
-<area shape="rect" href="tp_8c.html#a2f51ff8d74ae29e985ff6340e2443d76" title="Configures an initialized thread with the specified options. If the TPOPT_LOGFILES flag is set,..." alt="" coords="262,1143,334,1168"/>
-<area shape="poly" title=" " alt="" coords="176,1153,247,1153,247,1158,176,1158"/>
-<area shape="rect" href="fd_8c.html#adbbb0e1bfc4d551ab9cacff069cb335e" title="Initializes stdout/stderr files used for redirecting output from a child process. The file descriptor..." alt="" coords="427,1143,477,1168"/>
-<area shape="poly" title=" " alt="" coords="334,1153,412,1153,412,1158,334,1158"/>
+<area shape="poly" title=" " alt="" coords="339,509,397,509,397,514,339,514"/>
+<area shape="poly" title=" " alt="" coords="493,515,559,525,558,531,492,520"/>
+<area shape="rect" href="fl_8c.html#ac8cdc36ad1f74a8dd0b80ee85356bc01" title="Opens the file at the given path and updates the file lock structure with the file descriptor...." alt="" coords="270,748,326,774"/>
+<area shape="poly" title=" " alt="" coords="177,758,254,758,254,764,177,764"/>
+<area shape="rect" href="fl_8c.html#af9edee5332ff921081fe39fc530d40bd" title="Unlocks the file at the given path. If the file is not open, or the file cannot be unlocked,..." alt="" coords="265,252,331,278"/>
+<area shape="poly" title=" " alt="" coords="179,262,249,262,249,268,179,268"/>
+<area shape="rect" href="main_8c.html#a91224adbae9c6933e2469d45de8d340a" title="Frees all duplicated initialization arguments." alt="" coords="256,301,341,327"/>
+<area shape="poly" title=" " alt="" coords="180,272,245,294,243,299,179,277"/>
+<area shape="rect" href="index_8c.html#ac916662497c44dfd34d1d6fd5312a317" title="Frees all nodes in the index map." alt="" coords="261,351,335,376"/>
+<area shape="poly" title=" " alt="" coords="169,276,204,306,248,337,254,341,251,345,246,342,201,310,165,280"/>
+<area shape="rect" href="lcmd_8c.html#a36d31b28aae66a8e5e5d1d0a4bf454d8" title="Iterates and frees all memory allocated by the command set array." alt="" coords="257,104,339,130"/>
+<area shape="poly" title=" " alt="" coords="157,250,191,198,216,167,245,139,249,136,252,140,249,143,220,170,196,201,162,253"/>
+<area shape="rect" href="tp_8c.html#ae363265419a031c7578b4896aab4ddde" title="Frees all memory allocated by tpinit(). This function should be called at the end of the program...." alt="" coords="271,153,325,179"/>
+<area shape="poly" title=" " alt="" coords="165,250,201,220,246,188,256,182,258,187,248,192,204,224,169,254"/>
+<area shape="rect" href="tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="254,203,342,228"/>
+<area shape="poly" title=" " alt="" coords="179,253,243,231,245,236,180,258"/>
+<area shape="rect" href="index_8c.html#a595066efa8470d25061301ab56dc7946" title="Recursively frees a linked list of nodes starting from a given head." alt="" coords="409,299,495,324"/>
+<area shape="poly" title=" " alt="" coords="335,349,396,327,398,332,337,354"/>
+<area shape="rect" href="lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="416,153,488,179"/>
+<area shape="poly" title=" " alt="" coords="340,127,403,148,401,153,339,132"/>
+<area shape="rect" href="fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="420,203,484,228"/>
+<area shape="poly" title=" " alt="" coords="343,213,405,213,405,218,343,218"/>
+<area shape="poly" title=" " alt="" coords="193,97,242,105,241,110,192,102"/>
+<area shape="rect" href="lcmd_8c.html#aea1ce3fc2d45ddb3c059cf9f35a0a674" title="Reads the contents of the file described by filepath fp into a dynamically allocated buffer returned ..." alt="" coords="262,5,334,31"/>
+<area shape="poly" title=" " alt="" coords="175,77,246,40,254,36,256,40,248,45,178,82"/>
+<area shape="rect" href="lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="247,55,349,80"/>
+<area shape="poly" title=" " alt="" coords="192,83,231,76,232,82,193,88"/>
+<area shape="poly" title=" " alt="" coords="327,52,365,38,411,28,460,26,485,31,508,40,555,71,597,109,633,153,664,200,711,290,738,359,733,361,706,292,659,202,629,156,593,113,552,75,505,45,483,36,460,31,412,33,366,43,329,57"/>
+<area shape="rect" href="lcmd_8c.html#a124832f00584c93167d1e2e55e36ed79" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="405,55,499,80"/>
+<area shape="poly" title=" " alt="" coords="350,65,390,65,390,70,350,70"/>
+<area shape="rect" href="lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="397,104,507,130"/>
+<area shape="poly" title=" " alt="" coords="342,78,396,96,394,101,340,84"/>
+<area shape="rect" href="fs_8c.html#aa1d4e9bed28c32018a597913eb2b3dee" title="Concatenates the two strings into a single path string, joined by a / (path separator) character...." alt="" coords="272,847,324,872"/>
+<area shape="poly" title=" " alt="" coords="193,821,258,844,257,849,191,826"/>
+<area shape="rect" href="main_8c.html#a60d3e3e702ef1f4037f234ec08e63d2b" title="Allocates and formats a string for the index file path based on the provided configuration file path...." alt="" coords="250,797,346,823"/>
+<area shape="poly" title=" " alt="" coords="199,808,235,808,235,813,199,813"/>
+<area shape="rect" href="tp_8c.html#a2f51ff8d74ae29e985ff6340e2443d76" title="Configures an initialized thread with the specified options. If the TPOPT_LOGFILES flag is set,..." alt="" coords="262,896,334,922"/>
+<area shape="poly" title=" " alt="" coords="176,906,247,906,247,912,176,912"/>
+<area shape="rect" href="fd_8c.html#adbbb0e1bfc4d551ab9cacff069cb335e" title="Initializes stdout/stderr files used for redirecting output from a child process. The file descriptor..." alt="" coords="427,896,477,922"/>
+<area shape="poly" title=" " alt="" coords="334,906,412,906,412,912,334,912"/>
 </map>
 </div>
 
@@ -1080,6 +1149,58 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="main_8c_ae29622551563546e0b7a146fac8323dc_icgraph.png" border="0" usemap="#amain_8c_ae29622551563546e0b7a146fac8323dc_icgraph" loading="lazy" alt=""/></div>
 <map name="amain_8c_ae29622551563546e0b7a146fac8323dc_icgraph" id="amain_8c_ae29622551563546e0b7a146fac8323dc_icgraph">
 <area shape="rect" title="Prints the time spent for each command set to the console." alt="" coords="103,5,199,31"/>
+<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
+<area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a29d2fbf12fbfa493b1884bd2ebb6b31e" name="a29d2fbf12fbfa493b1884bd2ebb6b31e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29d2fbf12fbfa493b1884bd2ebb6b31e">&#9670;&#160;</a></span>siglisten()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int siglisten </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Attaches the interrupt signal handler to handle SIGINT signals. </p>
+<dl class="section return"><dt>Returns</dt><dd>0 if successful, otherwise a non-zero error code. </dd></dl>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c_a29d2fbf12fbfa493b1884bd2ebb6b31e_cgraph.png" border="0" usemap="#amain_8c_a29d2fbf12fbfa493b1884bd2ebb6b31e_cgraph" loading="lazy" alt=""/></div>
+<map name="amain_8c_a29d2fbf12fbfa493b1884bd2ebb6b31e_cgraph" id="amain_8c_a29d2fbf12fbfa493b1884bd2ebb6b31e_cgraph">
+<area shape="rect" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="5,5,75,31"/>
+<area shape="rect" href="main_8c.html#aef965067823ec222e939f279e1ea8050" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="123,5,208,31"/>
+<area shape="poly" title=" " alt="" coords="75,16,107,16,107,21,75,21"/>
+<area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="256,5,312,31"/>
+<area shape="poly" title=" " alt="" coords="209,16,240,16,240,21,209,21"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="main_8c_a29d2fbf12fbfa493b1884bd2ebb6b31e_icgraph.png" border="0" usemap="#amain_8c_a29d2fbf12fbfa493b1884bd2ebb6b31e_icgraph" loading="lazy" alt=""/></div>
+<map name="amain_8c_a29d2fbf12fbfa493b1884bd2ebb6b31e_icgraph" id="amain_8c_a29d2fbf12fbfa493b1884bd2ebb6b31e_icgraph">
+<area shape="rect" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="246,5,315,31"/>
+<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,5,198,31"/>
+<area shape="poly" title=" " alt="" coords="230,21,198,21,198,16,230,16"/>
 <area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
 <area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
 </map>

@@ -1,51 +1,53 @@
 <map id="src/main.c" name="src/main.c">
-<area shape="rect" id="Node000001" title="Main program entry point." alt="" coords="560,5,642,31"/>
+<area shape="rect" id="Node000001" title="Main program entry point." alt="" coords="606,5,689,31"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,79,74,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="559,25,361,44,228,60,89,81,88,76,227,55,360,38,559,20"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="606,25,389,42,242,59,89,81,89,76,241,54,388,37,605,19"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="98,79,160,105"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="560,27,393,48,179,82,175,82,174,77,178,76,392,42,559,21"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="229,226,303,252"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="559,26,420,45,351,61,325,70,306,81,294,94,284,109,272,144,267,179,266,211,261,211,261,179,266,142,279,107,290,91,303,77,323,66,350,56,419,39,559,20"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="352,153,412,178"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="576,34,490,81,446,113,408,145,405,141,443,109,487,77,573,29"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="525,79,588,105"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="596,33,575,67,570,64,591,30"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="613,79,677,105"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="610,30,632,64,627,67,606,33"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="700,79,768,105"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="625,29,699,69,697,74,622,34"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="792,79,924,105"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="643,28,801,72,799,77,641,33"/>
-<area shape="rect" id="Node000010" href="$deng_8h.html" title="Differential file search comparison function and hook structure." alt="" coords="149,153,210,178"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="559,24,479,30,382,41,291,58,256,69,230,81,217,93,205,108,190,140,185,137,201,105,213,90,227,77,254,64,290,53,381,36,479,25,559,19"/>
-<area shape="rect" id="Node000011" href="$fd_8h.html" title="File descriptor output redirection for child processes." alt="" coords="948,79,992,105"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="643,22,770,42,934,76,933,81,769,47,642,27"/>
-<area shape="rect" id="Node000012" href="$fl_8h.html" title="Basic file lock API." alt="" coords="1016,79,1055,105"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="643,20,797,38,897,54,1001,76,1000,82,896,60,796,43,642,26"/>
-<area shape="rect" id="Node000013" href="$fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="284,153,328,178"/>
-<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="560,26,498,32,428,44,365,60,341,70,325,81,317,93,311,107,307,138,302,137,306,106,312,91,322,77,339,65,364,55,427,38,498,27,559,20"/>
-<area shape="rect" id="Node000015" href="$index_8h.html" title="File index mapping and serialization functions." alt="" coords="336,79,399,105"/>
-<area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="562,34,415,79,413,74,560,29"/>
-<area shape="rect" id="Node000016" href="$je_8h.html" title="jemalloc&#45;related utility functions." alt="" coords="1080,79,1122,105"/>
-<area shape="poly" id="edge19_Node000001_Node000016" title=" " alt="" coords="643,19,823,36,942,53,1065,76,1064,82,941,58,822,41,642,25"/>
-<area shape="rect" id="Node000017" href="$lcmd_8h.html" title="File&#45;specific system command execution mapping functions." alt="" coords="436,153,496,178"/>
-<area shape="poly" id="edge20_Node000001_Node000017" title=" " alt="" coords="578,34,546,54,515,81,494,110,479,139,474,137,490,107,511,77,543,50,575,29"/>
-<area shape="rect" id="Node000020" href="$log_8h.html" title="Logging macros for the application." alt="" coords="1146,79,1195,105"/>
-<area shape="poly" id="edge25_Node000001_Node000020" title=" " alt="" coords="643,19,849,34,988,51,1131,76,1130,81,987,57,849,40,642,24"/>
-<area shape="rect" id="Node000021" href="$prog_8h.html" title="Progress bar format and printing functions." alt="" coords="1219,79,1276,105"/>
-<area shape="poly" id="edge26_Node000001_Node000021" title=" " alt="" coords="643,18,878,33,1038,51,1204,76,1203,81,1037,56,877,39,642,24"/>
-<area shape="rect" id="Node000022" href="$tp_8h.html" title="Thread pool API for executing work requests." alt="" coords="1300,79,1344,105"/>
-<area shape="poly" id="edge27_Node000001_Node000022" title=" " alt="" coords="643,17,753,19,910,28,1095,45,1191,59,1286,76,1285,82,1190,64,1094,51,910,33,752,25,642,22"/>
-<area shape="poly" id="edge10_Node000010_Node000004" title=" " alt="" coords="196,177,242,214,238,218,193,181"/>
-<area shape="poly" id="edge14_Node000013_Node000004" title=" " alt="" coords="302,180,283,214,278,212,297,177"/>
-<area shape="rect" id="Node000014" title=" " alt="" coords="337,226,401,252"/>
-<area shape="poly" id="edge15_Node000013_Node000014" title=" " alt="" coords="319,177,350,213,346,216,315,180"/>
-<area shape="poly" id="edge17_Node000015_Node000005" title=" " alt="" coords="373,104,379,137,374,138,367,105"/>
-<area shape="poly" id="edge18_Node000015_Node000013" title=" " alt="" coords="359,107,328,142,324,139,355,103"/>
-<area shape="poly" id="edge22_Node000017_Node000004" title=" " alt="" coords="436,180,315,223,314,218,434,175"/>
-<area shape="poly" id="edge23_Node000017_Node000014" title=" " alt="" coords="451,181,399,219,396,215,448,177"/>
-<area shape="rect" id="Node000018" title=" " alt="" coords="429,226,493,252"/>
-<area shape="poly" id="edge21_Node000017_Node000018" title=" " alt="" coords="468,179,466,211,460,211,463,178"/>
-<area shape="rect" id="Node000019" title=" " alt="" coords="517,226,559,252"/>
-<area shape="poly" id="edge24_Node000017_Node000019" title=" " alt="" coords="480,177,517,213,513,217,476,180"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="606,25,423,44,302,60,175,81,175,76,301,55,422,39,606,20"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="184,79,250,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="606,28,457,50,269,82,265,82,264,77,268,76,456,44,606,23"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="320,226,394,252"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="606,21,559,24,504,33,447,51,421,64,397,81,375,109,363,144,358,180,357,211,352,211,352,179,357,143,370,107,394,77,418,60,445,46,502,28,558,19,606,16"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="443,153,503,178"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="635,33,500,145,497,141,632,29"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="616,79,679,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="650,31,650,63,645,63,645,31"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="703,79,768,105"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="664,29,711,67,707,71,661,34"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="791,79,858,105"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="679,29,782,70,780,75,677,34"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="883,79,1015,105"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="689,27,883,72,882,78,688,32"/>
+<area shape="rect" id="Node000011" href="$deng_8h.html" title="Differential file search comparison function and hook structure." alt="" coords="240,153,300,178"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="606,25,451,44,373,60,343,70,321,81,308,93,296,108,281,139,276,137,292,105,304,90,318,77,341,65,372,55,450,39,606,20"/>
+<area shape="rect" id="Node000012" href="$fd_8h.html" title="File descriptor output redirection for child processes." alt="" coords="1039,79,1082,105"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="689,21,834,39,927,55,1025,76,1023,81,926,61,833,45,689,26"/>
+<area shape="rect" id="Node000013" href="$fl_8h.html" title="Basic file lock API." alt="" coords="1106,79,1146,105"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="690,19,862,36,975,53,1092,76,1091,82,974,58,861,42,689,25"/>
+<area shape="rect" id="Node000014" href="$fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="375,153,418,178"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="606,27,498,47,448,63,416,81,407,93,402,108,398,138,393,137,397,106,403,91,412,77,446,58,497,42,605,22"/>
+<area shape="rect" id="Node000016" href="$index_8h.html" title="File index mapping and serialization functions." alt="" coords="426,79,490,105"/>
+<area shape="poly" id="edge17_Node000001_Node000016" title=" " alt="" coords="616,34,505,76,503,71,614,29"/>
+<area shape="rect" id="Node000017" href="$je_8h.html" title="jemalloc&#45;related utility functions." alt="" coords="1170,79,1213,105"/>
+<area shape="poly" id="edge20_Node000001_Node000017" title=" " alt="" coords="689,19,887,34,1019,51,1156,76,1155,82,1018,56,887,39,689,24"/>
+<area shape="rect" id="Node000018" href="$lcmd_8h.html" title="File&#45;specific system command execution mapping functions." alt="" coords="527,153,587,178"/>
+<area shape="poly" id="edge21_Node000001_Node000018" title=" " alt="" coords="640,33,606,80,572,140,567,138,601,78,636,30"/>
+<area shape="rect" id="Node000021" href="$log_8h.html" title="Logging macros for the application." alt="" coords="1236,79,1286,105"/>
+<area shape="poly" id="edge26_Node000001_Node000021" title=" " alt="" coords="689,18,913,33,1065,50,1222,76,1221,81,1064,55,913,38,689,24"/>
+<area shape="rect" id="Node000022" href="$prog_8h.html" title="Progress bar format and printing functions." alt="" coords="1310,79,1367,105"/>
+<area shape="poly" id="edge27_Node000001_Node000022" title=" " alt="" coords="689,18,942,32,1115,49,1294,76,1294,81,1114,55,941,37,689,23"/>
+<area shape="rect" id="Node000023" href="$tp_8h.html" title="Thread pool API for executing work requests." alt="" coords="1391,79,1434,105"/>
+<area shape="poly" id="edge28_Node000001_Node000023" title=" " alt="" coords="689,17,806,18,975,26,1172,44,1275,58,1377,76,1376,82,1274,63,1172,49,974,31,806,24,689,22"/>
+<area shape="poly" id="edge11_Node000011_Node000005" title=" " alt="" coords="287,177,332,214,329,218,283,181"/>
+<area shape="poly" id="edge15_Node000014_Node000005" title=" " alt="" coords="393,180,373,214,369,212,388,177"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="427,226,492,252"/>
+<area shape="poly" id="edge16_Node000014_Node000015" title=" " alt="" coords="409,177,441,213,437,216,405,180"/>
+<area shape="poly" id="edge18_Node000016_Node000006" title=" " alt="" coords="463,104,470,137,465,138,458,105"/>
+<area shape="poly" id="edge19_Node000016_Node000014" title=" " alt="" coords="450,107,419,142,415,139,446,103"/>
+<area shape="poly" id="edge23_Node000018_Node000005" title=" " alt="" coords="527,180,406,223,404,218,525,175"/>
+<area shape="poly" id="edge24_Node000018_Node000015" title=" " alt="" coords="542,181,489,219,486,215,539,177"/>
+<area shape="rect" id="Node000019" title=" " alt="" coords="519,226,584,252"/>
+<area shape="poly" id="edge22_Node000018_Node000019" title=" " alt="" coords="559,179,556,211,551,211,553,178"/>
+<area shape="rect" id="Node000020" title=" " alt="" coords="608,226,650,252"/>
+<area shape="poly" id="edge25_Node000018_Node000020" title=" " alt="" coords="571,177,608,213,604,217,567,180"/>
 </map>

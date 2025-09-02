@@ -9,5 +9,6 @@ var searchData=
   ['indexnodecmp_6',['indexnodecmp',['../index_8c.html#afcb2d1b3e19fa845832a12730a2ea753',1,'index.c']]],
   ['indexput_7',['indexput',['../index_8c.html#a22149a90a735c655ae66e71ba063271b',1,'indexput(struct index_s *idx, const char *fp, const uint64_t fphash, const struct fsstat_s st):&#160;index.c'],['../index_8h.html#a32f770787b046ca97326e023c0782e91',1,'indexput(struct index_s *idx, const char *fp, uint64_t fphash, struct fsstat_s st):&#160;index.c']]],
   ['indexread_8',['indexread',['../index_8c.html#a4125d43775953ef8370561fc6eb43f85',1,'indexread(struct index_s *idx, FILE *s):&#160;index.c'],['../index_8h.html#a4125d43775953ef8370561fc6eb43f85',1,'indexread(struct index_s *idx, FILE *s):&#160;index.c']]],
-  ['indexwrite_9',['indexwrite',['../index_8c.html#a57fe9c26bb06488c107b154a1148c7ea',1,'indexwrite(struct index_s *idx, FILE *s):&#160;index.c'],['../index_8h.html#a57fe9c26bb06488c107b154a1148c7ea',1,'indexwrite(struct index_s *idx, FILE *s):&#160;index.c']]]
+  ['indexwrite_9',['indexwrite',['../index_8c.html#a57fe9c26bb06488c107b154a1148c7ea',1,'indexwrite(struct index_s *idx, FILE *s):&#160;index.c'],['../index_8h.html#a57fe9c26bb06488c107b154a1148c7ea',1,'indexwrite(struct index_s *idx, FILE *s):&#160;index.c']]],
+  ['interruptsig_10',['interruptsig',['../main_8c.html#aef965067823ec222e939f279e1ea8050',1,'main.c']]]
 ];
