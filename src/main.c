@@ -2,6 +2,7 @@
 /// @brief Main program entry point.
 #include <assert.h>
 #include <errno.h>
+#include <signal.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -193,6 +194,27 @@ static int parseinitargs(const int argc, char** const argv) {
   return 0;
 }
 
+/// @brief Interrupt signal handler for cleanly exiting on SIGINT.
+/// @param signo The signal number (should be SIGINT)
+static void interruptsig(const int signo) {
+  log_info("received signal: %d\nwaiting for threads to exit...", signo);
+  tpwait();// wait for active work to finish
+  exit(0);
+}
+
+/// @brief Attaches the interrupt signal handler to handle SIGINT signals.
+/// @return 0 if successful, otherwise a non-zero error code.
+static int siglisten(void) {
+  static struct sigaction sa = {0};
+  sa.sa_handler = interruptsig;
+  sa.sa_flags = SA_NODEFER /* resend repeat signals */ |
+                SA_RESETHAND /* restore default handler after first signal */;
+  int err;
+  if ((err = sigaction(SIGINT, &sa, NULL)))
+    log_error("error attaching interrupt signal handler: %s", strerror(errno));
+  return err;
+}
+
 /// @brief Loads the index from the specified file path into the provided index.
 /// @param idx The index to load into
 /// @param fp The file path to load the index from
@@ -298,9 +320,15 @@ static int cmpchanges(void) {
     }
   }
 
+  // attach interrupt signal handler once worker threads will be activated
+  int err;
+  if ((err = siglisten())) {
+    log_error("error attaching interrupt signal handler: %d", err);
+    return 1;
+  }
+
   const struct deng_hooks_s hooks = {onnotify, onevent};
 
-  int err;
   if ((err = dengsearch(initargs.searchdir, filterjunk, &hooks, &lastmap,
                         &thismap))) {
     log_error("error processing directory `%s`: %d", initargs.searchdir, err);

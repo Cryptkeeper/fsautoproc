@@ -265,6 +265,9 @@ static int lcmdinvoke(const char* cmd, const char* fp, struct fdset_s fds,
       _exit(1); /* avoid firing parent atexit handlers */
     }
 
+    // ignore SIGINT in child process
+    signal(SIGINT, SIG_IGN);
+
     // child process, modify local environment variables for use in commands
     setenv("FILEPATH", fp, 1);
 
