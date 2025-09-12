@@ -1,0 +1,5 @@
+<map id="tpwait" name="tpwait">
+<area shape="rect" id="Node000001" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="5,5,62,31"/>
+<area shape="rect" id="Node000002" href="$tm_8c.html#aa66f0445573396a504fd9996436f8c19" title="Sleep for the specified number of milliseconds." alt="" coords="110,5,177,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="62,16,94,16,94,21,62,21"/>
+</map>

@@ -1,0 +1,28 @@
+<map id="tmsleep" name="tmsleep">
+<area shape="rect" id="Node000001" title="Sleep for the specified number of milliseconds." alt="" coords="636,55,703,80"/>
+<area shape="rect" id="Node000002" href="$tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="510,55,578,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="621,70,578,70,578,65,621,65"/>
+<area shape="rect" id="Node000007" href="$tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="500,5,588,31"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="621,51,578,34,580,29,623,46"/>
+<area shape="rect" id="Node000009" href="$tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="516,105,572,131"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="623,89,573,109,571,105,621,84"/>
+<area shape="rect" id="Node000003" href="$main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="363,55,452,80"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="495,70,452,70,452,65,495,65"/>
+<area shape="rect" id="Node000004" href="$main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="247,55,314,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="348,70,315,70,315,65,348,65"/>
+<area shape="rect" id="Node000005" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,80,198,106"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="232,80,199,86,198,81,231,74"/>
+<area shape="rect" id="Node000006" href="$main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,56,55,82"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="87,83,55,76,56,71,88,78"/>
+<area shape="rect" id="Node000008" href="$main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="122,17,178,43"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="484,23,179,32,179,27,484,17"/>
+<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="108,46,56,63,54,58,106,41"/>
+<area shape="rect" id="Node000010" href="$main_8c.html#aef965067823ec222e939f279e1ea8050" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="365,156,450,182"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="502,136,445,158,443,153,501,131"/>
+<area shape="rect" id="Node000012" href="$main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="247,105,314,131"/>
+<area shape="poly" id="edge13_Node000009_Node000012" title=" " alt="" coords="500,121,315,121,315,116,500,116"/>
+<area shape="rect" id="Node000011" href="$main_8c.html#a29d2fbf12fbfa493b1884bd2ebb6b31e" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="246,155,315,180"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="349,171,316,171,316,165,349,166"/>
+<area shape="poly" id="edge12_Node000011_Node000005" title=" " alt="" coords="242,149,173,109,176,104,245,144"/>
+<area shape="poly" id="edge14_Node000012_Node000005" title=" " alt="" coords="231,111,198,105,199,99,232,106"/>
+</map>

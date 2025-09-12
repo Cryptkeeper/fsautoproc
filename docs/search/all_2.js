@@ -15,5 +15,8 @@ var searchData=
   ['dengsearch_12',['dengsearch',['../deng_8c.html#a613651bdd9fdfeee1e835550338ff2db',1,'dengsearch(const char *sd, deng_filter_t filter, const struct deng_hooks_s *hooks, const struct index_s *old, struct index_s *new):&#160;deng.c'],['../deng_8h.html#a613651bdd9fdfeee1e835550338ff2db',1,'dengsearch(const char *sd, deng_filter_t filter, const struct deng_hooks_s *hooks, const struct index_s *old, struct index_s *new):&#160;deng.c']]],
   ['dependencies_13',['Dependencies',['../index.html#autotoc_md2',1,'']]],
   ['dirqueue_14',['dirqueue',['../structdeng__state__s.html#a594ce2735e4a953ce3059eafd8d2314b',1,'deng_state_s']]],
-  ['dqpush_15',['dqpush',['../deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2',1,'deng.c']]]
+  ['dqpush_15',['dqpush',['../deng_8c.html#a0b73d44b0a5f8601843b6468fd79dcb2',1,'deng.c']]],
+  ['dur_5fhalt_16',['DUR_HALT',['../tm_8h.html#a455ab9e0e66e8bfe2cb5316c32dd792baa88b61adf74d7be2ac27598983132116',1,'tm.h']]],
+  ['dur_5fqueue_17',['DUR_QUEUE',['../tm_8h.html#a455ab9e0e66e8bfe2cb5316c32dd792baeb3ff555dc5afc54162b091bcd736e09',1,'tm.h']]],
+  ['dur_5fwait_18',['DUR_WAIT',['../tm_8h.html#a455ab9e0e66e8bfe2cb5316c32dd792ba58cd59a86aa31aa707ef5f77c514efcf',1,'tm.h']]]
 ];

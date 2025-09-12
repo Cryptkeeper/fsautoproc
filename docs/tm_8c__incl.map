@@ -1,9 +1,15 @@
 <map id="src/tm.c" name="src/tm.c">
-<area shape="rect" id="Node000001" title="Time utility implementation." alt="" coords="40,5,110,31"/>
+<area shape="rect" id="Node000001" title="Time utility implementation." alt="" coords="172,5,242,31"/>
 <area shape="rect" id="Node000002" href="$tm_8h.html" title="Time utility functions." alt="" coords="14,79,61,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,32,53,66,48,64,66,30"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="85,79,142,105"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="84,30,102,64,97,66,79,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,34,76,77,74,72,177,29"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="85,79,153,105"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="194,34,147,71,144,67,190,29"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="177,79,237,105"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="210,31,210,63,204,63,204,31"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="261,79,318,105"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="223,30,266,67,262,71,219,34"/>
+<area shape="rect" id="Node000007" href="$log_8h.html" title="Logging macros for the application." alt="" coords="342,79,392,105"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="235,29,329,71,327,76,233,34"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,153,70,178"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="40,105,40,137,35,137,35,105"/>
 </map>

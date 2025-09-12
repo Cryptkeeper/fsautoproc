@@ -16,8 +16,10 @@
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="192,114,230,114,230,120,192,120"/>
 <area shape="rect" id="Node000007" href="$lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="253,153,324,179"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="196,164,237,164,237,169,196,169"/>
-<area shape="rect" id="Node000010" href="$fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="257,252,320,278"/>
-<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="198,262,241,262,241,268,198,268"/>
-<area shape="rect" id="Node000011" href="$fd_8c.html#a5ab6993faaefa1cffa8184696b7af825" title="Closes the file descriptor if open (indicated by a value of &gt;=0) and sets it to &#45;1." alt="" coords="379,252,443,278"/>
-<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="321,262,364,262,364,268,321,268"/>
+<area shape="rect" id="Node000010" href="$fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="257,227,320,252"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="198,254,241,246,242,251,199,259"/>
+<area shape="rect" id="Node000012" href="$tm_8c.html#aa66f0445573396a504fd9996436f8c19" title="Sleep for the specified number of milliseconds." alt="" coords="255,276,322,302"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="199,270,240,278,239,283,198,275"/>
+<area shape="rect" id="Node000011" href="$fd_8c.html#a5ab6993faaefa1cffa8184696b7af825" title="Closes the file descriptor if open (indicated by a value of &gt;=0) and sets it to &#45;1." alt="" coords="379,227,443,252"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="321,237,364,237,364,242,321,242"/>
 </map>

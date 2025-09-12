@@ -96,17 +96,26 @@ $(function(){initNavTree('tm_8c.html','',''); });
 <p>Time utility implementation.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="tm_8h_source.html">tm.h</a>&quot;</code><br />
+<code>#include &lt;assert.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;time.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="log_8h_source.html">log.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for tm.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="tm_8c__incl.png" border="0" usemap="#asrc_2tm_8c" loading="lazy" alt=""/></div>
 <map name="asrc_2tm_8c" id="asrc_2tm_8c">
-<area shape="rect" title="Time utility implementation." alt="" coords="40,5,110,31"/>
+<area shape="rect" title="Time utility implementation." alt="" coords="172,5,242,31"/>
 <area shape="rect" href="tm_8h.html" title="Time utility functions." alt="" coords="14,79,61,105"/>
-<area shape="poly" title=" " alt="" coords="71,32,53,66,48,64,66,30"/>
-<area shape="rect" title=" " alt="" coords="85,79,142,105"/>
-<area shape="poly" title=" " alt="" coords="84,30,102,64,97,66,79,32"/>
+<area shape="poly" title=" " alt="" coords="179,34,76,77,74,72,177,29"/>
+<area shape="rect" title=" " alt="" coords="85,79,153,105"/>
+<area shape="poly" title=" " alt="" coords="194,34,147,71,144,67,190,29"/>
+<area shape="rect" title=" " alt="" coords="177,79,237,105"/>
+<area shape="poly" title=" " alt="" coords="210,31,210,63,204,63,204,31"/>
+<area shape="rect" title=" " alt="" coords="261,79,318,105"/>
+<area shape="poly" title=" " alt="" coords="223,30,266,67,262,71,219,34"/>
+<area shape="rect" href="log_8h.html" title="Logging macros for the application." alt="" coords="342,79,392,105"/>
+<area shape="poly" title=" " alt="" coords="235,29,329,71,327,76,233,34"/>
 <area shape="rect" title=" " alt="" coords="5,153,70,178"/>
 <area shape="poly" title=" " alt="" coords="40,105,40,137,35,137,35,105"/>
 </map>
@@ -116,6 +125,8 @@ Include dependency graph for tm.c:</div>
 Functions</h2></td></tr>
 <tr class="memitem:ab71da3f073d332ab0802cd051b48ed56" id="r_ab71da3f073d332ab0802cd051b48ed56"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab71da3f073d332ab0802cd051b48ed56">tmnow</a> (void)</td></tr>
 <tr class="memdesc:ab71da3f073d332ab0802cd051b48ed56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current system time in milliseconds.  <br /></td></tr>
+<tr class="memitem:aa66f0445573396a504fd9996436f8c19" id="r_aa66f0445573396a504fd9996436f8c19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa66f0445573396a504fd9996436f8c19">tmsleep</a> (const uint32_t ms)</td></tr>
+<tr class="memdesc:aa66f0445573396a504fd9996436f8c19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sleep for the specified number of milliseconds.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Time utility implementation. </p>
@@ -161,6 +172,65 @@ Here is the caller graph for this function:</div>
 <area shape="poly" title=" " alt="" coords="230,21,199,21,199,16,230,16"/>
 <area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,5,55,31"/>
 <area shape="poly" title=" " alt="" coords="87,21,55,21,55,16,87,16"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa66f0445573396a504fd9996436f8c19" name="aa66f0445573396a504fd9996436f8c19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa66f0445573396a504fd9996436f8c19">&#9670;&#160;</a></span>tmsleep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void tmsleep </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>ms</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sleep for the specified number of milliseconds. </p>
+<dl class="section note"><dt>Note</dt><dd>This function will block the calling thread. The sleep duration may be longer than the specified time due to system scheduling. The function may fail internally via the underlying system call. This will be indicated by a log message, but the function will not return an error code. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ms</td><td>The number of milliseconds to sleep. Must be greater than 0. </td></tr>
+  </table>
+  </dd>
+</dl>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="tm_8c_aa66f0445573396a504fd9996436f8c19_icgraph.png" border="0" usemap="#atm_8c_aa66f0445573396a504fd9996436f8c19_icgraph" loading="lazy" alt=""/></div>
+<map name="atm_8c_aa66f0445573396a504fd9996436f8c19_icgraph" id="atm_8c_aa66f0445573396a504fd9996436f8c19_icgraph">
+<area shape="rect" title="Sleep for the specified number of milliseconds." alt="" coords="636,55,703,80"/>
+<area shape="rect" href="tp_8c.html#ab972453aae3dcc660881dad6516bdf5d" title="Allocates a work request to the first available thread in the global pool. If no threads are availabl..." alt="" coords="510,55,578,80"/>
+<area shape="poly" title=" " alt="" coords="621,70,578,70,578,65,621,65"/>
+<area shape="rect" href="tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="500,5,588,31"/>
+<area shape="poly" title=" " alt="" coords="621,51,578,34,580,29,623,46"/>
+<area shape="rect" href="tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="516,105,572,131"/>
+<area shape="poly" title=" " alt="" coords="623,89,573,109,571,105,621,84"/>
+<area shape="rect" href="main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="363,55,452,80"/>
+<area shape="poly" title=" " alt="" coords="495,70,452,70,452,65,495,65"/>
+<area shape="rect" href="main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="247,55,314,80"/>
+<area shape="poly" title=" " alt="" coords="348,70,315,70,315,65,348,65"/>
+<area shape="rect" href="main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,80,198,106"/>
+<area shape="poly" title=" " alt="" coords="232,80,199,86,198,81,231,74"/>
+<area shape="rect" href="main_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main program entry point." alt="" coords="5,56,55,82"/>
+<area shape="poly" title=" " alt="" coords="87,83,55,76,56,71,88,78"/>
+<area shape="rect" href="main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="122,17,178,43"/>
+<area shape="poly" title=" " alt="" coords="484,23,179,32,179,27,484,17"/>
+<area shape="poly" title=" " alt="" coords="108,46,56,63,54,58,106,41"/>
+<area shape="rect" href="main_8c.html#aef965067823ec222e939f279e1ea8050" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="365,156,450,182"/>
+<area shape="poly" title=" " alt="" coords="502,136,445,158,443,153,501,131"/>
+<area shape="rect" href="main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="247,105,314,131"/>
+<area shape="poly" title=" " alt="" coords="500,121,315,121,315,116,500,116"/>
+<area shape="rect" href="main_8c.html#a29d2fbf12fbfa493b1884bd2ebb6b31e" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="246,155,315,180"/>
+<area shape="poly" title=" " alt="" coords="349,171,316,171,316,165,349,166"/>
+<area shape="poly" title=" " alt="" coords="242,149,173,109,176,104,245,144"/>
+<area shape="poly" title=" " alt="" coords="231,111,198,105,199,99,232,106"/>
 </map>
 </div>
 
