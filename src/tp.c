@@ -16,6 +16,7 @@
 #include "index.h"
 #include "lcmd.h"
 #include "log.h"
+#include "tm.h"
 
 /// @struct thrd_s
 /// @brief Initialized worker thread in the thread pool.
@@ -125,20 +126,20 @@ findnext:
     atomic_store(&t->canwork, true); /* release lock/allow thread to continue */
     return 0;
   }
+  tmsleep(DUR_QUEUE);
   goto findnext;// spin while waiting for a thread to be available
 }
 
 void tpwait(void) {
   for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) {
     while (atomic_load(&thrds[i]->rsrvd))// wait for thread to become idle
-      ;
+      tmsleep(DUR_WAIT);
   }
 }
 
 void tpshutdown(void) {
   atomic_store(&haltthrds, true);// signal threads to exit
-  while (atomic_load(&thrdrc) > 0)
-    ;
+  while (atomic_load(&thrdrc) > 0) tmsleep(DUR_HALT);
   for (size_t i = 0; thrds != NULL && thrds[i] != NULL; i++) {
     struct thrd_s* t = thrds[i];
     if (atomic_exchange(&t->initd, false)) pthread_join(t->tid, NULL);
