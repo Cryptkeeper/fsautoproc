@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="5,31,83,56"/>
 <area shape="rect" id="Node000002" href="$index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="131,5,211,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,33,115,27,116,32,84,38"/>
-<area shape="rect" id="Node000003" href="$index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="136,55,206,80"/>
+<area shape="rect" id="Node000003" href="$index_8c.html#ad80080841a8742363826de89a6b12fcd" title="Copies the node and inserts it into the index mapping." alt="" coords="136,55,206,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="84,48,121,55,120,61,83,53"/>
 <area shape="rect" id="Node000004" href="$index_8c.html#a4c24a5d6c47d6bb2afac2d57fa5ff80a" title="Appends the node to the end of the bucket (linked list), potentially assigning a new head if the buck..." alt="" coords="259,29,353,55"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="206,58,243,51,244,56,207,64"/>

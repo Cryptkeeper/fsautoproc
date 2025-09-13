@@ -27,12 +27,11 @@ var searchData=
   ['fs_2eh_24',['fs.h',['../fs_8h.html',1,'']]],
   ['fsautoproc_25',['fsautoproc',['../index.html',1,'']]],
   ['fsjoin_26',['fsjoin',['../fs_8c.html#aa1d4e9bed28c32018a597913eb2b3dee',1,'fsjoin(const char *dir, const char *file):&#160;fs.c'],['../fs_8h.html#aa1d4e9bed28c32018a597913eb2b3dee',1,'fsjoin(const char *dir, const char *file):&#160;fs.c']]],
-  ['fsreadstr_27',['fsreadstr',['../lcmd_8c.html#aea1ce3fc2d45ddb3c059cf9f35a0a674',1,'lcmd.c']]],
-  ['fsstat_28',['fsstat',['../fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a',1,'fsstat(const char *fp, struct fsstat_s *s):&#160;fs.c'],['../fs_8h.html#ac83f71d8496de8b8b0387b315e2cc79a',1,'fsstat(const char *fp, struct fsstat_s *s):&#160;fs.c']]],
-  ['fsstat_5fs_29',['fsstat_s',['../structfsstat__s.html',1,'']]],
-  ['fsstateql_30',['fsstateql',['../fs_8c.html#a9a6b33158e9e03d0404c144b5e3dee2c',1,'fsstateql(const struct fsstat_s *a, const struct fsstat_s *b):&#160;fs.c'],['../fs_8h.html#a9a6b33158e9e03d0404c144b5e3dee2c',1,'fsstateql(const struct fsstat_s *a, const struct fsstat_s *b):&#160;fs.c']]],
-  ['fswalk_31',['fswalk',['../fs_8c.html#ab8a3bcbf38530f40a644cf58975f27e0',1,'fswalk(const char *dir, fswalkfn_t filefn, fswalkfn_t dirfn, void *udata):&#160;fs.c'],['../fs_8h.html#ab8a3bcbf38530f40a644cf58975f27e0',1,'fswalk(const char *dir, fswalkfn_t filefn, fswalkfn_t dirfn, void *udata):&#160;fs.c']]],
-  ['fswalkerr_32',['fswalkerr',['../fs_8c.html#a8bb9fba0c594f3e6b654303e6f9f36a9',1,'fs.c']]],
-  ['fswalkfn_5ft_33',['fswalkfn_t',['../fs_8h.html#a638acc941ee8fac4699297bc35924f10',1,'fs.h']]],
-  ['fsze_34',['fsze',['../structfsstat__s.html#a667435bed6c10c16926e35c1fd03e638',1,'fsstat_s']]]
+  ['fsprocent_27',['fsprocent',['../fs_8c.html#af5306102e7e209d01dcc945c77ed983b',1,'fs.c']]],
+  ['fsreadstr_28',['fsreadstr',['../lcmd_8c.html#aea1ce3fc2d45ddb3c059cf9f35a0a674',1,'lcmd.c']]],
+  ['fsstat_29',['fsstat',['../fs_8c.html#ac83f71d8496de8b8b0387b315e2cc79a',1,'fsstat(const char *fp, struct fsstat_s *s):&#160;fs.c'],['../fs_8h.html#ac83f71d8496de8b8b0387b315e2cc79a',1,'fsstat(const char *fp, struct fsstat_s *s):&#160;fs.c']]],
+  ['fsstat_5fs_30',['fsstat_s',['../structfsstat__s.html',1,'']]],
+  ['fswalk_31',['fswalk',['../fs_8c.html#a469c2bd2c6e4d71b5753a5c076e081c3',1,'fswalk(const char *dir, fswalkfn_t filefn, void *udata):&#160;fs.c'],['../fs_8h.html#a469c2bd2c6e4d71b5753a5c076e081c3',1,'fswalk(const char *dir, fswalkfn_t filefn, void *udata):&#160;fs.c']]],
+  ['fswalkfn_5ft_32',['fswalkfn_t',['../fs_8h.html#a85702b72f3b4fdb7eeff44f5bf0d7b4f',1,'fs.h']]],
+  ['fsze_33',['fsze',['../structfsstat__s.html#a667435bed6c10c16926e35c1fd03e638',1,'fsstat_s']]]
 ];

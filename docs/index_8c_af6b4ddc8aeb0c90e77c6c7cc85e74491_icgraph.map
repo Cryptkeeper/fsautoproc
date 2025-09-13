@@ -4,9 +4,9 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="537,74,487,45,466,34,468,29,490,40,540,69"/>
 <area shape="rect" id="Node000006" href="$main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="255,129,325,155"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="545,117,519,133,489,145,446,153,401,155,326,150,326,145,401,150,445,147,488,140,517,128,542,112"/>
-<area shape="rect" id="Node000007" href="$deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="396,55,475,80"/>
+<area shape="rect" id="Node000007" href="$deng_8c.html#a3fc990bbcccb7d71de4e79e780a519b3" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="396,55,475,80"/>
 <area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="521,86,475,77,476,72,522,81"/>
-<area shape="rect" id="Node000008" href="$deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="400,104,471,130"/>
+<area shape="rect" id="Node000008" href="$deng_8c.html#a662d699aef73560c915a03b4862e6c89" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="400,104,471,130"/>
 <area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="522,104,472,113,471,108,521,99"/>
 <area shape="rect" id="Node000003" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,80,334,106"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="392,40,384,45,316,82,313,77,381,40,390,36"/>

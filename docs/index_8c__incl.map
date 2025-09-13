@@ -1,27 +1,26 @@
 <map id="src/index.c" name="src/index.c">
-<area shape="rect" id="Node000001" title="File index mapping and serialization implementation." alt="" coords="349,5,434,31"/>
-<area shape="rect" id="Node000002" href="$index_8h.html" title="File index mapping and serialization functions." alt="" coords="41,79,104,105"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="349,31,120,81,119,76,348,26"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="129,79,190,105"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="353,34,205,79,204,74,351,29"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="214,79,292,105"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="369,34,291,74,289,69,367,29"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="316,79,379,105"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="387,33,365,67,361,64,382,30"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="403,79,468,105"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="401,30,422,64,418,67,396,33"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="492,79,624,105"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="421,29,517,70,515,75,419,34"/>
-<area shape="rect" id="Node000012" href="$je_8h.html" title="jemalloc&#45;related utility functions." alt="" coords="649,79,691,105"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="435,26,524,46,635,76,633,81,522,52,434,31"/>
-<area shape="rect" id="Node000013" href="$log_8h.html" title="Logging macros for the application." alt="" coords="715,79,764,105"/>
-<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="435,23,552,44,701,76,700,81,551,49,434,29"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,153,66,178"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="69,106,51,140,46,138,64,104"/>
-<area shape="rect" id="Node000004" href="$fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="90,153,133,178"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="82,104,100,138,95,140,77,106"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="28,226,102,252"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="106,180,83,215,79,212,102,177"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="126,226,190,252"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="121,177,144,212,140,215,117,180"/>
+<area shape="rect" id="Node000001" title="File index mapping and serialization implementation." alt="" coords="327,5,412,31"/>
+<area shape="rect" id="Node000002" href="$index_8h.html" title="File index mapping and serialization functions." alt="" coords="19,79,82,105"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="327,31,98,81,97,76,326,26"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="107,79,168,105"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="331,34,183,79,182,74,329,29"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="192,79,270,105"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="347,34,269,74,267,69,345,29"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="294,79,357,105"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="364,33,343,67,339,64,360,30"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="381,79,446,105"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="379,30,400,64,396,67,374,33"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="470,79,602,105"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="399,29,495,70,493,75,397,34"/>
+<area shape="rect" id="Node000011" href="$je_8h.html" title="jemalloc&#45;related utility functions." alt="" coords="627,79,669,105"/>
+<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="413,26,502,46,613,76,611,81,500,52,412,31"/>
+<area shape="rect" id="Node000012" href="$log_8h.html" title="Logging macros for the application." alt="" coords="693,79,742,105"/>
+<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="413,23,529,44,679,76,677,81,528,49,412,29"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="23,226,87,252"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="40,106,16,139,9,158,11,178,20,196,33,213,28,216,15,199,5,179,4,157,11,136,36,103"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="21,153,81,178"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="53,105,53,137,48,137,48,105"/>
+<area shape="rect" id="Node000005" href="$fs_8h.html" title="Filesystem walk and stat functions." alt="" coords="105,153,148,178"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="65,103,105,140,101,144,62,107"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="117,180,80,217,76,213,113,177"/>
 </map>

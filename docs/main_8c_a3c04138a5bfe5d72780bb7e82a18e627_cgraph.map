@@ -2,114 +2,114 @@
 <area shape="rect" id="Node000001" title="Main program entry point." alt="" coords="5,848,55,874"/>
 <area shape="rect" id="Node000002" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,267,198,292"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="31,847,141,307,146,308,37,848"/>
-<area shape="rect" id="Node000042" href="$fl_8c.html#a00b62bc8baa9dd0647aa066b870a0386" title="Locks the file at the given path. If a file descriptor cannot be obtained, or the file cannot be lock..." alt="" coords="125,576,177,602"/>
-<area shape="poly" id="edge37_Node000001_Node000042" title=" " alt="" coords="34,847,100,686,134,614,139,617,105,689,39,849"/>
-<area shape="rect" id="Node000044" href="$main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="123,700,179,726"/>
-<area shape="poly" id="edge39_Node000001_Node000044" title=" " alt="" coords="40,846,127,736,132,740,44,849"/>
-<area shape="rect" id="Node000053" href="$lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Parses the provided file path and populates an array of command sets. The file must be a valid JSON f..." alt="" coords="110,848,192,874"/>
-<area shape="poly" id="edge50_Node000001_Node000053" title=" " alt="" coords="55,858,95,858,95,864,55,864"/>
-<area shape="rect" id="Node000058" href="$main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f" title="Parses the program initialization arguments into initargs." alt="" coords="103,909,198,935"/>
-<area shape="poly" id="edge57_Node000001_Node000058" title=" " alt="" coords="56,871,112,899,109,904,54,876"/>
-<area shape="rect" id="Node000061" href="$main_8c.html#ae29622551563546e0b7a146fac8323dc" title="Prints the time spent for each command set to the console." alt="" coords="103,959,199,984"/>
-<area shape="poly" id="edge60_Node000001_Node000061" title=" " alt="" coords="42,872,68,908,104,946,108,948,105,953,101,949,64,911,37,876"/>
-<area shape="rect" id="Node000062" href="$tp_8c.html#a1ba58530a307f93d627c37f920a19945" title="Initializes a global worker thread pool of the given size." alt="" coords="126,1032,176,1058"/>
-<area shape="poly" id="edge61_Node000001_Node000062" title=" " alt="" coords="39,873,65,928,105,995,126,1019,122,1023,101,998,60,931,34,875"/>
+<area shape="rect" id="Node000040" href="$fl_8c.html#a00b62bc8baa9dd0647aa066b870a0386" title="Locks the file at the given path. If a file descriptor cannot be obtained, or the file cannot be lock..." alt="" coords="125,576,177,602"/>
+<area shape="poly" id="edge37_Node000001_Node000040" title=" " alt="" coords="34,847,100,686,134,614,139,617,105,689,39,849"/>
+<area shape="rect" id="Node000042" href="$main_8c.html#ae3bfc4f47abe250845ff9d33361e8088" title="Frees all allocated resources." alt="" coords="123,700,179,726"/>
+<area shape="poly" id="edge39_Node000001_Node000042" title=" " alt="" coords="40,846,127,736,132,740,44,849"/>
+<area shape="rect" id="Node000051" href="$lcmd_8c.html#a1d148263b2d41fab06d1360675fde981" title="Parses the provided file path and populates an array of command sets. The file must be a valid JSON f..." alt="" coords="110,848,192,874"/>
+<area shape="poly" id="edge50_Node000001_Node000051" title=" " alt="" coords="55,858,95,858,95,864,55,864"/>
+<area shape="rect" id="Node000056" href="$main_8c.html#a70aae7b20e0a7637539a7c7ce88c288f" title="Parses the program initialization arguments into initargs." alt="" coords="103,909,198,935"/>
+<area shape="poly" id="edge57_Node000001_Node000056" title=" " alt="" coords="56,871,112,899,109,904,54,876"/>
+<area shape="rect" id="Node000059" href="$main_8c.html#ae29622551563546e0b7a146fac8323dc" title="Prints the time spent for each command set to the console." alt="" coords="103,959,199,984"/>
+<area shape="poly" id="edge60_Node000001_Node000059" title=" " alt="" coords="42,872,68,908,104,946,108,948,105,953,101,949,64,911,37,876"/>
+<area shape="rect" id="Node000060" href="$tp_8c.html#a1ba58530a307f93d627c37f920a19945" title="Initializes a global worker thread pool of the given size." alt="" coords="126,1032,176,1058"/>
+<area shape="poly" id="edge61_Node000001_Node000060" title=" " alt="" coords="39,873,65,928,105,995,126,1019,122,1023,101,998,60,931,34,875"/>
 <area shape="rect" id="Node000003" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="254,304,342,330"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="200,289,240,299,238,304,198,294"/>
-<area shape="rect" id="Node000019" href="$main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="417,452,487,478"/>
-<area shape="poly" id="edge16_Node000002_Node000019" title=" " alt="" coords="172,290,267,357,399,439,406,443,404,447,396,443,264,362,168,295"/>
-<area shape="rect" id="Node000022" href="$main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="260,441,336,467"/>
-<area shape="poly" id="edge21_Node000002_Node000022" title=" " alt="" coords="165,291,249,396,277,428,273,431,245,400,160,295"/>
-<area shape="rect" id="Node000024" href="$main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="264,81,332,107"/>
-<area shape="poly" id="edge25_Node000002_Node000024" title=" " alt="" coords="158,265,194,210,245,142,269,116,273,120,249,145,198,213,163,268"/>
-<area shape="rect" id="Node000034" href="$main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="264,156,332,182"/>
-<area shape="poly" id="edge27_Node000002_Node000034" title=" " alt="" coords="168,264,266,189,269,194,171,268"/>
-<area shape="rect" id="Node000037" href="$main_8c.html#a29d2fbf12fbfa493b1884bd2ebb6b31e" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="264,19,333,44"/>
-<area shape="poly" id="edge31_Node000002_Node000037" title=" " alt="" coords="153,266,183,178,210,121,245,67,260,52,264,56,249,71,214,123,188,180,158,267"/>
-<area shape="rect" id="Node000039" href="$main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="258,229,338,255"/>
-<area shape="poly" id="edge34_Node000002_Node000039" title=" " alt="" coords="198,265,242,254,244,259,200,270"/>
+<area shape="rect" id="Node000016" href="$main_8c.html#a4967842331bb57ed8fadbf57206f63e6" title="Filters out junk files from the index based on loaded command sets cmdsets and the initargs...." alt="" coords="417,452,487,478"/>
+<area shape="poly" id="edge16_Node000002_Node000016" title=" " alt="" coords="172,290,267,357,399,439,406,443,404,447,396,443,264,362,168,295"/>
+<area shape="rect" id="Node000019" href="$main_8c.html#a622aba9b5995598f63a704054f527050" title="Loads the index from the specified file path into the provided index." alt="" coords="260,441,336,467"/>
+<area shape="poly" id="edge21_Node000002_Node000019" title=" " alt="" coords="165,291,249,396,277,428,273,431,245,400,160,295"/>
+<area shape="rect" id="Node000021" href="$main_8c.html#acef2570122c7ca15cdc3fd1b2247fc28" title="Callback function for the diff engine to handle file events. This will log a work request in the thre..." alt="" coords="264,81,332,107"/>
+<area shape="poly" id="edge25_Node000002_Node000021" title=" " alt="" coords="158,265,194,210,245,142,269,116,273,120,249,145,198,213,163,268"/>
+<area shape="rect" id="Node000032" href="$main_8c.html#aab7f5ebc18b7a118d6341d8d93ff387f" title="Callback function passed to the diff engine to handle progress notifications. This function will prin..." alt="" coords="264,156,332,182"/>
+<area shape="poly" id="edge27_Node000002_Node000032" title=" " alt="" coords="168,264,266,189,269,194,171,268"/>
+<area shape="rect" id="Node000035" href="$main_8c.html#a29d2fbf12fbfa493b1884bd2ebb6b31e" title="Attaches the interrupt signal handler to handle SIGINT signals." alt="" coords="264,19,333,44"/>
+<area shape="poly" id="edge31_Node000002_Node000035" title=" " alt="" coords="153,266,183,178,210,121,245,67,260,52,264,56,249,71,214,123,188,180,158,267"/>
+<area shape="rect" id="Node000037" href="$main_8c.html#ab4dbc177c0ff9528fefc8ee63e2755bc" title="Writes the index to the specified file path." alt="" coords="258,229,338,255"/>
+<area shape="poly" id="edge34_Node000002_Node000037" title=" " alt="" coords="198,265,242,254,244,259,200,270"/>
 <area shape="rect" id="Node000004" href="$deng_8c.html#a0ac595fcc44fb9f56bfdc0cf26b37601" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="399,255,505,280"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="340,301,394,283,396,288,342,306"/>
-<area shape="rect" id="Node000007" href="$deng_8c.html#a39324e96949b49d9406195da0173568f" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="411,353,493,379"/>
+<area shape="rect" id="Node000007" href="$deng_8c.html#a39324e96949b49d9406195da0173568f" title="Walks the directory tree starting at sd and invokes the provided file function filefn for each file f..." alt="" coords="411,353,493,379"/>
 <area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="342,328,398,346,396,351,340,333"/>
-<area shape="rect" id="Node000011" href="$deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="413,403,491,428"/>
-<area shape="poly" id="edge7_Node000003_Node000011" title=" " alt="" coords="316,328,353,358,399,389,406,393,403,398,396,394,350,362,313,332"/>
-<area shape="rect" id="Node000017" href="$deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="416,304,488,330"/>
-<area shape="poly" id="edge12_Node000003_Node000017" title=" " alt="" coords="343,314,401,314,401,320,343,320"/>
+<area shape="rect" id="Node000010" href="$deng_8c.html#a3fc990bbcccb7d71de4e79e780a519b3" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="413,403,491,428"/>
+<area shape="poly" id="edge7_Node000003_Node000010" title=" " alt="" coords="316,328,353,358,399,389,406,393,403,398,396,394,350,362,313,332"/>
+<area shape="rect" id="Node000015" href="$deng_8c.html#a662d699aef73560c915a03b4862e6c89" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="416,304,488,330"/>
+<area shape="poly" id="edge12_Node000003_Node000015" title=" " alt="" coords="343,314,401,314,401,320,343,320"/>
 <area shape="rect" id="Node000005" href="$index_8c.html#af6b4ddc8aeb0c90e77c6c7cc85e74491" title="Searches the index for a node with a matching filepath." alt="" coords="571,328,644,354"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="484,278,508,289,567,318,565,323,506,294,482,283"/>
 <area shape="rect" id="Node000006" href="$index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="573,231,642,256"/>
 <area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="505,257,557,249,558,254,506,262"/>
-<area shape="poly" id="edge8_Node000011_Node000005" title=" " alt="" coords="483,400,506,389,566,359,569,363,508,394,485,404"/>
-<area shape="rect" id="Node000013" href="$index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="568,452,648,478"/>
-<area shape="poly" id="edge9_Node000011_Node000013" title=" " alt="" coords="492,425,554,445,552,450,491,430"/>
-<area shape="rect" id="Node000014" href="$index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="573,403,643,428"/>
-<area shape="poly" id="edge10_Node000011_Node000014" title=" " alt="" coords="492,413,558,413,558,418,492,418"/>
-<area shape="rect" id="Node000016" href="$je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="709,564,783,590"/>
-<area shape="poly" id="edge11_Node000014_Node000016" title=" " alt="" coords="645,426,663,437,687,464,708,494,736,549,732,551,703,496,683,467,659,442,642,430"/>
-<area shape="poly" id="edge13_Node000017_Node000005" title=" " alt="" coords="489,320,556,330,556,336,488,325"/>
-<area shape="poly" id="edge14_Node000017_Node000013" title=" " alt="" coords="490,326,509,339,527,365,533,390,540,414,557,439,559,441,555,445,553,443,535,417,528,391,522,367,505,343,487,330"/>
-<area shape="poly" id="edge15_Node000017_Node000014" title=" " alt="" coords="487,328,508,339,581,391,578,395,505,343,485,333"/>
-<area shape="poly" id="edge17_Node000019_Node000005" title=" " alt="" coords="486,449,505,439,530,415,553,388,580,362,583,366,557,392,534,419,508,443,489,454"/>
-<area shape="poly" id="edge18_Node000019_Node000013" title=" " alt="" coords="488,462,552,462,552,468,488,468"/>
-<area shape="poly" id="edge19_Node000019_Node000014" title=" " alt="" coords="487,451,557,429,559,434,489,456"/>
-<area shape="rect" id="Node000020" href="$lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="555,501,661,527"/>
-<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="489,473,551,494,550,499,487,478"/>
-<area shape="rect" id="Node000023" href="$index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="413,501,491,527"/>
-<area shape="poly" id="edge22_Node000022_Node000023" title=" " alt="" coords="334,465,404,493,402,498,332,470"/>
-<area shape="poly" id="edge23_Node000023_Node000013" title=" " alt="" coords="490,499,552,479,554,485,492,505"/>
-<area shape="poly" id="edge24_Node000023_Node000014" title=" " alt="" coords="487,499,505,488,519,475,529,463,538,451,553,437,558,434,561,438,556,442,542,454,533,466,523,479,508,492,490,503"/>
-<area shape="rect" id="Node000025" href="$main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="408,55,496,80"/>
-<area shape="poly" id="edge26_Node000024_Node000025" title=" " alt="" coords="332,86,393,75,394,80,333,91"/>
-<area shape="rect" id="Node000035" href="$prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="407,156,497,182"/>
-<area shape="poly" id="edge28_Node000034_Node000035" title=" " alt="" coords="332,166,392,166,392,172,332,172"/>
-<area shape="rect" id="Node000036" href="$tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="580,105,636,131"/>
-<area shape="poly" id="edge29_Node000034_Node000036" title=" " alt="" coords="332,157,397,141,486,127,564,119,565,124,487,133,398,146,333,162"/>
-<area shape="rect" id="Node000027" href="$tm_8c.html#aa66f0445573396a504fd9996436f8c19" title="Sleep for the specified number of milliseconds." alt="" coords="712,392,780,418"/>
-<area shape="poly" id="edge30_Node000036_Node000027" title=" " alt="" coords="619,130,663,217,736,377,731,379,659,219,614,133"/>
-<area shape="rect" id="Node000038" href="$main_8c.html#aef965067823ec222e939f279e1ea8050" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="409,5,495,31"/>
-<area shape="poly" id="edge32_Node000037_Node000038" title=" " alt="" coords="333,26,393,21,394,26,334,31"/>
-<area shape="poly" id="edge33_Node000038_Node000036" title=" " alt="" coords="487,29,508,40,548,67,582,93,579,98,544,71,505,44,485,34"/>
-<area shape="rect" id="Node000040" href="$index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="412,205,492,231"/>
-<area shape="poly" id="edge35_Node000039_Node000040" title=" " alt="" coords="338,233,396,224,397,229,339,239"/>
-<area shape="poly" id="edge36_Node000040_Node000006" title=" " alt="" coords="493,222,559,233,558,238,492,227"/>
-<area shape="rect" id="Node000043" href="$fl_8c.html#ac8cdc36ad1f74a8dd0b80ee85356bc01" title="Opens the file at the given path and updates the file lock structure with the file descriptor...." alt="" coords="270,503,326,528"/>
-<area shape="poly" id="edge38_Node000042_Node000043" title=" " alt="" coords="176,573,246,537,254,533,257,538,248,542,179,578"/>
-<area shape="rect" id="Node000045" href="$fl_8c.html#af9edee5332ff921081fe39fc530d40bd" title="Unlocks the file at the given path. If the file is not open, or the file cannot be unlocked,..." alt="" coords="265,749,331,775"/>
-<area shape="poly" id="edge40_Node000044_Node000045" title=" " alt="" coords="180,720,252,744,250,749,179,725"/>
-<area shape="rect" id="Node000046" href="$main_8c.html#a91224adbae9c6933e2469d45de8d340a" title="Frees all duplicated initialization arguments." alt="" coords="256,601,341,627"/>
-<area shape="poly" id="edge41_Node000044_Node000046" title=" " alt="" coords="165,698,201,668,246,636,251,632,254,637,248,640,204,672,169,702"/>
-<area shape="rect" id="Node000047" href="$index_8c.html#ac916662497c44dfd34d1d6fd5312a317" title="Frees all nodes in the index map." alt="" coords="261,651,335,676"/>
-<area shape="poly" id="edge42_Node000044_Node000047" title=" " alt="" coords="179,701,245,678,247,683,180,706"/>
-<area shape="rect" id="Node000049" href="$lcmd_8c.html#a36d31b28aae66a8e5e5d1d0a4bf454d8" title="Iterates and frees all memory allocated by the command set array." alt="" coords="257,799,339,824"/>
-<area shape="poly" id="edge44_Node000044_Node000049" title=" " alt="" coords="169,724,204,754,248,785,254,789,251,793,246,790,201,758,165,728"/>
-<area shape="rect" id="Node000051" href="$tp_8c.html#ae363265419a031c7578b4896aab4ddde" title="Frees all memory allocated by tpinit(). This function should be called at the end of the program...." alt="" coords="271,700,325,726"/>
-<area shape="poly" id="edge46_Node000044_Node000051" title=" " alt="" coords="179,710,256,710,256,716,179,716"/>
-<area shape="rect" id="Node000052" href="$tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="254,552,342,578"/>
-<area shape="poly" id="edge47_Node000044_Node000052" title=" " alt="" coords="157,698,191,646,216,615,245,587,249,584,252,588,249,591,220,618,196,649,162,701"/>
-<area shape="rect" id="Node000048" href="$index_8c.html#a595066efa8470d25061301ab56dc7946" title="Recursively frees a linked list of nodes starting from a given head." alt="" coords="409,652,495,678"/>
-<area shape="poly" id="edge43_Node000047_Node000048" title=" " alt="" coords="336,661,394,662,394,667,336,666"/>
-<area shape="rect" id="Node000050" href="$lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="416,748,488,774"/>
-<area shape="poly" id="edge45_Node000049_Node000050" title=" " alt="" coords="339,796,401,775,403,780,340,801"/>
-<area shape="poly" id="edge49_Node000052_Node000027" title=" " alt="" coords="343,571,409,579,491,581,535,577,578,569,620,556,660,537,686,515,707,487,734,431,739,434,712,490,690,519,662,542,622,561,580,575,535,583,491,586,408,585,342,576"/>
-<area shape="rect" id="Node000031" href="$fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="420,603,484,628"/>
-<area shape="poly" id="edge48_Node000052_Node000031" title=" " alt="" coords="340,576,406,598,405,603,339,581"/>
-<area shape="poly" id="edge52_Node000053_Node000049" title=" " alt="" coords="191,845,242,827,244,832,193,850"/>
-<area shape="rect" id="Node000054" href="$lcmd_8c.html#aea1ce3fc2d45ddb3c059cf9f35a0a674" title="Reads the contents of the file described by filepath fp into a dynamically allocated buffer returned ..." alt="" coords="262,897,334,923"/>
-<area shape="poly" id="edge51_Node000053_Node000054" title=" " alt="" coords="193,872,249,891,247,896,191,877"/>
-<area shape="rect" id="Node000055" href="$lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="247,848,349,874"/>
-<area shape="poly" id="edge53_Node000053_Node000055" title=" " alt="" coords="192,858,232,858,232,864,192,864"/>
-<area shape="poly" id="edge54_Node000055_Node000016" title=" " alt="" coords="349,861,426,857,467,848,505,833,544,810,580,782,644,717,694,653,728,602,732,604,698,656,648,721,584,786,547,814,508,838,468,853,426,862,350,867"/>
-<area shape="rect" id="Node000056" href="$lcmd_8c.html#a124832f00584c93167d1e2e55e36ed79" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="405,899,499,924"/>
-<area shape="poly" id="edge55_Node000055_Node000056" title=" " alt="" coords="340,872,397,891,396,896,339,877"/>
-<area shape="rect" id="Node000057" href="$lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="397,797,507,823"/>
-<area shape="poly" id="edge56_Node000055_Node000057" title=" " alt="" coords="339,845,396,826,397,831,340,850"/>
-<area shape="rect" id="Node000059" href="$fs_8c.html#aa1d4e9bed28c32018a597913eb2b3dee" title="Concatenates the two strings into a single path string, joined by a / (path separator) character...." alt="" coords="272,996,324,1022"/>
-<area shape="poly" id="edge58_Node000058_Node000059" title=" " alt="" coords="182,933,201,944,225,964,249,983,259,989,257,993,245,987,221,968,197,948,179,938"/>
-<area shape="rect" id="Node000060" href="$main_8c.html#a60d3e3e702ef1f4037f234ec08e63d2b" title="Allocates and formats a string for the index file path based on the provided configuration file path...." alt="" coords="250,947,346,972"/>
-<area shape="poly" id="edge59_Node000058_Node000060" title=" " alt="" coords="200,932,236,941,235,946,198,937"/>
-<area shape="rect" id="Node000063" href="$tp_8c.html#a2f51ff8d74ae29e985ff6340e2443d76" title="Configures an initialized thread with the specified options. If the TPOPT_LOGFILES flag is set,..." alt="" coords="262,1045,334,1071"/>
-<area shape="poly" id="edge62_Node000062_Node000063" title=" " alt="" coords="176,1044,247,1051,247,1056,176,1050"/>
-<area shape="rect" id="Node000064" href="$fd_8c.html#adbbb0e1bfc4d551ab9cacff069cb335e" title="Initializes stdout/stderr files used for redirecting output from a child process. The file descriptor..." alt="" coords="427,1045,477,1071"/>
-<area shape="poly" id="edge63_Node000063_Node000064" title=" " alt="" coords="334,1056,412,1056,412,1061,334,1061"/>
+<area shape="poly" id="edge8_Node000010_Node000005" title=" " alt="" coords="483,400,506,389,566,359,569,363,508,394,485,404"/>
+<area shape="rect" id="Node000011" href="$index_8c.html#a6e7fdf0f1a1bd989474656767d009c86" title="Hashes the filepath string for use in the index map." alt="" coords="568,452,648,478"/>
+<area shape="poly" id="edge9_Node000010_Node000011" title=" " alt="" coords="492,425,554,445,552,450,491,430"/>
+<area shape="rect" id="Node000012" href="$index_8c.html#ad80080841a8742363826de89a6b12fcd" title="Copies the node and inserts it into the index mapping." alt="" coords="573,403,643,428"/>
+<area shape="poly" id="edge10_Node000010_Node000012" title=" " alt="" coords="492,413,558,413,558,418,492,418"/>
+<area shape="rect" id="Node000014" href="$je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="709,564,783,590"/>
+<area shape="poly" id="edge11_Node000012_Node000014" title=" " alt="" coords="645,426,663,437,687,464,708,494,736,549,732,551,703,496,683,467,659,442,642,430"/>
+<area shape="poly" id="edge13_Node000015_Node000005" title=" " alt="" coords="489,320,556,330,556,336,488,325"/>
+<area shape="poly" id="edge14_Node000015_Node000011" title=" " alt="" coords="490,326,509,339,527,365,533,390,540,414,557,439,559,441,555,445,553,443,535,417,528,391,522,367,505,343,487,330"/>
+<area shape="poly" id="edge15_Node000015_Node000012" title=" " alt="" coords="487,328,508,339,581,391,578,395,505,343,485,333"/>
+<area shape="poly" id="edge17_Node000016_Node000005" title=" " alt="" coords="486,449,505,439,530,415,553,388,580,362,583,366,557,392,534,419,508,443,489,454"/>
+<area shape="poly" id="edge18_Node000016_Node000011" title=" " alt="" coords="488,462,552,462,552,468,488,468"/>
+<area shape="poly" id="edge19_Node000016_Node000012" title=" " alt="" coords="487,451,557,429,559,434,489,456"/>
+<area shape="rect" id="Node000017" href="$lcmd_8c.html#a894e08de46ef1b7db1b4d07b2edb7d21" title="Checks if the provided file path matches any of the file patterns in the command set." alt="" coords="555,501,661,527"/>
+<area shape="poly" id="edge20_Node000016_Node000017" title=" " alt="" coords="489,473,551,494,550,499,487,478"/>
+<area shape="rect" id="Node000020" href="$index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="413,501,491,527"/>
+<area shape="poly" id="edge22_Node000019_Node000020" title=" " alt="" coords="334,465,404,493,402,498,332,470"/>
+<area shape="poly" id="edge23_Node000020_Node000011" title=" " alt="" coords="490,499,552,479,554,485,492,505"/>
+<area shape="poly" id="edge24_Node000020_Node000012" title=" " alt="" coords="487,499,505,488,519,475,529,463,538,451,553,437,558,434,561,438,556,442,542,454,533,466,523,479,508,492,490,503"/>
+<area shape="rect" id="Node000022" href="$main_8c.html#a4c931f8671d78cfbccd0699b7e49d569" title="Queues command execution for a file event of the specified type, using the provided inode for the fil..." alt="" coords="408,55,496,80"/>
+<area shape="poly" id="edge26_Node000021_Node000022" title=" " alt="" coords="332,86,393,75,394,80,333,91"/>
+<area shape="rect" id="Node000033" href="$prog_8c.html#adb88cada30e465c6e37ef24e5d5a0e25" title="Print a progress bar to stdout." alt="" coords="407,156,497,182"/>
+<area shape="poly" id="edge28_Node000032_Node000033" title=" " alt="" coords="332,166,392,166,392,172,332,172"/>
+<area shape="rect" id="Node000034" href="$tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="580,105,636,131"/>
+<area shape="poly" id="edge29_Node000032_Node000034" title=" " alt="" coords="332,157,397,141,486,127,564,119,565,124,487,133,398,146,333,162"/>
+<area shape="rect" id="Node000024" href="$tm_8c.html#aa66f0445573396a504fd9996436f8c19" title="Sleep for the specified number of milliseconds." alt="" coords="712,392,780,418"/>
+<area shape="poly" id="edge30_Node000034_Node000024" title=" " alt="" coords="619,130,663,217,736,377,731,379,659,219,614,133"/>
+<area shape="rect" id="Node000036" href="$main_8c.html#aef965067823ec222e939f279e1ea8050" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="409,5,495,31"/>
+<area shape="poly" id="edge32_Node000035_Node000036" title=" " alt="" coords="333,26,393,21,394,26,334,31"/>
+<area shape="poly" id="edge33_Node000036_Node000034" title=" " alt="" coords="487,29,508,40,548,67,582,93,579,98,544,71,505,44,485,34"/>
+<area shape="rect" id="Node000038" href="$index_8c.html#a57fe9c26bb06488c107b154a1148c7ea" title="Flattens the index map into a sorted array of nodes (by filepath). The list is then written to the fi..." alt="" coords="412,205,492,231"/>
+<area shape="poly" id="edge35_Node000037_Node000038" title=" " alt="" coords="338,233,396,224,397,229,339,239"/>
+<area shape="poly" id="edge36_Node000038_Node000006" title=" " alt="" coords="493,222,559,233,558,238,492,227"/>
+<area shape="rect" id="Node000041" href="$fl_8c.html#ac8cdc36ad1f74a8dd0b80ee85356bc01" title="Opens the file at the given path and updates the file lock structure with the file descriptor...." alt="" coords="270,503,326,528"/>
+<area shape="poly" id="edge38_Node000040_Node000041" title=" " alt="" coords="176,573,246,537,254,533,257,538,248,542,179,578"/>
+<area shape="rect" id="Node000043" href="$fl_8c.html#af9edee5332ff921081fe39fc530d40bd" title="Unlocks the file at the given path. If the file is not open, or the file cannot be unlocked,..." alt="" coords="265,749,331,775"/>
+<area shape="poly" id="edge40_Node000042_Node000043" title=" " alt="" coords="180,720,252,744,250,749,179,725"/>
+<area shape="rect" id="Node000044" href="$main_8c.html#a91224adbae9c6933e2469d45de8d340a" title="Frees all duplicated initialization arguments." alt="" coords="256,601,341,627"/>
+<area shape="poly" id="edge41_Node000042_Node000044" title=" " alt="" coords="165,698,201,668,246,636,251,632,254,637,248,640,204,672,169,702"/>
+<area shape="rect" id="Node000045" href="$index_8c.html#ac916662497c44dfd34d1d6fd5312a317" title="Frees all nodes in the index map." alt="" coords="261,651,335,676"/>
+<area shape="poly" id="edge42_Node000042_Node000045" title=" " alt="" coords="179,701,245,678,247,683,180,706"/>
+<area shape="rect" id="Node000047" href="$lcmd_8c.html#a36d31b28aae66a8e5e5d1d0a4bf454d8" title="Iterates and frees all memory allocated by the command set array." alt="" coords="257,799,339,824"/>
+<area shape="poly" id="edge44_Node000042_Node000047" title=" " alt="" coords="169,724,204,754,248,785,254,789,251,793,246,790,201,758,165,728"/>
+<area shape="rect" id="Node000049" href="$tp_8c.html#ae363265419a031c7578b4896aab4ddde" title="Frees all memory allocated by tpinit(). This function should be called at the end of the program...." alt="" coords="271,700,325,726"/>
+<area shape="poly" id="edge46_Node000042_Node000049" title=" " alt="" coords="179,710,256,710,256,716,179,716"/>
+<area shape="rect" id="Node000050" href="$tp_8c.html#adcda179d95c6d83607c5811a64ee4c9d" title="Waits for all threads in the global pool to finish executing their work requests, and then shuts down..." alt="" coords="254,552,342,578"/>
+<area shape="poly" id="edge47_Node000042_Node000050" title=" " alt="" coords="157,698,191,646,216,615,245,587,249,584,252,588,249,591,220,618,196,649,162,701"/>
+<area shape="rect" id="Node000046" href="$index_8c.html#a595066efa8470d25061301ab56dc7946" title="Recursively frees a linked list of nodes starting from a given head." alt="" coords="409,652,495,678"/>
+<area shape="poly" id="edge43_Node000045_Node000046" title=" " alt="" coords="336,661,394,662,394,667,336,666"/>
+<area shape="rect" id="Node000048" href="$lcmd_8c.html#a0092b72b3e35f198113f812ca176b062" title="Frees the memory allocated for a single command set entry struct." alt="" coords="416,748,488,774"/>
+<area shape="poly" id="edge45_Node000047_Node000048" title=" " alt="" coords="339,796,401,775,403,780,340,801"/>
+<area shape="poly" id="edge49_Node000050_Node000024" title=" " alt="" coords="343,571,409,579,491,581,535,577,578,569,620,556,660,537,686,515,707,487,734,431,739,434,712,490,690,519,662,542,622,561,580,575,535,583,491,586,408,585,342,576"/>
+<area shape="rect" id="Node000029" href="$fd_8c.html#a3114527b3f51481052222898877fc284" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="420,603,484,628"/>
+<area shape="poly" id="edge48_Node000050_Node000029" title=" " alt="" coords="340,576,406,598,405,603,339,581"/>
+<area shape="poly" id="edge52_Node000051_Node000047" title=" " alt="" coords="191,845,242,827,244,832,193,850"/>
+<area shape="rect" id="Node000052" href="$lcmd_8c.html#aea1ce3fc2d45ddb3c059cf9f35a0a674" title="Reads the contents of the file described by filepath fp into a dynamically allocated buffer returned ..." alt="" coords="262,897,334,923"/>
+<area shape="poly" id="edge51_Node000051_Node000052" title=" " alt="" coords="193,872,249,891,247,896,191,877"/>
+<area shape="rect" id="Node000053" href="$lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="247,848,349,874"/>
+<area shape="poly" id="edge53_Node000051_Node000053" title=" " alt="" coords="192,858,232,858,232,864,192,864"/>
+<area shape="poly" id="edge54_Node000053_Node000014" title=" " alt="" coords="349,861,426,857,467,848,505,833,544,810,580,782,644,717,694,653,728,602,732,604,698,656,648,721,584,786,547,814,508,838,468,853,426,862,350,867"/>
+<area shape="rect" id="Node000054" href="$lcmd_8c.html#a124832f00584c93167d1e2e55e36ed79" title="Duplicates a cJSON array of strings into a slist_t. cJSON array entries that fail cJSON_IsString will..." alt="" coords="405,899,499,924"/>
+<area shape="poly" id="edge55_Node000053_Node000054" title=" " alt="" coords="340,872,397,891,396,896,339,877"/>
+<area shape="rect" id="Node000055" href="$lcmd_8c.html#ab00aa60eeeb52ad3c8d396371bc3c123" title="Parses a cJSON array of strings into a set of file event bit flags. Non&#45;string entries are ignored...." alt="" coords="397,797,507,823"/>
+<area shape="poly" id="edge56_Node000053_Node000055" title=" " alt="" coords="339,845,396,826,397,831,340,850"/>
+<area shape="rect" id="Node000057" href="$fs_8c.html#aa1d4e9bed28c32018a597913eb2b3dee" title="Concatenates the two strings into a single path string, joined by a / (path separator) character...." alt="" coords="272,996,324,1022"/>
+<area shape="poly" id="edge58_Node000056_Node000057" title=" " alt="" coords="182,933,201,944,225,964,249,983,259,989,257,993,245,987,221,968,197,948,179,938"/>
+<area shape="rect" id="Node000058" href="$main_8c.html#a60d3e3e702ef1f4037f234ec08e63d2b" title="Allocates and formats a string for the index file path based on the provided configuration file path...." alt="" coords="250,947,346,972"/>
+<area shape="poly" id="edge59_Node000056_Node000058" title=" " alt="" coords="200,932,236,941,235,946,198,937"/>
+<area shape="rect" id="Node000061" href="$tp_8c.html#a2f51ff8d74ae29e985ff6340e2443d76" title="Configures an initialized thread with the specified options. If the TPOPT_LOGFILES flag is set,..." alt="" coords="262,1045,334,1071"/>
+<area shape="poly" id="edge62_Node000060_Node000061" title=" " alt="" coords="176,1044,247,1051,247,1056,176,1050"/>
+<area shape="rect" id="Node000062" href="$fd_8c.html#adbbb0e1bfc4d551ab9cacff069cb335e" title="Initializes stdout/stderr files used for redirecting output from a child process. The file descriptor..." alt="" coords="427,1045,477,1071"/>
+<area shape="poly" id="edge63_Node000061_Node000062" title=" " alt="" coords="334,1056,412,1056,412,1061,334,1061"/>
 </map>

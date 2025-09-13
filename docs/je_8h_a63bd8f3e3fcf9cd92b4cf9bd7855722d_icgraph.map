@@ -1,6 +1,6 @@
 <map id="je_strdup" name="je_strdup">
 <area shape="rect" id="Node000001" title=" " alt="" coords="659,155,733,180"/>
-<area shape="rect" id="Node000002" href="$index_8c.html#a22149a90a735c655ae66e71ba063271b" title="Copies the node and inserts it into the index mapping." alt="" coords="525,104,595,130"/>
+<area shape="rect" id="Node000002" href="$index_8c.html#ad80080841a8742363826de89a6b12fcd" title="Copies the node and inserts it into the index mapping." alt="" coords="525,104,595,130"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="644,151,594,132,596,127,646,146"/>
 <area shape="rect" id="Node000011" href="$lcmd_8c.html#aade9f5cdec127396b23b4efc7b11aca7" title="Populates a single command struct by parsing the fields of the provided cJSON object." alt="" coords="509,179,611,204"/>
 <area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="644,179,612,185,611,180,643,174"/>
@@ -8,9 +8,9 @@
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="533,95,500,68,460,45,425,33,390,26,326,21,326,15,390,21,427,28,462,40,503,64,537,91"/>
 <area shape="rect" id="Node000006" href="$index_8c.html#a4125d43775953ef8370561fc6eb43f85" title="Reads a file stream and deserializes the contents into a map of individual file nodes." alt="" coords="383,55,460,80"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="509,102,459,83,461,78,511,97"/>
-<area shape="rect" id="Node000008" href="$deng_8c.html#a4e40f11bd29b2fc78fe589c91e0e2372" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="382,104,461,130"/>
+<area shape="rect" id="Node000008" href="$deng_8c.html#a3fc990bbcccb7d71de4e79e780a519b3" title="Processes a file after the command execution stage to ensure all files are indexed...." alt="" coords="382,104,461,130"/>
 <area shape="poly" id="edge8_Node000002_Node000008" title=" " alt="" coords="509,120,461,120,461,114,509,114"/>
-<area shape="rect" id="Node000010" href="$deng_8c.html#a0f89c9cc669526b6d476f3ab8df2f958" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="386,153,457,179"/>
+<area shape="rect" id="Node000010" href="$deng_8c.html#a662d699aef73560c915a03b4862e6c89" title="Processes a file before the command execution stage to ensure all files are indexed...." alt="" coords="386,153,457,179"/>
 <area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="511,137,458,156,457,151,509,132"/>
 <area shape="rect" id="Node000004" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,80,198,106"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="252,41,178,82,175,77,250,36"/>

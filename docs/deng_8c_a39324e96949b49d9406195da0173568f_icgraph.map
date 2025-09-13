@@ -1,5 +1,5 @@
 <map id="execstage" name="execstage">
-<area shape="rect" id="Node000001" title="Resets the directory queue to the initial search path, and invokes the filefn function for each file ..." alt="" coords="382,5,464,31"/>
+<area shape="rect" id="Node000001" title="Walks the directory tree starting at sd and invokes the provided file function filefn for each file f..." alt="" coords="382,5,464,31"/>
 <area shape="rect" id="Node000002" href="$deng_8c.html#a613651bdd9fdfeee1e835550338ff2db" title="Recursively scans directory sd and compares the file system state with a previously saved index...." alt="" coords="246,5,334,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="367,21,335,21,335,16,367,16"/>
 <area shape="rect" id="Node000003" href="$main_8c.html#ae6e14ac597b28e7ab66e367b76b3a4be" title="Compares the current file system state with a previously saved index." alt="" coords="103,5,198,31"/>

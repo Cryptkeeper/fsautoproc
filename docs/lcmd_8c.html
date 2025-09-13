@@ -110,8 +110,8 @@ $(function(){initNavTree('lcmd_8c.html','',''); });
 <code>#include &quot;<a class="el" href="fd_8h_source.html">fd.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="je_8h_source.html">je.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="log_8h_source.html">log.h</a>&quot;</code><br />
-<code>#include &quot;sl.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="tm_8h_source.html">tm.h</a>&quot;</code><br />
+<code>#include &quot;sl.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for lcmd.c:</div>
 <div class="dyncontent">
@@ -161,6 +161,14 @@ Include dependency graph for lcmd.c:</div>
 </map>
 </div>
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aa9f1ec9d40e9c857120a563f9d8981e9" id="r_aa9f1ec9d40e9c857120a563f9d8981e9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9f1ec9d40e9c857120a563f9d8981e9">SL_OVERRIDE</a></td></tr>
+<tr class="memitem:ac870e247faa5d7a5e17ff36208dc0278" id="r_ac870e247faa5d7a5e17ff36208dc0278"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac870e247faa5d7a5e17ff36208dc0278">SLX_REALLOC</a>&#160;&#160;&#160;je_realloc</td></tr>
+<tr class="memitem:a716d40e0cf3474632fda2549e5b5128a" id="r_a716d40e0cf3474632fda2549e5b5128a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a716d40e0cf3474632fda2549e5b5128a">SLX_FREE</a>&#160;&#160;&#160;je_free</td></tr>
+<tr class="memitem:adc9e26130f9be3cb341ff144f78f014d" id="r_adc9e26130f9be3cb341ff144f78f014d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adc9e26130f9be3cb341ff144f78f014d">SLX_STRDUP</a>&#160;&#160;&#160;<a class="el" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d">je_strdup</a></td></tr>
+<tr class="memitem:a1927b00b8e12ec9fbe8753002a71d56d" id="r_a1927b00b8e12ec9fbe8753002a71d56d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1927b00b8e12ec9fbe8753002a71d56d">SL_IMPL</a></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a0092b72b3e35f198113f812ca176b062" id="r_a0092b72b3e35f198113f812ca176b062"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0092b72b3e35f198113f812ca176b062">lcmdfree</a> (struct <a class="el" href="structlcmdset__s.html">lcmdset_s</a> *cmd)</td></tr>
@@ -188,7 +196,78 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>File-specific system command execution mapping implementation. </p>
-</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a1927b00b8e12ec9fbe8753002a71d56d" name="a1927b00b8e12ec9fbe8753002a71d56d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1927b00b8e12ec9fbe8753002a71d56d">&#9670;&#160;</a></span>SL_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SL_IMPL</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa9f1ec9d40e9c857120a563f9d8981e9" name="aa9f1ec9d40e9c857120a563f9d8981e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9f1ec9d40e9c857120a563f9d8981e9">&#9670;&#160;</a></span>SL_OVERRIDE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SL_OVERRIDE</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a716d40e0cf3474632fda2549e5b5128a" name="a716d40e0cf3474632fda2549e5b5128a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a716d40e0cf3474632fda2549e5b5128a">&#9670;&#160;</a></span>SLX_FREE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLX_FREE&#160;&#160;&#160;je_free</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac870e247faa5d7a5e17ff36208dc0278" name="ac870e247faa5d7a5e17ff36208dc0278"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac870e247faa5d7a5e17ff36208dc0278">&#9670;&#160;</a></span>SLX_REALLOC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLX_REALLOC&#160;&#160;&#160;je_realloc</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc9e26130f9be3cb341ff144f78f014d" name="adc9e26130f9be3cb341ff144f78f014d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc9e26130f9be3cb341ff144f78f014d">&#9670;&#160;</a></span>SLX_STRDUP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SLX_STRDUP&#160;&#160;&#160;<a class="el" href="je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d">je_strdup</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="aea1ce3fc2d45ddb3c059cf9f35a0a674" name="aea1ce3fc2d45ddb3c059cf9f35a0a674"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aea1ce3fc2d45ddb3c059cf9f35a0a674">&#9670;&#160;</a></span>fsreadstr()</h2>
 
