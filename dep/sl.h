@@ -51,6 +51,7 @@ long slcount(const slist_t *sl);
 
 #endif // SL_H
 
+#endif // SL_SINGLEFILE_H
 #ifdef SL_IMPL
 #ifndef SL_IMPL_ONCE
 #define SL_IMPL_ONCE
@@ -109,4 +110,3 @@ long slcount(const slist_t *sl) {
 
 #endif // SL_IMPL_ONCE
 #endif // SL_IMPL
-#endif // SL_SINGLEFILE_H
