@@ -251,7 +251,8 @@ static bool filterjunk(const char* fp) {
   if (junk) {
     if (initargs.verbose) log_info("[j] %s", fp);
   } else {
-    indexput(&goodmap, fp, fphash, (struct fsstat_s) {0});// mark as known good
+    const struct fsstat_s st = {0};
+    indexput(&goodmap, fp, fphash, &st);// mark as known good
   }
   return junk;
 }
@@ -263,7 +264,7 @@ static bool filterjunk(const char* fp) {
 /// @param notif The notification type
 static void onnotify(const enum deng_notif_t notif) {
   switch (notif) {
-    case DENG_NOTIF_DIR_DONE:
+    case DENG_NOTIF_FILE_FOUND:
       printprogbar(thismap.size, lastmap.size);
       break;
     case DENG_NOTIF_STAGE_DONE:

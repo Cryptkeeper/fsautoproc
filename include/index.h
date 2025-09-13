@@ -3,6 +3,7 @@
 #ifndef FSAUTOPROC_INDEX_H
 #define FSAUTOPROC_INDEX_H
 
+#include <stdint.h>
 #include <stdio.h>
 
 #include "fs.h"
@@ -80,7 +81,7 @@ int indexread(struct index_s* idx, FILE* s);
 /// @return The pointer to the new node in the index map, otherwise NULL is
 /// returned and `errno` is set.
 struct inode_s* indexput(struct index_s* idx, const char* fp, uint64_t fphash,
-                         struct fsstat_s st);
+                         const struct fsstat_s* st);
 
 /// @brief Frees all nodes in the index map.
 /// @param idx The index to free

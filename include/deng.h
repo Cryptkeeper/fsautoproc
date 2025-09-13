@@ -11,7 +11,7 @@ struct index_s;
 /// @enum deng_notif_t
 /// @brief Notification events for the file search process
 enum deng_notif_t {
-  DENG_NOTIF_DIR_DONE,  ///< Occurs when a directory has been fully processed
+  DENG_NOTIF_FILE_FOUND,///< Occurs when a file will be processed
   DENG_NOTIF_STAGE_DONE,///< Occurs when a stage has been fully processed
 };
 

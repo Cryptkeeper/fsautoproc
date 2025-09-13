@@ -9,22 +9,12 @@
 
 #include "fs.h"
 #include "index.h"
-#include "je.h"
 #include "log.h"
-
-#define SL_OVERRIDE
-#define SLX_REALLOC je_realloc
-#define SLX_FREE je_free
-#define SLX_STRDUP je_strdup
-
-#define SL_IMPL
-#include "sl.h"
 
 /// @struct deng_state_s
 /// @brief Search state context provided to the diff engine as user data which
 /// is passed to the file event hook functions.
 struct deng_state_s {
-  slist_t dirqueue;                ///< Processing directory queue
   deng_filter_t ffn;               ///< File filter function
   const struct deng_hooks_s* hooks;///< File event hook functions
   const struct index_s* lastmap;   ///< Previous index state
@@ -54,14 +44,14 @@ struct deng_state_s {
 /// files are indexed. This function may trigger new (NEW), modified (MOD),
 /// and unmodified (NOP) events for each file in the directory tree.
 /// @param fp The file path to process
+/// @param st The file stat information
 /// @param udata The diff engine state context
 /// @return 0 if successful, otherwise a non-zero error code.
-static int stagepre(const char* fp, void* udata) {
+static int stagepre(const char* fp, const struct fsstat_s* st, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
-  if (mach->ffn != NULL && mach->ffn(fp)) return 0;
+  notifyhook(mach, DENG_NOTIF_FILE_FOUND);
 
-  struct fsstat_s st = {0};
-  if (fsstat(fp, &st)) return -1;
+  if (mach->ffn != NULL && mach->ffn(fp)) return 0;// skip filtered files
 
   const uint64_t fphash = indexhash(fp);
 
@@ -74,9 +64,8 @@ static int stagepre(const char* fp, void* udata) {
     if ((curr = indexput(mach->thismap, fp, fphash, st)) == NULL) return -1;
 
   if (prev != NULL) {
-    if (!fsstateql(&prev->st, &curr->st)) {
+    if (prev->st.lmod != st->lmod || prev->st.fsze != st->fsze)
       callevent(mach, DENG_FEVENT_MOD, curr);
-    }
   } else {
     callevent(mach, DENG_FEVENT_NEW, curr);
   }
@@ -88,67 +77,44 @@ static int stagepre(const char* fp, void* udata) {
 /// files are indexed. This function may trigger new (NEW) and modified (MOD)
 /// events for each file in the directory tree.
 /// @param fp The file path to process
+/// @param st The file stat information
 /// @param udata The diff engine state context
 /// @return 0 if successful, otherwise a non-zero error code.
-static int stagepost(const char* fp, void* udata) {
+static int stagepost(const char* fp, const struct fsstat_s* st, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
-  if (mach->ffn != NULL && mach->ffn(fp)) return 0;
+  notifyhook(mach, DENG_NOTIF_FILE_FOUND);
+
+  if (mach->ffn != NULL && mach->ffn(fp)) return 0;// skip filtered files
 
   const uint64_t fphash = indexhash(fp);
 
   struct inode_s* curr = indexfind(mach->thismap, fp, fphash);
   if (curr != NULL) {
-    // check if the file was modified during the command execution
-    struct fsstat_s mod = {0};
-    if (fsstat(fp, &mod)) return -1;
-    curr->st = mod;// update the file info in the current index
+    curr->st = *st;// update the file info in the current index
     return 0;
   }
 
-  struct fsstat_s st = {0};
-  if (fsstat(fp, &st)) return -1;
   if ((curr = indexput(mach->thismap, fp, fphash, st)) == NULL) return -1;
   callevent(mach, DENG_FEVENT_NEW, curr);
 
   return 0;
 }
 
-/// @brief Pushes a directory path onto the directory queue for processing.
-/// @param fp The directory path to push
-/// @param udata The diff engine state context
-/// @return 0 if successful, otherwise a non-zero error code.
-static int dqpush(const char* fp, void* udata) {
-  struct deng_state_s* mach = (struct deng_state_s*) udata;
-  int err;
-  if ((err = sladd(&mach->dirqueue, fp)))
-    log_error("error pushing directory `%s`", fp);
-  return err;
-}
-
-/// @brief Resets the directory queue to the initial search path, and invokes
-/// the `filefn` function for each file in the directory tree, recursively.
+/// @brief Walks the directory tree starting at \p sd and invokes the provided
+/// file function \p filefn for each file found. After the walk is complete,
+/// the stage done notification is triggered.
 /// @param mach The diff engine state context
 /// @param sd The initial search directory path
 /// @param filefn The function to invoke for each file in the directory tree
 /// @return 0 if successful, otherwise a non-zero error code.
 static int execstage(struct deng_state_s* mach, const char* sd,
                      fswalkfn_t filefn) {
-  slfree(&mach->dirqueue);
-  mach->dirqueue = (slist_t){0};
-  if (sladd(&mach->dirqueue, sd)) return -1;
-
-  char* dir;
-  while ((dir = slpop(&mach->dirqueue)) != NULL) {
-    int err;
-    if ((err = fswalk(dir, filefn, dqpush, (void*) mach))) {
-      log_error("file func for `%s` returned %d", dir, err);
-      return -1;
-    }
-    notifyhook(mach, DENG_NOTIF_DIR_DONE);
-    je_free(dir);
+  int err;
+  if ((err = fswalk(sd, filefn, (void*) mach))) {
+    log_error("file func for `%s` returned %d", sd, err);
+    return -1;
   }
   notifyhook(mach, DENG_NOTIF_STAGE_DONE);
-
   return 0;
 }
 
@@ -180,12 +146,11 @@ int dengsearch(const char* sd, deng_filter_t filter,
   assert(old != NULL);
   assert(new != NULL);
 
-  struct deng_state_s mach = {{0}, filter, hooks, old, new};
+  struct deng_state_s mach = {filter, hooks, old, new};
   int err;
   if ((err = execstage(&mach, sd, stagepre))) goto ret;
   if ((err = checkremoved(&mach))) goto ret;
   if ((err = execstage(&mach, sd, stagepost))) goto ret;
 ret:
-  slfree(&mach.dirqueue);
   return err;
 }

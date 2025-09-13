@@ -18,8 +18,15 @@
 #include "fd.h"
 #include "je.h"
 #include "log.h"
-#include "sl.h"
 #include "tm.h"
+
+#define SL_OVERRIDE
+#define SLX_REALLOC je_realloc
+#define SLX_FREE je_free
+#define SLX_STRDUP je_strdup
+
+#define SL_IMPL
+#include "sl.h"
 
 /// @brief Frees the memory allocated for a single command set entry struct.
 /// @param cmd Command set entry to free
