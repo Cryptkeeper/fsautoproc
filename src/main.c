@@ -252,7 +252,7 @@ static bool filterjunk(const char* fp) {
     if (initargs.verbose) log_info("[j] %s", fp);
   } else {
     const struct fsstat_s st = {0};
-    indexput(&goodmap, fp, fphash, &st);// mark as known good
+    indexput(&goodmap, fp, fphash, &st, 0);// mark as known good
   }
   return junk;
 }

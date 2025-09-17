@@ -14,6 +14,7 @@ struct inode_s {
   char* fp;            ///< File path (string duplicated)
   uint64_t fphash;     ///< File path hash value
   struct fsstat_s st;  ///< File stat info structure
+  uint64_t xx;         ///< xxHash64 hash value
   struct inode_s* next;///< Next node in the index map
 };
 
@@ -78,10 +79,11 @@ int indexread(struct index_s* idx, FILE* s);
 /// @param fp The file path to use for the new node, duplicated internally
 /// @param fphash The file path hash value to use for the new node
 /// @param st The file stat info to use for the new node
+/// @param xx The xxHash64 hash value to use for the new node
 /// @return The pointer to the new node in the index map, otherwise NULL is
 /// returned and `errno` is set.
 struct inode_s* indexput(struct index_s* idx, const char* fp, uint64_t fphash,
-                         const struct fsstat_s* st);
+                         const struct fsstat_s* st, uint64_t xx);
 
 /// @brief Frees all nodes in the index map.
 /// @param idx The index to free

@@ -9,6 +9,11 @@ set(ENABLE_CJSON_TEST OFF)
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 add_subdirectory(dep/cJSON)
 
+# link xxHash statically
+set(XXHASH_BUILD_XXHSUM OFF)
+option(BUILD_SHARED_LIBS OFF)
+add_subdirectory(dep/xxHash/build/cmake xxhash_build EXCLUDE_FROM_ALL)
+
 # use strict C11
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -29,16 +34,16 @@ add_executable(fsautoproc ${SOURCES} ${HEADERS})
 add_compile_definitions(JEMALLOC_NO_DEMANGLE)
 
 target_link_directories(fsautoproc PRIVATE dep dep/jemalloc/lib)
-target_link_libraries(fsautoproc PRIVATE cjson pthread libjemalloc.a)
+target_link_libraries(fsautoproc PRIVATE cjson pthread libjemalloc.a xxhash)
 target_include_directories(fsautoproc PRIVATE include dep dep/jemalloc/include)
 
 install(TARGETS fsautoproc DESTINATION bin)
 
 # libdeng shared library for unit tests
-add_library(deng STATIC src/deng.c src/index.c src/fs.c src/je.c)
+add_library(deng STATIC src/deng.c src/index.c src/fs.c src/je.c src/xx.c)
 
 target_link_directories(deng PUBLIC dep/jemalloc/lib)
-target_link_libraries(deng PUBLIC libjemalloc.a)
+target_link_libraries(deng PUBLIC libjemalloc.a xxhash)
 target_include_directories(deng PUBLIC include dep dep/jemalloc/include)
 
 # unit tests
@@ -47,3 +52,8 @@ enable_testing()
 add_executable(test_deng test/test_deng.c)
 target_link_libraries(test_deng PRIVATE deng)
 add_test(NAME deng COMMAND test_deng)
+
+add_executable(test_xx test/test_xx.c src/xx.c)
+target_link_libraries(test_xx PRIVATE xxhash)
+target_include_directories(test_xx PRIVATE include dep)
+add_test(NAME xx COMMAND test_xx)

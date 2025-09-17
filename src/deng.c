@@ -10,6 +10,13 @@
 #include "fs.h"
 #include "index.h"
 #include "log.h"
+#include "xx.h"
+
+/// @def XXBUFSZE
+/// @brief Size of the buffer used for reading files to hash.
+#define XXBUFSZE 65536
+
+static uint8_t xxbuf[XXBUFSZE];///< Shared buffer for reading files to hash
 
 /// @struct deng_state_s
 /// @brief Search state context provided to the diff engine as user data which
@@ -58,15 +65,25 @@ static int stagepre(const char* fp, const struct fsstat_s* st, void* udata) {
   // attempt to match file in previous index
   struct inode_s* prev = indexfind(mach->lastmap, fp, fphash);
 
-  // lookup from previous iteration or insert new record and lookup
-  struct inode_s* curr = indexfind(mach->thismap, fp, fphash);
-  if (curr == NULL)
-    if ((curr = indexput(mach->thismap, fp, fphash, st)) == NULL) return -1;
+  // insert node for current index
+  struct inode_s* curr = indexput(mach->thismap, fp, fphash, st, 0);
+  if (!curr) return -1;
+
+  struct xxreq_s xx = {0};
+  xx.b = xxbuf;
+  xx.fp = fp;
+  xx.cst = st;
 
   if (prev != NULL) {
-    if (prev->st.lmod != st->lmod || prev->st.fsze != st->fsze)
-      callevent(mach, DENG_FEVENT_MOD, curr);
+    // file existed in previous index, check if modified
+    xx.pst = &prev->st;
+    xx.pxx = prev->xx;
+    xx.cause = "stage=pre,node=existing";
+    curr->xx = xxupdate(&xx);
+    if (xx.pxx != curr->xx) callevent(mach, DENG_FEVENT_MOD, curr);
   } else {
+    xx.cause = "stage=pre,node=new";
+    curr->xx = xxupdate(&xx);// hash new record
     callevent(mach, DENG_FEVENT_NEW, curr);
   }
 
@@ -86,16 +103,27 @@ static int stagepost(const char* fp, const struct fsstat_s* st, void* udata) {
 
   if (mach->ffn != NULL && mach->ffn(fp)) return 0;// skip filtered files
 
-  const uint64_t fphash = indexhash(fp);
+  struct xxreq_s xx = {0};
+  xx.b = xxbuf;
+  xx.fp = fp;
+  xx.cst = st;
 
+  const uint64_t fphash = indexhash(fp);
   struct inode_s* curr = indexfind(mach->thismap, fp, fphash);
   if (curr != NULL) {
-    curr->st = *st;// update the file info in the current index
-    return 0;
-  }
+    xx.pst = &curr->st;
+    xx.pxx = curr->xx;
+    xx.cause = "stage=post,node=existing";
+    curr->xx = xxupdate(&xx);// update hash of existing record
+  } else {
+    xx.cause = "stage=post,node=new";
+    const uint64_t cxx = xxupdate(&xx);// hash new record
 
-  if ((curr = indexput(mach->thismap, fp, fphash, st)) == NULL) return -1;
-  callevent(mach, DENG_FEVENT_NEW, curr);
+    // file was not found in previous stage, insert new record
+    if ((curr = indexput(mach->thismap, fp, fphash, st, cxx)) == NULL)
+      return -1;
+    callevent(mach, DENG_FEVENT_NEW, curr);
+  }
 
   return 0;
 }

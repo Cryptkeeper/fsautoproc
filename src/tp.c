@@ -17,17 +17,19 @@
 #include "lcmd.h"
 #include "log.h"
 #include "tm.h"
+#include "xx.h"
 
 /// @struct thrd_s
 /// @brief Initialized worker thread in the thread pool.
 struct thrd_s {
-  _Atomic bool initd;  ///< Thread initialized flag
-  _Atomic bool rsrvd;  ///< Work request reservation flag
-  _Atomic bool canwork;///< Work request ready to process flag
-  struct tpreq_s work; ///< Work request to process
-  pthread_t tid;       ///< System thread identifier
-  _Bool fdsopen;       ///< File descriptor set open flag
-  struct fdset_s fds;  ///< Output file descriptor set
+  _Atomic bool initd;     ///< Thread initialized flag
+  _Atomic bool rsrvd;     ///< Work request reservation flag
+  _Atomic bool canwork;   ///< Work request ready to process flag
+  struct tpreq_s work;    ///< Work request to process
+  pthread_t tid;          ///< System thread identifier
+  _Bool fdsopen;          ///< File descriptor set open flag
+  struct fdset_s fds;     ///< Output file descriptor set
+  uint8_t xxbuf[XXBUFSZE];///< Buffer for reading files to hash
 };
 
 static struct thrd_s** thrds; ///< Thread pool worker threads array
@@ -57,8 +59,21 @@ static void* tpentrypoint(void* arg) {
     if ((err = lcmdexec(req->cs, req->node->fp, self->fds, req->flags)))
       log_error("thread execution error: %d", err);
     if (req->flags & (LCTRIG_NEW | LCTRIG_MOD)) {
-      if ((err = fsstat(req->node->fp, &req->node->st)))
+      struct fsstat_s st = {0};
+      if ((err = fsstat(req->node->fp, &st))) {
         log_error("stat error: %d", err);
+      } else {
+        // check if the stats have changed, if so, re-hash
+        struct xxreq_s xx = {0};
+        xx.b = self->xxbuf;// use thread-local buffer
+        xx.fp = req->node->fp;
+        xx.pst = &req->node->st;
+        xx.cst = &st;
+        xx.pxx = req->node->xx;
+        xx.cause = "stage=tp";
+        req->node->xx = xxupdate(&xx);
+        req->node->st = st;
+      }
     }
 
     atomic_store(&self->rsrvd, false);// release the reservation

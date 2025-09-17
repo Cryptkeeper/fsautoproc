@@ -64,8 +64,9 @@ int indexwrite(struct index_s* idx, FILE* s) {
   int err = 0;
   for (long i = 0; i < idx->size; i++) {
     struct inode_s* node = fl[i];
-    const int n = snprintf(lbuf, sizeof(lbuf), "%s,%" PRIu64 ",%" PRIu64 "\n",
-                           node->fp, node->st.lmod, node->st.fsze);
+    const int n = snprintf(lbuf, sizeof(lbuf),
+                           "%s,%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n", node->fp,
+                           node->st.lmod, node->st.fsze, node->xx);
     if (fwrite(lbuf, n, 1, s) != 1) {
       err = -1;
       break;
@@ -78,10 +79,11 @@ int indexwrite(struct index_s* idx, FILE* s) {
 int indexread(struct index_s* idx, FILE* s) {
   char fp[INDEXMAXFP] = {0}; /* fscanf filepath string buffer */
   struct fsstat_s st = {0};  /* fscanf file stat structure */
-  while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 "\n", fp, &st.lmod, &st.fsze) ==
-         3) {
+  uint64_t xx = 0;           /* fscanf xxHash64 value */
+  while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n", fp, &st.lmod,
+                &st.fsze, &xx) == 4) {
     const uint64_t fphash = indexhash(fp);
-    if (indexput(idx, fp, fphash, &st) == NULL) return -1;
+    if (indexput(idx, fp, fphash, &st, xx) == NULL) return -1;
   }
   return 0;
 }
@@ -101,14 +103,15 @@ static void indexappend(struct ibucket_s* bucket, struct inode_s* node) {
 }
 
 struct inode_s* indexput(struct index_s* idx, const char* fp,
-                         const uint64_t fphash, const struct fsstat_s* st) {
+                         const uint64_t fphash, const struct fsstat_s* st,
+                         const uint64_t xx) {
   struct inode_s* node = je_malloc(sizeof(struct inode_s));
   if (node == NULL) return NULL;
   if ((fp = je_strdup(fp)) == NULL) {// duplicate filepath string
     je_free(node);
     return NULL;
   }
-  *node = (struct inode_s) {(char*) fp, fphash, *st, NULL};
+  *node = (struct inode_s) {(char*) fp, fphash, *st, xx, NULL};
   struct ibucket_s* bucket = &idx->buckets[indexbucket(node->fphash)];
   indexappend(bucket, node);
   idx->size++;

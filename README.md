@@ -35,6 +35,7 @@ C11 is used for basic atomic boolean operations when scheduling work across thre
 Git submodules provide:
 
 - [cJSON](https://github.com/DaveGamble/cJSON)
+- [xxHash](https://github.com/Cyan4973/xxHash)
 - [jemalloc](https://github.com/jemalloc/jemalloc) (requires autoconf during build)
 
 ### Usage
@@ -56,6 +57,8 @@ Options:
   -v          Enable verbose output
   -x <file>   Exclusive lock file path
 ```
+
+When first indexing a new file structure, you should use the `-u` flag to avoid applying any newly configured rules to the existing file structure (unless desired, i.e. an initial "clean up" mutation of an unmaintained directory).
 
 ### Basic Configuration
 
