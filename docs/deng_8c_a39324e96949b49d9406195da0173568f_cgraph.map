@@ -1,7 +1,0 @@
-<map id="execstage" name="execstage">
-<area shape="rect" id="Node000001" title="Walks the directory tree starting at sd and invokes the provided file function filefn for each file f..." alt="" coords="5,5,87,31"/>
-<area shape="rect" id="Node000002" href="$fs_8c.html#a469c2bd2c6e4d71b5753a5c076e081c3" title="Recursively walks the single directory described by dir and calls filefn for each file found." alt="" coords="135,5,194,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,16,119,16,119,21,87,21"/>
-<area shape="rect" id="Node000003" href="$fs_8c.html#af5306102e7e209d01dcc945c77ed983b" title="Internal helper function to process a single file entry from the FTS walk. The file&#39;s last modified t..." alt="" coords="242,5,317,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="194,16,226,16,226,21,194,21"/>
-</map>

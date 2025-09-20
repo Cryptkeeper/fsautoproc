@@ -1,7 +1,0 @@
-<map id="checkremoved" name="checkremoved">
-<area shape="rect" id="Node000001" title="Compares the current file system state with a previous index to determine which files were removed...." alt="" coords="5,31,112,56"/>
-<area shape="rect" id="Node000002" href="$index_8c.html#af6b4ddc8aeb0c90e77c6c7cc85e74491" title="Searches the index for a node with a matching filepath." alt="" coords="160,5,233,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,31,144,25,145,30,113,36"/>
-<area shape="rect" id="Node000003" href="$index_8c.html#a54ed8cc828731eafc64e143773e2e84a" title="Flattens the index map into an unsorted array of nodes. The list is dynamically allocated and must be..." alt="" coords="162,55,231,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,50,147,56,146,61,112,55"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="fdclose" name="fdclose">
-<area shape="rect" id="Node000001" title="Closes the stdout and stderr file descriptors in the provided file descriptor set using close(2)...." alt="" coords="5,5,69,31"/>
-<area shape="rect" id="Node000002" href="$fd_8c.html#a5ab6993faaefa1cffa8184696b7af825" title="Closes the file descriptor if open (indicated by a value of &gt;=0) and sets it to &#45;1." alt="" coords="117,5,180,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,16,101,16,101,21,69,21"/>
-</map>

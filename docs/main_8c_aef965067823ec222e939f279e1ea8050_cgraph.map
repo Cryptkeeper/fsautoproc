@@ -1,7 +1,0 @@
-<map id="interruptsig" name="interruptsig">
-<area shape="rect" id="Node000001" title="Interrupt signal handler for cleanly exiting on SIGINT." alt="" coords="5,5,91,31"/>
-<area shape="rect" id="Node000002" href="$tp_8c.html#a42d244868f0473e1df3c188779eeda50" title="Waits for all threads in the global pool to finish executing their work requests." alt="" coords="139,5,195,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,16,123,16,123,21,91,21"/>
-<area shape="rect" id="Node000003" href="$tm_8c.html#aa66f0445573396a504fd9996436f8c19" title="Sleep for the specified number of milliseconds." alt="" coords="243,5,310,31"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="195,16,227,16,227,21,195,21"/>
-</map>

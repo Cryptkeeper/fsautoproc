@@ -1,7 +1,0 @@
-<map id="indexput" name="indexput">
-<area shape="rect" id="Node000001" title="Copies the node and inserts it into the index mapping." alt="" coords="5,31,76,56"/>
-<area shape="rect" id="Node000002" href="$index_8c.html#a4c24a5d6c47d6bb2afac2d57fa5ff80a" title="Appends the node to the end of the bucket (linked list), potentially assigning a new head if the buck..." alt="" coords="124,5,218,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,34,108,28,109,33,77,39"/>
-<area shape="rect" id="Node000003" href="$je_8c.html#a63bd8f3e3fcf9cd92b4cf9bd7855722d" title=" " alt="" coords="134,55,208,80"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="77,47,119,55,118,61,76,53"/>
-</map>
