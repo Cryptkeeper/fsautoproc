@@ -57,7 +57,7 @@ Options:
      --lock-path <file>   Exclusive lock file path
 ```
 
-When first indexing a new file structure, you should use the `-u` flag to avoid applying any newly configured rules to the existing file structure (unless desired, i.e. an initial "clean up" mutation of an unmaintained directory).
+When first indexing a new file structure, you should use the `--update-index` flag to avoid applying any newly configured rules to the existing file structure (unless desired, i.e. an initial "clean up" mutation of an unmaintained directory).
 
 ### Basic Configuration
 
