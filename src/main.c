@@ -2,6 +2,7 @@
 /// @brief Main program entry point.
 #include <assert.h>
 #include <errno.h>
+#include <getopt.h>
 #include <signal.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -30,7 +31,6 @@ static struct {
   char* searchdir;  ///< Search directory root (-s)
   char* tracefile;  ///< Trace file path (-r)
   _Bool pipefiles;  ///< Pipe subprocess stdout/stderr to files (-p)
-  _Bool includejunk;///< Include ignored files in index (-j)
   _Bool listspent;  ///< List time spent for each command set (-l)
   _Bool skipproc;   ///< Skip processing files, only update file index (-u)
   int threads;      ///< Number of worker threads (-t)
@@ -98,6 +98,13 @@ static char* mkindexpath(const char* configfp) {
     }                                                                          \
   } while (0)
 
+#define opt_listTime    1001
+#define opt_pipeStd     1002
+#define opt_trace       1003
+#define opt_updateIndex 1004
+#define opt_verbose     1005
+#define opt_lockPath    1006
+
 /// @brief Parses the program initialization arguments into \p initargs.
 /// @param argc The number of arguments
 /// @param argv The argument array
@@ -106,24 +113,37 @@ static char* mkindexpath(const char* configfp) {
 /// @note This function will print the program usage and exit(0) if the `-h`
 /// option is provided.
 static int parseinitargs(const int argc, char** const argv) {
+  static const struct option opts[] = {
+          {"help", no_argument, NULL, 'h'},
+          {"config", required_argument, NULL, 'c'},
+          {"index", required_argument, NULL, 'i'},
+          {"list-time", no_argument, NULL, opt_listTime},
+          {"pipe-std", no_argument, NULL, opt_pipeStd},
+          {"search-dir", required_argument, NULL, 's'},
+          {"threads", required_argument, NULL, 't'},
+          {"trace", required_argument, NULL, opt_trace},
+          {"update-index", no_argument, NULL, opt_updateIndex},
+          {"verbose", no_argument, NULL, opt_verbose},
+          {"lock-path", required_argument, NULL, opt_lockPath},
+  };
+
   int c;
-  while ((c = getopt(argc, argv, ":hc:i:jlps:t:r:uvx:")) != -1) {
+  while ((c = getopt_long(argc, argv, ":hc:i:s:t:", opts, NULL)) != -1) {
     switch (c) {
       case 'h':
-        printf("Usage: %s -i <file>\n"
+        printf("Usage: %s -i <file> [options...]\n"
                "\n"
                "Options:\n"
-               "  -c <file>   Configuration file (default: `fsautoproc.json`)\n"
-               "  -i <file>   File index write path\n"
-               "  -j          Enable including ignored files in index\n"
-               "  -l          List time spent for each command set\n"
-               "  -p          Pipe subprocess stdout/stderr to files\n"
-               "  -s <dir>    Search directory root (default: `.`)\n"
-               "  -t <#>      Number of worker threads (default: 4)\n"
-               "  -r <file>   Trace which command sets match the file\n"
-               "  -u          Skip processing files, only update file index\n"
-               "  -v          Enable verbose output\n"
-               "  -x <file>   Exclusive lock file path\n",
+               "  -c --config <file>      Configuration file path (default: `fsautoproc.json`)\n"
+               "  -i --index <file>       Index file path\n"
+               "  -s --search-dir <dir>   Search directory root (default: `.`)\n"
+               "  -t --threads <#>        Number of worker threads (default: 4)\n"
+               "     --update-index       Skip processing files, only update file index\n"
+               "     --list-time          List time spent for each command set\n"
+               "     --pipe-std           Pipe subprocess stdout/stderr to files\n"
+               "     --trace <file>       Trace which command sets match the file\n"
+               "     --verbose            Enable verbose output\n"
+               "     --lock-path <file>   Exclusive lock file path\n",
                argv[0]);
         exit(0);
       case 'c':
@@ -132,13 +152,10 @@ static int parseinitargs(const int argc, char** const argv) {
       case 'i':
         muststrdup(optarg, initargs.indexfile);
         break;
-      case 'j':
-        initargs.includejunk = true;
-        break;
-      case 'l':
+      case opt_listTime:
         initargs.listspent = true;
         break;
-      case 'p':
+      case opt_pipeStd:
         initargs.pipefiles = true;
         break;
       case 's':
@@ -147,16 +164,16 @@ static int parseinitargs(const int argc, char** const argv) {
       case 't':
         initargs.threads = (int) strtol(optarg, NULL, 10);
         break;
-      case 'r':
+      case opt_trace:
         muststrdup(optarg, initargs.tracefile);
         break;
-      case 'u':
+      case opt_updateIndex:
         initargs.skipproc = true;
         break;
-      case 'v':
+      case opt_verbose:
         initargs.verbose = true;
         break;
-      case 'x':
+      case opt_lockPath:
         muststrdup(optarg, initargs.lockfile);
         break;
       case ':':
@@ -247,7 +264,7 @@ static int writeindex(struct index_s* idx, const char* fp) {
 static bool filterjunk(const char* fp) {
   const uint64_t fphash = indexhash(fp);
   if (indexfind(&goodmap, fp, fphash)) return false;// previously matched
-  const bool junk = !initargs.includejunk && !lcmdmatchany(cmdsets, fp);
+  const bool junk = !lcmdmatchany(cmdsets, fp);
   if (junk) {
     if (initargs.verbose) log_info("[j] %s", fp);
   } else {
