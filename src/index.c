@@ -12,9 +12,7 @@
 #include "je.h"
 #include "log.h"
 
-/// @def INDEXMAXFP
-/// @brief The maximum filepath length of a file in the index.
-#define INDEXMAXFP 512
+static char indexfpbuf[1024];///< Filepath buffer for index I/O operations
 
 /// @def indexbucket
 /// @brief Maps and casts the hash value to a bucket index via the last N bits
@@ -54,20 +52,21 @@ static int indexnodecmp(const void* a, const void* b) {
   return strcmp(na->fp, nb->fp);
 }
 
+/// @def INDEXWRITEFMT
+/// @brief Format string used for writing index entries to a file stream.
+#define INDEXWRITEFMT "%s,%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n"
+
 int indexwrite(struct index_s* idx, FILE* s) {
   struct inode_s** fl;
   if ((fl = indexlist(idx)) == NULL) return -1;
   qsort(fl, idx->size, sizeof(struct inode_s*), indexnodecmp);
 
-  char lbuf[INDEXMAXFP]; /* line output format buffer */
-
   int err = 0;
   for (long i = 0; i < idx->size; i++) {
     struct inode_s* node = fl[i];
-    const int n = snprintf(lbuf, sizeof(lbuf),
-                           "%s,%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n", node->fp,
-                           node->st.lmod, node->st.fsze, node->xx);
-    if (fwrite(lbuf, n, 1, s) != 1) {
+    const int n = snprintf(indexfpbuf, sizeof(indexfpbuf), INDEXWRITEFMT,
+                           node->fp, node->st.lmod, node->st.fsze, node->xx);
+    if (fwrite(indexfpbuf, n, 1, s) != 1) {
       err = -1;
       break;
     }
@@ -76,14 +75,16 @@ int indexwrite(struct index_s* idx, FILE* s) {
   return err;
 }
 
+/// @def INDEXREADFMT
+/// @brief Format string used for reading index entries from a file stream.
+#define INDEXREADFMT "%[^,],%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n"
+
 int indexread(struct index_s* idx, FILE* s) {
-  char fp[INDEXMAXFP] = {0}; /* fscanf filepath string buffer */
-  struct fsstat_s st = {0};  /* fscanf file stat structure */
-  uint64_t xx = 0;           /* fscanf xxHash64 value */
-  while (fscanf(s, "%[^,],%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n", fp, &st.lmod,
-                &st.fsze, &xx) == 4) {
-    const uint64_t fphash = indexhash(fp);
-    if (indexput(idx, fp, fphash, &st, xx) == NULL) return -1;
+  struct fsstat_s st = {0}; /* fscanf file stat structure */
+  uint64_t xx = 0;          /* fscanf xxHash64 value */
+  while (fscanf(s, INDEXREADFMT, indexfpbuf, &st.lmod, &st.fsze, &xx) == 4) {
+    const uint64_t fphash = indexhash(indexfpbuf);
+    if (indexput(idx, indexfpbuf, fphash, &st, xx) == NULL) return -1;
   }
   return 0;
 }
