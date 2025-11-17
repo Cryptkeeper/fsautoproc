@@ -26,9 +26,13 @@ Before using, consider:
 C11 is used for basic atomic boolean operations when scheduling work across threads. C99 compatibility can be achieved by providing a `stdatomic.h` compatible stub header for your platform.
 
 1. Clone the repository and its submodules: `git clone --recursive https://github.com/Cryptkeeper/fsautoproc`
-2. Build the CMake project with `cmake -B build`
-3. Compile the project with `cmake --build build`
-4. Optionally install binary using `make install`
+2. Precompile a static jemalloc library archive
+   1. `cd dep/jemalloc`
+   2. `./configure --enable-static --disable-shared`
+   3. `make`
+3. Build the CMake project with `cmake -B build`
+4. Compile the project with `cmake --build build`
+5. Optionally install binary using `cd build && make install`
 
 ### Dependencies
 
