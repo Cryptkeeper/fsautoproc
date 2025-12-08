@@ -25,16 +25,17 @@
 
 /// @brief Managed initialization arguments for the program.
 static struct {
-  char* configfile; ///< Configuration file path (-c)
-  char* indexfile;  ///< Index file path (-i)
-  char* lockfile;   ///< Exclusive lock file path (-x)
-  char* searchdir;  ///< Search directory root (-s)
-  char* tracefile;  ///< Trace file path (-r)
-  _Bool pipefiles;  ///< Pipe subprocess stdout/stderr to files (-p)
-  _Bool listspent;  ///< List time spent for each command set (-l)
-  _Bool skipproc;   ///< Skip processing files, only update file index (-u)
-  int threads;      ///< Number of worker threads (-t)
-  _Bool verbose;    ///< Enable verbose output (-v)
+  char* configfile;   ///< Configuration file path (-c)
+  char* indexfile;    ///< Index file path (-i)
+  char* lockfile;     ///< Exclusive lock file path
+  char* searchdir;    ///< Search directory root (-s)
+  char* tracefile;    ///< Trace file path
+  int threads;        ///< Number of worker threads (-t)
+  _Bool pipefiles : 1;///< Pipe subprocess stdout/stderr to files
+  _Bool listspent : 1;///< List time spent for each command set
+  _Bool skipproc : 1; ///< Skip processing files, only update file index
+  _Bool verbose : 1;  ///< Enable verbose output
+  _Bool preview : 1;  ///< Preview changes without modifying environment
 } initargs;
 
 /// @brief Frees all duplicated initialization arguments.
@@ -104,6 +105,7 @@ static char* mkindexpath(const char* configfp) {
 #define opt_updateIndex 1004
 #define opt_verbose     1005
 #define opt_lockPath    1006
+#define opt_preview     1007
 
 /// @brief Parses the program initialization arguments into \p initargs.
 /// @param argc The number of arguments
@@ -125,6 +127,7 @@ static int parseinitargs(const int argc, char** const argv) {
           {"update-index", no_argument, NULL, opt_updateIndex},
           {"verbose", no_argument, NULL, opt_verbose},
           {"lock-path", required_argument, NULL, opt_lockPath},
+          {"preview", no_argument, NULL, opt_preview},
   };
 
   int c;
@@ -139,6 +142,7 @@ static int parseinitargs(const int argc, char** const argv) {
                "  -s --search-dir <dir>   Search directory root (default: `.`)\n"
                "  -t --threads <#>        Number of worker threads (default: 4)\n"
                "     --update-index       Skip processing files, only update file index\n"
+               "     --preview            Test changes without modifying file index or running commands\n"
                "     --list-time          List time spent for each command set\n"
                "     --pipe-std           Pipe subprocess stdout/stderr to files\n"
                "     --trace <file>       Trace which command sets match the file\n"
@@ -175,6 +179,9 @@ static int parseinitargs(const int argc, char** const argv) {
         break;
       case opt_lockPath:
         muststrdup(optarg, initargs.lockfile);
+        break;
+      case opt_preview:
+        initargs.preview = true;
         break;
       case ':':
         log_error("option is missing argument: %c", optopt);
@@ -297,7 +304,7 @@ static void onnotify(const enum deng_notif_t notif) {
 /// @param in The inode for the file event
 /// @param trig The file event type
 static void trigfileevent(struct inode_s* in, const int trig) {
-  if (initargs.skipproc) return;
+  if (initargs.skipproc || initargs.preview) return;
   const int flags = trig | (initargs.verbose ? LCTOPT_VERBOSE : 0);
   const struct tpreq_s req = {cmdsets, in, flags};
   int err;
@@ -355,6 +362,7 @@ static int cmpchanges(void) {
 
   log_info("compared %zu files", thismap.size);
 
+  if (initargs.preview) return 0; // Don't modifying index in preview mode
   if (writeindex(&thismap, initargs.indexfile)) {
     log_error("error writing `%s`: %s", initargs.indexfile, strerror(errno));
     return -1;

@@ -54,6 +54,7 @@ Options:
   -s --search-dir <dir>   Search directory root (default: `.`)
   -t --threads <#>        Number of worker threads (default: 4)
      --update-index       Skip processing files, only update file index
+     --preview            Test changes without modifying file index or running commands
      --list-time          List time spent for each command set
      --pipe-std           Pipe subprocess stdout/stderr to files
      --trace <file>       Trace which command sets match the file
