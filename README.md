@@ -90,7 +90,6 @@ fsautoproc uses a symbol table when logging file changes and program status. Thi
 | `[*]`  | A file was modified                   |
 | `[-]`  | A file was deleted/removed            |
 | `[j]`  | A file was ignored/considered junk    |
-| `[s]`  | A directory is being scanned          |
 | `[x]`  | A system command is being invoked     |
 | `[!]`  | An error has occurred                 |
 
