@@ -77,7 +77,8 @@ int indexwrite(struct index_s* idx, FILE* s) {
 
 /// @def INDEXREADFMT
 /// @brief Format string used for reading index entries from a file stream.
-#define INDEXREADFMT "%[^,],%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n"
+/// @note Width specifier derived from \ref indexfpbuf
+#define INDEXREADFMT "%1023[^,],%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n"
 
 int indexread(struct index_s* idx, FILE* s) {
   struct fsstat_s st = {0}; /* fscanf file stat structure */
