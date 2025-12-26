@@ -31,7 +31,7 @@
 /// @brief Frees the memory allocated for a single command set entry struct.
 /// @param cmd Command set entry to free
 static void lcmdfree(struct lcmdset_s* cmd) {
-  for (size_t i = 0; cmd->fpatterns[i] != NULL; i++) {
+  for (size_t i = 0; cmd->fpatterns && cmd->fpatterns[i] != NULL; i++) {
     regex_t* reg = cmd->fpatterns[i];
     if (reg == NULL) continue;
     regfree(reg);
