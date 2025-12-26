@@ -128,6 +128,7 @@ static int parseinitargs(const int argc, char** const argv) {
           {"verbose", no_argument, NULL, opt_verbose},
           {"lock-path", required_argument, NULL, opt_lockPath},
           {"preview", no_argument, NULL, opt_preview},
+          {NULL, 0, NULL, 0},
   };
 
   int c;
