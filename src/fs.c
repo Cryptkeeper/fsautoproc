@@ -41,6 +41,7 @@ int fswalk(const char* dir, fswalkfn_t filefn, void* udata) {
     return -1;
   }
   int err = 0;
+  errno = 0;
   FTSENT* ent;
   while ((ent = fts_read(ftsp)) != NULL) {
     if (ent->fts_info == FTS_ERR) {// handle error entries
