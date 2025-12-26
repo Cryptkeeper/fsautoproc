@@ -167,9 +167,10 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
     regmode |= REG_ENHANCED;
 #endif
 
-    if (regcomp(reg, p->valuestring, regmode)) {
+    int err;
+    if ((err = regcomp(reg, p->valuestring, regmode))) {
       char errmsg[512] = {0};
-      regerror(errno, reg, errmsg, sizeof(errmsg));
+      regerror(err, reg, errmsg, sizeof(errmsg));
       log_error("error compiling pattern `%s`: %s", p->valuestring, errmsg);
 
       return -1;
