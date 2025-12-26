@@ -253,15 +253,30 @@ static int loadindex(struct index_s* idx, const char* fp) {
   return err;
 }
 
-/// @brief Writes the index to the specified file path.
+/// @brief Writes the index to a temporary file and if successful, renames it to
+/// the specified file path to ensure atomic updates.
 /// @param idx The index to write
 /// @param fp The file path to save the index to
 /// @return 0 if successful, otherwise a non-zero error code.
 static int writeindex(struct index_s* idx, const char* fp) {
-  FILE* s = fopen(fp, "w");
+  char tmp[32] = "/tmp/fsautoproc-index-XXXXXX";
+  const int fd = mkstemp(tmp);
+  if (fd < 0) {
+    log_error("error creating temp index file: %s", strerror(errno));
+    return -1;
+  }
+  if (initargs.verbose) log_verbose("temp index created: %s", tmp);
+  FILE* s = fdopen(fd, "w");
   if (s == NULL) return -1;
   const int err = indexwrite(idx, s);
   fclose(s);
+  if (err) goto ret;
+  if (rename(tmp, fp) != 0) {
+    log_error("error replacing index file with %s: %s", tmp, strerror(errno));
+    return -1;
+  }
+ret:
+  unlink(tmp);
   return err;
 }
 
