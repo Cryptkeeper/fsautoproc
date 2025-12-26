@@ -35,6 +35,7 @@ struct thrd_s {
 static struct thrd_s** thrds; ///< Thread pool worker threads array
 static _Atomic bool haltthrds;///< Thread pool halt flag
 static _Atomic int thrdrc;    ///< Thread pool thread count
+static _Atomic int idlerc;    ///< Thread pool idle thread count
 
 /// @brief Thread pool worker thread entry point. The thread will spin lock
 /// while waiting to be reserved. Once reserved, it spin locks while waiting
@@ -46,7 +47,13 @@ static void* tpentrypoint(void* arg) {
   struct thrd_s* self = arg;
   atomic_fetch_add(&thrdrc, 1);
   while (!atomic_load(&haltthrds)) {
-    if (!atomic_load(&self->rsrvd)) continue; /* wait for work reservation */
+    if (!atomic_load(&self->rsrvd)) {// wait for work reservation
+      const enum sleepdur_t idle =
+              atomic_fetch_add(&idlerc, 1) > 0 ? DUR_IDLE_LONG : DUR_IDLE_SHORT;
+      tmsleep(idle);
+      atomic_fetch_sub(&idlerc, 1);
+      continue;
+    }
 
     // spin while waiting for the main thread to set the work request
     // this avoids the atomic state of rsrvd being set before the calling thread
