@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <sysexits.h>
 #include <unistd.h>
 
 #include "cJSON/cJSON.h"
@@ -239,6 +240,27 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp) {
   return false;
 }
 
+/// @brief Checks if the waitpid(2)-style int described by the wait status \p st
+/// failed due to an exit code or signal termination. If so, an appropriate log
+/// message is printed using the source description \p src.
+/// @param src The source description of the child process
+/// @param st The wait status of the child process
+/// @return 1 if the value exited or was signaled, otherwise 0.
+static int lcmdfailed(const char* src, const int st) {
+  if (WIFEXITED(st)) {
+    const int ec = WEXITSTATUS(st);
+    if (ec) {
+      log_info("%s exited with status %d", src, ec);
+      return 1;
+    }
+  }
+  if (WIFSIGNALED(st)) {
+    log_error("%s terminated by signal %d", src, WTERMSIG(st));
+    return 1;
+  }
+  return 0;
+}
+
 /// @brief Invokes a string \p cmd as a system command using `system(3)` in a
 /// forked/child process. The file path of \p node is set as an environment
 /// variable for use in the command. File descriptor set \p fds is used to
@@ -280,21 +302,21 @@ static int lcmdinvoke(const char* cmd, const char* fp, struct fdset_s fds,
     // child process, modify local environment variables for use in commands
     setenv("FILEPATH", fp, 1);
 
-    // execute the command and instantly exit child process
-    int err;
-    if ((err = system(cmd))) log_error("command `%s` returned %d", cmd, err);
-    fdclose(&fds); /* close child process references */
-    _exit(err);    /* avoid firing parent atexit handlers */
+    const int st = system(cmd);           /* execute command */
+    lcmdfailed(cmd, st);                  /* log any errors from command */
+    fdclose(&fds);                        /* close child process references */
+    _exit(WIFEXITED(st) ? WEXITSTATUS(st) /* skip parent atexit hooks */
+                        : EX_SOFTWARE);
   } else {
     // parent process, wait for child process to finish
-    int eid = 0;
-    if (waitpid(pid, &eid, 0) < 0) {
+    int st = 0;
+    if (waitpid(pid, &st, 0) < 0) {
       log_error("cannot wait for child process %d: %s", pid, strerror(errno));
       return -1;
-    } else if (eid) {
-      log_error("command `%s` failed with exit code %d", cmd, eid);
-      return -1;
     }
+    char src[32] = {0};
+    sprintf(src, "pid=%d", (int)pid);
+    if (lcmdfailed(src, st)) return -1;
 
     // return the time spent executing the command
     if (msspent != NULL) *msspent += tmnow() - start;
