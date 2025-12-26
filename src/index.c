@@ -57,6 +57,7 @@ static int indexnodecmp(const void* a, const void* b) {
 #define INDEXWRITEFMT "%s,%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n"
 
 int indexwrite(struct index_s* idx, FILE* s) {
+  if (idx->size == 0) return 0;
   struct inode_s** fl;
   if ((fl = indexlist(idx)) == NULL) return -1;
   qsort(fl, idx->size, sizeof(struct inode_s*), indexnodecmp);
@@ -136,7 +137,7 @@ void indexfree(struct index_s* idx) {
 }
 
 struct inode_s** indexlist(const struct index_s* idx) {
-  errno = 0;
+  if (idx->size == 0) return NULL;
   struct inode_s** fl;
   if ((fl = je_calloc(idx->size, sizeof(*fl))) == NULL) return NULL;
   long ni = 0;
