@@ -214,6 +214,7 @@ struct lcmdset_s** lcmdparse(const char* fp) {
 
 err:
   lcmdfree_r(cs);
+  cs = NULL;
 ok:
   je_free(fbuf);
   if (jt != NULL) cJSON_Delete(jt);
