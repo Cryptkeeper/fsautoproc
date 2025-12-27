@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "set.h"
 #include "sl.h"
 
 struct fdset_s;
@@ -35,14 +36,16 @@ struct fdset_s;
 /// @brief Option bit flag for printing commands to stdout before execution
 #define LCTOPT_VERBOSE (1 << 8)
 
+DEFINE_SET(regex_t, regex_set)
+
 /// @struct lcmdset_s
 /// @brief A set of system commands to execute when a file event of a specific
 /// type and file path is triggered.
 struct lcmdset_s {
-  int onflags;        ///< Command set trigger bit flags
-  regex_t** fpatterns;///< Compiled regex patterns used for file path matching
-  slist_t syscmds;    ///< Commands to pass to `system(3)`
-  char* name;         ///< Command set name or description for logging
+  int onflags;             ///< Command set trigger bit flags
+  regex_set_t* fpatterns;  ///< Compiled patterns used for file path matching
+  slist_t syscmds;         ///< Commands to pass to `system(3)`
+  char* name;              ///< Command set name or description for logging
   _Atomic uint64_t msspent;///< Sum milliseconds spent executing commands
 };
 
@@ -60,7 +63,6 @@ void lcmdfree_r(struct lcmdset_s** cs);
 /// - `new`: Trigger on new files
 /// - `mod`: Trigger on modified files
 /// - `del`: Trigger on deleted files
-/// - `nop`: Trigger on no operation
 /// The `patterns` array must contain one or more strings that are used to match
 /// the file path. The `commands` array must contain one or more strings that are
 /// passed to `system(3)` for execution.

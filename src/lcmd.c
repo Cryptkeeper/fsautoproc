@@ -30,16 +30,17 @@
 #define SL_IMPL
 #include "sl.h"
 
+DECLARE_STATIC_SET_FREE(regex_t, regex_set)
+
+DECLARE_STATIC_SET_ALLOC(regex_t, regex_set)
+
 /// @brief Frees the memory allocated for a single command set entry struct.
 /// @param cmd Command set entry to free
 static void lcmdfree(struct lcmdset_s* cmd) {
-  for (size_t i = 0; cmd->fpatterns && cmd->fpatterns[i] != NULL; i++) {
-    regex_t* reg = cmd->fpatterns[i];
-    if (reg == NULL) continue;
+  regex_t* reg;
+  for (int i = 0; reg = SET_AT(cmd->fpatterns, i), reg != NULL; i++)
     regfree(reg);
-    je_free(reg);
-  }
-  je_free(cmd->fpatterns);
+  regex_set_free(cmd->fpatterns);
   je_free(cmd->name);
   slfree(&cmd->syscmds);
   je_free(cmd);
@@ -151,18 +152,15 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
     if ((cmd->name = je_strdup(b)) == NULL) return -1;
   }
 
-  const int regcount = cJSON_GetArraySize(plist);
-  if ((cmd->fpatterns = je_calloc(regcount + 1, sizeof(regex_t*))) == NULL)
+  if ((cmd->fpatterns = regex_set_alloc(cJSON_GetArraySize(plist))) == NULL)
     return -1;
 
   // compile regex patterns
-  for (int i = 0; i < regcount; i++) {
+  for (int i = 0; i < cmd->fpatterns->count; i++) {
     cJSON* p = cJSON_GetArrayItem(plist, i);
     if (!cJSON_IsString(p)) return -1;
 
-    regex_t* reg;
-    if ((reg = cmd->fpatterns[i] = je_calloc(1, sizeof(*reg))) == NULL)
-      return -1;
+    regex_t* reg = &cmd->fpatterns->items[i];
 
     int regmode = REG_EXTENDED | REG_NOSUB;
 #ifdef __APPLE__
@@ -229,9 +227,10 @@ ok:
 /// @param fpatterns Array of compiled regex patterns
 /// @param fp Filepath to match
 /// @return True if the filepath matches any of the patterns, otherwise false.
-static bool lcmdmatch(regex_t** fpatterns, const char* fp) {
-  for (size_t i = 0; fpatterns[i] != NULL; i++)
-    if (!regexec(fpatterns[i], fp, 0, NULL, 0)) return true;
+static bool lcmdmatch(regex_set_t* fpatterns, const char* fp) {
+  regex_t* reg;
+  for (int i = 0; reg = SET_AT(fpatterns, i), reg != NULL; i++)
+    if (!regexec(reg, fp, 0, NULL, 0)) return true;
   return false;
 }
 
