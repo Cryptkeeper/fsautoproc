@@ -3,13 +3,15 @@
 #ifndef FSAUTOPROC_TP_H
 #define FSAUTOPROC_TP_H
 
+#include "lcmd.h"
+
 /// @struct tpreq_s
 /// @brief Pending work request which contains a command set to execute on a
 /// thread in the pool, using a file node as the target.
 struct tpreq_s {
-  struct lcmdset_s** cs; ///< command set to execute
-  struct inode_s* node;  ///< File node to pass to the command set
-  int flags;             ///< Trigger flags for the command set
+  lcmdset_set_t* cs;   ///< Command set to execute
+  struct inode_s* node;///< File node to pass to the command set
+  int flags;           ///< Trigger flags for the command set
 };
 
 /// @def TPOPT_LOGFILES

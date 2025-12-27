@@ -1,14 +1,14 @@
 #ifndef FSAUTOPROC_SET_H
 #define FSAUTOPROC_SET_H
 
-#define DEFINE_SET(typ, name)                                                  \
+#define DEFINE_SET(name, typ)                                                  \
   struct name##_s {                                                            \
     int count;                                                                 \
     typ* items;                                                                \
   };                                                                           \
   typedef struct name##_s name##_t;
 
-#define DECLARE_STATIC_SET_FREE(typ, name)                                     \
+#define DECLARE_STATIC_SET_FREE(name, typ)                                     \
   static void name##_free(name##_t* set) {                                     \
     if (set != NULL) {                                                         \
       je_free(set->items);                                                     \
@@ -18,7 +18,7 @@
     }                                                                          \
   }
 
-#define DECLARE_STATIC_SET_ALLOC(typ, name)                                    \
+#define DECLARE_STATIC_SET_ALLOC(name, typ)                                    \
   static name##_t* name##_alloc(int count) {                                   \
     void* items = je_calloc(count, sizeof(typ));                               \
     if (!items) return NULL;                                                   \

@@ -36,7 +36,7 @@ struct fdset_s;
 /// @brief Option bit flag for printing commands to stdout before execution
 #define LCTOPT_VERBOSE (1 << 8)
 
-DEFINE_SET(regex_t, regex_set)
+DEFINE_SET(regex_set, regex_t)
 
 /// @struct lcmdset_s
 /// @brief A set of system commands to execute when a file event of a specific
@@ -49,9 +49,11 @@ struct lcmdset_s {
   _Atomic uint64_t msspent;///< Sum milliseconds spent executing commands
 };
 
+DEFINE_SET(lcmdset_set, struct lcmdset_s)
+
 /// @brief Iterates and frees all memory allocated by the command set array.
 /// @param cs The command set array to free
-void lcmdfree_r(struct lcmdset_s** cs);
+void lcmdfree_r(lcmdset_set_t* cs);
 
 /// @brief Parses the provided file path and populates an array of command sets.
 /// The file must be a valid JSON file containing an array of objects. Each
@@ -68,14 +70,14 @@ void lcmdfree_r(struct lcmdset_s** cs);
 /// passed to `system(3)` for execution.
 /// @param fp The file path to parse
 /// @return An array of command sets if successful, otherwise NULL.
-struct lcmdset_s** lcmdparse(const char* fp);
+lcmdset_set_t* lcmdparse(const char* fp);
 
 /// @brief Checks if the provided file path matches any of the file patterns in
 /// the command set.
 /// @param cs The command set array to filter
 /// @param fp The file path to match
 /// @return true if the file path matches any file pattern, otherwise false
-bool lcmdmatchany(struct lcmdset_s** cs, const char* fp);
+bool lcmdmatchany(lcmdset_set_t* cs, const char* fp);
 
 /// @brief Sequentially iterates the command set and executes the configured
 /// system commands on the provided file node if the trigger flags and file
@@ -89,7 +91,6 @@ bool lcmdmatchany(struct lcmdset_s** cs, const char* fp);
 /// be printed to stdout.
 /// @return 0 if successful, otherwise the first non-zero return value from
 /// `system(3)` is returned.
-int lcmdexec(struct lcmdset_s** cs, const char* fp, struct fdset_s fds,
-             int flags);
+int lcmdexec(lcmdset_set_t* cs, const char* fp, struct fdset_s fds, int flags);
 
 #endif//FSAUTOPROC_LCMD_H

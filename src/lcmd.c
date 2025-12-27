@@ -30,9 +30,13 @@
 #define SL_IMPL
 #include "sl.h"
 
-DECLARE_STATIC_SET_FREE(regex_t, regex_set)
+DECLARE_STATIC_SET_FREE(regex_set, regex_t)
 
-DECLARE_STATIC_SET_ALLOC(regex_t, regex_set)
+DECLARE_STATIC_SET_ALLOC(regex_set, regex_t)
+
+DECLARE_STATIC_SET_FREE(lcmdset_set, struct lcmdset_s)
+
+DECLARE_STATIC_SET_ALLOC(lcmdset_set, struct lcmdset_s)
 
 /// @brief Frees the memory allocated for a single command set entry struct.
 /// @param cmd Command set entry to free
@@ -43,12 +47,12 @@ static void lcmdfree(struct lcmdset_s* cmd) {
   regex_set_free(cmd->fpatterns);
   je_free(cmd->name);
   slfree(&cmd->syscmds);
-  je_free(cmd);
 }
 
-void lcmdfree_r(struct lcmdset_s** cs) {
-  for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) lcmdfree(cs[i]);
-  je_free(cs);
+void lcmdfree_r(lcmdset_set_t* cs) {
+  struct lcmdset_s* cmd;
+  for (int i = 0; cmd = SET_AT(cs, i), cmd != NULL; i++) lcmdfree(cmd);
+  lcmdset_set_free(cs);
 }
 
 /// @brief Reads the contents of the file described by filepath \p fp into a
@@ -180,10 +184,10 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
   return 0;
 }
 
-struct lcmdset_s** lcmdparse(const char* fp) {
-  char* fbuf = NULL;            /* file contents buffer */
-  cJSON* jt = NULL;             /* parsed JSON tree */
-  struct lcmdset_s** cs = NULL; /* command set array */
+lcmdset_set_t* lcmdparse(const char* fp) {
+  char* fbuf = NULL;        /* file contents buffer */
+  cJSON* jt = NULL;         /* parsed JSON tree */
+  lcmdset_set_t* cs = NULL; /* command set array */
 
   if ((fbuf = fsreadstr(fp)) == NULL) {
     log_error("error reading file `%s`: %s", fp, strerror(errno));
@@ -194,16 +198,14 @@ struct lcmdset_s** lcmdparse(const char* fp) {
     goto err;
   }
 
-  const int len = cJSON_GetArraySize(jt);
-  if ((cs = je_calloc(len + 1, sizeof(cs))) == NULL) goto err;
+  if ((cs = lcmdset_set_alloc(cJSON_GetArraySize(jt))) == NULL) goto err;
 
   // iterate over each command block
   cJSON* item;
   int i = 0;
   cJSON_ArrayForEach(item, jt) {
-    assert(i < len);
-    struct lcmdset_s* cmd;
-    if ((cmd = cs[i] = je_malloc(sizeof(*cmd))) == NULL) goto err;
+    struct lcmdset_s* cmd = SET_AT(cs, i);
+    assert(cmd != NULL);
     if (lcmdparseone(item, cmd, i)) {
       log_error("error parsing command block %d", i);
       goto err;
@@ -214,7 +216,7 @@ struct lcmdset_s** lcmdparse(const char* fp) {
   goto ok;
 
 err:
-  lcmdfree_r(cs);
+  if (cs != NULL) lcmdfree_r(cs);
   cs = NULL;
 ok:
   je_free(fbuf);
@@ -234,9 +236,10 @@ static bool lcmdmatch(regex_set_t* fpatterns, const char* fp) {
   return false;
 }
 
-bool lcmdmatchany(struct lcmdset_s** cs, const char* fp) {
-  for (size_t i = 0; cs != NULL && cs[i] != NULL; i++)
-    if (lcmdmatch(cs[i]->fpatterns, fp)) return true;
+bool lcmdmatchany(lcmdset_set_t* cs, const char* fp) {
+  struct lcmdset_s* cmd;
+  for (int i = 0; cmd = SET_AT(cs, i), cmd != NULL; i++)
+    if (lcmdmatch(cmd->fpatterns, fp)) return true;
   return false;
 }
 
@@ -325,24 +328,24 @@ static int lcmdinvoke(const char* cmd, const char* fp, struct fdset_s fds,
   }
 }
 
-int lcmdexec(struct lcmdset_s** cs, const char* fp, const struct fdset_s fds,
+int lcmdexec(lcmdset_set_t* cs, const char* fp, const struct fdset_s fds,
              int flags) {
   int ret = 0;
-  for (size_t i = 0; cs != NULL && cs[i] != NULL; i++) {
-    struct lcmdset_s* s = cs[i];
+  struct lcmdset_s* s;
+  for (int i = 0; s = SET_AT(cs, i), s != NULL; i++) {
     if (!(s->onflags & flags)) {
       if (flags & LCTOPT_TRACE)
-        log_info("cmdset %zu ignored flags: 0x%02X", i, flags);
+        log_info("cmdset %d ignored flags: 0x%02X", i, flags);
       continue;
     }
     if (!lcmdmatch(s->fpatterns, fp)) {
       if (flags & LCTOPT_TRACE)
-        log_info("cmdset %zu ignored filepath: %s", i, fp);
+        log_info("cmdset %d ignored filepath: %s", i, fp);
       continue;
     }
 
     if (flags & LCTOPT_TRACE) {
-      log_info("cmdset %zu (0x%02X) matched: %s", i, s->onflags, fp);
+      log_info("cmdset %d (0x%02X) matched: %s", i, s->onflags, fp);
       continue;// skip executing commands
     }
 

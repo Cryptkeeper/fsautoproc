@@ -47,7 +47,7 @@ static void freeinitargs(void) {
   je_free(initargs.searchdir);
 }
 
-static struct lcmdset_s** cmdsets;///< Command sets loaded from configuration
+static lcmdset_set_t* cmdsets;///< Command sets loaded from configuration
 
 static struct index_s lastmap;///< Stored index from previous run (if any)
 static struct index_s thismap;///< Live checked index from this run
@@ -405,10 +405,10 @@ static int tracefile(const char* fp) {
 
 /// @brief Prints the time spent for each command set to the console.
 static void printmsspent(void) {
-  for (size_t i = 0; cmdsets != NULL && cmdsets[i] != NULL; i++) {
-    const struct lcmdset_s* s = cmdsets[i];
-    const float ts = (float) s->msspent;
-    log_info("%s: %.3f%s", s->name, ts > 1000 ? ts / 1000 : ts,
+  struct lcmdset_s* cmd;
+  for (int i = 0; cmd = SET_AT(cmdsets, i), cmd != NULL; i++) {
+    const float ts = (float) cmd->msspent;
+    log_info("%s: %.3f%s", cmd->name, ts > 1000 ? ts / 1000 : ts,
              ts > 1000 ? "s" : "ms");
   }
 }
