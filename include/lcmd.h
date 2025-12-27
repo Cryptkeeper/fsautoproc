@@ -43,7 +43,7 @@ struct lcmdset_s {
   regex_t** fpatterns;///< Compiled regex patterns used for file path matching
   slist_t syscmds;    ///< Commands to pass to `system(3)`
   char* name;         ///< Command set name or description for logging
-  uint64_t msspent;   ///< Sum milliseconds spent executing commands
+  _Atomic uint64_t msspent;///< Sum milliseconds spent executing commands
 };
 
 /// @brief Iterates and frees all memory allocated by the command set array.

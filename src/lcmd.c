@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <errno.h>
 #include <regex.h>
+#include <stdatomic.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -276,7 +277,7 @@ static int lcmdfailed(const char* src, const int st) {
 /// executing the command (in milliseconds) will be added.
 /// @return 0 if successful, otherwise -1 to indicate an error.
 static int lcmdinvoke(const char* cmd, const char* fp, struct fdset_s fds,
-                      const int flags, uint64_t* msspent) {
+                      const int flags, _Atomic uint64_t* msspent) {
   if (flags & LCTOPT_VERBOSE) log_verbose("[x] %s", cmd);
 
   const uint64_t start = tmnow();
@@ -315,11 +316,12 @@ static int lcmdinvoke(const char* cmd, const char* fp, struct fdset_s fds,
       return -1;
     }
     char src[32] = {0};
-    sprintf(src, "pid=%d", (int)pid);
+    sprintf(src, "pid=%d", (int) pid);
     if (lcmdfailed(src, st)) return -1;
 
     // return the time spent executing the command
-    if (msspent != NULL) *msspent += tmnow() - start;
+    const uint64_t end = tmnow();
+    if (msspent != NULL && end > start) atomic_fetch_add(msspent, end - start);
     return 0;
   }
 }
