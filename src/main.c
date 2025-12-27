@@ -219,12 +219,13 @@ static int parseinitargs(const int argc, char** const argv) {
   return 0;
 }
 
+static volatile sig_atomic_t sigcaught = 0;///< Flag indicating caught SIGINT
+
 /// @brief Interrupt signal handler for cleanly exiting on SIGINT.
 /// @param signo The signal number (should be SIGINT)
 static void interruptsig(const int signo) {
-  log_info("received signal: %d\nwaiting for threads to exit...", signo);
-  tpwait();// wait for active work to finish
-  exit(0);
+  (void) signo;
+  sigcaught = 1;
 }
 
 /// @brief Attaches the interrupt signal handler to handle SIGINT signals.
@@ -369,16 +370,21 @@ static int cmpchanges(void) {
   }
 
   const struct deng_hooks_s hooks = {onnotify, onevent};
-
-  if ((err = dengsearch(initargs.searchdir, filterjunk, &hooks, &lastmap,
-                        &thismap))) {
+  const struct deng_params_s p = {
+          .sd = initargs.searchdir,
+          .filter = filterjunk,
+          .hooks = &hooks,
+          .old = &lastmap,
+          .new = &thismap,
+  };
+  if ((err = dengsearch(&p, &sigcaught))) {
     log_error("error processing directory `%s`: %d", initargs.searchdir, err);
     return -1;
   }
 
   log_info("compared %zu files", thismap.size);
 
-  if (initargs.preview) return 0; // Don't modifying index in preview mode
+  if (initargs.preview) return 0;// Don't modify index in preview mode
   if (writeindex(&thismap, initargs.indexfile)) {
     log_error("error writing `%s`: %s", initargs.indexfile, strerror(errno));
     return -1;

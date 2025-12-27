@@ -72,7 +72,8 @@ int main(void) {
       log_verbose("using fixed index `%s`", fp);
     }
 
-    assert(dengsearch(test->sd, NULL, &hooks, &old, &new) == 0);
+    const struct deng_params_s p = {test->sd, NULL, &hooks, &old, &new};
+    assert(dengsearch(&p, NULL) == 0);
 
     log_verbose("%d new files (expected %d)", evcounts.new, test->expected.new);
     log_verbose("%d del files (expected %d)", evcounts.del, test->expected.del);

@@ -3,6 +3,7 @@
 #ifndef FSAUTOPROC_DENG_H
 #define FSAUTOPROC_DENG_H
 
+#include <signal.h>
 #include <stdbool.h>
 
 struct inode_s;
@@ -36,18 +37,25 @@ struct deng_hooks_s {
 /// @return true if the file should be ignored, otherwise false
 typedef bool (*deng_filter_t)(const char* fp);
 
+/// @struct deng_params_s
+/// @brief Parameters for the differential file search process
+struct deng_params_s {
+  const char* sd;                  ///< Search directory root
+  deng_filter_t filter;            ///< File filter function
+  const struct deng_hooks_s* hooks;///< File event hook functions
+  const struct index_s* old;       ///< Previous index state
+  struct index_s* new;             ///< Current index state
+};
+
 /// @brief Recursively scans directory \p sd and compares the file system state
 /// with a previously saved index. Any new, modified, deleted, or unmodified
 /// files are reported to the caller via the provided hooks structure, \p hooks.
 /// The index state \p new is then updated with the current file system state.
-/// @param sd The directory to scan for conditionally ignoring files
-/// @param filter The file filter function
-/// @param hooks The file event hook functions
-/// @param old The previous index state
-/// @param new The current index state
+/// @param p The differential search parameters
+/// @param stop An atomic integer which can be set to a non-zero value to
+/// interrupt the search process (can be NULL to ignore)
 /// @return 0 if successful, otherwise a non-zero error code.
-int dengsearch(const char* sd, deng_filter_t filter,
-               const struct deng_hooks_s* hooks, const struct index_s* old,
-               struct index_s* new);
+int dengsearch(const struct deng_params_s* p,
+               const volatile sig_atomic_t* stop);
 
 #endif//FSAUTOPROC_DENG_H

@@ -22,11 +22,14 @@ static uint8_t xxbuf[XXBUFSZE];///< Shared buffer for reading files to hash
 /// @brief Search state context provided to the diff engine as user data which
 /// is passed to the file event hook functions.
 struct deng_state_s {
-  deng_filter_t ffn;               ///< File filter function
-  const struct deng_hooks_s* hooks;///< File event hook functions
-  const struct index_s* lastmap;   ///< Previous index state
-  struct index_s* thismap;         ///< Current index state
+  deng_filter_t ffn;                ///< File filter function
+  const struct deng_hooks_s* hooks; ///< File event hook functions
+  const struct index_s* lastmap;    ///< Previous index state
+  struct index_s* thismap;          ///< Current index state
+  const volatile sig_atomic_t* stop;///< Stop flag
 };
+
+#define isstopping(mach) ((mach)->stop != NULL && *(mach)->stop != 0)
 
 /// @def callevent
 /// @brief Invokes a file event hook function if it is not NULL.
@@ -56,6 +59,7 @@ struct deng_state_s {
 /// @return 0 if successful, otherwise a non-zero error code.
 static int stagepre(const char* fp, const struct fsstat_s* st, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
+  if (isstopping(mach)) return 1;
   notifyhook(mach, DENG_NOTIF_FILE_FOUND);
 
   if (mach->ffn != NULL && mach->ffn(fp)) return 0;// skip filtered files
@@ -99,6 +103,7 @@ static int stagepre(const char* fp, const struct fsstat_s* st, void* udata) {
 /// @return 0 if successful, otherwise a non-zero error code.
 static int stagepost(const char* fp, const struct fsstat_s* st, void* udata) {
   struct deng_state_s* mach = (struct deng_state_s*) udata;
+  if (isstopping(mach)) return 1;
   notifyhook(mach, DENG_NOTIF_FILE_FOUND);
 
   if (mach->ffn != NULL && mach->ffn(fp)) return 0;// skip filtered files
@@ -137,6 +142,7 @@ static int stagepost(const char* fp, const struct fsstat_s* st, void* udata) {
 /// @return 0 if successful, otherwise a non-zero error code.
 static int execstage(struct deng_state_s* mach, const char* sd,
                      fswalkfn_t filefn) {
+  if (isstopping(mach)) return 1;
   int err;
   if ((err = fswalk(sd, filefn, (void*) mach))) {
     log_error("file func for `%s` returned %d", sd, err);
@@ -150,12 +156,16 @@ static int execstage(struct deng_state_s* mach, const char* sd,
 /// determine which files were removed. This function may trigger deleted (DEL)
 /// events for each file in the previous index that is not present in the
 /// current index.
+/// @param mach The diff engine state context
+/// @return 0 if successful, otherwise a non-zero error code.
 static int checkremoved(struct deng_state_s* mach) {
+  if (isstopping(mach)) return 1;
   if (mach->lastmap->size == 0) return 0;// no previous map entries to check
 
   struct inode_s** lastlist;
   if ((lastlist = indexlist(mach->lastmap)) == NULL) return -1;
   for (long i = 0; i < mach->lastmap->size; i++) {
+    if (isstopping(mach)) break;
     struct inode_s* prev = lastlist[i];
     if (indexfind(mach->thismap, prev->fp, prev->fphash) != NULL) continue;
     callevent(mach, DENG_FEVENT_DEL, prev);
@@ -163,22 +173,22 @@ static int checkremoved(struct deng_state_s* mach) {
   je_free(lastlist);
   notifyhook(mach, DENG_NOTIF_STAGE_DONE);
 
-  return 0;
+  return isstopping(mach);// avoid break check returning 0
 }
 
-int dengsearch(const char* sd, deng_filter_t filter,
-               const struct deng_hooks_s* hooks, const struct index_s* old,
-               struct index_s* new) {
-  assert(sd != NULL);
-  assert(hooks != NULL);
-  assert(old != NULL);
-  assert(new != NULL);
+int dengsearch(const struct deng_params_s* p,
+               const volatile sig_atomic_t* stop) {
+  assert(p != NULL);
+  assert(p->sd != NULL);
+  assert(p->hooks != NULL);
+  assert(p->old != NULL);
+  assert(p->new != NULL);
 
-  struct deng_state_s mach = {filter, hooks, old, new};
+  struct deng_state_s mach = {p->filter, p->hooks, p->old, p->new, stop};
   int err;
-  if ((err = execstage(&mach, sd, stagepre))) goto ret;
+  if ((err = execstage(&mach, p->sd, stagepre))) goto ret;
   if ((err = checkremoved(&mach))) goto ret;
-  if ((err = execstage(&mach, sd, stagepost))) goto ret;
+  if ((err = execstage(&mach, p->sd, stagepost))) goto ret;
 ret:
   return err;
 }
