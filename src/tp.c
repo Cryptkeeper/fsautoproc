@@ -141,6 +141,8 @@ findnext:
       int err;
       if ((err = pthread_create(&t->tid, NULL, tpentrypoint, t))) {
         log_error("cannot create thread: %s", strerror(err));
+        atomic_store(&t->initd, false); /* reset init flag */
+        atomic_store(&t->rsrvd, false); /* release reservation */
         return -1;
       }
     }
