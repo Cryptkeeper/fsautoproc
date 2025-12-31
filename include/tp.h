@@ -9,7 +9,7 @@
 /// @brief Pending work request which contains a command set to execute on a
 /// thread in the pool, using a file node as the target.
 struct tpreq_s {
-  lcmdset_set_t* cs;   ///< Command set to execute
+  lcmdset_set* cs;     ///< Command set to execute
   struct inode_s* node;///< File node to pass to the command set
   int flags;           ///< Trigger flags for the command set
 };

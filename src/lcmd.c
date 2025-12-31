@@ -22,36 +22,42 @@
 #include "log.h"
 #include "tm.h"
 
-#define SL_OVERRIDE
-#define SLX_REALLOC je_realloc
-#define SLX_FREE je_free
-#define SLX_STRDUP je_strdup
+DEFINE_SET_FREE_STATIC(regex_set)
 
-#define SL_IMPL
-#include "sl.h"
+DEFINE_SET_ALLOC_STATIC(regex_set)
 
-DECLARE_STATIC_SET_FREE(regex_set, regex_t)
+DEFINE_SET_FOR_EACH_STATIC(regex_set)
 
-DECLARE_STATIC_SET_ALLOC(regex_set, regex_t)
+DEFINE_SET_FREE_STATIC(str_set)
 
-DECLARE_STATIC_SET_FREE(lcmdset_set, struct lcmdset_s)
+DEFINE_SET_ALLOC_STATIC(str_set)
 
-DECLARE_STATIC_SET_ALLOC(lcmdset_set, struct lcmdset_s)
+DEFINE_SET_FOR_EACH_STATIC(str_set)
+
+DEFINE_SET_FREE_STATIC(lcmdset_set)
+
+DEFINE_SET_ALLOC_STATIC(lcmdset_set)
+
+DEFINE_SET_FOR_EACH_STATIC(lcmdset_set)
+
+/// @brief Frees a dynamically allocated string.
+/// @param str Pointer to the string to free
+/// @note This function is intended for use with str_set_for_each, which requires
+/// a function that takes a pointer to the inner item type.
+static void str_free(str_set_inner_item* str) { je_free(*str); }
 
 /// @brief Frees the memory allocated for a single command set entry struct.
 /// @param cmd Command set entry to free
 static void lcmdfree(struct lcmdset_s* cmd) {
-  regex_t* reg;
-  for (int i = 0; reg = SET_AT(cmd->fpatterns, i), reg != NULL; i++)
-    regfree(reg);
+  regex_set_for_each(cmd->fpatterns, regfree);
   regex_set_free(cmd->fpatterns);
   je_free(cmd->name);
-  slfree(&cmd->syscmds);
+  str_set_for_each(cmd->syscmds, str_free);
+  str_set_free(cmd->syscmds);
 }
 
-void lcmdfree_r(lcmdset_set_t* cs) {
-  struct lcmdset_s* cmd;
-  for (int i = 0; cmd = SET_AT(cs, i), cmd != NULL; i++) lcmdfree(cmd);
+void lcmdfree_r(lcmdset_set* cs) {
+  lcmdset_set_for_each(cs, lcmdfree);
   lcmdset_set_free(cs);
 }
 
@@ -85,21 +91,29 @@ err:
   return NULL;
 }
 
-/// @brief Duplicates a cJSON array of strings into a slist_t. cJSON array
-/// entries that fail `cJSON_IsString` will be ignored and a warning printed.
+/// @brief Duplicates a cJSON array of strings into a str_set. Non-string
+/// entries will print an error message and cause the entry to be NULL.
 /// @param arr cJSON array of strings
-/// @param sl Pointer to a slist_t to populate with the strings.
-/// @return -1 if an error occurs, otherwise 0 on success.
-static int lcmdjsontosl(const cJSON* arr, slist_t* sl) {
+/// @return NULL if a string could not be duplicated, or the set could not be
+/// allocated. Otherwise, a str_set is returned containing the duplicated strings.
+static str_set* lcmdcopycmds(const cJSON* arr) {
+  str_set* set = str_set_alloc(cJSON_GetArraySize(arr));
+  if (!set) return NULL;
+  int i = 0;
   cJSON* e;
   cJSON_ArrayForEach(e, arr) {
+    char* s = NULL;
     if (!cJSON_IsString(e)) {
       log_error("error converting cmd, not a string: %s", e->valuestring);
-    } else if (sladd(sl, e->valuestring)) {
-      return -1;
+    } else if ((s = je_strdup(e->valuestring)) == NULL) {
+      log_error("error duplicating cmd string: %s", e->valuestring);
+      str_set_for_each(set, str_free);
+      str_set_free(set);
+      return NULL;
     }
+    set->items[i++] = s;
   }
-  return 0;
+  return set;
 }
 
 /// @brief Parses a cJSON array of strings into a set of file event bit flags.
@@ -142,9 +156,7 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
     return -1;
 
   if ((cmd->onflags = lcmdparseflags(onlist)) == 0) return -1;
-
-  cmd->syscmds = (slist_t) {0};
-  if (lcmdjsontosl(clist, &cmd->syscmds)) return -1;
+  if ((cmd->syscmds = lcmdcopycmds(clist)) == NULL) return -1;
 
   // copy description, otherwise use the index as the name
   cJSON* desc = cJSON_GetObjectItem(obj, "description");
@@ -184,10 +196,10 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
   return 0;
 }
 
-lcmdset_set_t* lcmdparse(const char* fp) {
-  char* fbuf = NULL;        /* file contents buffer */
-  cJSON* jt = NULL;         /* parsed JSON tree */
-  lcmdset_set_t* cs = NULL; /* command set array */
+lcmdset_set* lcmdparse(const char* fp) {
+  char* fbuf = NULL;      /* file contents buffer */
+  cJSON* jt = NULL;       /* parsed JSON tree */
+  lcmdset_set* cs = NULL; /* command set array */
 
   if ((fbuf = fsreadstr(fp)) == NULL) {
     log_error("error reading file `%s`: %s", fp, strerror(errno));
@@ -229,14 +241,14 @@ ok:
 /// @param fpatterns Array of compiled regex patterns
 /// @param fp Filepath to match
 /// @return True if the filepath matches any of the patterns, otherwise false.
-static bool lcmdmatch(regex_set_t* fpatterns, const char* fp) {
+static bool lcmdmatch(regex_set* fpatterns, const char* fp) {
   regex_t* reg;
   for (int i = 0; reg = SET_AT(fpatterns, i), reg != NULL; i++)
     if (!regexec(reg, fp, 0, NULL, 0)) return true;
   return false;
 }
 
-bool lcmdmatchany(lcmdset_set_t* cs, const char* fp) {
+bool lcmdmatchany(lcmdset_set* cs, const char* fp) {
   struct lcmdset_s* cmd;
   for (int i = 0; cmd = SET_AT(cs, i), cmd != NULL; i++)
     if (lcmdmatch(cmd->fpatterns, fp)) return true;
@@ -328,7 +340,7 @@ static int lcmdinvoke(const char* cmd, const char* fp, struct fdset_s fds,
   }
 }
 
-int lcmdexec(lcmdset_set_t* cs, const char* fp, const struct fdset_s fds,
+int lcmdexec(lcmdset_set* cs, const char* fp, const struct fdset_s fds,
              int flags) {
   int ret = 0;
   struct lcmdset_s* s;
@@ -350,10 +362,11 @@ int lcmdexec(lcmdset_set_t* cs, const char* fp, const struct fdset_s fds,
     }
 
     // invoke all system commands
-    for (size_t j = 0; s->syscmds.strings[j] != NULL; j++)
-      if ((ret = lcmdinvoke(s->syscmds.strings[j], fp, fds, flags,
-                            &s->msspent)))
-        break;
+    str_set_inner_item* cmd;
+    for (int j = 0; cmd = SET_AT(s->syscmds, j), cmd != NULL; j++) {
+      if (*cmd == NULL) continue;// not a string when deserializing
+      if ((ret = lcmdinvoke(*cmd, fp, fds, flags, &s->msspent))) break;
+    }
   }
   return ret;
 }

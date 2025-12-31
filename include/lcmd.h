@@ -8,7 +8,6 @@
 #include <stdint.h>
 
 #include "set.h"
-#include "sl.h"
 
 struct fdset_s;
 
@@ -36,24 +35,26 @@ struct fdset_s;
 /// @brief Option bit flag for printing commands to stdout before execution
 #define LCTOPT_VERBOSE (1 << 8)
 
-DEFINE_SET(regex_set, regex_t)
+DEFINE_SET_TYPE(regex_set, regex_t)
+
+DEFINE_SET_TYPE(str_set, char*)
 
 /// @struct lcmdset_s
 /// @brief A set of system commands to execute when a file event of a specific
 /// type and file path is triggered.
 struct lcmdset_s {
   int onflags;             ///< Command set trigger bit flags
-  regex_set_t* fpatterns;  ///< Compiled patterns used for file path matching
-  slist_t syscmds;         ///< Commands to pass to `system(3)`
+  regex_set* fpatterns;    ///< Compiled patterns used for file path matching
+  str_set* syscmds;        ///< Commands to pass to `system(3)`
   char* name;              ///< Command set name or description for logging
   _Atomic uint64_t msspent;///< Sum milliseconds spent executing commands
 };
 
-DEFINE_SET(lcmdset_set, struct lcmdset_s)
+DEFINE_SET_TYPE(lcmdset_set, struct lcmdset_s)
 
 /// @brief Iterates and frees all memory allocated by the command set array.
 /// @param cs The command set array to free
-void lcmdfree_r(lcmdset_set_t* cs);
+void lcmdfree_r(lcmdset_set* cs);
 
 /// @brief Parses the provided file path and populates an array of command sets.
 /// The file must be a valid JSON file containing an array of objects. Each
@@ -70,14 +71,14 @@ void lcmdfree_r(lcmdset_set_t* cs);
 /// passed to `system(3)` for execution.
 /// @param fp The file path to parse
 /// @return An array of command sets if successful, otherwise NULL.
-lcmdset_set_t* lcmdparse(const char* fp);
+lcmdset_set* lcmdparse(const char* fp);
 
 /// @brief Checks if the provided file path matches any of the file patterns in
 /// the command set.
 /// @param cs The command set array to filter
 /// @param fp The file path to match
 /// @return true if the file path matches any file pattern, otherwise false
-bool lcmdmatchany(lcmdset_set_t* cs, const char* fp);
+bool lcmdmatchany(lcmdset_set* cs, const char* fp);
 
 /// @brief Sequentially iterates the command set and executes the configured
 /// system commands on the provided file node if the trigger flags and file
@@ -91,6 +92,6 @@ bool lcmdmatchany(lcmdset_set_t* cs, const char* fp);
 /// be printed to stdout.
 /// @return 0 if successful, otherwise the first non-zero return value from
 /// `system(3)` is returned.
-int lcmdexec(lcmdset_set_t* cs, const char* fp, struct fdset_s fds, int flags);
+int lcmdexec(lcmdset_set* cs, const char* fp, struct fdset_s fds, int flags);
 
 #endif//FSAUTOPROC_LCMD_H

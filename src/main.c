@@ -47,7 +47,7 @@ static void freeinitargs(void) {
   je_free(initargs.searchdir);
 }
 
-static lcmdset_set_t* cmdsets;///< Command sets loaded from configuration
+static lcmdset_set* cmdsets;///< Command sets loaded from configuration
 
 static struct index_s lastmap;///< Stored index from previous run (if any)
 static struct index_s thismap;///< Live checked index from this run
