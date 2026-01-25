@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "zlib.h"
+
 #include "deng.h"
 #include "index.h"
 #include "log.h"
@@ -65,10 +67,10 @@ int main(void) {
     if (test->hasindex) {
       char fp[256];
       snprintf(fp, sizeof(fp), "%s/index.dat", test->sd);
-      FILE* f = fopen(fp, "r");
-      assert(f != NULL);
-      assert(indexread(&old, f) == 0);
-      fclose(f);
+      gzFile gz = gzopen(fp, "rb");
+      assert(gz != NULL);
+      assert(indexread(&old, gz) == 0);
+      gzclose(gz);
       log_verbose("using fixed index `%s`", fp);
     }
 

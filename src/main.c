@@ -10,6 +10,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "zlib.h"
+
 #include "jemalloc/jemalloc.h"
 
 #include "deng.h"
@@ -25,17 +27,18 @@
 
 /// @brief Managed initialization arguments for the program.
 static struct {
-  char* configfile;   ///< Configuration file path (-c)
-  char* indexfile;    ///< Index file path (-i)
-  char* lockfile;     ///< Exclusive lock file path
-  char* searchdir;    ///< Search directory root (-s)
-  char* tracefile;    ///< Trace file path
-  int threads;        ///< Number of worker threads (-t)
-  _Bool pipefiles : 1;///< Pipe subprocess stdout/stderr to files
-  _Bool listspent : 1;///< List time spent for each command set
-  _Bool skipproc : 1; ///< Skip processing files, only update file index
-  _Bool verbose : 1;  ///< Enable verbose output
-  _Bool preview : 1;  ///< Preview changes without modifying environment
+  char* configfile;     ///< Configuration file path (-c)
+  char* indexfile;      ///< Index file path (-i)
+  char* lockfile;       ///< Exclusive lock file path
+  char* searchdir;      ///< Search directory root (-s)
+  char* tracefile;      ///< Trace file path
+  int threads;          ///< Number of worker threads (-t)
+  _Bool pipefiles : 1;  ///< Pipe subprocess stdout/stderr to files
+  _Bool listspent : 1;  ///< List time spent for each command set
+  _Bool skipproc : 1;   ///< Skip processing files, only update file index
+  _Bool verbose : 1;    ///< Enable verbose output
+  _Bool preview : 1;    ///< Preview changes without modifying environment
+  _Bool textindex : 1;  ///< Write index file uncompressed
 } initargs;
 
 /// @brief Frees all duplicated initialization arguments.
@@ -106,6 +109,7 @@ static char* mkindexpath(const char* configfp) {
 #define opt_verbose     1005
 #define opt_lockPath    1006
 #define opt_preview     1007
+#define opt_textIndex   1008
 
 /// @brief Parses the program initialization arguments into \p initargs.
 /// @param argc The number of arguments
@@ -128,6 +132,7 @@ static int parseinitargs(const int argc, char** const argv) {
           {"verbose", no_argument, NULL, opt_verbose},
           {"lock-path", required_argument, NULL, opt_lockPath},
           {"preview", no_argument, NULL, opt_preview},
+          {"text-index", no_argument, NULL, opt_textIndex},
           {NULL, 0, NULL, 0},
   };
 
@@ -148,7 +153,8 @@ static int parseinitargs(const int argc, char** const argv) {
                "     --pipe-std           Pipe subprocess stdout/stderr to files\n"
                "     --trace <file>       Trace which command sets match the file\n"
                "     --verbose            Enable verbose output\n"
-               "     --lock-path <file>   Exclusive lock file path\n",
+               "     --lock-path <file>   Exclusive lock file path\n"
+               "     --text-index         Write index file uncompressed (default: gzip)\n",
                argv[0]);
         exit(0);
       case 'c':
@@ -183,6 +189,9 @@ static int parseinitargs(const int argc, char** const argv) {
         break;
       case opt_preview:
         initargs.preview = true;
+        break;
+      case opt_textIndex:
+        initargs.textindex = true;
         break;
       case ':':
         log_error("option is missing argument: %c", optopt);
@@ -242,20 +251,22 @@ static int siglisten(void) {
 }
 
 /// @brief Loads the index from the specified file path into the provided index.
+/// Transparently handles both gzip-compressed and plain text index files.
 /// @param idx The index to load into
 /// @param fp The file path to load the index from
 /// @return 0 if successful, otherwise a non-zero error code.
 static int loadindex(struct index_s* idx, const char* fp) {
   assert(idx != NULL);
-  FILE* s = fopen(fp, "r");
-  if (s == NULL) return -1;
-  const int err = indexread(idx, s);
-  fclose(s);
+  gzFile gz = gzopen(fp, "rb");
+  if (gz == NULL) return -1;
+  const int err = indexread(idx, gz);
+  gzclose(gz);
   return err;
 }
 
 /// @brief Writes the index to a temporary file and if successful, renames it to
-/// the specified file path to ensure atomic updates.
+/// the specified file path to ensure atomic updates. Uses gzip compression by
+/// default, unless --text-index flag is set.
 /// @param idx The index to write
 /// @param fp The file path to save the index to
 /// @return 0 if successful, otherwise a non-zero error code.
@@ -267,10 +278,26 @@ static int writeindex(struct index_s* idx, const char* fp) {
     return -1;
   }
   if (initargs.verbose) log_verbose("temp index created: %s", tmp);
-  FILE* s = fdopen(fd, "w");
-  if (s == NULL) return -1;
-  const int err = indexwrite(idx, s);
-  fclose(s);
+
+  int err;
+  if (initargs.textindex) {
+    FILE* s = fdopen(fd, "w");
+    if (s == NULL) return -1;
+    err = indexwrite(idx, s);
+    fclose(s);
+  } else {
+    gzFile gz = gzdopen(fd, "wb");
+    if (gz == NULL) return -1;
+    err = indexwrite_gz(idx, gz);
+    if (initargs.verbose) {
+      const long uncmp = gztell(gz);
+      const long cmp = gzoffset(gz);
+      if (uncmp > 0)
+        log_verbose("index compression saved %.1f%%", 100.0 * (1.0 - (cmp / (double) uncmp)));
+    }
+    gzclose(gz);
+  }
+
   if (err) goto ret;
   if (rename(tmp, fp) != 0) {
     log_error("error replacing index file with %s: %s", tmp, strerror(errno));

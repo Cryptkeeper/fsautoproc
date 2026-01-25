@@ -41,6 +41,7 @@ Git submodules provide:
 - [cJSON](https://github.com/DaveGamble/cJSON)
 - [xxHash](https://github.com/Cyan4973/xxHash)
 - [jemalloc](https://github.com/jemalloc/jemalloc) (requires autoconf during build)
+- [zlib](https://github.com/madler/zlib)
 
 ### Usage
 
@@ -60,6 +61,7 @@ Options:
      --trace <file>       Trace which command sets match the file
      --verbose            Enable verbose output
      --lock-path <file>   Exclusive lock file path
+     --text-index         Write index file uncompressed (default: gzip)
 ```
 
 When first indexing a new file structure, you should use the `--update-index` flag to avoid applying any newly configured rules to the existing file structure (unless desired, i.e. an initial "clean up" mutation of an unmaintained directory).

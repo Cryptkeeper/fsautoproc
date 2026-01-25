@@ -56,7 +56,28 @@ static int indexnodecmp(const void* a, const void* b) {
 /// @brief Format string used for writing index entries to a file stream.
 #define INDEXWRITEFMT "%s,%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n"
 
-int indexwrite(struct index_s* idx, FILE* s) {
+/// @brief Function pointer type for writing a buffer to a stream.
+/// @param ctx The stream context (FILE* or gzFile)
+/// @param buf The buffer to write
+/// @param len The length of the buffer
+/// @return 0 on success, -1 on error.
+typedef int (*indexwriter_fn)(void* ctx, const char* buf, int len);
+
+static int indexwriter_file(void* ctx, const char* buf, const int len) {
+  return fwrite(buf, len, 1, (FILE*) ctx) == 1 ? 0 : -1;
+}
+
+static int indexwriter_gz(void* ctx, const char* buf, const int len) {
+  return gzwrite((gzFile) ctx, buf, len) > 0 ? 0 : -1;
+}
+
+/// @brief Flattens the index map into a sorted array of nodes (by filepath).
+/// The list is then written to the stream context and freed.
+/// @param idx The index to flatten
+/// @param ctx The stream context (FILE* or gzFile)
+/// @param wfn The writer function to use for output
+/// @return If successful, 0 is returned. Otherwise, -1 is returned.
+static int indexwrite_impl(struct index_s* idx, void* ctx, indexwriter_fn wfn) {
   if (idx->size == 0) return 0;
   struct inode_s** fl;
   if ((fl = indexlist(idx)) == NULL) return -1;
@@ -67,7 +88,7 @@ int indexwrite(struct index_s* idx, FILE* s) {
     struct inode_s* node = fl[i];
     const int n = snprintf(indexfpbuf, sizeof(indexfpbuf), INDEXWRITEFMT,
                            node->fp, node->st.lmod, node->st.fsze, node->xx);
-    if (fwrite(indexfpbuf, n, 1, s) != 1) {
+    if (wfn(ctx, indexfpbuf, n)) {
       err = -1;
       break;
     }
@@ -76,15 +97,25 @@ int indexwrite(struct index_s* idx, FILE* s) {
   return err;
 }
 
-/// @def INDEXREADFMT
-/// @brief Format string used for reading index entries from a file stream.
-/// @note Width specifier derived from \ref indexfpbuf
-#define INDEXREADFMT "%1023[^,],%" PRIu64 ",%" PRIu64 ",%" PRIu64 "\n"
+int indexwrite(struct index_s* idx, FILE* s) {
+  return indexwrite_impl(idx, s, indexwriter_file);
+}
 
-int indexread(struct index_s* idx, FILE* s) {
-  struct fsstat_s st = {0}; /* fscanf file stat structure */
-  uint64_t xx = 0;          /* fscanf xxHash64 value */
-  while (fscanf(s, INDEXREADFMT, indexfpbuf, &st.lmod, &st.fsze, &xx) == 4) {
+int indexwrite_gz(struct index_s* idx, gzFile gz) {
+  return indexwrite_impl(idx, gz, indexwriter_gz);
+}
+
+int indexread(struct index_s* idx, gzFile gz) {
+  struct fsstat_s st = {0};
+  uint64_t xx = 0;
+  while (gzgets(gz, indexfpbuf, sizeof(indexfpbuf)) != NULL) {
+    // find the first comma to separate filepath from the rest
+    char* comma = strchr(indexfpbuf, ',');
+    if (comma == NULL) continue;
+    *comma = '\0';// null-terminate the filepath
+    if (sscanf(comma + 1, "%" PRIu64 ",%" PRIu64 ",%" PRIu64, &st.lmod,
+               &st.fsze, &xx) != 3)
+      continue;
     const uint64_t fphash = indexhash(indexfpbuf);
     if (indexput(idx, indexfpbuf, fphash, &st, xx) == NULL) return -1;
   }

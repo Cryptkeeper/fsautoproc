@@ -6,6 +6,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include "zlib.h"
+
 #include "fs.h"
 
 /// @struct inode_s
@@ -66,13 +68,22 @@ struct inode_s* indexfind(const struct index_s* idx, const char* fp,
 /// is set.
 int indexwrite(struct index_s* idx, FILE* s);
 
-/// @brief Reads a file stream and deserializes the contents into a map of
-/// individual file nodes.
-/// @param idx The index to populate
-/// @param s The file stream to read from
+/// @brief Flattens the index map into a sorted array of nodes (by filepath).
+/// The list is then written to the gzip stream and freed.
+/// @param idx The index to flatten
+/// @param gz The gzip file stream to write to
 /// @return If successful, 0 is returned. Otherwise, -1 is returned and `errno`
 /// is set.
-int indexread(struct index_s* idx, FILE* s);
+int indexwrite_gz(struct index_s* idx, gzFile gz);
+
+/// @brief Reads a gzip file stream and deserializes the contents into a map of
+/// individual file nodes. Transparently handles both compressed and
+/// uncompressed input.
+/// @param idx The index to populate
+/// @param gz The gzip file stream to read from
+/// @return If successful, 0 is returned. Otherwise, -1 is returned and `errno`
+/// is set.
+int indexread(struct index_s* idx, gzFile gz);
 
 /// @brief Copies the node and inserts it into the index mapping.
 /// @param idx The index to insert into

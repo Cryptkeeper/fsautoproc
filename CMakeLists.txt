@@ -14,6 +14,12 @@ set(XXHASH_BUILD_XXHSUM OFF)
 option(BUILD_SHARED_LIBS OFF)
 add_subdirectory(dep/xxHash/build/cmake xxhash_build EXCLUDE_FROM_ALL)
 
+# link zlib statically
+set(ZLIB_BUILD_TESTING OFF)
+set(ZLIB_BUILD_SHARED OFF)
+set(ZLIB_INSTALL OFF)
+add_subdirectory(dep/zlib zlib_build EXCLUDE_FROM_ALL)
+
 # use strict C11
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -34,8 +40,8 @@ add_executable(fsautoproc ${SOURCES} ${HEADERS})
 add_compile_definitions(JEMALLOC_NO_DEMANGLE)
 
 target_link_directories(fsautoproc PRIVATE dep dep/jemalloc/lib)
-target_link_libraries(fsautoproc PRIVATE cjson pthread libjemalloc.a xxhash)
-target_include_directories(fsautoproc PRIVATE include dep dep/jemalloc/include)
+target_link_libraries(fsautoproc PRIVATE cjson pthread libjemalloc.a xxhash zlibstatic)
+target_include_directories(fsautoproc PRIVATE include dep dep/jemalloc/include dep/zlib ${CMAKE_BINARY_DIR}/zlib_build)
 
 install(TARGETS fsautoproc DESTINATION bin)
 
@@ -43,8 +49,8 @@ install(TARGETS fsautoproc DESTINATION bin)
 add_library(deng STATIC src/deng.c src/index.c src/fs.c src/je.c src/xx.c)
 
 target_link_directories(deng PUBLIC dep/jemalloc/lib)
-target_link_libraries(deng PUBLIC libjemalloc.a xxhash)
-target_include_directories(deng PUBLIC include dep dep/jemalloc/include)
+target_link_libraries(deng PUBLIC libjemalloc.a xxhash zlibstatic)
+target_include_directories(deng PUBLIC include dep dep/jemalloc/include dep/zlib ${CMAKE_BINARY_DIR}/zlib_build)
 
 # unit tests
 enable_testing()

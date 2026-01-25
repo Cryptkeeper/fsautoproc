@@ -10,3 +10,6 @@
 [submodule "dep/xxHash"]
 	path = dep/xxHash
 	url = https://github.com/Cyan4973/xxHash
+[submodule "dep/zlib"]
+	path = dep/zlib
+	url = https://github.com/madler/zlib
