@@ -35,7 +35,14 @@ struct fdset_s;
 /// @brief Option bit flag for printing commands to stdout before execution
 #define LCTOPT_VERBOSE (1 << 8)
 
-DEFINE_SET_TYPE(regex_set, regex_t)
+/// @struct reg_t
+/// @brief Wrapper struct for a regex pattern and its compile metadata.
+struct reg_t {
+  regex_t reg;       ///< Compiled regex pattern
+  _Bool compiled : 1;///< Indicates if the regex was successfully compiled
+};
+
+DEFINE_SET_TYPE(regex_set, struct reg_t)
 
 DEFINE_SET_TYPE(str_set, char*)
 

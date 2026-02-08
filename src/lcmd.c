@@ -46,10 +46,18 @@ DEFINE_SET_FOR_EACH_STATIC(lcmdset_set)
 /// a function that takes a pointer to the inner item type.
 static void str_free(str_set_inner_item* str) { je_free(*str); }
 
+/// @brief Frees a compiled regex pattern if it was successfully compiled.
+/// @param reg Pointer to the regex pattern struct to free
+static void reg_free(struct reg_t* reg) {
+  if (!reg->compiled) return;
+  regfree(&reg->reg);
+  reg->compiled = false;
+}
+
 /// @brief Frees the memory allocated for a single command set entry struct.
 /// @param cmd Command set entry to free
 static void lcmdfree(struct lcmdset_s* cmd) {
-  regex_set_for_each(cmd->fpatterns, regfree);
+  regex_set_for_each(cmd->fpatterns, reg_free);
   regex_set_free(cmd->fpatterns);
   je_free(cmd->name);
   str_set_for_each(cmd->syscmds, str_free);
@@ -177,7 +185,8 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
     cJSON* p = cJSON_GetArrayItem(plist, i);
     if (!cJSON_IsString(p)) return -1;
 
-    regex_t* reg = &cmd->fpatterns->items[i];
+    struct reg_t* r = &cmd->fpatterns->items[i];
+    regex_t* reg = &r->reg;
 
     int regmode = REG_EXTENDED | REG_NOSUB;
 #ifdef __APPLE__
@@ -189,9 +198,10 @@ static int lcmdparseone(const cJSON* obj, struct lcmdset_s* cmd, const int id) {
       char errmsg[512] = {0};
       regerror(err, reg, errmsg, sizeof(errmsg));
       log_error("error compiling pattern `%s`: %s", p->valuestring, errmsg);
-
       return -1;
     }
+
+    r->compiled = true;
   }
 
   return 0;
@@ -243,9 +253,9 @@ ok:
 /// @param fp Filepath to match
 /// @return True if the filepath matches any of the patterns, otherwise false.
 static bool lcmdmatch(regex_set* fpatterns, const char* fp) {
-  regex_t* reg;
-  for (int i = 0; reg = SET_AT(fpatterns, i), reg != NULL; i++)
-    if (!regexec(reg, fp, 0, NULL, 0)) return true;
+  struct reg_t* r;
+  for (int i = 0; r = SET_AT(fpatterns, i), r != NULL; i++)
+    if (r->compiled && !regexec(&r->reg, fp, 0, NULL, 0)) return true;
   return false;
 }
 
