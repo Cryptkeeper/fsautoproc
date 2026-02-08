@@ -88,6 +88,11 @@ static int indexwrite_impl(struct index_s* idx, void* ctx, indexwriter_fn wfn) {
     struct inode_s* node = fl[i];
     const int n = snprintf(indexfpbuf, sizeof(indexfpbuf), INDEXWRITEFMT,
                            node->fp, node->st.lmod, node->st.fsze, node->xx);
+    if (n < 0 || n >= (int) sizeof(indexfpbuf)) {
+      log_error("indexwrite: buffer overflow for filepath `%s`", node->fp);
+      err = -1;
+      break;
+    }
     if (wfn(ctx, indexfpbuf, n)) {
       err = -1;
       break;
