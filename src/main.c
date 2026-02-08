@@ -309,8 +309,10 @@ static int writeindex(struct index_s* idx, const char* fp) {
   if (err) goto ret;
   if (rename(tmp, fp) != 0) {
     log_error("error replacing index file with %s: %s", tmp, strerror(errno));
-    return -1;
+    err = -1;
+    goto ret;
   }
+  return 0;
 ret:
   unlink(tmp);
   return err;
