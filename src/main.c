@@ -282,12 +282,20 @@ static int writeindex(struct index_s* idx, const char* fp) {
   int err;
   if (initargs.textindex) {
     FILE* s = fdopen(fd, "w");
-    if (s == NULL) return -1;
+    if (s == NULL) {
+      close(fd);
+      unlink(tmp);
+      return -1;
+    }
     err = indexwrite(idx, s);
     fclose(s);
   } else {
     gzFile gz = gzdopen(fd, "wb");
-    if (gz == NULL) return -1;
+    if (gz == NULL) {
+      close(fd);
+      unlink(tmp);
+      return -1;
+    }
     err = indexwrite_gz(idx, gz);
     if (initargs.verbose) {
       const long uncmp = gztell(gz);
