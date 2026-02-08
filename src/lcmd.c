@@ -104,7 +104,8 @@ static str_set* lcmdcopycmds(const cJSON* arr) {
   cJSON_ArrayForEach(e, arr) {
     char* s = NULL;
     if (!cJSON_IsString(e)) {
-      log_error("error converting cmd, not a string: %s", e->valuestring);
+      const char* v = e->valuestring != NULL ? e->valuestring : "NULL";
+      log_error("error converting cmd, not a string %s", v);
     } else if ((s = je_strdup(e->valuestring)) == NULL) {
       log_error("error duplicating cmd string: %s", e->valuestring);
       str_set_for_each(set, str_free);
