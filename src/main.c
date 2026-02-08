@@ -409,7 +409,7 @@ static int cmpchanges(void) {
     return -1;
   }
 
-  log_info("compared %zu files", thismap.size);
+  log_info("compared %ld files", thismap.size);
 
   if (initargs.preview) return 0;// Don't modify index in preview mode
   if (writeindex(&thismap, initargs.indexfile)) {
