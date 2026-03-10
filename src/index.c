@@ -169,7 +169,12 @@ static void indexfree_r(struct inode_s* idx) {
 }
 
 void indexfree(struct index_s* idx) {
-  for (int i = 0; i < INDEXBUCKETS; i++) indexfree_r(idx->buckets[i].head);
+  for (int i = 0; i < INDEXBUCKETS; i++) {
+    indexfree_r(idx->buckets[i].head);
+    idx->buckets[i].head = NULL;
+    idx->buckets[i].tail = NULL;
+  }
+  idx->size = 0;
 }
 
 struct inode_s** indexlist(const struct index_s* idx) {

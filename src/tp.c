@@ -123,7 +123,13 @@ int tpinit(const int size, const int flags) {
   }
   return 0;
 fail:
-  for (int i = 0; i < size; i++) je_free(thrds[i]);
+  if (thrds != NULL) {
+    for (int i = 0; i < size; i++) {
+      if (thrds[i] == NULL) break;
+      if (thrds[i]->fdsopen) fdclose(&thrds[i]->fds);
+      je_free(thrds[i]);
+    }
+  }
   je_free(thrds);
   return -1;
 }
