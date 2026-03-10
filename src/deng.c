@@ -12,10 +12,6 @@
 #include "log.h"
 #include "xx.h"
 
-/// @def XXBUFSZE
-/// @brief Size of the buffer used for reading files to hash.
-#define XXBUFSZE 65536
-
 static uint8_t xxbuf[XXBUFSZE];///< Shared buffer for reading files to hash
 
 /// @struct deng_state_s
