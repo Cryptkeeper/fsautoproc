@@ -47,21 +47,23 @@ Git submodules provide:
 
 ```
 $ fsautoproc -h
-Usage: fsautoproc -i <file> [options...]
+Usage: ./build/fsautoproc -i <file> [options...]
 
 Options:
   -c --config <file>      Configuration file path (default: `fsautoproc.json`)
   -i --index <file>       Index file path
   -s --search-dir <dir>   Search directory root (default: `.`)
   -t --threads <#>        Number of worker threads (default: 4)
-     --update-index       Skip processing files, only update file index
-     --preview            Test changes without modifying file index or running commands
-     --list-time          List time spent for each command set
-     --pipe-std           Pipe subprocess stdout/stderr to files
-     --trace <file>       Trace which command sets match the file
-     --verbose            Enable verbose output
-     --lock-path <file>   Exclusive lock file path
-     --text-index         Write index file uncompressed (default: gzip)
+
+Additional options:
+  --list-time          List time spent for each command set
+  --lock-path <file>   Exclusive lock file path
+  --pipe-std           Pipe subprocess stdout/stderr to files
+  --preview            Test changes without modifying file index or running commands
+  --text-index         Write index file uncompressed (default: gzip)
+  --trace <file>       Trace which command sets match the file
+  --update-index       Skip processing files, only update file index
+  --verbose            Enable verbose output
 ```
 
 When first indexing a new file structure, you should use the `--update-index` flag to avoid applying any newly configured rules to the existing file structure (unless desired, i.e. an initial "clean up" mutation of an unmaintained directory).

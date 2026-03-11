@@ -103,13 +103,13 @@ static char* mkindexpath(const char* configfp) {
   } while (0)
 
 #define opt_listTime    1001
-#define opt_pipeStd     1002
-#define opt_trace       1003
-#define opt_updateIndex 1004
-#define opt_verbose     1005
-#define opt_lockPath    1006
-#define opt_preview     1007
-#define opt_textIndex   1008
+#define opt_lockPath    1002
+#define opt_pipeStd     1003
+#define opt_preview     1004
+#define opt_textIndex   1005
+#define opt_trace       1006
+#define opt_updateIndex 1007
+#define opt_verbose     1008
 
 /// @brief Parses the program initialization arguments into \p initargs.
 /// @param argc The number of arguments
@@ -124,15 +124,15 @@ static int parseinitargs(const int argc, char** const argv) {
           {"config", required_argument, NULL, 'c'},
           {"index", required_argument, NULL, 'i'},
           {"list-time", no_argument, NULL, opt_listTime},
+          {"lock-path", required_argument, NULL, opt_lockPath},
           {"pipe-std", no_argument, NULL, opt_pipeStd},
+          {"preview", no_argument, NULL, opt_preview},
           {"search-dir", required_argument, NULL, 's'},
+          {"text-index", no_argument, NULL, opt_textIndex},
           {"threads", required_argument, NULL, 't'},
           {"trace", required_argument, NULL, opt_trace},
           {"update-index", no_argument, NULL, opt_updateIndex},
           {"verbose", no_argument, NULL, opt_verbose},
-          {"lock-path", required_argument, NULL, opt_lockPath},
-          {"preview", no_argument, NULL, opt_preview},
-          {"text-index", no_argument, NULL, opt_textIndex},
           {NULL, 0, NULL, 0},
   };
 
@@ -147,14 +147,16 @@ static int parseinitargs(const int argc, char** const argv) {
                "  -i --index <file>       Index file path\n"
                "  -s --search-dir <dir>   Search directory root (default: `.`)\n"
                "  -t --threads <#>        Number of worker threads (default: 4)\n"
-               "     --update-index       Skip processing files, only update file index\n"
-               "     --preview            Test changes without modifying file index or running commands\n"
-               "     --list-time          List time spent for each command set\n"
-               "     --pipe-std           Pipe subprocess stdout/stderr to files\n"
-               "     --trace <file>       Trace which command sets match the file\n"
-               "     --verbose            Enable verbose output\n"
-               "     --lock-path <file>   Exclusive lock file path\n"
-               "     --text-index         Write index file uncompressed (default: gzip)\n",
+               "\n"
+               "Additional options:\n"
+               "  --list-time          List time spent for each command set\n"
+               "  --lock-path <file>   Exclusive lock file path\n"
+               "  --pipe-std           Pipe subprocess stdout/stderr to files\n"
+               "  --preview            Test changes without modifying file index or running commands\n"
+               "  --text-index         Write index file uncompressed (default: gzip)\n"
+               "  --trace <file>       Trace which command sets match the file\n"
+               "  --update-index       Skip processing files, only update file index\n"
+               "  --verbose            Enable verbose output\n",
                argv[0]);
         exit(0);
       case 'c':
@@ -163,17 +165,26 @@ static int parseinitargs(const int argc, char** const argv) {
       case 'i':
         muststrdup(optarg, initargs.indexfile);
         break;
-      case opt_listTime:
-        initargs.listspent = true;
-        break;
-      case opt_pipeStd:
-        initargs.pipefiles = true;
-        break;
       case 's':
         muststrdup(optarg, initargs.searchdir);
         break;
       case 't':
         initargs.threads = (int) strtol(optarg, NULL, 10);
+        break;
+      case opt_listTime:
+        initargs.listspent = true;
+        break;
+      case opt_lockPath:
+        muststrdup(optarg, initargs.lockfile);
+        break;
+      case opt_pipeStd:
+        initargs.pipefiles = true;
+        break;
+      case opt_preview:
+        initargs.preview = true;
+        break;
+      case opt_textIndex:
+        initargs.textindex = true;
         break;
       case opt_trace:
         muststrdup(optarg, initargs.tracefile);
@@ -183,15 +194,6 @@ static int parseinitargs(const int argc, char** const argv) {
         break;
       case opt_verbose:
         initargs.verbose = true;
-        break;
-      case opt_lockPath:
-        muststrdup(optarg, initargs.lockfile);
-        break;
-      case opt_preview:
-        initargs.preview = true;
-        break;
-      case opt_textIndex:
-        initargs.textindex = true;
         break;
       case ':':
         log_error("option is missing argument: %c", optopt);
