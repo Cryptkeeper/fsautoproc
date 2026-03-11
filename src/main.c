@@ -453,7 +453,7 @@ static int tracefile(const char* fp) {
 static void printmsspent(void) {
   struct lcmdset_s* cmd;
   for (int i = 0; cmd = SET_AT(cmdsets, i), cmd != NULL; i++) {
-    const float ts = (float) cmd->msspent;
+    const double ts = (double) cmd->msspent;
     log_info("%s: %.3f%s", cmd->name, ts > 1000 ? ts / 1000 : ts,
              ts > 1000 ? "s" : "ms");
   }
