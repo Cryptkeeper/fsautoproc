@@ -24,8 +24,8 @@ static int flopen(struct flock_s* fl) {
 
 int fllock(struct flock_s* fl) {
   assert(fl->path != NULL);
-  if (flopen(fl)) return -1;                // get or open file descriptor
-  if (flock(fl->fd, LOCK_EX) < 0) return -2;// lock file descriptor
+  if (flopen(fl)) return -1;// get or open file descriptor
+  if (flock(fl->fd, LOCK_EX | LOCK_NB) < 0) return -2;// lock file descriptor
   return 0;
 }
 
