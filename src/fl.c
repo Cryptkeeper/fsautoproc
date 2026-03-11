@@ -32,9 +32,9 @@ int fllock(struct flock_s* fl) {
 int flunlock(struct flock_s* fl) {
   assert(fl->path != NULL);
   if (!fl->open) return -1;                 // ensure file is open
+  unlink(fl->path);                         // remove unlocked file
   if (flock(fl->fd, LOCK_UN) < 0) return -2;// release lock
   close(fl->fd);                            // close file descriptor
-  unlink(fl->path);                         // remove unlocked file
   fl->fd = -1;
   fl->open = 0;
   return 0;
