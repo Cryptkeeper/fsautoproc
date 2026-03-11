@@ -15,13 +15,13 @@
 /// @def log_info
 /// @brief Log an informational message.
 /// @note A newline is appended to the message.
-#define log_info(fmt, ...) printf(fmt " \n", __VA_ARGS__)
+#define log_info(fmt, ...) printf(fmt "\n", __VA_ARGS__)
 
 /// @def log_verbose
 /// @brief Log a verbose message. The caller is responsible for checking the
 /// verbose flag before calling this macro.
 /// @note A newline is appended to the message.
-#define log_verbose(fmt, ...) printf(fmt " \n", __VA_ARGS__)
+#define log_verbose(fmt, ...) printf(fmt "\n", __VA_ARGS__)
 
 /// @def log_error
 /// @brief Log an error message to stderr. This will not terminate the program.
