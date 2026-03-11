@@ -11,7 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
-#include <sysexits.h>
 #include <unistd.h>
 
 #include "cJSON/cJSON.h"
@@ -287,10 +286,10 @@ static int lcmdfailed(const char* src, const int st) {
   return 0;
 }
 
-/// @brief Invokes a string \p cmd as a system command using `system(3)` in a
-/// forked/child process. The file path of \p node is set as an environment
-/// variable for use in the command. File descriptor set \p fds is used to
-/// optionally redirect stdout and stderr of the child command processes.
+/// @brief Invokes a string \p cmd as a shell command via `execl(3)` in a
+/// forked/child process. The file path is set as the FILEPATH environment
+/// variable and passed as the first positional argument ($1) to the shell.
+/// File descriptor set \p fds is used to optionally redirect stdout and stderr.
 /// @param cmd The command string to execute
 /// @param fp The file path to assign to the FILEPATH environment variable
 /// @param fds The file descriptor set to use for stdout/stderr redirection
@@ -322,17 +321,11 @@ static int lcmdinvoke(const char* cmd, const char* fp, struct fdset_s fds,
       _exit(1); /* avoid firing parent atexit handlers */
     }
 
-    // ignore SIGINT in child process
-    signal(SIGINT, SIG_IGN);
-
-    // child process, modify local environment variables for use in commands
+    signal(SIGINT, SIG_DFL);
     setenv("FILEPATH", fp, 1);
-
-    const int st = system(cmd);           /* execute command */
-    lcmdfailed(cmd, st);                  /* log any errors from command */
-    fdclose(&fds);                        /* close child process references */
-    _exit(WIFEXITED(st) ? WEXITSTATUS(st) /* skip parent atexit hooks */
-                        : EX_SOFTWARE);
+    execl("/bin/sh", "sh", "-c", cmd, "sh", fp, (char*) NULL);
+    log_error("exec error `%s`: %s", cmd, strerror(errno));
+    _exit(127);
   } else {
     // parent process, wait for child process to finish
     int st = 0;
