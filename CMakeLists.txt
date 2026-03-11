@@ -31,9 +31,19 @@ if (IWYU_PATH)
     set(CMAKE_C_INCLUDE_WHAT_YOU_USE ${IWYU_PATH} -Xiwyu --mapping_file=${CMAKE_SOURCE_DIR}/.iwyu.imp)
 endif ()
 
+execute_process(
+        COMMAND git log -1 --format=%h
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_SHA
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
+string(TIMESTAMP BUILD_DATE "%Y.%m.%d")
+set(FSAUTOPROC_VERSION "${BUILD_DATE}-${GIT_SHA}")
+
 file(GLOB SOURCES "src/*.c")
 file(GLOB HEADERS "include/*.h")
 add_executable(fsautoproc ${SOURCES} ${HEADERS})
+
+target_compile_definitions(fsautoproc PRIVATE FSAUTOPROC_VERSION="${FSAUTOPROC_VERSION}")
 
 # building on Linux seems to auto demangle (e.g. je_free -> free) symbols, and ALSO undef the mangled ones
 # this allows jemalloc to provide demangled names, but also retain the prefixed ones

@@ -24,6 +24,7 @@
 #include "log.h"
 #include "prog.h"
 #include "tp.h"
+#include "version.h"
 
 /// @brief Managed initialization arguments for the program.
 static struct {
@@ -133,11 +134,12 @@ static int parseinitargs(const int argc, char** const argv) {
           {"trace", required_argument, NULL, opt_trace},
           {"update-index", no_argument, NULL, opt_updateIndex},
           {"verbose", no_argument, NULL, opt_verbose},
+          {"version", no_argument, NULL, 'v'},
           {NULL, 0, NULL, 0},
   };
 
   int c;
-  while ((c = getopt_long(argc, argv, ":hc:i:s:t:", opts, NULL)) != -1) {
+  while ((c = getopt_long(argc, argv, ":hc:i:s:t:v", opts, NULL)) != -1) {
     switch (c) {
       case 'h':
         printf("Usage: %s -i <file> [options...]\n"
@@ -149,15 +151,20 @@ static int parseinitargs(const int argc, char** const argv) {
                "  -t --threads <#>        Number of worker threads (default: 4)\n"
                "\n"
                "Additional options:\n"
-               "  --list-time          List time spent for each command set\n"
-               "  --lock-path <file>   Exclusive lock file path\n"
-               "  --pipe-std           Pipe subprocess stdout/stderr to files\n"
-               "  --preview            Test changes without modifying file index or running commands\n"
-               "  --text-index         Write index file uncompressed (default: gzip)\n"
-               "  --trace <file>       Trace which command sets match the file\n"
-               "  --update-index       Skip processing files, only update file index\n"
-               "  --verbose            Enable verbose output\n",
+               "  -h --help               Print help menu and exit\n"
+               "  -v --version            Print version and exit\n"
+               "     --list-time          List time spent for each command set\n"
+               "     --lock-path <file>   Exclusive lock file path\n"
+               "     --pipe-std           Pipe subprocess stdout/stderr to files\n"
+               "     --preview            Test changes without modifying file index or running commands\n"
+               "     --text-index         Write index file uncompressed (default: gzip)\n"
+               "     --trace <file>       Trace which command sets match the file\n"
+               "     --update-index       Skip processing files, only update file index\n"
+               "     --verbose            Enable verbose output\n",
                argv[0]);
+        exit(0);
+      case 'v':
+        printf("fsautoproc %s\n", FSAUTOPROC_VERSION);
         exit(0);
       case 'c':
         muststrdup(optarg, initargs.configfile);

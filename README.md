@@ -56,14 +56,16 @@ Options:
   -t --threads <#>        Number of worker threads (default: 4)
 
 Additional options:
-  --list-time          List time spent for each command set
-  --lock-path <file>   Exclusive lock file path
-  --pipe-std           Pipe subprocess stdout/stderr to files
-  --preview            Test changes without modifying file index or running commands
-  --text-index         Write index file uncompressed (default: gzip)
-  --trace <file>       Trace which command sets match the file
-  --update-index       Skip processing files, only update file index
-  --verbose            Enable verbose output
+  -h --help               Print help menu and exit
+  -v --version            Print version and exit
+     --list-time          List time spent for each command set
+     --lock-path <file>   Exclusive lock file path
+     --pipe-std           Pipe subprocess stdout/stderr to files
+     --preview            Test changes without modifying file index or running commands
+     --text-index         Write index file uncompressed (default: gzip)
+     --trace <file>       Trace which command sets match the file
+     --update-index       Skip processing files, only update file index
+     --verbose            Enable verbose output
 ```
 
 When first indexing a new file structure, you should use the `--update-index` flag to avoid applying any newly configured rules to the existing file structure (unless desired, i.e. an initial "clean up" mutation of an unmaintained directory).
