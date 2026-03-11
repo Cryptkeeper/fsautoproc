@@ -60,11 +60,11 @@
 /// @brief Safely retrieves a pointer to the item at the specified index in the
 /// set. If the set is NULL, the items pointer is NULL, or the index is out of
 /// bounds, NULL is returned.
-/// @param name The name of the set variable
-/// @param index The index of the item to retrieve
-#define SET_AT(name, index)                                                    \
-  (name != NULL && name->items != NULL && index >= 0 && index < name->count    \
-           ? &(name)->items[index]                                             \
+/// @param val The name of the set variable
+/// @param idx The index of the item to retrieve
+#define SET_AT(val, idx)                                                       \
+  ((val) != NULL && (val)->items != NULL && (idx) >= 0 && (idx) < (val)->count \
+           ? &(val)->items[(idx)]                                              \
            : NULL)
 
 #endif//FSAUTOPROC_SET_H
