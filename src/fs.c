@@ -35,7 +35,10 @@ static int fsprocent(FTSENT* ent, fswalkfn_t filefn, void* udata) {
 
 int fswalk(const char* dir, fswalkfn_t filefn, void* udata) {
   char* const paths[] = {(char*) dir, NULL};
-  FTS* ftsp = fts_open(paths, FTS_LOGICAL, NULL);
+  // FTS_NOCHDIR is required with FTS_PHYSICAL to prevent fts from changing the
+  // working directory during traversal, which would break relative paths used
+  // downstream (e.g. fopen in xxhashfp).
+  FTS* ftsp = fts_open(paths, FTS_PHYSICAL | FTS_NOCHDIR, NULL);
   if (ftsp == NULL) {
     log_error("fts_open error on `%s`: %s", dir, strerror(errno));
     return -1;
